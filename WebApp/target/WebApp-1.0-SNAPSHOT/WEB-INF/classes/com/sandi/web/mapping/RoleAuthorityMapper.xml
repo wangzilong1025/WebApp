@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sandi.web.dao.IRoleAuthorityDao" >
+    <resultMap id="ResultMap" type="com.sandi.web.model.RoleAuthority" >
+        <id column="roleAuthorityId" property="roleAuthorityId" jdbcType="INTEGER"/>
+        <result column="roleId" property="roleId" jdbcType="INTEGER"/>
+        <result column="authorityId" property="authorityId" jdbcType="INTEGER"/>
+        <result column="roleAuthorityNote" property="roleAuthorityNote" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        roleAuthorityId, roleId, authorityId, roleAuthorityNote
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="ResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from roleauthority
+        where roleAuthorityId = #{roleAuthorityId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByAdminNameAndAdminPass" resultMap="ResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List" />
+        from roleauthority
+        where authorityId = #{authorityId,jdbcType=INTEGER}
+        and roleId = #{roleId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteAdminByAdminStatus" parameterType="java.lang.Integer" >
+        delete from roleauthority
+        where roleAuthorityId = #{roleAuthorityId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="roleAuthorityId" parameterType="com.sandi.web.model.RoleAuthority" >
+        insert into roleauthority (roleId, authorityId, roleAuthorityNote)
+        values (#{roleId,jdbcType=INTEGER}, #{authorityId,jdbcType=INTEGER},#{roleAuthorityNote,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertAdminByAdminId" parameterType="com.sandi.web.model.RoleAuthority" >
+        insert into roleauthority
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="roleAuthorityId != null" >
+                roleAuthorityId,
+            </if>
+            <if test="roleId != null" >
+                roleId,
+            </if>
+            <if test="authorityId != null" >
+                authorityId,
+            </if>
+            <if test="roleAuthorityNote != null" >
+                roleAuthorityNote,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="roleAuthorityId != null" >
+                #{roleAuthorityId,jdbcType=INTEGER},
+            </if>
+            <if test="roleId != null" >
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="authorityId != null" >
+                #{authorityId,jdbcType=INTEGER},
+            </if>
+            <if test="roleAuthorityNote != null" >
+                #{roleAuthorityNote,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateAdminByAdminId" parameterType="com.sandi.web.model.RoleAuthority" >
+        update roleauthority
+        <set>
+            <if test="roleId != null" >
+                roleId = #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="authorityId != null" >
+                authorityId = #{authorityId,jdbcType=INTEGER},
+            </if>
+            <if test="roleAuthorityNote != null" >
+                roleAuthorityNote = #{roleAuthorityNote,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where roleAuthorityId = #{roleAuthorityId,jdbcType=INTEGER}
+    </update>
+</mapper>

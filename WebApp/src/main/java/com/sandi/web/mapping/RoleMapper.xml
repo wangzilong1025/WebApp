@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sandi.web.dao.IRoleDao" >
+    <resultMap id="ResultMap" type="com.sandi.web.model.Role" >
+        <id column="roleId" property="roleId" jdbcType="INTEGER" />
+        <result column="roleName" property="roleName" jdbcType="VARCHAR" />
+        <result column="rolrNote" property="rolrNote" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        roleId, roleName, rolrNote
+    </sql>
+
+    <select id="selectAdminByAdminId" resultMap="ResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from role
+        where roleId = #{roleId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByAdminNameAndAdminPass" resultMap="ResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List" />
+        from role
+        where roleName = #{roleName,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteAdminByAdminStatus" parameterType="java.lang.Integer" >
+        delete from role
+        where roleId = #{roleId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="roleId" parameterType="com.sandi.web.model.Role" >
+        insert into role (roleName, rolrNote)
+        values (#{roleName,jdbcType=VARCHAR}, #{rolrNote,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertAdminByAdminId" parameterType="com.sandi.web.model.Role" >
+        insert into role
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="roleId != null" >
+                roleId,
+            </if>
+            <if test="roleName != null" >
+                roleName,
+            </if>
+            <if test="rolrNote != null" >
+                rolrNote,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="roleId != null" >
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="roleName != null" >
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="rolrNote != null" >
+                #{rolrNote,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateAdminByAdminId" parameterType="com.sandi.web.model.Role" >
+        update role
+        <set>
+            <if test="roleName != null" >
+                roleName = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="rolrNote != null" >
+                rolrNote = #{rolrNote,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where roleId = #{roleId,jdbcType=INTEGER}
+    </update>
+</mapper>

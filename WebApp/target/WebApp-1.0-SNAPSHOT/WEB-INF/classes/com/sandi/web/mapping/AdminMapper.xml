@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sandi.web.dao.IAdminDao" >
+    <resultMap id="ResultMap" type="com.sandi.web.model.Admin" >
+        <id column="adminId" property="adminId" jdbcType="INTEGER" />
+        <result column="adminName" property="adminName" jdbcType="VARCHAR" />
+        <result column="adminPassword" property="adminPassword" jdbcType="VARCHAR" />
+        <result column="adminImage" property="adminImage" jdbcType="VARCHAR" />
+        <result column="adminEmail" property="adminEmail" jdbcType="VARCHAR" />
+        <result column="adminPhone" property="adminPhone" jdbcType="VARCHAR" />
+        <result column="adminAddress" property="adminAddress" jdbcType="VARCHAR" />
+        <result column="adminStatus" property="adminStatus" jdbcType="INTEGER" />
+        <result column="realName" property="realName" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        adminId, adminName, adminPassword, adminImage, adminEmail, adminPhone, adminAddress, adminStatus,realName
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="ResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from admin
+        where adminId = #{adminId,jdbcType=INTEGER}
+    </select>
+   <!-- <select id="selectByAdminNameAndAdminPass" resultMap="ResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List" />
+        from admin
+        where adminName = #{adminName}
+        and adminPassword = #{adminPassword}
+    </select>-->
+    <select id="selectByAdminId" resultMap="ResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List" />
+        from admin
+        where adminId = #{adminId,jdbcType=INTEGER}
+    </select>
+    <select id="selectAdminLogin" parameterType="com.sandi.web.model.Admin" resultType="com.sandi.web.model.Admin">
+        select
+        <include refid="Base_Column_List" />
+        from admin
+        WHERE adminName = #{adminName} AND adminPassword = #{adminPassword}
+    </select>
+    <delete id="deleteAdminByAdminStatus" parameterType="java.lang.Integer" >
+        delete from admin
+        where adminStatus = #{adminStatus,jdbcType=INTEGER}
+    </delete>
+   <!-- <insert id="insert" useGeneratedKeys="true" keyProperty="adminId" parameterType="com.sandi.web.model.Admin" >
+        insert into admin (adminName, adminPassword, adminImage, adminEmail, adminPhone, adminAddress, adminStatus)
+        values (#{adminName,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, #{adminImage,jdbcType=VARCHAR},
+        #{adminEmail,jdbcType=VARCHAR}, #{adminPhone,jdbcType=VARCHAR}, #{adminAddress,jdbcType=VARCHAR},
+        #{adminStatus,jdbcType=INTEGER})
+    </insert>-->
+    <insert id="insertAdminByAdminId" parameterType="com.sandi.web.model.Admin" >
+        insert into admin
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="adminId != null" >
+                adminId,
+            </if>
+            <if test="adminName != null" >
+                adminName,
+            </if>
+            <if test="adminPassword != null" >
+                adminPassword,
+            </if>
+            <if test="adminImage != null" >
+                adminImage,
+            </if>
+            <if test="adminEmail != null" >
+                adminEmail,
+            </if>
+            <if test="adminPhone != null" >
+                adminPhone,
+            </if>
+            <if test="adminAddress != null" >
+                adminAddress,
+            </if>
+            <if test="adminStatus != null" >
+                adminStatus,
+            </if>
+            <if test="realName != null" >
+                realName,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="adminId != null" >
+                #{adminId,jdbcType=INTEGER},
+            </if>
+            <if test="adminName != null" >
+                #{adminName,jdbcType=VARCHAR},
+            </if>
+            <if test="adminPassword != null" >
+                #{adminPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="adminImage != null" >
+                #{adminImage,jdbcType=VARCHAR},
+            </if>
+            <if test="adminEmail != null" >
+                #{adminEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="adminPhone != null" >
+                #{adminPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="adminAddress != null" >
+                #{adminAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="adminStatus != null" >
+                #{adminStatus,jdbcType=INTEGER},
+            </if>
+            <if test="realName != null" >
+                #{realName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateAdminByAdminId" parameterType="com.sandi.web.model.Admin" >
+        update admin
+        <set>
+            <if test="adminName != null" >
+                adminName = #{adminName,jdbcType=VARCHAR},
+            </if>
+            <if test="adminPassword != null" >
+                adminPassword = #{adminPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="adminImage != null" >
+                adminImage = #{adminImage,jdbcType=VARCHAR},
+            </if>
+            <if test="adminEmail != null" >
+                adminEmail = #{adminEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="adminPhone != null" >
+                adminPhone = #{adminPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="adminAddress != null" >
+                adminAddress = #{adminAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="adminStatus != null" >
+                adminStatus = #{adminStatus,jdbcType=INTEGER},
+            </if>
+            <if test="realName != null" >
+                realName = #{realName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where adminId = #{adminId,jdbcType=INTEGER}
+    </update>
+</mapper>

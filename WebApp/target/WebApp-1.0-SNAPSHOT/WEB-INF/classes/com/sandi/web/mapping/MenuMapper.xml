@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sandi.web.dao.IMenuDao" >
+    <resultMap id="ResultMap" type="com.sandi.web.model.Menu" >
+        <id column="topId" property="topId" jdbcType="INTEGER" />
+        <result column="topName" property="topName" jdbcType="VARCHAR" />
+        <result column="topStatus" property="topStatus" jdbcType="INTEGER" />
+        <result column="upStatus" property="upStatus" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        topId, topName, topStatus, upStatus
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from menu
+        where topId = #{topId,jdbcType=INTEGER}
+    </select>
+    <!-- 根据topId去查他的名字(TopName) -->
+    <select id="selectTopNameByTopId" resultMap="ResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from menu
+        where topId = #{topId,jdbcType=INTEGER}
+    </select>
+    <!-- 根据topId去查他的上级ID -->
+    <select id="selectUpStatusByTopId" resultMap="ResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from menu
+        where topId = #{topId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findUpStatus" resultMap="ResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from menu
+        where upStatus = #{upStatus,jdbcType=INTEGER}
+    </select>
+
+    <select id="findMenuLevels" parameterType="java.lang.Integer" resultMap="ResultMap"  >
+        select * from menu where topStatus = #{topStatus,jdbcType=INTEGER}
+    </select>
+
+    <select id="findAllMenuLevels" resultMap="ResultMap">
+        select * from menu
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from menu
+        where topId = #{topId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.sandi.web.model.Menu" >
+        insert into menu (topId, topName, topStatus,
+        upStatus)
+        values (#{topId,jdbcType=INTEGER}, #{topName,jdbcType=VARCHAR}, #{topStatus,jdbcType=INTEGER},
+        #{upStatus,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.sandi.web.model.Menu" >
+        insert into menu
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="topId != null" >
+                topId,
+            </if>
+            <if test="topName != null" >
+                topName,
+            </if>
+            <if test="topStatus != null" >
+                topStatus,
+            </if>
+            <if test="upStatus != null" >
+                upStatus,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="topId != null" >
+                #{topId,jdbcType=INTEGER},
+            </if>
+            <if test="topName != null" >
+                #{topName,jdbcType=VARCHAR},
+            </if>
+            <if test="topStatus != null" >
+                #{topStatus,jdbcType=INTEGER},
+            </if>
+            <if test="upStatus != null" >
+                #{upStatus,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sandi.web.model.Menu" >
+        update menu
+        <set >
+            <if test="topName != null" >
+                topName = #{topName,jdbcType=VARCHAR},
+            </if>
+            <if test="topStatus != null" >
+                topStatus = #{topStatus,jdbcType=INTEGER},
+            </if>
+            <if test="upStatus != null" >
+                upStatus = #{upStatus,jdbcType=INTEGER},
+            </if>
+        </set>
+        where topId = #{topId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sandi.web.model.Menu" >
+        update menu
+        set topName = #{topName,jdbcType=VARCHAR},
+        topStatus = #{topStatus,jdbcType=INTEGER},
+        upStatus = #{upStatus,jdbcType=INTEGER}
+        where topId = #{topId,jdbcType=INTEGER}
+    </update>
+
+</mapper>

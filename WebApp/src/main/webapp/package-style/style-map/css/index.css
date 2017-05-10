@@ -1,0 +1,176 @@
+/*<!-- ������ʽ-->*/
+*{
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style:none;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+body{
+    font-size: 12px;
+    font-family: "微软雅黑";
+}
+
+
+
+.header,
+.main-flow{
+    width: 1250px;
+    margin-top: 20px;
+    border: 0px solid dimgray;
+    border-radius: 3px;
+}
+.header .business-header,
+.main-flow .business-header{
+    box-sizing: border-box;
+    height: 35px;
+    width: 100%;
+    line-height: 35px;
+    padding:0 10px;
+    border-bottom: 1px solid #000000;
+}
+.header  .business-header-l,
+.main-flow  .business-header-l{
+    color: #333333;
+    font-family: '微软雅黑';
+    font-weight: 700;
+    font-size: 16px;
+}
+.header .business-header ul li, .header .business-header .nian,
+.main-flow .business-header ul li, .main-flow .business-header .nian{
+    float: left;
+    height: 24px;
+    margin: 5px 3.5px;
+    line-height: 24px;
+    background: #999999;
+    font-size: 14px;
+    padding: 0 5px;
+    color: #ffffff;
+    border-radius: 7px;
+}
+.main-flow .business-header .nian,
+.header .business-header .nian{
+    background-color: #008000;
+}
+.main-flow .business-header .highlight,
+.header .business-header .highlight{
+    background-color: #FFD9AF;
+    color:#AE5300;
+}
+.main-flow .business-header-ul li:hover,
+.header .business-header-ul li:hover{
+    background-color: #FFD9AF;
+    color:#AE5300;
+}
+
+/*ͳ��ͼ*/
+#total{
+    width: 1250px;
+    height: 550px;
+    overflow: hidden;
+    background-color: #F2F2F2;
+
+}
+#main{
+    width: 600px;
+    height: 550px;
+    float: left;
+
+    border-right: 1px solid #BFBFBF;
+}
+#sub{
+    width: 630px;
+    height: 251px;
+    float: left;
+    /*padding-left: 90px;*/
+    padding-top: 0px;
+    /*padding-bottom: 20px;*/
+    /*border-bottom: 1px solid #BFBFBF;*/
+}
+#aside{
+    width: 640px;
+    height: 324px;
+    float: left;
+}
+
+/*������*/
+.header .link-table table{
+    border-collapse: collapse;
+    text-align: center;
+    width: 1250px;
+    height: 200px;
+    margin-bottom: 5px;
+}
+.link-table table tr td{
+    border:1px solid #d9d9d9;
+}
+.link-table table tr:nth-child(1),
+.link-table table tr:nth-child(2){
+    font-size: 14px;
+}
+.link-table table tr{
+    height: 20px;
+    font-size: 12px;
+
+}
+.link-table table tr:first-child{
+    background-color: #009DD9;
+    color:white;
+    font-weight: 600;
+}
+
+.fa-long-arrow-up{
+    color:green;
+}
+.fa-long-arrow-down{
+    color:red;
+}
+
+.link-currentTr{
+    background-color: #87CEFA;
+}
+/*�������*/
+.main-flow{
+    margin-top: 0;
+    width: 640px;
+    height: 480px;
+    border:0px solid #000;
+}
+.main-flow .map-l{
+    width: 565px;
+    height: 450px;
+}
+.main-flow .map-r table{
+    border-collapse: collapse;
+    border:1px solid dimgray;
+    width: 643px;
+    text-align: center;
+}
+.main-flow .map-r table thead tr th{
+    border:1px solid #d9d9d9;
+}
+.main-flow .map-r table thead{
+    background-color: #009DD9;
+    color:white;
+    height: 26px;
+    line-height: 26px;
+    font-size: 14px;
+}
+
+.main-flow .map-r td{
+    border:1px solid #d9d9d9;
+
+}
+.main-flow .map-r table tbody tr{
+    height: 26px;
+    line-height: 26px;
+}
+.main-flow .map-r table tbody tr td:last-child{
+    color:#FF0000;
+}

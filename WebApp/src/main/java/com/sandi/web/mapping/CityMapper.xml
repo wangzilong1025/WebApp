@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sandi.web.dao.ICityDao" >
+    <resultMap id="ResultMap" type="com.sandi.web.model.City" >
+        <id column="cityId" property="cityId" jdbcType="INTEGER" />
+        <result column="cityName" property="cityName" jdbcType="VARCHAR" />
+        <result column="cityLevel" property="cityLevel" jdbcType="INTEGER" />
+        <result column="cityUpLevel" property="cityUpLevel" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        cityId, cityName, cityLevel, cityUpLevel
+    </sql>
+
+    <select id="findCityUpLevel" resultMap="ResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from city
+        where cityUpLevel = #{cityUpLevel,jdbcType=INTEGER}
+    </select>
+
+    <select id="findCityLevel" parameterType="java.lang.Integer" resultMap="ResultMap"  >
+        select
+        <include refid="Base_Column_List" />
+        from city
+        where cityLevel = #{cityLevel,jdbcType=INTEGER}
+    </select>
+
+    <!-- 根据topId去查他的名字(TopName) -->
+    <select id="selectCityNameBycityId" resultMap="ResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from city
+        where cityId = #{cityId,jdbcType=INTEGER}
+    </select>
+</mapper>

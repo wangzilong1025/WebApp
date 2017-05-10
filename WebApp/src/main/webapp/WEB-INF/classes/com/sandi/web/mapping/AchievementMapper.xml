@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sandi.web.dao.IAchievementDao" >
+    <resultMap id="ResultMap" type="com.sandi.web.model.Achievement">
+        <result column="achievementId" property="achievementId" jdbcType="INTEGER" />
+        <result column="achievementName" property="achievementName" jdbcType="VARCHAR" />
+        <result column="achievementContent" property="achievementContent" jdbcType="VARCHAR" />
+        <result column="achievementImages" property="achievementImages" jdbcType="VARCHAR" />
+        <result column="releaseTime" property="releaseTime" jdbcType="DATE" />
+        <result column="userId" property="userId" jdbcType="INTEGER" />
+        <result column="userNick" property="userNick" jdbcType="VARCHAR" />
+        <result column="achievementType" property="achievementType" jdbcType="VARCHAR" />
+        <result column="releaseState" property="releaseState" jdbcType="INTEGER" />
+        <result column="unitName" property="unitName" jdbcType="VARCHAR" />
+        <result column="locationCity" property="locationCity" jdbcType="VARCHAR"/>
+        <result column="achievementOneImage" property="achievementOneImage" jdbcType="VARCHAR" />
+        <result column="achievementTwoImage" property="achievementTwoImage" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        achievementId, achievementName, achievementContent, achievementImages,achievementOneImage,achievementTwoImage,releaseTime, userId, userNick, achievementType,releaseState,unitName,locationCity
+    </sql>
+    <select id="selectAchievementByAchievementId" resultMap="ResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from achievement
+        where achievementId = #{achievementId,jdbcType=INTEGER}
+    </select>
+    <select id="queryAllAchievementByUserId" resultMap="ResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List" />
+        from achievement
+        where userId = #{userId}
+        and releaseState=#{releaseState}
+    </select>
+
+    <select id="queryAllApproveAchievement" resultMap="ResultMap" parameterType="Integer">
+        select
+        <include refid="Base_Column_List" />
+        from achievement
+        where releaseState=#{releaseState}
+    </select>
+
+    <delete id="deleteAchievementByAchievementId" parameterType="java.lang.Integer" >
+        delete from achievement
+        where achievementId = #{achievementId,jdbcType=INTEGER}
+    </delete>
+    <insert id="addAchievementByuserId" parameterType="com.sandi.web.model.Achievement" >
+        insert into achievement
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="achievementId != null" >
+                achievementId,
+            </if>
+            <if test="achievementName != null" >
+                achievementName,
+            </if>
+            <if test="achievementContent != null" >
+                achievementContent,
+            </if>
+            <if test="achievementImages != null" >
+                achievementImages,
+            </if>
+            <if test="releaseTime != null" >
+                releaseTime,
+            </if>
+            <if test="userId != null" >
+                userId,
+            </if>
+            <if test="userNick != null" >
+                userNick,
+            </if>
+            <if test="achievementType != null" >
+                achievementType,
+            </if>
+            <if test="releaseState != null" >
+                releaseState,
+            </if>
+            <if test="unitName != null" >
+                unitName,
+            </if>
+            <if test="locationCity != null" >
+                locationCity,
+            </if>
+            <if test="achievementOneImage != null" >
+                achievementOneImage,
+            </if>
+            <if test="achievementTwoImage != null" >
+                achievementTwoImage,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="achievementId != null" >
+                #{achievementId,jdbcType=INTEGER},
+            </if>
+            <if test="achievementName != null" >
+                #{achievementName,jdbcType=VARCHAR},
+            </if>
+            <if test="achievementContent != null" >
+                #{achievementContent,jdbcType=VARCHAR},
+            </if>
+            <if test="achievementImages != null" >
+                #{achievementImages,jdbcType=VARCHAR},
+            </if>
+            <if test="releaseTime != null" >
+                #{releaseTime,jdbcType=DATE},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userNick != null" >
+                #{userNick,jdbcType=VARCHAR},
+            </if>
+            <if test="achievementType != null" >
+                #{achievementType,jdbcType=VARCHAR},
+            </if>
+            <if test="releaseState != null" >
+                #{releaseState,jdbcType=INTEGER},
+            </if>
+            <if test="unitName != null" >
+                #{unitName,jdbcType=VARCHAR},
+            </if>
+            <if test="locationCity != null" >
+                #{locationCity,jdbcType=VARCHAR},
+            </if>
+            <if test="achievementOneImage != null" >
+                #{achievementOneImage,jdbcType=VARCHAR},
+            </if>
+            <if test="achievementTwoImage != null" >
+                #{achievementTwoImage,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateAchievementByAchievementId" parameterType="com.sandi.web.model.Achievement" >
+        update achievement
+        <set>
+            <if test="achievementName != null" >
+                achievementName = #{achievementName,jdbcType=VARCHAR},
+            </if>
+            <if test="achievementContent != null" >
+                achievementContent = #{achievementContent,jdbcType=VARCHAR},
+            </if>
+            <if test="achievementImages != null" >
+                achievementImages = #{achievementImages,jdbcType=VARCHAR},
+            </if>
+            <if test="releaseTime != null" >
+                releaseTime = #{releaseTime,jdbcType=DATE},
+            </if>
+            <if test="userId != null" >
+                userId = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userNick != null" >
+                userNick = #{userNick,jdbcType=VARCHAR},
+            </if>
+            <if test="achievementType != null" >
+                achievementType = #{achievementType,jdbcType=VARCHAR},
+            </if>
+            <if test="releaseState != null" >
+                releaseState = #{releaseState,jdbcType=INTEGER},
+            </if>
+            <if test="unitName != null" >
+                unitName = #{unitName,jdbcType=VARCHAR},
+            </if>
+            <if test="locationCity != null" >
+                locationCity = #{locationCity,jdbcType=VARCHAR},
+            </if>
+            <if test="achievementOneImage != null" >
+                achievementOneImage = #{achievementOneImage,jdbcType=VARCHAR},
+            </if>
+            <if test="achievementTwoImage != null" >
+                achievementTwoImage = #{achievementTwoImage,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where achievementId = #{achievementId,jdbcType=INTEGER}
+    </update>
+</mapper>

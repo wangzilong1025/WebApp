@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sandi.web.dao.IAchievementCollectDao" >
+    <resultMap id="ResultMap" type="com.sandi.web.model.AchievementCollect" >
+        <id column="achievementCollectId" property="achievementCollectId" jdbcType="INTEGER" />
+        <result column="achievementId" property="achievementId" jdbcType="INTEGER" />
+        <result column="userinfoId" property="userinfoId" jdbcType="INTEGER" />
+        <result column="userId" property="userId" jdbcType="INTEGER" />
+        <result column="collectionTime" property="collectionTime" jdbcType="DATE" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        achievementCollectId, achievementId, userinfoId, userId, collectionTime
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="ResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from achievementcollect
+        where achievementCollectId = #{achievementCollectId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByAdminNameAndAdminPass" resultMap="ResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List" />
+        from achievementcollect
+        where userinfoId = #{userinfoId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteAdminByAdminStatus" parameterType="java.lang.Integer" >
+        delete from achievementcollect
+        where achievementCollectId = #{achievementCollectId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="achievementCollectId" parameterType="com.sandi.web.model.AchievementCollect" >
+        insert into achievementcollect (achievementId, userinfoId, userId, collectionTime)
+        values (#{achievementId,jdbcType=INTEGER}, #{userinfoId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{collectionTime,jdbcType=DATE})
+    </insert>
+    <insert id="insertAdminByAdminId" parameterType="com.sandi.web.model.AchievementCollect" >
+        insert into achievementcollect
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="achievementCollectId != null" >
+                achievementCollectId,
+            </if>
+            <if test="achievementId != null" >
+                achievementId,
+            </if>
+            <if test="userinfoId != null" >
+                userinfoId,
+            </if>
+            <if test="userId != null" >
+                userId,
+            </if>
+            <if test="collectionTime != null" >
+                collectionTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="achievementCollectId != null" >
+                #{achievementCollectId,jdbcType=INTEGER},
+            </if>
+            <if test="achievementId != null" >
+                #{achievementId,jdbcType=INTEGER},
+            </if>
+            <if test="userinfoId != null" >
+                #{userinfoId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="collectionTime != null" >
+                #{collectionTime,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+</mapper>

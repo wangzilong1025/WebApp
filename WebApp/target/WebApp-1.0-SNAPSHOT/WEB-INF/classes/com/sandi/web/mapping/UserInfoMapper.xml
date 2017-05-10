@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sandi.web.dao.IUserInfoDao" >
+    <resultMap id="ResultMap" type="com.sandi.web.model.UserInfo">
+        <result column="userinfoId" property="userinfoId" jdbcType="INTEGER" />
+        <result column="userNick" property="userNick" jdbcType="VARCHAR" />
+        <result column="userSex" property="userSex" jdbcType="INTEGER" />
+        <result column="userProfession" property="userProfession" jdbcType="VARCHAR" />
+        <result column="userAcademicdegree" property="userAcademicdegree" jdbcType="VARCHAR" />
+        <result column="userBirth" property="userBirth" jdbcType="DATE" />
+        <result column="userAddress" property="userAddress" jdbcType="VARCHAR" />
+        <result column="userEmail" property="userEmail" jdbcType="VARCHAR" />
+        <result column="userTelphone" property="userTelphone" jdbcType="VARCHAR" />
+        <result column="userImage" property="userImage" jdbcType="VARCHAR" />
+        <result column="userId" property="userId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        userinfoId, userNick, userSex,userProfession,userAcademicdegree,userBirth,userAddress,userEmail,userTelphone,userImage,userId
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from userinfo
+        where userinfoId = #{userinfoId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByUserId" resultMap="ResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List" />
+        from userinfo
+        where userId = #{userId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from userinfo
+        where userinfoId = #{userinfoId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userinfoId" parameterType="com.sandi.web.model.UserInfo" >
+        insert into userinfo (userNick, userSex, userProfession,
+        userAcademicdegree, userBirth, userAddress,
+        userEmail, userTelphone, userImage, userId)
+        values (#{userNick,jdbcType=VARCHAR}, #{userSex,jdbcType=INTEGER}, #{userProfession,jdbcType=VARCHAR},
+        #{userAcademicdegree,jdbcType=VARCHAR}, #{userBirth,jdbcType=DATE}, #{userAddress,jdbcType=VARCHAR},
+        #{userEmail,jdbcType=VARCHAR}, #{userTelphone,jdbcType=VARCHAR},#{userImage,jdbcType=VARCHAR},#{userId,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertUserInfoByUserId" parameterType="com.sandi.web.model.UserInfo" >
+        insert into userinfo
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="userinfoId != null" >
+                userinfoId,
+            </if>
+            <if test="userNick != null" >
+                userNick,
+            </if>
+            <if test="userSex != null" >
+                userSex,
+            </if>
+            <if test="userProfession != null" >
+                userProfession,
+            </if>
+            <if test="userAcademicdegree != null" >
+                userAcademicdegree,
+            </if>
+            <if test="userBirth != null" >
+                userBirth,
+            </if>
+            <if test="userAddress != null" >
+                userAddress,
+            </if>
+            <if test="userEmail != null" >
+                userEmail,
+            </if>
+            <if test="userTelphone != null" >
+                userTelphone,
+            </if>
+            <if test="userImage != null" >
+                userImage,
+            </if>
+            <if test="userId != null" >
+                userId,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="userinfoId != null" >
+                #{userinfoId,jdbcType=INTEGER},
+            </if>
+            <if test="userNick != null" >
+                #{userNick,jdbcType=VARCHAR},
+            </if>
+            <if test="userSex != null" >
+                #{userSex,jdbcType=INTEGER},
+            </if>
+            <if test="userProfession != null" >
+                #{userProfession,jdbcType=VARCHAR},
+            </if>
+            <if test="userAcademicdegree != null" >
+                #{userAcademicdegree,jdbcType=VARCHAR},
+            </if>
+            <if test="userBirth != null" >
+                #{userBirth,jdbcType=DATE},
+            </if>
+            <if test="userAddress != null" >
+                #{userAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="userEmail != null" >
+                #{userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="userTelphone != null" >
+                #{userTelphone,jdbcType=VARCHAR},
+            </if>
+            <if test="userImage != null" >
+                #{userImage,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateUserInfoByUserInfoId" parameterType="com.sandi.web.model.UserInfo" >
+        update userinfo
+        <set>
+            <if test="userNick != null" >
+                userNick = #{userNick,jdbcType=VARCHAR},
+            </if>
+            <if test="userSex != null" >
+                userSex = #{userSex,jdbcType=INTEGER},
+            </if>
+            <if test="userProfession != null" >
+                userProfession = #{userProfession,jdbcType=VARCHAR},
+            </if>
+            <if test="userAcademicdegree != null" >
+                userAcademicdegree = #{userAcademicdegree,jdbcType=VARCHAR},
+            </if>
+            <if test="userBirth != null" >
+                userBirth = #{userBirth,jdbcType=DATE},
+            </if>
+            <if test="userAddress != null" >
+                userAddress = #{userAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="userEmail != null" >
+                userEmail = #{userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="userTelphone != null" >
+                userTelphone = #{userTelphone,jdbcType=VARCHAR},
+            </if>
+            <if test="userImage != null" >
+                userImage = #{userImage,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                userId = #{userId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where userinfoId = #{userinfoId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sandi.web.model.UserInfo" >
+        update userinfo
+        set userNick = #{userNick,jdbcType=VARCHAR},
+        userSex = #{userSex,jdbcType=INTEGER},
+        userProfession = #{userProfession,jdbcType=VARCHAR},
+        userAcademicdegree = #{userAcademicdegree,jdbcType=VARCHAR},
+        userBirth = #{userBirth,jdbcType=DATE},
+        userAddress = #{userAddress,jdbcType=VARCHAR},
+        userEmail = #{userEmail,jdbcType=VARCHAR},
+        userTelphone = #{userTelphone,jdbcType=VARCHAR},
+        userImage = #{userImage,jdbcType=VARCHAR},
+        userId = #{userId,jdbcType=INTEGER}
+        where userinfoId = #{userinfoId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectUserInfoByNick" parameterType="java.lang.String" resultType="com.sandi.web.model.UserInfo">
+        select
+        <include refid="Base_Column_List"/>
+        from userinfo
+        where userNick = #{0}
+    </select>
+</mapper>
