@@ -65,10 +65,10 @@ public class AchievementController {
             List<Achievement> achievementList = achievementService.queryAllAchievementByUserId(map);
             System.out.println("list内容:"+achievementList);
             modelMap.put("achievementList", achievementList);
-            return "/jsp-front/achievement-show";
+            return "jsp-front/achievement-show";
         }catch(Exception e){
             log.error(timeToken+"进入queryAllAchievement的catch方法"+e);
-            return "/jsp-error/error-page";
+            return "jsp-error/error-page";
         }
     }
 
@@ -81,8 +81,8 @@ public class AchievementController {
      * @return achievementList
      */
 
-    @RequestMapping("/queryAllAchievementUnrelease")
-    public String queryAllAchievementUnrelease(ModelMap modelMap,Achievement achievement,HttpServletRequest request,HttpSession session){
+    @RequestMapping("/queryAllAchievementUnreleaseFront")
+    public String queryAllAchievementUnreleaseFront(ModelMap modelMap,Achievement achievement,HttpServletRequest request,HttpSession session){
         log.info(timeToken+"进入queryAllAchievement方法");
         try{
             log.info(timeToken+"进入queryAllAchievement的try方法");
@@ -97,10 +97,10 @@ public class AchievementController {
             List<Achievement> achievementList = achievementService.queryAllAchievementByUserId(map);
             System.out.println("list内容:"+achievementList);
             modelMap.put("achievementList", achievementList);
-            return "/jsp-front/achievement-showunrelease";
+            return "jsp-front/achievement-showunrelease";
         }catch(Exception e){
             log.error(timeToken+"进入queryAllAchievement的catch方法"+e);
-            return "/jsp-error/error-page";
+            return "jsp-error/error-page";
         }
     }
 
@@ -166,10 +166,10 @@ public class AchievementController {
              */
             achievement.setReleaseState(releaseState);
             achievementService.addAchievementByuserId(achievement);
-            return "redirect:/achievement/queryAllAchievementUnrelease.do";
+            return "redirect:/achievement/queryAllAchievementUnreleaseFront.do";
         }catch(Exception e){
             log.error(timeToken+"进入addAchievementByuserId的catch方法");
-            return "/jsp-error/error-page";
+            return "jsp-error/error-page";
         }
     }
 
@@ -182,7 +182,7 @@ public class AchievementController {
             return "";
         }catch(Exception e){
             log.error(timeToken+"进入saveUpdateAchievementByAchievementId的catch方法!!!");
-            return "/jsp-error/error-page";
+            return "jsp-error/error-page";
         }
 
     }
@@ -233,10 +233,10 @@ public class AchievementController {
             modelMap.put("menuNameTwo", menuNameTwo);
             modelMap.put("menuNameOne", menuNameOne);
             modelMap.put("achievement", achievement);
-            return "/updateAchievement";
+            return "jsp-front/achievement-update";
         }catch(Exception e){
             log.error(timeToken+"进入updateAchievementByAchievementId的catch方法!!!"+e);
-            return "/error404Three";
+            return "jsp-error/error-page";
         }
     }
 
@@ -284,10 +284,10 @@ public class AchievementController {
             modelMap.put("menuNameThree", menuNameThree);
             modelMap.put("menuNameTwo", menuNameTwo);
             modelMap.put("menuNameOne", menuNameOne);
-            return "/detailAchievement";
+            return "jsp-front/achievement-detail";
         }catch(Exception e){
             log.error(timeToken+"进入selectAchievementByAchievementId的catch方法!!!"+e);
-            return "/error404Three";
+            return "jsp-error/error-page";
         }
     }
     /**
@@ -306,7 +306,7 @@ public class AchievementController {
             return "redirect:/achievement/queryAllAchievement.do";
         }catch(Exception e){
             log.error(timeToken+"进入deleteAchievementByAchievementId的catch方法!!!"+e);
-            return "/error404Three";
+            return "jsp-error/error-page";
         }
     }
 
@@ -327,7 +327,7 @@ public class AchievementController {
             return "redirect:/achievement/queryAllAchievement.do";
         }catch(Exception e){
             log.error(timeToken+"进入releaseAchievementByAchievementId的catch方法!!!"+e);
-            return "/error404Three";
+            return "jsp-error/error-page";
         }
 
     }
@@ -356,10 +356,10 @@ public class AchievementController {
                 list.setAchievementTypeName(menu.getTopName());
             }
             modelMap.put("approveAchievementList",approveAchievementList);
-            return "/jsp-behind/achievement-approve-list";
+            return "jsp-behind/achievement-approve-list";
         }catch(Exception e){
             log.info(timeToken+"进入queryAllApproveAchievement的catch方法!!!");
-            return "/jsp-error/error-page";
+            return "jsp-error/error-page";
         }
     }
 
@@ -387,15 +387,15 @@ public class AchievementController {
                 list.setAchievementTypeName(menu.getTopName());
             }
             modelMap.put("approveAchievementList",approveAchievementList);
-            return "/jsp-behind/achievement-released-list";
+            return "jsp-behind/achievement-released-list";
         }catch(Exception e){
             log.info(timeToken+"进入queryAllReleasedAchievement的catch方法!!!");
-            return "/jsp-error/error-page";
+            return "jsp-error/error-page";
         }
     }
 
     /**
-     * 科研成果未通过状态
+     * 科研成果未通过状态----后台
      * @param modelMap
      * @param achievement
      * @return
@@ -418,10 +418,10 @@ public class AchievementController {
                 list.setAchievementTypeName(menu.getTopName());
             }
             modelMap.put("approveAchievementList",approveAchievementList);
-            return "/jsp-behind/achievement-unreleased-list";
+            return "jsp-behind/achievement-unreleased-list";
         }catch(Exception e){
             log.info(timeToken+"进入queryAllUnreleasedAchievement的catch方法!!!");
-            return "/jsp-error/error-page";
+            return "jsp-error/error-page";
         }
     }
 
@@ -440,10 +440,10 @@ public class AchievementController {
             Menu menu = menuService.selectTopNameByTopId(Integer.parseInt(achievement.getAchievementType()));
             achievement.setAchievementTypeName(menu.getTopName());
             modelMap.put("achievement",achievement);
-            return "/jsp-behind/achievement-approve-detail";
+            return "jsp-behind/achievement-approve-detail";
         }catch(Exception e){
             log.error(timeToken+"进入achievementDetailApprove的catch方法!!!");
-            return "/jsp-error/error-page";
+            return "jsp-error/error-page";
         }
     }
 
@@ -458,10 +458,10 @@ public class AchievementController {
             Menu menu = menuService.selectTopNameByTopId(Integer.parseInt(achievement.getAchievementType()));
             achievement.setAchievementTypeName(menu.getTopName());
             modelMap.put("achievement",achievement);
-            return "/jsp-behind/achievement-approve-detail";
+            return "jsp-behind/achievement-approve-detail";
         }catch(Exception e){
             log.error(timeToken+"进入achievementDetailApprove的catch方法!!!");
-            return "/jsp-error/error-page";
+            return "jsp-error/error-page";
         }
     }
 }
