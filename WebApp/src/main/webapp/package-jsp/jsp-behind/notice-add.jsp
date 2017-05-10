@@ -67,7 +67,7 @@
                             <label>发布人：</label>
                         </div>
                         <div class="field">
-                            <input type="text" class="input" readonly="readonly" name="noticeContent" value="${sessionScope.admin.adminName }" data-validate="required:请输入公告内容"/>
+                            <input type="text" class="input" readonly="readonly" name="adminName" value="${sessionScope.admin.adminName }" data-validate="required:请输入公告内容"/>
                         </div>
                     </div>
                     <div class="form-group" style="display:none;">
