@@ -20,7 +20,7 @@
 </head>
 <script type="text/javascript">
     function type1(topId1){
-        $("a[name='aaa']").remove();
+        $("dd[name='ccc']").remove();
         $.ajax({
             type :"post",
             async : false,
@@ -38,7 +38,7 @@
                     for(var i = 0;i<json.length;i++){
                         var topId2 = json[i].topId;
                         var topName3 = json[i].topName;
-                        $(".searchType1").append("<dd><a href='javascript:void();' value='"+topId2+"' onclick='type2("+topId2+")' name='aaa'>"+topName3+"</a></dd>");
+                        $(".searchType1").append("<dd name='ccc'><a href='javascript:void();' value='"+topId2+"' onclick='type2("+topId2+")' name='aaa'>"+topName3+"</a></dd>");
                     }
                 }
             }
@@ -46,7 +46,7 @@
     };
 
     function type2(topId2){
-        $("a[name='bbb']").remove();
+        $("dd[name='ddd']").remove();
         $.ajax({
             type:"post",
             async:false,
@@ -63,7 +63,7 @@
                     for(var i = 0;i<json2.length;i++){
                         var topId3 = json2[i].topId;
                         var topName3 = json2[i].topName;
-                        $(".searchType2").append("<dd><a href="+"<%=path%>/selectProductByType3id.do?producttypeid="+topId3 +" value='+topId3+'  name='bbb'>"+topName3+"</a></dd>");
+                        $(".searchType2").append("<dd name='ddd'><a href="+"<%=path%>/selectProductByType3id.do?producttypeid="+topId3 +" value='+topId3+'  name='bbb'>"+topName3+"</a></dd>");
                     }
                 }
             }
@@ -124,10 +124,10 @@
 <!--悬浮搜索框-->
 
 <div class="nav white">
-    <div class="search-bar pr">
+    <div class="search-bar pr"><!--/achievement/findLikeAchievement.do-->
         <a name="index_none_header_sysc" href="#"></a>
-        <form action="<%=path %>/achievement/findLikeAchievement.do" method="post" id="submit">
-            <input id="name" name="name" type="text" placeholder="请输入成果或专家的关键字" autocomplete="off">
+        <form action="<%=path %>/menu/selectMenuOneInSearch.do" method="post" id="submit">
+            <input id="searchContent" name="searchContent" type="text" placeholder="输入成果标题或发布人关键字" autocomplete="off">
             <input id="num" type="hidden" name="num" value="1"/><!--默认查询全部的科研新成果-->
             <input id="ai-topsearch" class="submit am-btn" value="搜索" type="submit">
         </form>
@@ -142,7 +142,7 @@
             <div class="long-title"><span class="all-goods">全部分类</span></div>
             <div class="nav-cont">
                 <ul>
-                    <li class="index"><a href="#">首页</a></li>
+                    <li class="index"><a href="<%=path %>/menu/getMenuList.do">首页</a></li>
                     <li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
                     <li class="qc"><a href="#">统计</a></li>
                     <li class="qc"><a href="#">公告</a></li>
@@ -160,8 +160,8 @@
                 <div class="theme-popover">
                     <div class="searchAbout">
                         <span class="font-pale">相关搜索：</span>
-                        <a title="太阳能发电" href="#">太阳能发电</a>
-                        <a title="高分子材料" href="#">高分子材料</a>
+                        <a title="太阳能发电" href="#">太阳能发电&nbsp;&nbsp;&nbsp;</a>
+                        <a title="高分子材料" href="#">高分子材料&nbsp;&nbsp;&nbsp;</a>
                         <a title="提高电池利用率" href="#">提高电池利用率</a>
                     </div>
 
@@ -181,8 +181,8 @@
                             </dl>
                         </li>
                         <div class="clear"></div>
-                        <li class="select-list">
-                            <dl id="select1">
+                        <li class="select-list" style="min-height: 46px;">
+                            <dl id="select2">
                                 <dt class="am-badge am-round">已选</dt>
                                 <div class="dd-conent">
                                     <div class="searchType1">
@@ -192,8 +192,8 @@
                             </dl>
                         </li>
                         <div class="clear"></div>
-                        <li class="select-list">
-                            <dl id="select2">
+                        <li class="select-list" style="min-height: 46px;">
+                            <dl id="select3">
                                 <dt class="am-badge am-round">已选</dt>
                                 <div class="dd-conent">
                                     <div class="searchType2">
@@ -202,7 +202,7 @@
                                 </div>
                             </dl>
                         </li>
-                        <li class="select-list">
+                        <%--<li class="select-list">
                             <dl id="select3">
                                 <dt class="am-badge am-round">选购热点</dt>
                                 <div class="dd-conent">
@@ -211,7 +211,7 @@
                                     </c:forEach>
                                 </div>
                             </dl>
-                        </li>
+                        </li>--%>
                     </ul>
 
                     <div class="clear"></div>
@@ -238,6 +238,7 @@
                                 </p>
                             </div>
                         </li>
+
                         <li>
                             <div class="i-pic limit">
                                 <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
@@ -251,19 +252,7 @@
                                 </p>
                             </div>
                         </li>
-                        <li>
-                            <div class="i-pic limit">
-                                <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
+
                         <li>
                             <div class="i-pic limit">
                                 <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
@@ -277,6 +266,7 @@
                                 </p>
                             </div>
                         </li>
+
                         <li>
                             <div class="i-pic limit">
                                 <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
@@ -290,97 +280,26 @@
                                 </p>
                             </div>
                         </li>
-                        <li>
-                            <div class="i-pic limit">
-                                <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-                                <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-                                <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-                                <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-                                <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-                                <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-                                <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
+                        <c:forEach items="${searchList}" var="achievementList">
+                            <li>
+                                <a href="<%=path%>/package-jsp/jsp-front/user-achievement.jsp">
+                                <div class="i-pic limit">
+                                    <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
+                                    <p class="title fl"><b>标题:</b>${achievementList.achievementName}</p>
+                                    <p class="title fl"><b>类型:</b>${achievementList.achievementTypeName}</p>
+                                    <p class="title fl"><b>时间:</b>${achievementList.timeToString}</p>
+                                    <p class="price fl">
+                                        <b>作者:</b>
+                                        <strong>${achievementList.userNick}</strong>
+                                    </p>
+                                   <%-- <p class="number fl">
+                                        <b>时间</b><strong>${achievementList.timeToString}</strong>
+                                    </p>--%>
+                                </div>
+                                </a>
+                            </li>
+                        </c:forEach>
+
                     </ul>
                 </div>
                 <div class="search-side">
@@ -442,28 +361,42 @@
 
             </div>
         </div>
-        <div class="footer">
-            <div class="footer-hd">
+        <div class="footer ">
+            <div class="footer-hd ">
                 <p>
-                    <a href="#">恒望科技</a>
+                    <a href="# ">关于国科网</a>
                     <b>|</b>
-                    <a href="#">商城首页</a>
+                    <a href="# ">我们的资源</a>
                     <b>|</b>
-                    <a href="#">支付宝</a>
+                    <a href="# ">我们的服务</a>
                     <b>|</b>
-                    <a href="#">物流</a>
+                    <a href="# ">免责声明</a>
+                    <b>|</b>
+                    <a href="# ">示范基地</a>
+                    <b>|</b>
+                    <a href="# ">软件下载</a>
+                    <b>|</b>
+                    <a href="# ">联系我们</a>
                 </p>
             </div>
-            <div class="footer-bd">
+            <div class="footer-bd ">
                 <p>
-                    <a href="#">关于恒望</a>
-                    <a href="#">合作伙伴</a>
-                    <a href="#">联系我们</a>
-                    <a href="#">网站地图</a>
-                    <em>© 2015-2025 Hengwang.com 版权所有</em>
+                    <span><font style="font-weight: bold">友情链接：</font></span>
+                    <a href="# ">中华人民共和国科学技术部</a>
+                    <b>|</b>
+                    <a href="# ">国家科学技术奖励工作办公室</a>
+                    <b>|</b>
+                    <a href="# ">北京市奖励办</a>
+                    <b>|</b>
+                    <a href="# ">北方技术交易市场</a>
+                    <b>|</b>
+                    <a href="# ">科化网    </a>
+                    <b>|</b>
+                    <em>© 2017-2025 Hengwang.com 版权所有</em>
                 </p>
             </div>
         </div>
+
     </div>
 </div>
 </body>
