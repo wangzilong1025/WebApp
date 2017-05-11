@@ -46,4 +46,11 @@ public interface IAchievementDao {
      * @return
      */
     public Achievement selectAchievementByAchievementId(int achievementId);
+
+    /**
+     * 发布完成的科研成果（用户搜索出来的结果）
+     * @param map
+     * @return
+     */
+    public List<Achievement> queryAchievementBySearchContent(Map<String, String> map);
 }
