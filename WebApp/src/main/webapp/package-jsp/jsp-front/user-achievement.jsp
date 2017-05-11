@@ -91,7 +91,7 @@
         <div class="long-title"><span class="all-goods">全部分类</span></div>
         <div class="nav-cont">
             <ul>
-                <li class="index"><a href="#">首页</a></li>
+                <li class="index"><a href="<%=path %>/menu/getMenuList.do">首页</a></li>
                 <li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
                 <li class="qc"><a href="#">统计</a></li>
                 <li class="qc"><a href="#">公告</a></li>
@@ -1123,33 +1123,43 @@
             </div>
 
         </div>
-
         <div class="clear"></div>
-
-        <div class="footer">
-            <div class="footer-hd">
+        <div class="footer ">
+            <div class="footer-hd ">
                 <p>
-                    <a href="#">恒望科技</a>
+                    <a href="# ">关于国科网</a>
                     <b>|</b>
-                    <a href="#">商城首页</a>
+                    <a href="# ">我们的资源</a>
                     <b>|</b>
-                    <a href="#">支付宝</a>
+                    <a href="# ">我们的服务</a>
                     <b>|</b>
-                    <a href="#">物流</a>
+                    <a href="# ">免责声明</a>
+                    <b>|</b>
+                    <a href="# ">示范基地</a>
+                    <b>|</b>
+                    <a href="# ">软件下载</a>
+                    <b>|</b>
+                    <a href="# ">联系我们</a>
                 </p>
             </div>
-            <div class="footer-bd">
+            <div class="footer-bd ">
                 <p>
-                    <a href="#">关于恒望</a>
-                    <a href="#">合作伙伴</a>
-                    <a href="#">联系我们</a>
-                    <a href="#">网站地图</a>
-                    <em>© 2015-2025 Hengwang.com 版权所有</em>
+                    <span><font style="font-weight: bold">友情链接：</font></span>
+                    <a href="# ">中华人民共和国科学技术部</a>
+                    <b>|</b>
+                    <a href="# ">国家科学技术奖励工作办公室</a>
+                    <b>|</b>
+                    <a href="# ">北京市奖励办</a>
+                    <b>|</b>
+                    <a href="# ">北方技术交易市场</a>
+                    <b>|</b>
+                    <a href="# ">科化网    </a>
+                    <b>|</b>
+                    <em>© 2017-2025 Hengwang.com 版权所有</em>
                 </p>
             </div>
         </div>
     </div>
-
 </div>
 </div>
 </body>
