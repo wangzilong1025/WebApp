@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="search-bar pr">
 						<a name="index_none_header_sysc" href="#"></a>
 						<form action="<%=path %>/menu/selectMenuOneInSearch.do" method="post" id="submit"><!-- /package-jsp/jsp-front/user-search.jsp-->
-							<input id="name" name="name" type="text" placeholder="请输入成果或专家的关键字" autocomplete="off">
+							<input id="searchContent" name="searchContent" type="text" placeholder="输入成果标题或发布人关键字" autocomplete="off">
 							<input id="num" type="hidden" name="num" value="1"/>
 							<input id="ai-topsearch" class="submit am-btn" value="搜索" type="submit">
 						</form>
