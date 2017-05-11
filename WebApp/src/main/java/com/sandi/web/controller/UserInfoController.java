@@ -37,10 +37,10 @@ public class UserInfoController {
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
             modelMap.put("userInfo", userInfo);
             log.info(timeToken+"数据:"+userInfo);
-            return "/jsp-front/user-information";
+            return "jsp-front/user-information";
         }catch(Exception e){
             log.error(timeToken+"进入selectPersonalCenter的catch方法");
-            return "/jsp-error/error-page";
+            return "jsp-error/error-page";
         }
     }
 
@@ -73,7 +73,7 @@ public class UserInfoController {
 
         }catch(Exception e){
             log.error("进入updateUserInfo的catch方法"+e);
-            return "/jsp-error/error-page";
+            return "jsp-error/error-page";
         }
 
     }
