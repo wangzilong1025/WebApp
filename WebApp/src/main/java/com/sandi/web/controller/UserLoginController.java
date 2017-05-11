@@ -36,31 +36,28 @@ public class UserLoginController {
                     session.setAttribute("user", usLo);
                     request.setAttribute("message", "欢迎您"+usLo.getUserName()+"超级管理员");
                     return "redirect:/menu/getMenuList.do";
-                    //return "/jsp-front/test1";
                 }
                 else if(usLo.getUserStatus()==1){
                     session.setAttribute("user", usLo);
                     request.setAttribute("message", "欢迎您"+usLo.getUserName()+"管理员");
                     return "redirect:/menu/getMenuList.do";
-                    //return "/jsp-front/test1";
                 }
                 else if(usLo.getUserStatus()==2){
                     session.setAttribute("user", usLo);
                     request.setAttribute("message", "欢迎您"+usLo.getUserName()+"会员");
                     return "redirect:/menu/getMenuList.do";
-                    //return "/jsp-front/test1";
                 }
             }else{
                 request.setAttribute("message", "用户名或密码错误,请重新登陆!!!");
-                return "/jsp-front/user-login";
+                return "jsp-front/user-login";
             }
         }catch(Exception e){
             log.error(timeToken+"进入login的catch语句!!!");
             session.setAttribute("message", "登录异常!!!");
-            return "/jsp-front/user-login";
+            return "jsp-front/user-login";
         }
         request.setAttribute("message", "请输入用户名密码再登录哦!!!");
-        return "/jsp-front/user-login";
+        return "jsp-front/user-login";
     }
 
     @RequestMapping("/addUserLogin")
@@ -75,11 +72,11 @@ public class UserLoginController {
             userInfo.setUserId(userLogin.getUserId());
             userInfoService.insertUserInfoByUserId(userInfo);
             request.setAttribute("message", "注册成功,快去登录吧!!!");
-            return "/jsp-front/user-login";
+            return "jsp-front/user-login";
         }catch(Exception e){
             log.error(timeToken+"进入用户注册方法addUserLogin()的catch方法!!!");
             request.setAttribute("message", "注册异常，请刷新页面重新注册!!!");
-            return "/jsp-front/user-regist";
+            return "jsp-front/user-regist";
         }
     }
 }
