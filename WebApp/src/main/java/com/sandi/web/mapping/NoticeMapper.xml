@@ -10,9 +10,11 @@
         <result column="noticeReleaseTime" property="noticeReleaseTime" jdbcType="DATE" />
         <result column="noticeEndTime" property="noticeEndTime" jdbcType="DATE" />
         <result column="noticeStatus" property="noticeStatus" jdbcType="INTEGER" />
+        <result column="operatorId" property="operatorId" jdbcType="INTEGER" />
+        <result column="noticePhoto" property="noticePhoto" jdbcType="VARCHAR" />
     </resultMap>
     <sql id="Base_Column_List" >
-        noticeId, noticeTitle, noticeContent, createTime, adminId, noticeReleaseTime, noticeEndTime, noticeStatus
+        noticeId, noticeTitle, noticeContent, createTime, adminId, noticeReleaseTime, noticeEndTime, noticeStatus,operatorId,noticePhoto
     </sql>
 
     <select id="selectNoticeById" resultMap="ResultMap" parameterType="java.lang.Integer" >
@@ -28,41 +30,12 @@
         from notice
         where noticeStatus = #{noticeStatus,jdbcType=INTEGER}
     </select>
-   <!-- <select id="queryAllNoticeByTimeAndState" resultType="java.util.Map">
-        select * from en_bulletin_info where
-        noticeStatus = #{noticeStatus,jdbcType=INTEGER}
-        <choose>
-            <when test="time != null">
-                AND create_date >=  to_date( concat(#{time},' 00:00:00'),'yyyy-mm-dd hh24:mi:ss')
-            </when>
-        </choose>
-        <choose>
-            <when test="param.endTime != null">
-                AND create_date &lt;=  to_date( concat(#{param.endTime},' 23:59:59'),'yyyy-mm-dd hh24:mi:ss')
-            </when>
-        </choose>
-        <choose>
-            <when test="param.bulletinId != null">
-                AND bulletin_id like '%'|| #{param.bulletinId} ||'%'
-            </when>
-        </choose>
-        <choose>
-            <when test="param.subject != null">
-                AND subject like '%'|| #{param.subject} ||'%'
-            </when>
-        </choose>
 
-    </select>-->
     <delete id="deleteAdminByAdminStatus" parameterType="java.lang.Integer" >
         delete from notice
         where noticeStatus = #{noticeStatus,jdbcType=INTEGER}
     </delete>
-   <!-- <insert id="insert" useGeneratedKeys="true" keyProperty="noticeId" parameterType="com.sandi.web.model.Notice" >
-        insert into notice (noticeTitle, noticeContent, createTime, adminId, noticeReleaseTime, noticeEndTime, noticeStatus)
-        values (#{noticeTitle,jdbcType=VARCHAR}, #{noticeContent,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE},
-        #{adminId,jdbcType=INTEGER}, #{noticeReleaseTime,jdbcType=DATE}, #{noticeEndTime,jdbcType=DATE},
-        #{noticeStatus,jdbcType=INTEGER})
-    </insert>-->
+
     <insert id="insertAdminByAdminId" parameterType="com.sandi.web.model.Notice" >
         insert into notice
         <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -90,6 +63,12 @@
             <if test="noticeStatus != null" >
                 noticeStatus,
             </if>
+            <if test="operatorId != null" >
+                operatorId,
+            </if>
+            <if test="noticePhoto != null" >
+                noticePhoto,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="noticeId != null" >
@@ -116,8 +95,15 @@
             <if test="noticeStatus != null" >
                 #{noticeStatus,jdbcType=INTEGER},
             </if>
+            <if test="operatorId != null" >
+                #{operatorId,jdbcType=INTEGER},
+            </if>
+            <if test="noticePhoto != null" >
+                #{noticePhoto,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
+
     <update id="updateAdminByAdminId" parameterType="com.sandi.web.model.Admin" >
         update notice
         <set>
@@ -141,6 +127,12 @@
             </if>
             <if test="noticeStatus != null" >
                 noticeStatus = #{noticeStatus,jdbcType=INTEGER},
+            </if>
+            <if test="operatorId != null" >
+                operatorId = #{operatorId,jdbcType=INTEGER},
+            </if>
+            <if test="noticePhoto != null" >
+                noticePhoto = #{noticePhoto,jdbcType=VARCHAR},
             </if>
         </set>
         where noticeId = #{noticeId,jdbcType=INTEGER}
