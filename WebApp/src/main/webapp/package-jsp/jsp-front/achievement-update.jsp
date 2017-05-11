@@ -9,13 +9,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 		<title>新增科研成果</title>
-		<link href="<%=path %>/style/frontStyle/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
-		<link href="<%=path %>/style/frontStyle/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
-		<link href="<%=path %>/style/frontStyle/css/personal.css" rel="stylesheet" type="text/css">
-		<link href="<%=path %>/style/frontStyle/css/addstyle.css" rel="stylesheet" type="text/css">
-		<link href="<%=path %>/style/frontStyle/css/refstyle.css" rel="stylesheet" type="text/css">
-		<script src="<%=path %>/style/frontStyle/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
-		<script src="<%=path %>/style/frontStyle/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+		<link href="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+		<link href="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+		<link href="<%=path %>/package-style/style-front/css/personal.css" rel="stylesheet" type="text/css">
+		<link href="<%=path %>/package-style/style-front/css/addstyle.css" rel="stylesheet" type="text/css">
+		<link href="<%=path %>/package-style/style-front/css/refstyle.css" rel="stylesheet" type="text/css">
+		<script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
+		<script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
 		<script type="text/javascript">
 		function test(){
 			//var cityOne = $('#loc_province').select2('data').text;
@@ -231,12 +231,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="menu-hd">
 									<c:choose>
 										<c:when test="${sessionScope.user == null }">
-											<a href="<%=path %>/jsp/front/login.jsp" target="_top" class="h">亲，请登录</a>
-											<a href="<%=path %>/jsp/front/regist.jsp" target="_top">免费注册</a>
+											<a href="<%=path %>/package-jsp/jsp-front/user-login.jsp" target="_top" class="h">亲，请登录</a>
+											<a href="<%=path %>/package-jsp/jsp-front/user-regist.jsp" target="_top">免费注册</a>
 										</c:when>
 										<c:otherwise>
 											欢迎登陆，${sessionScope.user.userName }
-											<a href="<%=path %>/jsp/front/login.jsp" target="_top">退出</a>
+											<a href="<%=path %>/package-jsp/jsp-front/user-login.jsp" target="_top">退出</a>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -282,9 +282,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul>
 					<li class="index"><a href="<%=path %>/menu/getMenuList.do">首页</a></li>
 					<li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
-					<li class="qc"><a href="#">限时抢</a></li>
-					<li class="qc"><a href="#">团购</a></li>
-					<li class="qc last"><a href="#">大包装</a></li>
+					<li class="qc"><a href="#">统计</a></li>
+					<li class="qc"><a href="#">公告</a></li>
+					<li class="qc last"><a href="#">排行</a></li>
 				</ul>
 				<div class="nav-extra">
 					<i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
@@ -380,15 +380,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<div class="am-form-content">
 												<div class="filePic" id="localImag" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
 													<input type="file" id="file" name="file" class="inputPic" onchange="javascript:setImagePreview();" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-													<img id="userImage" src="<%=path %>/style/frontStyle/images/image.jpg">
+													<img id="userImage" src="<%=path %>/package-style/style-front/images/image.jpg">
 												</div>
 												<div class="filePic" id="localImag1" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
 													<input type="file" id="file1" name="file1" class="inputPic" onchange="javascript:setImagePreview1();" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-													<img id="userImage1" src="<%=path %>/style/frontStyle/images/image.jpg">
+													<img id="userImage1" src="<%=path %>/package-style/style-front/images/image.jpg">
 												</div>
 												<div class="filePic" id="localImag2" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
 													<input type="file" id="file2" name="file2" class="inputPic" onchange="javascript:setImagePreview2();" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-													<img id="userImage2" src="<%=path %>/style/frontStyle/images/image.jpg">
+													<img id="userImage2" src="<%=path %>/package-style/style-front/images/image.jpg">
 												</div>
 												<div class="filePic" style="width: 100px; max-width: 100px; float: left;" align="left">上传图片<br>最多三张</div>
 											</div>
@@ -463,7 +463,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<a href="#">个人资料</a>
 						<ul>
 							<li> <a href="<%=path %>/userInfo/selectPersonalCenter.do">个人信息</a></li>
-							<li> <a href="javascript:void();">安全设置</a></li>
+							<li> <a href="#">安全设置</a></li>
 							<li> <a href="<%=path %>/findAddress.do">收货地址</a></li>
 						</ul>
 					</li>
