@@ -6,10 +6,12 @@
         <result column="userName" property="userName" jdbcType="VARCHAR" />
         <result column="userPassword" property="userPassword" jdbcType="VARCHAR" />
         <result column="userStatus" property="userStatus" jdbcType="INTEGER" />
+        <result column="safeQuestion" property="safeQuestion" jdbcType="VARCHAR" />
+        <result column="safeAnswer" property="safeAnswer" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        userId, userName, userPassword,userStatus
+        userId, userName, userPassword,userStatus,safeQuestion,safeAnswer
     </sql>
 
     <!-- 查询用户-->
@@ -25,9 +27,9 @@
     </delete>
     <insert id="addUserLogin" useGeneratedKeys="true" keyProperty="userId" parameterType="com.sandi.web.model.UserLogin" >
         insert into userlogin (userName, userPassword,
-        userStatus )
+        userStatus,safeQuestion,safeAnswer )
         values (#{userName}, #{userPassword},
-        #{userStatus})
+        #{userStatus},#{safeQuestion},#{safeAnswer})
     </insert>
     <insert id="insertUserLogin" parameterType="com.sandi.web.model.UserLogin" >
         insert into userlogin
@@ -44,6 +46,12 @@
             <if test="userStatus != null" >
                 userStatus,
             </if>
+            <if test="safeQuestion != null" >
+                safeQuestion,
+            </if>
+            <if test="safeAnswer != null" >
+                safeAnswer,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="userId != null" >
@@ -57,6 +65,12 @@
             </if>
             <if test="userStatus != null" >
                 #{userStatus,jdbcType=INTEGER},
+            </if>
+            <if test="safeQuestion != null" >
+                #{safeQuestion,jdbcType=VARCHAR},
+            </if>
+            <if test="safeAnswer != null" >
+                #{safeAnswer,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -72,16 +86,16 @@
             <if test="userStatus != null" >
                 userStatus = #{userStatus,jdbcType=INTEGER},
             </if>
+            <if test="safeQuestion != null" >
+                safeQuestion = #{safeQuestion,jdbcType=VARCHAR},
+            </if>
+            <if test="safeAnswer != null" >
+                safeAnswer = #{safeAnswer,jdbcType=VARCHAR},
+            </if>
         </set>
         where userId = #{userId,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.sandi.web.model.UserLogin" >
-        update userlogin
-        set userName = #{userName,jdbcType=VARCHAR},
-        userPassword = #{userPassword,jdbcType=VARCHAR},
-        userStatus = #{userStatus,jdbcType=INTEGER},
-        where userId = #{userId,jdbcType=INTEGER}
-    </update>
+    <!-- 用户登录方法-->
     <select id="selectUserLogin" parameterType="com.sandi.web.model.UserLogin" resultType="com.sandi.web.model.UserLogin">
         select * from userlogin
         WHERE userName = #{userName} AND userPassword = #{userPassword}
