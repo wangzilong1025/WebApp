@@ -96,10 +96,10 @@
     <div class="nav-cont">
         <ul>
             <li class="index"><a href="#">首页</a></li>
-            <li class="qc"><a href="#">闪购</a></li>
-            <li class="qc"><a href="#">限时抢</a></li>
-            <li class="qc"><a href="#">团购</a></li>
-            <li class="qc last"><a href="#">大包装</a></li>
+            <li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
+            <li class="qc"><a href="#">统计</a></li>
+            <li class="qc"><a href="#">公告</a></li>
+            <li class="qc last"><a href="#">排行</a></li>
         </ul>
         <div class="nav-extra">
             <i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
@@ -142,7 +142,7 @@
                                     <div class="s-msg-content i-msg-downup-wrap">
                                         <div class="i-msg-downup-con">
                                             <a class="i-markRead" target="_blank" href="blog.html">
-                                                <img src="images/TB102.jpg">
+                                                <img src="<%=path %>/package-style/style-front/images/TB102.jpg">
                                                 <p class="s-main-content">
                                                     最特色的湖北年货都在这儿 ~快来囤年货啦！
                                                 </p>
