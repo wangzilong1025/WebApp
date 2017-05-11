@@ -70,7 +70,7 @@ dl#select3 .dd-conent{ left:-200%; right:0px;}
 /*搜索结果*/
 .i-pic.limit {margin:5px;border: 1px #e8e8e8 solid;overflow: hidden;position: relative;cursor: pointer;}
 .number.fl{position: absolute;bottom:5px;right:5px ;}
-.price.fl{padding: 5px;}
+.price.fl{padding: 10px;}
 /*分页*/	
 .am-pagination li{ float:none;}
 .footer {margin-left: 0px;}
@@ -139,7 +139,7 @@ span.am-icon-th-list{color:orangered;margin-right:1px ;}
 
 
 /*文字布局*/
-.limit p.title,.i-pic.check p.title{padding:0px 10px;overflow:hidden;height:36px;line-height:18px ;}
+.limit p.title,.i-pic.check p.title{padding:0px 10px;overflow:hidden;height:16px;line-height:18px ;}
 .i-pic .price.fl{font-size:16px ;}
 }
 
