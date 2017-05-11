@@ -69,7 +69,7 @@ public class Achievement implements Serializable{
      */
     private int releaseState;
     /*
-    成果名称（根据成果ID去查询成果的名称）
+    成果名称（根据成果ID去查询成果类型的名称）
      */
     private String achievementTypeName;
     /*
