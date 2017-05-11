@@ -1,3 +1,4 @@
+<%--suppress CheckValidXmlInScriptTagBody --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
@@ -6,7 +7,6 @@
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -18,7 +18,58 @@
     <script type="text/javascript" src="<%=path %>/package-style/style-front/basic/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="<%=path %>/package-style/style-front/js/script.js"></script>
 </head>
+<script type="text/javascript">
+    function type1(topId1){
+        $("a[name='aaa']").remove();
+        $.ajax({
+            type :"post",
+            async : false,
+            url: "<%=path %>/menu/selectMenuTwoInSearch.do?topId1="+topId1,
+            data:
+                {//请求携带的参数，一个或者多个均可
+                    "topId1":topId1
+                },
+                success:function(data){
+                //alert("快快进来！！！啦啦啦啦啦啦");
+                var json = eval(data);
+                if(data.length==0){
+                    alert("没有发现商品子类");
+                }else{
+                    for(var i = 0;i<json.length;i++){
+                        var topId2 = json[i].topId;
+                        var topName3 = json[i].topName;
+                        $(".searchType1").append("<dd><a href='javascript:void();' value='"+topId2+"' onclick='type2("+topId2+")' name='aaa'>"+topName3+"</a></dd>");
+                    }
+                }
+            }
+        });
+    };
 
+    function type2(topId2){
+        $("a[name='bbb']").remove();
+        $.ajax({
+            type:"post",
+            async:false,
+            url: "<%=path %>/menu/selectMenuThreeInSearch.do?topId2="+topId2,
+            data:
+                {//请求携带的参数，一个或者多个均可
+                    "topId2":topId2
+                } ,
+            success:function(data2){
+                var json2 = eval(data2);
+                if(data2.length==0){
+                    alert("没有发现商品子类");
+                }else{
+                    for(var i = 0;i<json2.length;i++){
+                        var topId3 = json2[i].topId;
+                        var topName3 = json2[i].topName;
+                        $(".searchType2").append("<dd><a href="+"<%=path%>/selectProductByType3id.do?producttypeid="+topId3 +" value='+topId3+'  name='bbb'>"+topName3+"</a></dd>");
+                    }
+                }
+            }
+        });
+    };
+</script>
 <body>
 
 <!--顶部导航条 -->
@@ -75,9 +126,9 @@
 <div class="nav white">
     <div class="search-bar pr">
         <a name="index_none_header_sysc" href="#"></a>
-        <form action="<%=path %>/showAllProducts.do" method="post" id="submit">
+        <form action="<%=path %>/achievement/findLikeAchievement.do" method="post" id="submit">
             <input id="name" name="name" type="text" placeholder="请输入成果或专家的关键字" autocomplete="off">
-            <input id="num" type="hidden" name="num" value="1"/>
+            <input id="num" type="hidden" name="num" value="1"/><!--默认查询全部的科研新成果-->
             <input id="ai-topsearch" class="submit am-btn" value="搜索" type="submit">
         </form>
     </div>
@@ -92,10 +143,10 @@
             <div class="nav-cont">
                 <ul>
                     <li class="index"><a href="#">首页</a></li>
-                    <li class="qc"><a href="#">闪购</a></li>
-                    <li class="qc"><a href="#">限时抢</a></li>
-                    <li class="qc"><a href="#">团购</a></li>
-                    <li class="qc last"><a href="#">大包装</a></li>
+                    <li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
+                    <li class="qc"><a href="#">统计</a></li>
+                    <li class="qc"><a href="#">公告</a></li>
+                    <li class="qc last"><a href="#">排行</a></li>
                 </ul>
                 <div class="nav-extra">
                     <i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
@@ -104,56 +155,50 @@
             </div>
         </div>
 
-
         <div class="am-g am-g-fixed">
             <div class="am-u-sm-12 am-u-md-12">
                 <div class="theme-popover">
                     <div class="searchAbout">
                         <span class="font-pale">相关搜索：</span>
-                        <a title="坚果" href="#">坚果</a>
-                        <a title="瓜子" href="#">瓜子</a>
-                        <a title="鸡腿" href="#">豆干</a>
-
+                        <a title="太阳能发电" href="#">太阳能发电</a>
+                        <a title="高分子材料" href="#">高分子材料</a>
+                        <a title="提高电池利用率" href="#">提高电池利用率</a>
                     </div>
+
                     <ul class="select">
                         <p class="title font-normal">
-                            <span class="fl">松子</span>
-                            <span class="total fl">搜索到<strong class="num">997</strong>件相关商品</span>
+                            <span class="fl">${name } </span>
+                            <span class="total fl">搜索到 <strong class="num">${total }</strong> 件相关商品</span>
                         </p>
-                        <div class="clear"></div>
-                        <li class="select-result">
-                            <dl>
-                                <dt>已选</dt>
-                                <dd class="select-no"></dd>
-                                <p class="eliminateCriteria">清除</p>
+                        <li class="select-list">
+                            <dl id="select1">
+                                <dt class="am-badge am-round">类别</dt>
+                                <div class="dd-conent">
+                                    <c:forEach items="${oneMenuInSearch }" var="list1">
+                                        <dd><a class="gettype" href="javascript:void();" onclick="type1(${list1.topId })">${list1.topName }</a></dd>
+                                    </c:forEach>
+                                </div>
                             </dl>
                         </li>
                         <div class="clear"></div>
                         <li class="select-list">
                             <dl id="select1">
-                                <dt class="am-badge am-round">品牌</dt>
-
+                                <dt class="am-badge am-round">已选</dt>
                                 <div class="dd-conent">
-                                    <dd class="select-all selected"><a href="#">全部</a></dd>
-                                    <dd><a href="#">百草味</a></dd>
-                                    <dd><a href="#">良品铺子</a></dd>
-                                    <dd><a href="#">新农哥</a></dd>
-                                    <dd><a href="#">楼兰蜜语</a></dd>
-                                    <dd><a href="#">口水娃</a></dd>
-                                    <dd><a href="#">考拉兄弟</a></dd>
-                                </div>
+                                    <div class="searchType1">
 
+                                    </div>
+                                </div>
                             </dl>
                         </li>
+                        <div class="clear"></div>
                         <li class="select-list">
                             <dl id="select2">
-                                <dt class="am-badge am-round">种类</dt>
+                                <dt class="am-badge am-round">已选</dt>
                                 <div class="dd-conent">
-                                    <dd class="select-all selected"><a href="#">全部</a></dd>
-                                    <dd><a href="#">东北松子</a></dd>
-                                    <dd><a href="#">巴西松子</a></dd>
-                                    <dd><a href="#">夏威夷果</a></dd>
-                                    <dd><a href="#">松子</a></dd>
+                                    <div class="searchType2">
+
+                                    </div>
                                 </div>
                             </dl>
                         </li>
@@ -161,16 +206,14 @@
                             <dl id="select3">
                                 <dt class="am-badge am-round">选购热点</dt>
                                 <div class="dd-conent">
-                                    <dd class="select-all selected"><a href="#">全部</a></dd>
-                                    <dd><a href="#">手剥松子</a></dd>
-                                    <dd><a href="#">薄壳松子</a></dd>
-                                    <dd><a href="#">进口零食</a></dd>
-                                    <dd><a href="#">有机零食</a></dd>
+                                    <c:forEach items="${words }" var="words">
+                                        <dd><a href="<%=path %>/showAllProducts.do?name=${words.content }&num=1">${words.content }</a></dd>
+                                    </c:forEach>
                                 </div>
                             </dl>
                         </li>
-
                     </ul>
+
                     <div class="clear"></div>
                 </div>
                 <div class="search-content">
@@ -181,7 +224,6 @@
                         <li class="big"><a title="评价" href="#">评价为主</a></li>
                     </div>
                     <div class="clear"></div>
-
                     <ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
                         <li>
                             <div class="i-pic limit">
@@ -198,7 +240,6 @@
                         </li>
                         <li>
                             <div class="i-pic limit">
-
                                 <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
                                 <p class="title fl">手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
                                 <p class="price fl">
@@ -212,7 +253,6 @@
                         </li>
                         <li>
                             <div class="i-pic limit">
-
                                 <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
                                 <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
                                 <p class="price fl">
@@ -226,7 +266,6 @@
                         </li>
                         <li>
                             <div class="i-pic limit">
-
                                 <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
                                 <p class="title fl">手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
                                 <p class="price fl">
@@ -240,7 +279,6 @@
                         </li>
                         <li>
                             <div class="i-pic limit">
-
                                 <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
                                 <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
                                 <p class="price fl">
@@ -254,7 +292,6 @@
                         </li>
                         <li>
                             <div class="i-pic limit">
-
                                 <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
                                 <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
                                 <p class="price fl">
@@ -268,7 +305,6 @@
                         </li>
                         <li>
                             <div class="i-pic limit">
-
                                 <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
                                 <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
                                 <p class="price fl">
@@ -282,7 +318,6 @@
                         </li>
                         <li>
                             <div class="i-pic limit">
-
                                 <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
                                 <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
                                 <p class="price fl">
@@ -296,7 +331,6 @@
                         </li>
                         <li>
                             <div class="i-pic limit">
-
                                 <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
                                 <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
                                 <p class="price fl">
@@ -350,7 +384,6 @@
                     </ul>
                 </div>
                 <div class="search-side">
-
                     <div class="side-title">
                         经典搭配
                     </div>
@@ -432,9 +465,6 @@
             </div>
         </div>
     </div>
-
 </div>
-
 </body>
-
 </html>
