@@ -3,9 +3,11 @@ package com.sandi.web.controller;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sandi.web.model.Achievement;
 import com.sandi.web.model.City;
 import com.sandi.web.model.Menu;
 import com.sandi.web.model.Notice;
+import com.sandi.web.service.IAchievementService;
 import com.sandi.web.service.ICityService;
 import com.sandi.web.service.IMenuService;
 import com.sandi.web.service.INoticeService;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,6 +43,8 @@ public class MenuController {
     private ICityService cityService;
     @Autowired
     private INoticeService noticeService;
+    @Autowired
+    private IAchievementService achievementService;
 
     @RequestMapping("/getMenuList")
     public String getMenuList(ModelMap modelMap, HttpServletRequest request){
@@ -146,12 +151,28 @@ public class MenuController {
      * @return
      */
     @RequestMapping("/selectMenuOneInSearch")
-    public String selectMenuOneInSearch(ModelMap modelMap,HttpServletRequest request){
+    public String selectMenuOneInSearch(@RequestParam("searchContent") String searchContent, ModelMap modelMap, HttpServletRequest request){
         log.info(timeToken+"进入selectMenuOneInSearch方法!!!");
         try{
             log.info(timeToken+"进入selectMenuOneInSearch的try方法!!!");
             List<Menu> oneMenuInSearch = menuService.findMenuLevels(1);
+            System.out.print("这是搜索内容:"+searchContent);
+            //状态2代表科研成果经过审核通过的，能展示给用户查看的
+            int releaseState = 2;
+            Map<String,String> map = new HashMap<String, String>();
+            map.put("searchContent",searchContent);
+            map.put("releaseState",String.valueOf(releaseState));
+            List<Achievement> searchList = achievementService.queryAchievementBySearchContent(map);
+            for(Achievement list:searchList){
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                list.setTimeToString(sdf.format(list.getReleaseTime()));
+                Menu menu = menuService.selectTopNameByTopId(Integer.parseInt(list.getAchievementType()));
+                list.setAchievementTypeName(menu.getTopName());
+            }
+            //遍历的科研成果菜单
             modelMap.put("oneMenuInSearch", oneMenuInSearch);
+            //搜索到的科研成果
+            modelMap.put("searchList",searchList);
             return "jsp-front/user-search";
         }catch(Exception e){
             log.error(timeToken+"进入selectMenuOneInSearch的catch方法!!!");
