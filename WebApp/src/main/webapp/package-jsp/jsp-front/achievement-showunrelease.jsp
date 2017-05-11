@@ -13,12 +13,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta name="keywords" content="modal, window, overlay, modern, box, css transition, css animation, effect, 3d, perspective" />
 		<meta name="author" content="Codrops"/>
 		<title>成果展示</title>
-		<link href="<%=path %>/style/frontStyle/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
-		<link href="<%=path %>/style/frontStyle/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
-		<link href="<%=path %>/style/frontStyle/css/personal.css" rel="stylesheet" type="text/css">
-		<link href="<%=path %>/style/frontStyle/css/bilstyle.css" rel="stylesheet" type="text/css">
-		<script src="<%=path %>/style/frontStyle/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
-		<script src="<%=path %>/style/frontStyle/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+		<link href="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+		<link href="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+		<link href="<%=path %>/package-style/style-front/css/personal.css" rel="stylesheet" type="text/css">
+		<link href="<%=path %>/package-style/style-front/css/bilstyle.css" rel="stylesheet" type="text/css">
+		<script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
+		<script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
 		<script type="text/javascript">
 		function deleteAchievement() { 
 			var msg = "确定要删除您的科研成果吗?"; 
@@ -53,12 +53,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="menu-hd">
 									<c:choose>
 										<c:when test="${sessionScope.user == null }">
-											<a href="<%=path %>/jsp/front/login.jsp" target="_top" class="h">亲，请登录</a>
-											<a href="<%=path %>/jsp/front/regist.jsp" target="_top">免费注册</a>
+											<a href="<%=path %>/package-jsp/jsp-front/user-login.jsp" target="_top" class="h">亲，请登录</a>
+											<a href="<%=path %>/package-jsp/jsp-front/user-regist.jsp" target="_top">免费注册</a>
 										</c:when>
 										<c:otherwise>
 											欢迎登陆，${sessionScope.user.userName }
-											<a href="<%=path %>/jsp/front/login.jsp" target="_top">退出</a>
+											<a href="<%=path %>/package-jsp/jsp-front/user-login.jsp" target="_top">退出</a>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -84,11 +84,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   <div class="long-title"><span class="all-goods">全部分类</span></div>
 			   <div class="nav-cont">
 					<ul>
-						<li class="index"><a href="#">首页</a></li>
-                        <li class="qc"><a href="#">闪购</a></li>
-                        <li class="qc"><a href="#">限时抢</a></li>
-                        <li class="qc"><a href="#">团购</a></li>
-                        <li class="qc last"><a href="#">大包装</a></li>
+						<li class="index"><a href="<%=path %>/menu/getMenuList.do">首页</a></li>
+						<li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
+						<li class="qc"><a href="#">统计</a></li>
+						<li class="qc"><a href="#">公告</a></li>
+						<li class="qc last"><a href="#">排行</a></li>
 					</ul>
 				    <div class="nav-extra">
 				    	<i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
@@ -136,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td class="img" align="center" style="padding: 20px;">
 										<c:choose>
 											<c:when test="${list.achievementOneImage == null }">
-												<i><img src="<%=path %>/style/images/songzi.jpg"></i>
+												<i><img src="<%=path %>/package-style/style-front/images/songzi.jpg"></i>
 											</c:when>
 											<c:otherwise>
 												<i><img src="<%=path %>/achievementImage/${list.achievementOneImage }"></i>
@@ -156,12 +156,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<span class="amount-pay">${list.unitName }</span>
 									</td>
 									<td class="operation" align="center" style="padding: 20px;">
-										<a href="<%=path %>/achievement/selectAchievementByAchievementId.do?id=${list.achievementId}">查看</a>
-										<a href="<%=path %>/achievement/updateAchievementByAchievementId.do?id=${list.achievementId}">修改</a>
+										<a href="<%=path %>/achievement/selectAchievementByAchievementId.do?id=${list.achievementId}"><font color="#006400">查看</font></a>
+										<a href="<%=path %>/achievement/updateAchievementByAchievementId.do?id=${list.achievementId}"><font color="#4169e1">修改</font></a>
 										<a href="<%=path %>/achievement/">发布</a>
 										<!--<span style="cursor: pointer;"><a onclick="selectAchievement(${list.achievementId})"><font color="black">查看</font></a></span>
 										<span style="cursor: pointer;"><a onclick="updateAchievement(${list.achievementId})"><font color="black">修改</font></a></span>-->
-										<a href="<%=path %>/achievement/deleteAchievementByAchievementId.do?id=${list.achievementId}" onclick="javascript:return deleteAchievement()">删除</a>
+										<a href="<%=path %>/achievement/deleteAchievementByAchievementId.do?id=${list.achievementId}" onclick="javascript:return deleteAchievement()"><font color="red">删除</font></a>
 									</td>
 									
 								</tr>
@@ -215,7 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<a href="#"><font style="font-weight: bold">个人资料</font></a>
 						<ul>
 							<li> <a href="<%=path %>/userInfo/selectPersonalCenter.do">个人信息</a></li>
-							<li> <a href="javascript:void();">安全设置</a></li>
+							<li> <a href="#">安全设置</a></li>
 							<li> <a href="<%=path %>/findAddress.do">收货地址</a></li>
 						</ul>
 					</li>
@@ -233,13 +233,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</aside>
 		</div>
 		<div class="md-overlay"></div>
-		<script src="<%=path %>/style/scrollStyle/js/classie.js"></script>
+		<%--<script src="<%=path %>/style/scrollStyle/js/classie.js"></script>
 		<script src="<%=path %>/style/scrollStyle/js/modalEffects.js"></script>
 		<script>
 			// this is important for IEs
 			var polyfilter_scriptpath = '/js/';
 		</script>
 		<script src="<%=path %>/style/scrollStyle/js/cssParser.js"></script>
-		<script src="<%=path %>/style/scrollStyle/js/css-filters-polyfill.js"></script>
+		<script src="<%=path %>/style/scrollStyle/js/css-filters-polyfill.js"></script>--%>
 	</body>
 </html>
