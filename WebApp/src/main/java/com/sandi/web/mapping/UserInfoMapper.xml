@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sandi.web.dao.IUserInfoDao" >
     <resultMap id="ResultMap" type="com.sandi.web.model.UserInfo">
-        <result column="userinfoId" property="userinfoId" jdbcType="INTEGER" />
+        <id column="userinfoId" property="userinfoId" jdbcType="INTEGER" />
         <result column="userNick" property="userNick" jdbcType="VARCHAR" />
         <result column="userSex" property="userSex" jdbcType="INTEGER" />
         <result column="userProfession" property="userProfession" jdbcType="VARCHAR" />
