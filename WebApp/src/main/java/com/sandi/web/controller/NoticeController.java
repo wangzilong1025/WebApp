@@ -67,7 +67,7 @@ public class NoticeController {
             notice.setNoticeEndTime(sdf.parse(notice.getNoticeEndTimeStr()));
             notice.setNoticeStatus(status);
             noticeService.insertAdminByAdminId(notice);
-            return "redirect:/notice/queryAllNoticeByStatus";
+            return "redirect:/notice/queryAllNoticeByStatus.do";
         }catch(Exception e){
             log.error(timeToken+"进入addNoticeByAdmin的catch方法!!!");
             return "jsp-error/error-page";
@@ -144,7 +144,7 @@ public class NoticeController {
             notice.setNoticeEndTime(sdf.parse(notice.getNoticeEndTimeStr()));
             notice.setNoticeStatus(status);
             noticeService.updateAdminByAdminId(notice);
-            return "redirect:/notice/queryAllNoticeByStatus";
+            return "redirect:/notice/queryAllNoticeByStatus.do";
         }catch (Exception e){
             log.error("进入updateNoticeById的catch方法"+e.getMessage());
             return "jsp-error/error-page";
