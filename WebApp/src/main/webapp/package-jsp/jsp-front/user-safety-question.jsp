@@ -12,14 +12,12 @@
 
     <title>安全问题</title>
 
-    <link href="AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
-    <link href="AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
-
-    <link href="css/personal.css" rel="stylesheet" type="text/css">
-    <link href="css/stepstyle.css" rel="stylesheet" type="text/css">
-
-    <script src="AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
-    <script src="AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
+    <link href="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+    <link href="<%=path %>/package-style/style-front/css/personal.css" rel="stylesheet" type="text/css">
+    <link href="<%=path %>/package-style/style-front/css/stepstyle.css" rel="stylesheet" type="text/css">
+    <script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
 
 </head>
 
@@ -76,22 +74,6 @@
                     </div>
                 </ul>
             </div>
-            <!--悬浮搜索框-->
-
-         <%--   <div class="nav white">
-                <div class="logoBig">
-                    <li><img src="images/logobig.png" /></li>
-                </div>
-
-                <div class="search-bar pr">
-                    <a name="index_none_header_sysc" href="#"></a>
-                    <form>
-                        <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-                        <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
-                    </form>
-                </div>
-            </div>--%>
-
             <div class="clear"></div>
         </div>
         </div>
@@ -102,10 +84,10 @@
     <div class="nav-cont">
         <ul>
             <li class="index"><a href="#">首页</a></li>
-            <li class="qc"><a href="#">闪购</a></li>
-            <li class="qc"><a href="#">限时抢</a></li>
-            <li class="qc"><a href="#">团购</a></li>
-            <li class="qc last"><a href="#">大包装</a></li>
+            <li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
+            <li class="qc"><a href="#">统计</a></li>
+            <li class="qc"><a href="#">公告</a></li>
+            <li class="qc last"><a href="#">排行</a></li>
         </ul>
         <div class="nav-extra">
             <i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
@@ -205,7 +187,6 @@
             </div>
         </div>
     </div>
-
     <aside class="menu">
         <ul>
             <li class="person">
@@ -234,7 +215,6 @@
                     <li> <a href="bill.html">账单明细</a></li>
                 </ul>
             </li>
-
             <li class="person">
                 <a href="#">我的小窝</a>
                 <ul>
@@ -244,12 +224,8 @@
                     <li> <a href="news.html">消息</a></li>
                 </ul>
             </li>
-
         </ul>
-
     </aside>
 </div>
-
 </body>
-
 </html>
