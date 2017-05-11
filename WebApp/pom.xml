@@ -304,11 +304,11 @@
             <version>1.1.2</version>
         </dependency>
         <!--目前这个jsp-api没有任何作用 -->
-        <dependency>
+       <!-- <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
             <version>2.2</version>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 
