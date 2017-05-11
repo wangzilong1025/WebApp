@@ -9,13 +9,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 		<title>新增科研成果</title>
-		<link href="<%=path %>/style/frontStyle/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
-		<link href="<%=path %>/style/frontStyle/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
-		<link href="<%=path %>/style/frontStyle/css/personal.css" rel="stylesheet" type="text/css">
-		<link href="<%=path %>/style/frontStyle/css/addstyle.css" rel="stylesheet" type="text/css">
-		<link href="<%=path %>/style/frontStyle/css/refstyle.css" rel="stylesheet" type="text/css">
-		<script src="<%=path %>/style/frontStyle/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
-		<script src="<%=path %>/style/frontStyle/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+		<link href="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+		<link href="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+		<link href="<%=path %>/package-style/style-front/css/personal.css" rel="stylesheet" type="text/css">
+		<link href="<%=path %>/package-style/style-front/css/addstyle.css" rel="stylesheet" type="text/css">
+		<link href="<%=path %>/package-style/style-front/css/refstyle.css" rel="stylesheet" type="text/css">
+		<script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
+		<script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
 		<script type="text/javascript">
 		function test(){
 			//var cityOne = $('#loc_province').select2('data').text;
@@ -231,12 +231,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="menu-hd">
 									<c:choose>
 										<c:when test="${sessionScope.user == null }">
-											<a href="<%=path %>/jsp/front/login.jsp" target="_top" class="h">亲，请登录</a>
-											<a href="<%=path %>/jsp/front/regist.jsp" target="_top">免费注册</a>
+											<a href="<%=path %>/package-jsp/jsp-front/user-login.jsp" target="_top" class="h">亲，请登录</a>
+											<a href="<%=path %>/package-jsp/jsp-front/user-regist.jsp" target="_top">免费注册</a>
 										</c:when>
 										<c:otherwise>
 											欢迎登陆，${sessionScope.user.userName }
-											<a href="<%=path %>/jsp/front/login.jsp" target="_top">退出</a>
+											<a href="<%=path %>/package-jsp/jsp-front/user-login.jsp" target="_top">退出</a>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -282,9 +282,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul>
 					<li class="index"><a href="<%=path %>/menu/getMenuList.do">首页</a></li>
 					<li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
-					<li class="qc"><a href="#">限时抢</a></li>
-					<li class="qc"><a href="#">团购</a></li>
-					<li class="qc last"><a href="#">大包装</a></li>
+					<li class="qc"><a href="#">统计</a></li>
+					<li class="qc"><a href="#">公告</a></li>
+					<li class="qc last"><a href="#">排行</a></li>
 				</ul>
 				<div class="nav-extra">
 					<i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
@@ -305,7 +305,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="add-dress">
 								<!--标题 -->
 								<div class="am-cf am-padding">
-									<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">新增成果</strong> / <small>Add&nbsp;address</small></div>
+									<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">成果详情</strong> / <small>Achievement&nbsp;detail</small></div>
 								</div>
 								<hr/>
 								<div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;" align="center">
@@ -314,29 +314,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div class="am-form-group">
 											<label for="user-name" class="am-form-label">&nbsp;成果标题</label>
 											<div class="am-form-content">
-												<input type="text" id="achievementName" name="achievementName" placeholder="科技成果标题">
+												<input type="text" id="achievementName" name="achievementName" readonly="readonly" value="${achievement.achievementName}" placeholder="科技成果标题">
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="user-name" class="am-form-label">&nbsp;单位名称</label>
 											<div class="am-form-content">
-												<input type="text" id="unitName" name="unitName" placeholder="所在单位名称">
+												<input type="text" id="unitName" name="unitName" readonly="readonly" value="${achievement.unitName}" placeholder="所在单位名称">
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="user-address" class="am-form-label">&nbsp;成果分类</label>
 											<div class="am-form-content address">
 												<select data-am-selected="{maxHeight: 120}" id="type1">
-													<option value="" selected="selected">请选择</option>
-													<c:forEach items="${selectOneMenu }" var="list1">
+													<option value="" selected="selected">${menuNameOne}</option>
+													<%--<c:forEach items="${selectOneMenu }" var="list1">
 													     <option value="${list1.topId }">${list1.topName }</option>
-													</c:forEach>
+													</c:forEach>--%>
 												</select>
 												<select data-am-selected="{maxHeight: 120}" id="type2">
-													<option value="" selected="selected">请选择</option>
+													<option value="" selected="selected">${menuNameTwo}</option>
 												</select>
 												<select data-am-selected="{maxHeight: 120}" id="type3" name="achievementType">
-													<option value="" selected="selected">请选择</option>
+													<option value="" selected="selected">${menuNameThree}</option>
 												</select>
 											</div>						
 										</div>
@@ -345,32 +345,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<div class="am-form-content birth">
 												<div class="birth-select">
 													<select id="cityOne" data-am-selected="{maxHeight: 120}">
-													<!--<option value="" selected="selected">中国</option>-->
 													   <option value="China" selected="selected">中国</option>
 													</select>
-													<!--<input type="hidden" id="selectOneCity" name="selectOneCity"/>-->
 												</div>
 												<div class="birth-select2">
 													<select id="cityTwo" data-am-selected="{maxHeight: 120}">
-														<option value="" selected="selected">请选择</option>
-													   	<c:forEach items="${selectOneCity }" var="list2">
-													    	<option value="${list2.cityId }">${list2.cityName }</option>
-														</c:forEach>
+														<option value="" selected="selected">${addressTwo}</option>
 													</select>
-													<!--<input type="hidden" id="selectTwoCity" name="selectTwoCity"/>-->
 												</div>
 												<div class="birth-select2">
 													<select id="cityThree" data-am-selected="{maxHeight: 120}" name="locationCity">
-													   <option value="" selected="selected">请选择</option>
+													   <option value="" selected="selected">${addressThree}</option>
 													</select>
-													<!--<input type="hidden" id="selectThreeCity" name="selectThreeCity"/>-->
 												</div>
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="user-intro" class="am-form-label">&nbsp;成果内容</label>
-											<div class="am-form-content">
-												<textarea class="" rows="3" id="achievementContent" name="achievementContent" style="height: 260px;" placeholder="输入科技成果内容"></textarea>
+											<div class="am-form-content"><!--rows="3" -->
+												<textarea class="" id="achievementContent" name="achievementContent" style="height: 260px;" value="${achievement.achievementContent}" placeholder="输入科技成果内容"></textarea>
 												<small>请写出你的科研成果设计依据和思路...</small>
 											</div>
 										</div>
@@ -379,24 +372,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<!--<div class="refund-tip">-->
 											<div class="am-form-content">
 												<div class="filePic" id="localImag" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
-													<input type="file" id="file" name="file" class="inputPic" onchange="javascript:setImagePreview();" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-													<img id="userImage" src="<%=path %>/style/frontStyle/images/image.jpg">
+													<input type="file" id="file" name="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
+													<c:choose>
+														<c:when test="${achievement.achievementImages == null}">
+															<img id="userImage" src="<%=path %>/package-style/style-front/images/image.jpg">
+														</c:when>
+														<c:otherwise>
+															<img class="am-circle am-img-thumbnail" id="userImage" src="<%=path %>/achievementImage/${achievement.achievementImages }"/>
+														</c:otherwise>
+													</c:choose>
 												</div>
 												<div class="filePic" id="localImag1" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
-													<input type="file" id="file1" name="file1" class="inputPic" onchange="javascript:setImagePreview1();" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-													<img id="userImage1" src="<%=path %>/style/frontStyle/images/image.jpg">
+													<input type="file" id="file1" name="file1" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
+													<c:choose>
+														<c:when test="${achievement.achievementOneImage == null}">
+															<img id="userImage" src="<%=path %>/package-style/style-front/images/image.jpg">
+														</c:when>
+														<c:otherwise>
+															<img class="am-circle am-img-thumbnail" id="userImage" src="<%=path %>/achievementImage/${achievement.achievementOneImage }"/>
+														</c:otherwise>
+													</c:choose>
 												</div>
 												<div class="filePic" id="localImag2" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
-													<input type="file" id="file2" name="file2" class="inputPic" onchange="javascript:setImagePreview2();" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-													<img id="userImage2" src="<%=path %>/style/frontStyle/images/image.jpg">
+													<input type="file" id="file2" name="file2" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
+													<c:choose>
+														<c:when test="${achievement.achievementTwoImage == null}">
+															<img id="userImage" src="<%=path %>/package-style/style-front/images/image.jpg">
+														</c:when>
+														<c:otherwise>
+															<img class="am-circle am-img-thumbnail" id="userImage" src="<%=path %>/achievementImage/${achievement.achievementTwoImage }"/>
+														</c:otherwise>
+													</c:choose>
 												</div>
 												<div class="filePic" style="width: 100px; max-width: 100px; float: left;" align="left">上传图片<br>最多三张</div>
 											</div>
 										</div>
 										<div class="am-form-group">
 											<div class="am-u-sm-9 am-u-sm-push-3">
-												<input class="am-btn am-btn-danger" onclick="test()" type="button" value="&nbsp;保存&nbsp;" />
-												<a href="javascript: void(0)" class="am-close am-btn am-btn-danger" data-am-modal-close>取消</a>
+												<input class="am-btn am-btn-danger" onclick="test()" type="button" value="&nbsp;返回&nbsp;" />
+												<%--<a href="javascript: void(0)" class="am-close am-btn am-btn-danger" data-am-modal-close>取消</a>--%>
 											</div>
 										</div>
 									</form>
@@ -463,7 +477,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<a href="#"><font style="font-weight: bold">个人资料</font></a>
 						<ul>
 							<li> <a href="<%=path %>/userInfo/selectPersonalCenter.do">个人信息</a></li>
-							<li> <a href="javascript:void();">安全设置</a></li>
+							<li> <a href="#">安全设置</a></li>
 							<li> <a href="<%=path %>/findAddress.do">收货地址</a></li>
 						</ul>
 					</li>
