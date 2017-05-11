@@ -52,7 +52,7 @@
                         <div class="button-group">
                             <a class="button border-main" href="<%=path %>/achievement/achievementDetailApprove.do?achievementId=${list.achievementId}"><span class="icon-edit"></span> 详情</a>
                             <a class="button border-green" href="<%=path %>/achievement/achievementDetailReleased.do?achievementId=${list.achievementId}"><span class="icon-book"></span> 通过</a>
-                            <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1,1)"><span class="icon-trash-o"></span>未通过 </a>
+                            <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1,1)"><span class="icon-trash-o"></span>不通过 </a>
                         </div>
                     </td>
                 </tr>
