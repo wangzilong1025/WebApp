@@ -172,4 +172,14 @@
         </set>
         where achievementId = #{achievementId,jdbcType=INTEGER}
     </update>
+
+    <select id="queryAchievementBySearchContent" resultMap="ResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from achievement
+        where releaseState = #{releaseState}
+        <if test="searchContent!=null and searchContent!=''">
+            and (achievementName like '%'||#{searchContent}||'%' or userNick like '%'||#{searchContent}||'%' or unitName like '%'||#{searchContent}||'%' )
+        </if>
+    </select>
 </mapper>
