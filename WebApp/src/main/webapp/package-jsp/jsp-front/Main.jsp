@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="nav white">
 					<div class="search-bar pr">
 						<a name="index_none_header_sysc" href="#"></a>
-						<form action="<%=path %>/package-jsp/jsp-front/user-search.jsp" method="post" id="submit">
+						<form action="<%=path %>/menu/selectMenuOneInSearch.do" method="post" id="submit"><!-- /package-jsp/jsp-front/user-search.jsp-->
 							<input id="name" name="name" type="text" placeholder="请输入成果或专家的关键字" autocomplete="off">
 							<input id="num" type="hidden" name="num" value="1"/>
 							<input id="ai-topsearch" class="submit am-btn" value="搜索" type="submit">
@@ -208,8 +208,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</em>
 									</div>
 									<div class="member-logout">
-										<a class="am-btn-warning btn" href="<%=path %>/frontPage/login.jsp">登录</a>
-										<a class="am-btn-warning btn" href="<%=path %>/frontPage/regist.jsp">注册</a>
+										<a class="am-btn-warning btn" href="<%=path %>/package-jsp/jsp-front/user-login.jsp">登录</a>
+										<a class="am-btn-warning btn" href="<%=path %>/package-jsp/jsp-front/user-regist.jsp">注册</a>
 									</div>
 									<div class="member-login">
 										<a href="#"><strong>0</strong>待收货</a>
@@ -228,6 +228,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="clear"></div>
 				</div>
+                <%--suppress CheckValidXmlInScriptTagBody --%>
 				<script type="text/javascript">
 					if ($(window).width() < 640) {
 						function autoScroll(obj) {
@@ -285,7 +286,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<!--热门活动 -->
 					<div class="am-container activity " style="min-height: 100px;">
 						<div class="shopTitle">
-							<h4>科研成果专栏</h4>
+							<h4>公告专栏</h4>
 							<h3>专栏类型</h3>
 							<span class="more ">
                               	<a href="# ">更多专栏<i class="am-icon-angle-right" style="padding-left:10px ;" ></i></a>
@@ -297,7 +298,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<!--#####滚动区域#####-->
 									<%--<div class="boxed_wrapper">--%>
 										<section class="latest-project sec-padd">
-											<%--<div class="container">--%>
 												<div class="latest-project-carousel">
 													<div class="item" style="padding-bottom: 0px">
 														<div class="single-project">
@@ -351,66 +351,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															</figure>
 														</div>
 													</div>
-													<div class="item" style="padding-bottom: 0px">
-														<div class="single-latest-project-carousel">
-															<div class="single-project">
-																<figure class="imghvr-shutter-in-out-horiz">
-																	<img src="<%=path %>/package-style/style-front/notice/images/resource/5.jpg" alt="Awesome Image">
-																	<figcaption>
-																		<div class="content">
-																			<a href="<%=path %>/jsp/testSuccess.jsp" style="min-width:160px;"><h4>Audit & Assurance</h4></a>
-																			<p style="min-width:120px;">Financial</p>
-																		</div>
-																	</figcaption>
-																</figure>
-															</div>
-														</div><!-- /.single-latest-project-carousel -->
-													</div>
-													<div class="item" style="padding-bottom: 0px">
-														<div class="single-latest-project-carousel">
-															<div class="single-project">
-																<figure class="imghvr-shutter-in-out-horiz">
-																	<img src="<%=path %>/package-style/style-front/notice/images/resource/6.jpg" alt="Awesome Image">
-																	<figcaption>
-																		<div class="content">
-																			<a href="<%=path %>/jsp/testSuccess.jsp" style="min-width:160px;"><h4>Business Growth</h4></a>
-																			<p style="min-width:120px;">Growth</p>
-																		</div>
-																	</figcaption>
-																</figure>
+													<c:forEach items="${noticeList }" var="list">
+														<div class="item" style="padding-bottom: 0px">
+															<div class="single-latest-project-carousel">
+																<div class="single-project">
+																	<figure class="imghvr-shutter-in-out-horiz">
+																		<img src="<%=path %>/package-style/style-front/notice/images/resource/5.jpg" alt="Awesome Image">
+																		<figcaption>
+																			<div class="content">
+																				<a href="<%=path %>/jsp/testSuccess.jsp" style="min-width:160px;"><h4>${list.noticeTitle}</h4></a>
+																				<p style="min-width:120px;">${list.adminId}</p>
+																			</div>
+																		</figcaption>
+																	</figure>
+																</div>
 															</div>
 														</div>
-													</div>
-													<div class="item" style="padding-bottom: 0px">
-														<div class="single-latest-project-carousel">
-															<div class="single-project">
-																<figure class="imghvr-shutter-in-out-horiz">
-																	<img src="<%=path %>/package-style/style-front/notice/images/resource/7.jpg" alt="Awesome Image">
-																	<figcaption>
-																		<div class="content">
-																			<a href="<%=path %>/jsp/testSuccess.jsp" style="min-width:160px;"><h4>Transporation Service</h4></a>
-																			<p style="min-width:120px;">Marketing</p>
-																		</div>
-																	</figcaption>
-																</figure>
-															</div>
-														</div>
-													</div>
+													</c:forEach>
 												</div>
-											<%--</div>--%>
 										</section>
 										<script src="<%=path %>/package-style/style-front/notice/js/jquery.js"></script>
 										<script src="<%=path %>/package-style/style-front/notice/js/bootstrap.min.js"></script>
 										<script src="<%=path %>/package-style/style-front/notice/js/owl.carousel.min.js"></script>
 										<script src="<%=path %>/package-style/style-front/notice/js/custom.js"></script>
-									<%--</div>--%>
 									<!--#####滚动区域#####-->
 								</div>
 							</div> 
 					  </div>
                    </div>
 					<div class="clear"></div>
-					
                     <div id="f1">
 					<!--甜点-->
 					<div class="am-container">
