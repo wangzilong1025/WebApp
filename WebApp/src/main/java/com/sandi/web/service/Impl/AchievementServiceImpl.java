@@ -34,6 +34,16 @@ public class AchievementServiceImpl implements IAchievementService {
     public int deleteAchievementByAchievementId(Integer achievementId) {
         return achievementDao.deleteAchievementByAchievementId(achievementId);
     }
+    /**
+     * 前台用户的搜索科研成果功能
+     * @param map
+     * @return
+     */
+    @Override
+    public List<Achievement> queryAchievementBySearchContent(Map<String, String> map) {
+        return achievementDao.queryAchievementBySearchContent(map);
+    }
+
     @Override
     public int updateAchievementByAchievementId(Achievement achievement) {
         return achievementDao.updateAchievementByAchievementId(achievement);
