@@ -296,19 +296,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li class="person">
 						<a href="#"><font style="font-weight: bold">个人资料</font></a>
 						<ul>
-							<li class="active"> <a href="<%=path %>/userInfo/selectPersonalCenter.do">个人信息</a></li>
-							<li> <a href="javascript:void();">安全设置</a></li>
+							<li> <a href="<%=path %>/userInfo/selectPersonalCenter.do">个人信息</a></li>
+							<li> <a href="<%=path %>/package-jsp/jsp-front/user-safety.jsp">安全设置</a></li>
+							<li> <a href="<%=path %>/package-jsp/jsp-front/user-safety-pass.jsp">修改密码</a></li>
 							<li> <a href="<%=path %>/findAddress.do">收货地址</a></li>
 						</ul>
 					</li>
 					<li class="person">
 						<a href="#"><font style="font-weight: bold">我的成果</font></a>
 						<ul>
-							<li> <a href="<%=path %>/collectionAll.do">收藏</a></li>
+							<li> <a href="<%=path %>/collectionAll.do">我的收藏</a></li>
 							<li> <a href="<%=path %>/footMark/listFoot.do">足迹浏览</a></li>
-							<li> <a href="<%=path %>/achievement/queryAllAchievement.do">已发布成果</a></li>
-							<li> <a href="<%=path %>/achievement/queryAllAchievementUnrelease.do">未发布成果</a></li>
 							<li> <a href="<%=path %>/menu/selectMenuOne.do">成果新增</a></li>
+							<li> <a href="<%=path %>/achievement/queryAllAchievementUnreleaseFront.do">未发布成果</a></li>
+							<li> <a href="<%=path %>/achievement/queryAllAchievementByCheckPendingFront.do">待审核成果</a></li>
+							<li> <a href="<%=path %>/achievement/queryAllAchievement.do">已发布成果</a></li>
+							<li> <a href="<%=path %>/achievement/queryAllAchievementNotPass.do">未通过成果</a></li>
 						</ul>
 					</li>
 				</ul>
