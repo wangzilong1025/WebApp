@@ -8,6 +8,7 @@
         <result column="userId" property="userId" jdbcType="INTEGER" />
         <result column="collectionTime" property="collectionTime" jdbcType="DATE" />
     </resultMap>
+
     <sql id="Base_Column_List" >
         achievementCollectId, achievementId, userinfoId, userId, collectionTime
     </sql>
@@ -69,4 +70,5 @@
             </if>
         </trim>
     </insert>
+
 </mapper>
