@@ -70,22 +70,6 @@
                 </ul>
             </div>
 
-            <!--悬浮搜索框-->
-
-           <%-- <div class="nav white">
-                <div class="logoBig">
-                    <li><img src="<%=path %>/package-style/style-front/images/logobig.png" /></li>
-                </div>
-
-                <div class="search-bar pr">
-                    <a name="index_none_header_sysc" href="#"></a>
-                    <form>
-                        <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-                        <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
-                    </form>
-                </div>
-            </div>--%>
-
             <div class="clear"></div>
         </div>
         </div>
@@ -95,7 +79,7 @@
     <div class="long-title"><span class="all-goods">全部分类</span></div>
     <div class="nav-cont">
         <ul>
-            <li class="index"><a href="#">首页</a></li>
+            <li class="index"><a href="<%=path %>/menu/getMenuList.do">首页</a></li>
             <li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
             <li class="qc"><a href="#">统计</a></li>
             <li class="qc"><a href="#">公告</a></li>
@@ -224,71 +208,72 @@
             </div>
         </div>
         <!--底部-->
-        <div class="footer">
-            <div class="footer-hd">
+        <div class="footer ">
+            <div class="footer-hd ">
                 <p>
-                    <a href="#">恒望科技</a>
+                    <a href="# ">关于国科网</a>
                     <b>|</b>
-                    <a href="#">商城首页</a>
+                    <a href="# ">我们的资源</a>
                     <b>|</b>
-                    <a href="#">支付宝</a>
+                    <a href="# ">我们的服务</a>
                     <b>|</b>
-                    <a href="#">物流</a>
+                    <a href="# ">免责声明</a>
+                    <b>|</b>
+                    <a href="# ">示范基地</a>
+                    <b>|</b>
+                    <a href="# ">软件下载</a>
+                    <b>|</b>
+                    <a href="# ">联系我们</a>
                 </p>
             </div>
-            <div class="footer-bd">
+            <div class="footer-bd ">
                 <p>
-                    <a href="#">关于恒望</a>
-                    <a href="#">合作伙伴</a>
-                    <a href="#">联系我们</a>
-                    <a href="#">网站地图</a>
-                    <em>© 2015-2025 Hengwang.com 版权所有</em>
+                    <span><font style="font-weight: bold">友情链接：</font></span>
+                    <a href="# ">中华人民共和国科学技术部</a>
+                    <b>|</b>
+                    <a href="# ">国家科学技术奖励工作办公室</a>
+                    <b>|</b>
+                    <a href="# ">北京市奖励办</a>
+                    <b>|</b>
+                    <a href="# ">北方技术交易市场</a>
+                    <b>|</b>
+                    <a href="# ">科化网    </a>
+                    <b>|</b>
+                    <em>© 2017-2025 Hengwang.com 版权所有</em>
                 </p>
             </div>
         </div>
+
+
     </div>
 
     <aside class="menu">
         <ul>
             <li class="person">
-                <a href="index.html">个人中心</a>
+                <a href="<%=path %>/getCustom.do ">个人中心</a>
             </li>
             <li class="person">
-                <a href="#">个人资料</a>
+                <a href="#"><font style="font-weight: bold">个人资料</font></a>
                 <ul>
-                    <li> <a href="information.html">个人信息</a></li>
-                    <li class="active"> <a href="safety.html">安全设置</a></li>
-                    <li> <a href="address.html">收货地址</a></li>
+                    <li> <a href="<%=path %>/userInfo/selectPersonalCenter.do">个人信息</a></li>
+                    <li> <a href="<%=path %>/package-jsp/jsp-front/user-safety.jsp">安全设置</a></li>
+                    <li> <a href="<%=path %>/package-jsp/jsp-front/user-safety-pass.jsp">修改密码</a></li>
+                    <li> <a href="<%=path %>/findAddress.do">收货地址</a></li>
                 </ul>
             </li>
             <li class="person">
-                <a href="#">我的交易</a>
+                <a href="#"><font style="font-weight: bold">我的成果</font></a>
                 <ul>
-                    <li><a href="order.html">订单管理</a></li>
-                    <li> <a href="change.html">退款售后</a></li>
+                    <li> <a href="<%=path %>/collectionAll.do">我的收藏</a></li>
+                    <li> <a href="<%=path %>/footMark/listFoot.do">足迹浏览</a></li>
+                    <li> <a href="<%=path %>/menu/selectMenuOne.do">成果新增</a></li>
+                    <li> <a href="<%=path %>/achievement/queryAllAchievementUnreleaseFront.do">未发布成果</a></li>
+                    <li> <a href="<%=path %>/achievement/queryAllAchievementByCheckPendingFront.do">待审核成果</a></li>
+                    <li> <a href="<%=path %>/achievement/queryAllAchievement.do">已发布成果</a></li>
+                    <li> <a href="<%=path %>/achievement/queryAllAchievementNotPass.do">未通过成果</a></li>
                 </ul>
             </li>
-            <li class="person">
-                <a href="#">我的资产</a>
-                <ul>
-                    <li> <a href="coupon.html">优惠券 </a></li>
-                    <li> <a href="bonus.html">红包</a></li>
-                    <li> <a href="bill.html">账单明细</a></li>
-                </ul>
-            </li>
-
-            <li class="person">
-                <a href="#">我的小窝</a>
-                <ul>
-                    <li> <a href="collection.html">收藏</a></li>
-                    <li> <a href="foot.html">足迹</a></li>
-                    <li> <a href="comment.html">评价</a></li>
-                    <li> <a href="news.html">消息</a></li>
-                </ul>
-            </li>
-
         </ul>
-
     </aside>
 </div>
 
