@@ -27,6 +27,14 @@ import com.sandi.web.service.ICityService;
 import com.sandi.web.service.IMenuService;
 import com.sandi.web.service.IUserInfoService;
 
+/**
+ * 状态分类：
+ * 0：代表保存状态
+ * 1：代表待审核状态
+ * 2：审核通过状态
+ * 3：代表审核未通过状态
+ * 4：删除状态
+ */
 @Controller
 @RequestMapping("/achievement")
 public class AchievementController {
@@ -42,7 +50,7 @@ public class AchievementController {
     @Autowired
     private ICityService cityService;
     /**
-     * 查询已经发布的科研成果
+     * 查询已经审核通过且发布的科研成果
      * @param modelMap
      * @param achievement
      * @param request
@@ -59,10 +67,15 @@ public class AchievementController {
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
             System.out.println("用户昵称:"+userInfo.getUserNick());
             int userId = userLogin.getUserId();
-            int releaseState = 1;
+            //已发布科研成果状态
+            int releaseState = 2;
             map.put("userId", userId);
             map.put("releaseState", releaseState);
             List<Achievement> achievementList = achievementService.queryAllAchievementByUserId(map);
+            for(Achievement list:achievementList){
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                list.setTimeToString(sdf.format(list.getReleaseTime()));
+            }
             System.out.println("list内容:"+achievementList);
             modelMap.put("achievementList", achievementList);
             return "jsp-front/achievement-show";
@@ -73,33 +86,107 @@ public class AchievementController {
     }
 
     /**
-     * 查询未发布的科研成果
+     * 查询只是保存但未发布的科研成果
      * @param modelMap
      * @param achievement
      * @param request
      * @param session
      * @return achievementList
      */
-
     @RequestMapping("/queryAllAchievementUnreleaseFront")
     public String queryAllAchievementUnreleaseFront(ModelMap modelMap,Achievement achievement,HttpServletRequest request,HttpSession session){
-        log.info(timeToken+"进入queryAllAchievement方法");
+        log.info(timeToken+"进入queryAllAchievementUnreleaseFront方法");
         try{
-            log.info(timeToken+"进入queryAllAchievement的try方法");
+            log.info(timeToken+"进入queryAllAchievementUnreleaseFront的try方法");
             Map<String,Integer> map = new HashMap<String, Integer>();
             UserLogin userLogin = (UserLogin) session.getAttribute("user");
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
             System.out.println("用户昵称:"+userInfo.getUserNick());
             int userId = userLogin.getUserId();
+            //0是科研成果保存未发布状态
             int releaseState = 0;
             map.put("userId", userId);
             map.put("releaseState", releaseState);
             List<Achievement> achievementList = achievementService.queryAllAchievementByUserId(map);
+            for(Achievement list:achievementList){
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                list.setTimeToString(sdf.format(list.getReleaseTime()));
+            }
             System.out.println("list内容:"+achievementList);
             modelMap.put("achievementList", achievementList);
             return "jsp-front/achievement-showunrelease";
         }catch(Exception e){
-            log.error(timeToken+"进入queryAllAchievement的catch方法"+e);
+            log.error(timeToken+"进入queryAllAchievementUnreleaseFront的catch方法"+e);
+            return "jsp-error/error-page";
+        }
+    }
+
+    /**
+     * 前台用户根据用户ID去查询自己的待审核科研成果
+     * @param modelMap
+     * @param achievement
+     * @param request
+     * @param session
+     * @return
+     */
+    @RequestMapping("/queryAllAchievementByCheckPendingFront")
+    public String queryAllAchievementByCheckPendingFront(ModelMap modelMap,Achievement achievement,HttpServletRequest request,HttpSession session){
+        log.info(timeToken+"进入queryAllAchievementByCheckPendingFront方法");
+        try{
+            log.info(timeToken+"进入queryAllAchievementByCheckPendingFront的try方法");
+            Map<String,Integer> map = new HashMap<String, Integer>();
+            UserLogin userLogin = (UserLogin) session.getAttribute("user");
+            UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
+            System.out.println("用户昵称:"+userInfo.getUserNick());
+            int userId = userLogin.getUserId();
+            int releaseState = 1;
+            map.put("userId", userId);
+            map.put("releaseState", releaseState);
+            List<Achievement> achievementList = achievementService.queryAllAchievementByUserId(map);
+            for(Achievement list:achievementList){
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                list.setTimeToString(sdf.format(list.getReleaseTime()));
+            }
+            System.out.println("list内容:"+achievementList);
+            modelMap.put("achievementList", achievementList);
+            return "jsp-front/achievement-checkpending";
+        }catch(Exception e){
+            log.error(timeToken+"进入queryAllAchievementByCheckPendingFront的catch方法"+e);
+            return "jsp-error/error-page";
+        }
+    }
+
+    /**
+     * 根据用户的ID去查询当前用户的科研成果审核未通过的数据
+     * @param modelMap
+     * @param achievement
+     * @param request
+     * @param session
+     * @return
+     */
+    @RequestMapping("/queryAllAchievementNotPass")
+    public String queryAllAchievementNotPass(ModelMap modelMap,Achievement achievement,HttpServletRequest request,HttpSession session){
+        log.info(timeToken+"进入queryAllAchievementNotPass方法");
+        try{
+            log.info(timeToken+"进入queryAllAchievementNotPass的try方法");
+            Map<String,Integer> map = new HashMap<String, Integer>();
+            UserLogin userLogin = (UserLogin) session.getAttribute("user");
+            UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
+            System.out.println("用户昵称:"+userInfo.getUserNick());
+            int userId = userLogin.getUserId();
+            int releaseState = 3;
+            map.put("userId", userId);
+            map.put("releaseState", releaseState);
+            List<Achievement> achievementList = achievementService.queryAllAchievementByUserId(map);
+            for(Achievement list:achievementList){
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                list.setTimeToString(sdf.format(list.getReleaseTime()));
+            }
+            System.out.println("list内容:"+achievementList);
+            modelMap.put("achievementList", achievementList);
+            return "jsp-front/achievement-notpass";
+        }catch(Exception e){
+            log.error(timeToken+"进入queryAllAchievementNotPass的catch方法"+e);
             return "jsp-error/error-page";
         }
     }
@@ -292,6 +379,7 @@ public class AchievementController {
     }
     /**
      * 科研成果公告删除
+     * 状态为4（需要改进）
      * @param modelMap
      * @param id
      * @return
@@ -315,7 +403,7 @@ public class AchievementController {
         log.info(timeToken+"进入releaseAchievementByAchievementId方法!!!");
         try{
             log.info("进入releaseAchievementByAchievementId的try方法!!!");
-            //发布的状态
+            //待审核的状态
             int status = 1;
             UserLogin userLogin = (UserLogin) session.getAttribute("user");
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
@@ -344,7 +432,7 @@ public class AchievementController {
         try{
             log.info(timeToken+"进入queryAllApproveAchievement的try方法!!!");
             //待审核状态
-            int resealState = 2;
+            int resealState = 1;
             String achievementType = null;
             String unitName = null;
             List<Achievement> approveAchievementList = achievementService.queryAllApproveAchievement(resealState);
@@ -375,7 +463,7 @@ public class AchievementController {
         try{
             log.info(timeToken+"进入queryAllReleasedAchievement的try方法!!!");
             //科研成果已通过状态
-            int resealState = 3;
+            int resealState = 2;
             String achievementType = null;
             String unitName = null;
             List<Achievement> approveAchievementList = achievementService.queryAllApproveAchievement(resealState);
@@ -406,7 +494,7 @@ public class AchievementController {
         try{
             log.info(timeToken+"进入queryAllUnreleasedAchievement的try方法!!!");
             //科研成果未通过状态
-            int resealState = 4;
+            int resealState = 3;
             String achievementType = null;
             String unitName = null;
             List<Achievement> approveAchievementList = achievementService.queryAllApproveAchievement(resealState);
@@ -426,7 +514,7 @@ public class AchievementController {
     }
 
     /**
-     * 待审批科研成果详情
+     * 待审批科研成果详情后台
      * @return
      */
     @RequestMapping("/achievementDetailApprove")
@@ -448,6 +536,13 @@ public class AchievementController {
     }
 
 
+    /**
+     * 科研成果管理员审核通过（实际为灯芯方法，更新科研成果的状态）
+     * @param modelMap
+     * @param achievementId
+     * @return
+     */
+    @RequestMapping("/achievementDetailReleased")
     public String achievementDetailReleased(ModelMap modelMap,@RequestParam("achievementId") int achievementId){
         log.info(timeToken+"进入achievementDetailApprove方法!!!");
         try{
