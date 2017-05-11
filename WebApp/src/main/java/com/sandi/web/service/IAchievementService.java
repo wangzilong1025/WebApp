@@ -44,4 +44,11 @@ public interface IAchievementService {
      * @return
      */
     public int deleteAchievementByAchievementId(Integer achievementId);
+
+    /**
+     * 用户前台搜索科研成果功能
+     * @param map
+     * @return
+     */
+    public List<Achievement> queryAchievementBySearchContent(Map<String, String> map);
 }
