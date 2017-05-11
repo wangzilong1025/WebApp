@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta name="description" content="Nifty Modal Window Effects with CSS Transitions and Animations" />
 		<meta name="keywords" content="modal, window, overlay, modern, box, css transition, css animation, effect, 3d, perspective" />
 		<meta name="author" content="Codrops"/>
-		<title>成果展示</title>
+		<title>已发布成果</title>
 		<link href="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
 		<link href="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
 		<link href="<%=path %>/package-style/style-front/css/personal.css" rel="stylesheet" type="text/css">
@@ -133,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</c:choose>
 									</td>
 									<td align="center" style="text-align: center; min-width: 150px; padding: 20px;">
-										${list.releaseTime}
+										${list.timeToString}
 									</td>
 									<td class="title name" align="center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width: 180px; max-width: 180px; padding: 20px;">
 											${list.achievementName }
@@ -201,31 +201,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<a href="#"><font style="font-weight: bold">个人资料</font></a>
 						<ul>
 							<li> <a href="<%=path %>/userInfo/selectPersonalCenter.do">个人信息</a></li>
-							<li> <a href="javascript:void();">安全设置</a></li>
+							<li> <a href="<%=path %>/package-jsp/jsp-front/user-safety.jsp">安全设置</a></li>
+							<li> <a href="<%=path %>/package-jsp/jsp-front/user-safety-pass.jsp">修改密码</a></li>
 							<li> <a href="<%=path %>/findAddress.do">收货地址</a></li>
 						</ul>
 					</li>
 					<li class="person">
 						<a href="#"><font style="font-weight: bold">我的成果</font></a>
 						<ul>
-							<li> <a href="<%=path %>/collectionAll.do">收藏</a></li>
+							<li> <a href="<%=path %>/collectionAll.do">我的收藏</a></li>
 							<li> <a href="<%=path %>/footMark/listFoot.do">足迹浏览</a></li>
-							<li class="active"> <a href="<%=path %>/achievement/queryAllAchievement.do">已发布成果</a></li>
-							<li> <a href="<%=path %>/achievement/queryAllAchievementUnrelease.do">未发布成果</a></li>
 							<li> <a href="<%=path %>/menu/selectMenuOne.do">成果新增</a></li>
+							<li> <a href="<%=path %>/achievement/queryAllAchievementUnreleaseFront.do">未发布成果</a></li>
+							<li> <a href="<%=path %>/achievement/queryAllAchievementByCheckPendingFront.do">待审核成果</a></li>
+							<li> <a href="<%=path %>/achievement/queryAllAchievement.do">已发布成果</a></li>
+							<li> <a href="<%=path %>/achievement/queryAllAchievementNotPass.do">未通过成果</a></li>
 						</ul>
 					</li>
 				</ul>
 			</aside>
 		</div>
 		<div class="md-overlay"></div>
-		<%--<script src="<%=path %>/style/scrollStyle/js/classie.js"></script>
-		<script src="<%=path %>/style/scrollStyle/js/modalEffects.js"></script>
-		<script>
-			// this is important for IEs
-			var polyfilter_scriptpath = '/js/';
-		</script>
-		<script src="<%=path %>/style/scrollStyle/js/cssParser.js"></script>
-		<script src="<%=path %>/style/scrollStyle/js/css-filters-polyfill.js"></script>--%>
+
 	</body>
 </html>
