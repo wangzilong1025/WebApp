@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$("#cityTwo").change(function(){
 	    		$("#cityThree option:not(:first)").remove();
 	    		var cityTwo = $(this).val();
-	    		alert(cityTwo);
+	    		//alert(cityTwo);
 	    	    if(cityTwo != ""){
 	    	    	$.ajax({
     	    		    type: "post",  //get或post
@@ -276,9 +276,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul>
 					<li class="index"><a href="<%=path %>/menu/getMenuList.do">首页</a></li>
 					<li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
-					<li class="qc"><a href="#">限时抢</a></li>
-					<li class="qc"><a href="#">团购</a></li>
-					<li class="qc last"><a href="#">大包装</a></li>
+					<li class="qc"><a href="#">统计</a></li>
+					<li class="qc"><a href="#">公告</a></li>
+					<li class="qc last"><a href="#">排行</a></li>
 				</ul>
 				<div class="nav-extra">
 					<i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
@@ -374,15 +374,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<div class="am-form-content">
 												<div class="filePic" id="localImag" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
 													<input type="file" id="file" name="file" class="inputPic" onchange="javascript:setImagePreview();" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-													<img id="userImage" src="<%=path %>/style/frontStyle/images/image.jpg">
+													<img id="userImage" src="<%=path %>/package-style/style-front/images/image.jpg">
 												</div>
 												<div class="filePic" id="localImag1" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
 													<input type="file" id="file1" name="file1" class="inputPic" onchange="javascript:setImagePreview1();" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-													<img id="userImage1" src="<%=path %>/style/frontStyle/images/image.jpg">
+													<img id="userImage1" src="<%=path %>/package-style/style-front/images/image.jpg">
 												</div>
 												<div class="filePic" id="localImag2" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
 													<input type="file" id="file2" name="file2" class="inputPic" onchange="javascript:setImagePreview2();" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-													<img id="userImage2" src="<%=path %>/style/frontStyle/images/image.jpg">
+													<img id="userImage2" src="<%=path %>/package-style/style-front/images/image.jpg">
 												</div>
 												<div class="filePic" style="width: 100px; max-width: 100px; float: left;" align="left">上传图片<br>最多三张</div>
 											</div>
