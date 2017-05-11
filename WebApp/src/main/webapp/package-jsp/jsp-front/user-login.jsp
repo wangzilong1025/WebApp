@@ -66,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <form id="loginForm" action="<%=path %>/userLogin/login.do" method="post">
 							   <div class="user-name">
 								    <label for="userName"><i class="am-icon-user"></i></label>
-								    <input autocomplete="off" type="text" name="userName" id="userName" placeholder="邮箱/用户名/手机号">
+								    <input autocomplete="off" type="text" name="userName" id="userName" placeholder="用户名/手机号">
                  			   </div>
                  			   <div class="user-pass">
 								    <label for="userPassword"><i class="am-icon-lock"></i></label>
