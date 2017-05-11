@@ -92,10 +92,10 @@
         <div class="nav-cont">
             <ul>
                 <li class="index"><a href="#">首页</a></li>
-                <li class="qc"><a href="#">闪购</a></li>
-                <li class="qc"><a href="#">限时抢</a></li>
-                <li class="qc"><a href="#">团购</a></li>
-                <li class="qc last"><a href="#">大包装</a></li>
+                <li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
+                <li class="qc"><a href="#">统计</a></li>
+                <li class="qc"><a href="#">公告</a></li>
+                <li class="qc last"><a href="#">排行</a></li>
             </ul>
             <div class="nav-extra">
                 <i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
@@ -296,7 +296,7 @@
         </div>
         <div class="theme-signin-right">
             <div class="img-info">
-                <img src="images/songzi.jpg" />
+                <img src="<%=path%>/package-style/style-front/images/songzi.jpg" />
             </div>
             <div class="text-info">
                 <span class="J_Price price-now">¥39.00</span>
@@ -462,23 +462,17 @@
 
                 <li>
                     <a href="#">
-
                         <span class="index-needs-dt-txt">全部评价</span></a>
-
                 </li>
 
                 <li>
                     <a href="#">
-
                         <span class="index-needs-dt-txt">猜你喜欢</span></a>
                 </li>
             </ul>
-
             <div class="am-tabs-bd">
-
                 <div class="am-tab-panel am-fade am-in am-active">
                     <div class="J_Brand">
-
                         <div class="attr-list-hd tm-clear">
                             <h4>产品参数：</h4></div>
                         <div class="clear"></div>
@@ -512,11 +506,8 @@
                         </div>
                     </div>
                     <div class="clear"></div>
-
                 </div>
-
                 <div class="am-tab-panel am-fade">
-
                     <div class="actor-new">
                         <div class="rate">
                             <strong>100<span>%</span></strong><br> <span>好评度</span>
@@ -545,21 +536,18 @@
                                     <span class="tb-tbcr-num">(32)</span>
                                 </div>
                             </li>
-
                             <li class="tb-taglist-li tb-taglist-li-1">
                                 <div class="comment-info">
                                     <span>好评</span>
                                     <span class="tb-tbcr-num">(32)</span>
                                 </div>
                             </li>
-
                             <li class="tb-taglist-li tb-taglist-li-0">
                                 <div class="comment-info">
                                     <span>中评</span>
                                     <span class="tb-tbcr-num">(32)</span>
                                 </div>
                             </li>
-
                             <li class="tb-taglist-li tb-taglist-li--1">
                                 <div class="comment-info">
                                     <span>差评</span>
@@ -569,7 +557,6 @@
                         </ul>
                     </div>
                     <div class="clear"></div>
-
                     <ul class="am-comments-list am-comments-list-flip">
                         <li class="am-comment">
                             <!-- 评论容器 -->
@@ -577,7 +564,6 @@
                                 <img class="am-comment-avatar" src="<%=path %>/package-style/style-front/images/hwbn40x40.jpg" />
                                 <!-- 评论者头像 -->
                             </a>
-
                             <div class="am-comment-main">
                                 <!-- 评论内容容器 -->
                                 <header class="am-comment-hd">
@@ -590,7 +576,6 @@
                                         <time datetime="">2015年11月02日 17:46</time>
                                     </div>
                                 </header>
-
                                 <div class="am-comment-bd">
                                     <div class="tb-rev-item " data-id="255776406962">
                                         <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
@@ -600,7 +585,6 @@
                                             颜色分类：柠檬黄&nbsp;&nbsp;尺码：S
                                         </div>
                                     </div>
-
                                 </div>
                                 <!-- 评论内容 -->
                             </div>
@@ -611,7 +595,6 @@
                                 <img class="am-comment-avatar" src="<%=path %>/package-style/style-front/images/hwbn40x40.jpg" />
                                 <!-- 评论者头像 -->
                             </a>
-
                             <div class="am-comment-main">
                                 <!-- 评论内容容器 -->
                                 <header class="am-comment-hd">
@@ -645,7 +628,6 @@
                                 <img class="am-comment-avatar" src="<%=path %>/package-style/style-front/images/hwbn40x40.jpg" />
                                 <!-- 评论者头像 -->
                             </a>
-
                             <div class="am-comment-main">
                                 <!-- 评论内容容器 -->
                                 <header class="am-comment-hd">
@@ -679,7 +661,6 @@
                                 <img class="am-comment-avatar" src="<%=path %>/package-style/style-front/images/hwbn40x40.jpg" />
                                 <!-- 评论者头像 -->
                             </a>
-
                             <div class="am-comment-main">
                                 <!-- 评论内容容器 -->
                                 <header class="am-comment-hd">
@@ -692,7 +673,6 @@
                                         <time datetime="">2015年11月25日 12:48</time>
                                     </div>
                                 </header>
-
                                 <div class="am-comment-bd">
                                     <div class="tb-rev-item " data-id="258040417670">
                                         <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
@@ -706,14 +686,12 @@
                                 <!-- 评论内容 -->
                             </div>
                         </li>
-
                         <li class="am-comment">
                             <!-- 评论容器 -->
                             <a href="">
                                 <img class="am-comment-avatar" src="<%=path %>/package-style/style-front/images/hwbn40x40.jpg" />
                                 <!-- 评论者头像 -->
                             </a>
-
                             <div class="am-comment-main">
                                 <!-- 评论内容容器 -->
                                 <header class="am-comment-hd">
@@ -726,7 +704,6 @@
                                         <time datetime="">2015年11月02日 17:46</time>
                                     </div>
                                 </header>
-
                                 <div class="am-comment-bd">
                                     <div class="tb-rev-item " data-id="255776406962">
                                         <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
@@ -736,7 +713,6 @@
                                             颜色分类：柠檬黄&nbsp;&nbsp;尺码：S
                                         </div>
                                     </div>
-
                                 </div>
                                 <!-- 评论内容 -->
                             </div>
@@ -747,7 +723,6 @@
                                 <img class="am-comment-avatar" src="<%=path %>/package-style/style-front/images/hwbn40x40.jpg" />
                                 <!-- 评论者头像 -->
                             </a>
-
                             <div class="am-comment-main">
                                 <!-- 评论内容容器 -->
                                 <header class="am-comment-hd">
@@ -760,7 +735,6 @@
                                         <time datetime="">2015年10月28日 11:33</time>
                                     </div>
                                 </header>
-
                                 <div class="am-comment-bd">
                                     <div class="tb-rev-item " data-id="255095758792">
                                         <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
@@ -770,7 +744,6 @@
                                             颜色分类：蓝调灰&nbsp;&nbsp;尺码：2XL
                                         </div>
                                     </div>
-
                                 </div>
                                 <!-- 评论内容 -->
                             </div>
@@ -781,7 +754,6 @@
                                 <img class="am-comment-avatar" src="<%=path %>/package-style/style-front/images/hwbn40x40.jpg" />
                                 <!-- 评论者头像 -->
                             </a>
-
                             <div class="am-comment-main">
                                 <!-- 评论内容容器 -->
                                 <header class="am-comment-hd">
@@ -794,7 +766,6 @@
                                         <time datetime="">2015年11月02日 17:46</time>
                                     </div>
                                 </header>
-
                                 <div class="am-comment-bd">
                                     <div class="tb-rev-item " data-id="255776406962">
                                         <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
@@ -804,7 +775,6 @@
                                             颜色分类：柠檬黄&nbsp;&nbsp;尺码：S
                                         </div>
                                     </div>
-
                                 </div>
                                 <!-- 评论内容 -->
                             </div>
@@ -815,7 +785,6 @@
                                 <img class="am-comment-avatar" src="<%=path %>/package-style/style-front/images/hwbn40x40.jpg" />
                                 <!-- 评论者头像 -->
                             </a>
-
                             <div class="am-comment-main">
                                 <!-- 评论内容容器 -->
                                 <header class="am-comment-hd">
@@ -828,7 +797,6 @@
                                         <time datetime="">2015年11月25日 12:48</time>
                                     </div>
                                 </header>
-
                                 <div class="am-comment-bd">
                                     <div class="tb-rev-item " data-id="258040417670">
                                         <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
@@ -848,7 +816,6 @@
                                 <img class="am-comment-avatar" src="<%=path %>/package-style/style-front/images/hwbn40x40.jpg" />
                                 <!-- 评论者头像 -->
                             </a>
-
                             <div class="am-comment-main">
                                 <!-- 评论内容容器 -->
                                 <header class="am-comment-hd">
