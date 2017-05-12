@@ -127,7 +127,7 @@
     <div class="search-bar pr"><!--/achievement/findLikeAchievement.do-->
         <a name="index_none_header_sysc" href="#"></a>
         <form action="<%=path %>/menu/selectMenuOneInSearch.do" method="post" id="submit">
-            <input id="searchContent" name="searchContent" type="text" placeholder="输入成果标题或发布人关键字" autocomplete="off">
+            <input id="searchContent" name="searchContent" type="text" placeholder="输入成果标题/发布人/单位名称" autocomplete="off">
             <input id="num" type="hidden" name="num" value="1"/><!--默认查询全部的科研新成果-->
             <input id="ai-topsearch" class="submit am-btn" value="搜索" type="submit">
         </form>
@@ -202,16 +202,6 @@
                                 </div>
                             </dl>
                         </li>
-                        <%--<li class="select-list">
-                            <dl id="select3">
-                                <dt class="am-badge am-round">选购热点</dt>
-                                <div class="dd-conent">
-                                    <c:forEach items="${words }" var="words">
-                                        <dd><a href="<%=path %>/showAllProducts.do?name=${words.content }&num=1">${words.content }</a></dd>
-                                    </c:forEach>
-                                </div>
-                            </dl>
-                        </li>--%>
                     </ul>
 
                     <div class="clear"></div>
@@ -225,81 +215,43 @@
                     </div>
                     <div class="clear"></div>
                     <ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
-                        <li>
-                            <div class="i-pic limit">
-                                <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
+                        <c:choose>
+                            <c:when test="${empty searchList }">
+                                &nbsp;&nbsp;亲,没有搜索到相关商品/(ㄒoㄒ)/~~
+                            </c:when>
+                            <c:otherwise>
+                                <li>
+                                    <div class="i-pic limit">
 
-                        <li>
-                            <div class="i-pic limit">
-                                <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
-                                <p class="title fl">手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="i-pic limit">
-                                <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
-                                <p class="title fl">手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="i-pic limit">
-                                <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <c:forEach items="${searchList}" var="achievementList">
-                            <li>
-                                <a href="<%=path%>/package-jsp/jsp-front/user-achievement.jsp">
-                                <div class="i-pic limit">
-                                    <img src="<%=path %>/package-style/style-front/images/imgsearch1.jpg" />
-                                    <p class="title fl"><b>标题:</b>${achievementList.achievementName}</p>
-                                    <p class="title fl"><b>类型:</b>${achievementList.achievementTypeName}</p>
-                                    <p class="title fl"><b>时间:</b>${achievementList.timeToString}</p>
-                                    <p class="price fl">
-                                        <b>作者:</b>
-                                        <strong>${achievementList.userNick}</strong>
-                                    </p>
-                                   <%-- <p class="number fl">
-                                        <b>时间</b><strong>${achievementList.timeToString}</strong>
-                                    </p>--%>
-                                </div>
-                                </a>
-                            </li>
-                        </c:forEach>
-
+                                        <img src="<%=path%>/package-style/style-front/images/imgsearch1.jpg" />
+                                        <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
+                                        <p class="price fl">
+                                            <b>¥</b>
+                                            <strong>56.90</strong>
+                                        </p>
+                                        <p class="number fl">
+                                            销量<span>1110</span>
+                                        </p>
+                                    </div>
+                                </li>
+                                <c:forEach items="${searchList}" var="achievementList">
+                                    <li>
+                                        <a href="<%=path%>/package-jsp/jsp-front/user-achievement.jsp">
+                                            <div class="i-pic limit">
+                                                <img width="218px;" height="218px;" src="<%=path %>/achievementImage/${achievementList.achievementImages}" />
+                                                <p class="title fl"><b>标题:</b>${achievementList.achievementName}</p>
+                                                <p class="title fl"><b>类型:</b>${achievementList.achievementTypeName}</p>
+                                                <p class="title fl"><b>时间:</b>${achievementList.timeToString}</p>
+                                                <p class="price fl">
+                                                    <b>作者:</b>
+                                                    <strong>${achievementList.userNick}</strong>
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
                     </ul>
                 </div>
                 <div class="search-side">
