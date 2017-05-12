@@ -51,4 +51,11 @@ public interface IAchievementService {
      * @return
      */
     public List<Achievement> queryAchievementBySearchContent(Map<String, String> map);
+
+    /**
+     * 查询全部的已经发布状态的科研成果
+     * @param releaseState
+     * @return
+     */
+    public List<Achievement> queryAllAchievementForCollection(int releaseState);
 }
