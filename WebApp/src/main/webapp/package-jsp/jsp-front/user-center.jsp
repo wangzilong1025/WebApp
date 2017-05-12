@@ -456,7 +456,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li class="person">
 						<a href="#"><font style="font-weight: bold">我的成果</font></a>
 						<ul>
-							<li> <a href="<%=path %>/collectionAll.do">我的收藏</a></li>
+							<li> <a href="<%=path %>/achievementCollect/queryAllCollectionAchievement.do">我的收藏</a></li>
 							<li> <a href="<%=path %>/footMark/listFoot.do">足迹浏览</a></li>
 							<li> <a href="<%=path %>/menu/selectMenuOne.do">成果新增</a></li>
 							<li> <a href="<%=path %>/achievement/queryAllAchievementUnreleaseFront.do">未发布成果</a></li>
