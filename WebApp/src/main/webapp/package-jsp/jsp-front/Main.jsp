@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="search-bar pr">
 						<a name="index_none_header_sysc" href="#"></a>
 						<form action="<%=path %>/menu/selectMenuOneInSearch.do" method="post" id="submit"><!-- /package-jsp/jsp-front/user-search.jsp-->
-							<input id="searchContent" name="searchContent" type="text" placeholder="输入成果标题或发布人关键字" autocomplete="off">
+							<input id="searchContent" name="searchContent" type="text" placeholder="输入成果标题/发布人/单位名称" autocomplete="off">
 							<input id="num" type="hidden" name="num" value="1"/>
 							<input id="ai-topsearch" class="submit am-btn" value="搜索" type="submit">
 						</form>
@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="long-title"><span class="all-goods">全部分类</span></div>
 					   <div class="nav-cont">
 					   	  <ul>
-							  <li class="index"><a href="#">首页</a></li>
+							  <li class="index"><a href="<%=path %>/menu/getMenuList.do">首页</a></li>
                               <li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
                               <li class="qc"><a href="#">统计</a></li>
                               <li class="qc"><a href="#">公告</a></li>
