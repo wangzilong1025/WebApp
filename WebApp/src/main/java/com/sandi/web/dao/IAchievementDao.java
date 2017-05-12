@@ -53,4 +53,12 @@ public interface IAchievementDao {
      * @return
      */
     public List<Achievement> queryAchievementBySearchContent(Map<String, String> map);
+
+    /**
+     * 遍历所有的科研成果（状态是2的，代表已经发布）
+     * @param releaseState
+     * @return
+     */
+    public List<Achievement> queryAllAchievementForCollection(int releaseState);
+
 }
