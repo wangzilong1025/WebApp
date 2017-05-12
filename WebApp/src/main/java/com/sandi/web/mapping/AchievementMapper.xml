@@ -173,13 +173,32 @@
         where achievementId = #{achievementId,jdbcType=INTEGER}
     </update>
 
+    <!-- 用户根据条件查询可验证过，如果田间为空，默认查询全部-->
     <select id="queryAchievementBySearchContent" resultMap="ResultMap">
         select
         <include refid="Base_Column_List" />
         from achievement
+        <trim prefix="where" prefixOverrides="and \ or">
+            <if test="releaseState!=null and releaseState != ''" >
+                releaseState = #{releaseState}
+            </if>
+            <if test="searchContent!=null and searchContent !=''">
+                and achievementName like CONCAT('%',#{searchContent},'%')
+            </if>
+            <if test="searchContent!=null and searchContent !=''">
+                or userNick like CONCAT('%',#{searchContent},'%')
+            </if>
+            <if test="searchContent!=null and searchContent !=''">
+                or unitName like CONCAT('%',#{searchContent},'%')
+            </if>
+        </trim>
+    </select>
+
+    <!--y用户收藏查询全部的科研成果 -->
+    <select id="queryAllAchievementForCollection" resultMap="ResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List" />
+        from achievement
         where releaseState = #{releaseState}
-        <if test="searchContent!=null and searchContent!=''">
-            and (achievementName like '%'||#{searchContent}||'%' or userNick like '%'||#{searchContent}||'%' or unitName like '%'||#{searchContent}||'%' )
-        </if>
     </select>
 </mapper>
