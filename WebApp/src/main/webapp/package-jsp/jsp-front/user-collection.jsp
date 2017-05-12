@@ -44,15 +44,15 @@
     </script>
 
     <script type="text/javascript">
-        function pdf(pid){
+        function delCollect(pid){
             $.ajax(
                 {
                     type: "post",  //get或post
                     async : false,  //可选，默认true  true或false
-                    url:  "deletePcollect.do?pid="+pid,   //请求的服务器地址
+                    url:  "deleteAchievementCollectionById.do?pid="+pid,   //请求的服务器地址
                     //dataType: "text",
                     data:
-                        {					//请求携带的参数，一个或者多个均可
+                        {//请求携带的参数，一个或者多个均可
                             Pid:pid
                         } ,
                     success:function(data)
@@ -123,9 +123,7 @@
             </div>
 
             <!--悬浮搜索框-->
-
-
-            <div class="nav white">
+           <%-- <div class="nav white">
                 <div class="logoBig">
                     <li><img src="<%=path %>/package-style/style-front/images/logobig.png" /></li>
                 </div>
@@ -138,7 +136,7 @@
                         <input id="ai-topsearch" class="submit am-btn" value="搜索" type="submit">
                     </form>
                 </div>
-            </div>
+            </div>--%>
 
             <div class="clear"></div>
         </div>
@@ -168,7 +166,7 @@
 
             <div class="am-tabs-d2 am-tabs  am-margin" data-am-tabs>
                 <ul class="am-avg-sm-2 am-tabs-nav am-nav am-nav-tabs">
-                    <li class="am-active"><a href="#tab1">商品收藏</a></li>
+                    <li class="am-active"><a href="#tab1">成果收藏</a></li>
                     <li><a href="#tab2">店铺收藏</a></li>
                 </ul>
 
@@ -176,54 +174,59 @@
 
                     <div class="am-tab-panel am-fade am-in am-active" id="tab1">
                         <div class="s-content">
-                            <c:forEach items="${pcollectlist }" var="list2">
-                                <c:forEach items="${productlist }" var="list">
-                                    <c:if test="${list.productid==list2.productid }">
-                                        <div class="s-item-wrap" id="${list2.pcollectid }" style="width: 199px; height: 290px;">
-                                            <div class="s-item">
-                                                <div class="s-pic">
-                                                    <a href="#" class="s-pic-link">
-                                                        <img width="200px" height="200px" src="<%=path %>/product/${list.productimag }"  title="${list.productname }" class="s-pic-img s-guess-item-img">
-                                                    </a>
-                                                </div>
+                            <c:choose>
+                                <c:when test="${empty achieveCollect }">
+                                    &nbsp;&nbsp;亲,您还没有收藏过科研成果/(ㄒoㄒ)/~~
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach items="${achieveCollect }" var="listColl">
+                                        <c:forEach items="${achieve }" var="listAch">
+                                            <c:if test="${listAch.achievementId==listColl.achievementId }">
+                                                <div class="s-item-wrap" id="${listColl.achievementCollectId }" style="width: 199px; height: 290px;">
+                                                    <div class="s-item">
+                                                        <div class="s-pic">
+                                                            <a href="#" class="s-pic-link">
+                                                                <img width="200px" height="200px" src="<%=path %>/achievementImage/${listAch.achievementImages }"  title="${listAch.achievementName }" class="s-pic-img s-guess-item-img">
+                                                            </a>
+                                                        </div>
 
-                                                <div class="s-info">
-                                                    <div class="s-title"><a href="#" title="${list.productname }"></a>${list.productname }</div>
-                                                    <div class="s-price-box">
-                                                        <span class="s-price"><em class="s-price-sign">¥</em><em class="s-value">${list.price }</em></span>
-                                                        <span class="s-history-price"><em class="s-price-sign">¥</em><em class="s-value">${list.price }</em></span>
+                                                        <div class="s-info">
+                                                            <div class="s-title"><a href="#" title="${listAch.achievementName }"></a>${listAch.achievementName }</div>
+                                                            <div class="s-price-box">
+                                                                <span class="s-price"><%--<em class="s-price-sign">¥</em>--%><em class="s-value">${listAch.userNick }</em></span>
+                                                                <span class="s-history-price"><%--<em class="s-price-sign">¥</em>--%><em class="s-value">${listAch.unitName }</em></span>
+                                                            </div>
+
+                                                            <div class="s-extra-box" style="height: 22px;">
+                                                                <span class="s-comment">好评: 99.74%</span>
+                                                                <span class="s-sales">月销: 69</span><br>
+                                                                <span class="s-comment">收藏时间:${listColl.collectionTimeStr }</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="s-tp">
+                                                            <form name="form" action="<%=path %>/addCart.do" method="post">
+                                                                <input type="hidden" name="pcollectid" value="${listColl.achievementCollectId }" />
+                                                                <span class="ui-btn-loading-before"><a  onclick="delCollect(${listColl.achievementCollectId })"><font color="white">取消收藏</font></a></span>
+                                                                <span class="ui-btn-loading-before buy"><a onclick=""><font color="white">查看详情</font></a></span>
+                                                            </form>
+                                                        </div>
+
                                                     </div>
-
-
-                                                    <div class="s-extra-box" style="height: 22px;">
-                                                        <span class="s-comment">好评: 99.74%</span>
-                                                        <span class="s-sales">月销: 69</span><br>
-                                                        <span class="s-comment">添加时间:${list2.collectdate }</span>
-                                                    </div>
                                                 </div>
+                                            </c:if>
+                                        </c:forEach>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
 
-                                                <div class="s-tp">
-                                                    <form name="form" action="<%=path %>/addCart.do" method="post">
-
-                                                        <input type="hidden" name="pcollectid" value="${list2.pcollectid }" />
-                                                        <!-- <span class="ui-btn-loading-before"><a href="deletePcollect.do?pid=${list2.pcollectid }" name="deletepcollect"><font color="white">取消收藏</font></a></span> -->
-                                                        <span class="ui-btn-loading-before"><a  onclick="pdf(${list2.pcollectid })"><font color="white">取消收藏</font></a></span>
-                                                        <span class="ui-btn-loading-before buy"><a onclick=""><font color="white">加入购物车</font></a></span>
-                                                    </form>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </c:if>
-                                </c:forEach>
-                            </c:forEach>
                         </div>
                     </div>
 
                     <div class="am-tab-panel am-fade" id="tab2">
                         <div class="s-content">
 
-                            <c:forEach items="${scollectlist }" var="list3">
+                           <%-- <c:forEach items="${scollectlist }" var="list3">
                                 <c:forEach items="${shoplist }" var="list4">
                                     <c:if test="${list3.shopid==list4.shopid }">
 
@@ -266,18 +269,13 @@
                                         </div>
                                     </c:if>
                                 </c:forEach>
-                            </c:forEach>
+                            </c:forEach>--%>
 
                         </div>
                     </div>
 
-
-
-
-
                 </div>
             </div>
-
         </div>
         <!--底部-->
         <div class="footer ">
@@ -333,7 +331,7 @@
             <li class="person">
                 <a href="#"><font style="font-weight: bold">我的成果</font></a>
                 <ul>
-                    <li> <a href="<%=path %>/collectionAll.do">我的收藏</a></li>
+                    <li> <a href="<%=path %>/achievementCollect/queryAllCollectionAchievement.do">我的收藏</a></li>
                     <li> <a href="<%=path %>/footMark/listFoot.do">足迹浏览</a></li>
                     <li> <a href="<%=path %>/menu/selectMenuOne.do">成果新增</a></li>
                     <li> <a href="<%=path %>/achievement/queryAllAchievementUnreleaseFront.do">未发布成果</a></li>
