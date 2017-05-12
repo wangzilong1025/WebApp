@@ -30,37 +30,66 @@ public class AchievementCollect implements Serializable{
      * 收藏时间
      */
     private Date collectionTime;
+    /**
+     * 用户收藏成果时间（String类型）
+     */
+    private String collectionTimeStr;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public int getAchievementCollectId() {
         return achievementCollectId;
     }
+
     public void setAchievementCollectId(int achievementCollectId) {
         this.achievementCollectId = achievementCollectId;
     }
+
     public int getAchievementId() {
         return achievementId;
     }
+
     public void setAchievementId(int achievementId) {
         this.achievementId = achievementId;
     }
+
     public int getUserinfoId() {
         return userinfoId;
     }
+
     public void setUserinfoId(int userinfoId) {
         this.userinfoId = userinfoId;
     }
+
     public int getUserId() {
         return userId;
     }
+
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
     public Date getCollectionTime() {
         return collectionTime;
     }
+
     public void setCollectionTime(Date collectionTime) {
         this.collectionTime = collectionTime;
     }
-    public AchievementCollect(int achievementCollectId, int achievementId,
+
+    public String getCollectionTimeStr() {
+        return collectionTimeStr;
+    }
+
+    public void setCollectionTimeStr(String collectionTimeStr) {
+        this.collectionTimeStr = collectionTimeStr;
+    }
+
+
+
+    /* public AchievementCollect(int achievementCollectId, int achievementId,
                               int userinfoId, int userId, Date collectionTime) {
         super();
         this.achievementCollectId = achievementCollectId;
@@ -78,6 +107,6 @@ public class AchievementCollect implements Serializable{
                 + achievementCollectId + ", achievementId=" + achievementId
                 + ", collectionTime=" + collectionTime + ", userId=" + userId
                 + ", userinfoId=" + userinfoId + "]";
-    }
+    }*/
 
 }
