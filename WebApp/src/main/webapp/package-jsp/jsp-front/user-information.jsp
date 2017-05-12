@@ -282,7 +282,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<a href="# ">北方技术交易市场</a>
 							<b>|</b>
 							<a href="# ">科化网    </a>
-							<b>|</b>
+							 <b>|</b>
 							<em>© 2017-2025 Hengwang.com 版权所有</em>
 						</p>
 					</div>
