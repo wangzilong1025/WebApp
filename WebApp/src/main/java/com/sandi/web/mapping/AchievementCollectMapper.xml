@@ -13,26 +13,26 @@
         achievementCollectId, achievementId, userinfoId, userId, collectionTime
     </sql>
 
-    <select id="selectByPrimaryKey" resultMap="ResultMap" parameterType="java.lang.Integer" >
-        select
-        <include refid="Base_Column_List" />
-        from achievementcollect
-        where achievementCollectId = #{achievementCollectId,jdbcType=INTEGER}
-    </select>
-    <select id="selectByAdminNameAndAdminPass" resultMap="ResultMap" parameterType="java.util.Map">
+    <select id="achievementCollectByAchievementId" resultMap="ResultMap" parameterType="java.lang.Integer" >
         select
         <include refid="Base_Column_List" />
         from achievementcollect
         where userinfoId = #{userinfoId,jdbcType=INTEGER}
     </select>
+    <!--<select id="selectByAdminNameAndAdminPass" resultMap="ResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List" />
+        from achievementcollect
+        where userinfoId = #{userinfoId,jdbcType=INTEGER}
+    </select>-->
     <delete id="deleteAdminByAdminStatus" parameterType="java.lang.Integer" >
         delete from achievementcollect
         where achievementCollectId = #{achievementCollectId,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" useGeneratedKeys="true" keyProperty="achievementCollectId" parameterType="com.sandi.web.model.AchievementCollect" >
+    <!--<insert id="insert" useGeneratedKeys="true" keyProperty="achievementCollectId" parameterType="com.sandi.web.model.AchievementCollect" >
         insert into achievementcollect (achievementId, userinfoId, userId, collectionTime)
         values (#{achievementId,jdbcType=INTEGER}, #{userinfoId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{collectionTime,jdbcType=DATE})
-    </insert>
+    </insert>-->
     <insert id="insertAdminByAdminId" parameterType="com.sandi.web.model.AchievementCollect" >
         insert into achievementcollect
         <trim prefix="(" suffix=")" suffixOverrides="," >
