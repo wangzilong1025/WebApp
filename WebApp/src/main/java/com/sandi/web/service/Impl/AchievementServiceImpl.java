@@ -44,6 +44,16 @@ public class AchievementServiceImpl implements IAchievementService {
         return achievementDao.queryAchievementBySearchContent(map);
     }
 
+    /**
+     * 查询全部已经发布的科研成果（在collection方法里）
+     * @param releaseState
+     * @return
+     */
+    @Override
+    public List<Achievement> queryAllAchievementForCollection(int releaseState) {
+        return achievementDao.queryAllAchievementForCollection(releaseState);
+    }
+
     @Override
     public int updateAchievementByAchievementId(Achievement achievement) {
         return achievementDao.updateAchievementByAchievementId(achievement);
