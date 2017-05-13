@@ -143,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																			<dl class="dl-sort" style="width: 100%;">
 																				<dt style="width: 100%;"><span title="${list2.topName }">${list2.topName }</span></dt>
 																				<c:forEach items="${list2.menulist }" var="list3">
-																				   <dd><a title="${list3.topName}" href="<%=path %>/getProductByType3id.do?typeid3=${list3.topId}" ><span>${list3.topName}</span></a></dd>
+																				   <dd><a title="${list3.topName}" href="<%=path %>/achievement/selectAllAchievementByAchievementTypeForMenu.do?topId=${list3.topId}" ><span>${list3.topName}</span></a></dd>
 																			    </c:forEach>
 																			</dl>
 																		</div>
