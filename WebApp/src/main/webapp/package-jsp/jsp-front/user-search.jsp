@@ -217,7 +217,7 @@
                     <ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
                         <c:choose>
                             <c:when test="${empty searchList }">
-                                &nbsp;&nbsp;亲,没有搜索到相关商品/(ㄒoㄒ)/~~
+                                &nbsp;&nbsp;亲,没有搜索到相关科研成果报告/(ㄒoㄒ)/~~
                             </c:when>
                             <c:otherwise>
                                 <li>
