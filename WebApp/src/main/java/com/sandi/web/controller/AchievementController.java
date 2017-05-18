@@ -10,6 +10,10 @@ import java.util.Map;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import com.sandi.web.model.*;
+import com.sandi.web.service.*;
+import com.sandi.web.util.UtilStatic;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,15 +21,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import com.sandi.web.model.Achievement;
-import com.sandi.web.model.City;
-import com.sandi.web.model.Menu;
-import com.sandi.web.model.UserInfo;
-import com.sandi.web.model.UserLogin;
-import com.sandi.web.service.IAchievementService;
-import com.sandi.web.service.ICityService;
-import com.sandi.web.service.IMenuService;
-import com.sandi.web.service.IUserInfoService;
 
 /**
  * 状态分类：
@@ -40,7 +35,9 @@ import com.sandi.web.service.IUserInfoService;
 public class AchievementController {
 
     private static final Logger log = Logger.getLogger(AchievementController.class);
+
     long timeToken = System.currentTimeMillis();
+
     @Autowired
     private IAchievementService achievementService;
     @Autowired
@@ -49,6 +46,8 @@ public class AchievementController {
     private IUserInfoService userInfoService;
     @Autowired
     private ICityService cityService;
+    @Autowired
+    private IFotoPlaceService fotoPlaceService;
     /**
      * 查询已经审核通过且发布的科研成果
      * @param modelMap
@@ -67,8 +66,8 @@ public class AchievementController {
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
             System.out.println("用户昵称:"+userInfo.getUserNick());
             int userId = userLogin.getUserId();
-            //已发布科研成果状态
-            int releaseState = 2;
+            //已发布科研成果状态2
+            int releaseState = UtilStatic.STATIC_TWO;
             map.put("userId", userId);
             map.put("releaseState", releaseState);
             List<Achievement> achievementList = achievementService.queryAllAchievementByUserId(map);
@@ -80,7 +79,7 @@ public class AchievementController {
             modelMap.put("achievementList", achievementList);
             return "jsp-front/achievement-show";
         }catch(Exception e){
-            log.error(timeToken+"进入queryAllAchievement的catch方法"+e);
+            log.error(timeToken+"进入queryAllAchievement的catch方法"+e.getMessage());
             return "jsp-error/error-page";
         }
     }
@@ -103,8 +102,8 @@ public class AchievementController {
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
             System.out.println("用户昵称:"+userInfo.getUserNick());
             int userId = userLogin.getUserId();
-            //0是科研成果保存未发布状态
-            int releaseState = 0;
+            //0是科研成果保存未发布状态0
+            int releaseState = UtilStatic.STATIC_ZERO;
             map.put("userId", userId);
             map.put("releaseState", releaseState);
             List<Achievement> achievementList = achievementService.queryAllAchievementByUserId(map);
@@ -139,7 +138,8 @@ public class AchievementController {
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
             System.out.println("用户昵称:"+userInfo.getUserNick());
             int userId = userLogin.getUserId();
-            int releaseState = 1;
+            //科研成果状态1
+            int releaseState = UtilStatic.STATIC_ONE;
             map.put("userId", userId);
             map.put("releaseState", releaseState);
             List<Achievement> achievementList = achievementService.queryAllAchievementByUserId(map);
@@ -174,7 +174,8 @@ public class AchievementController {
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
             System.out.println("用户昵称:"+userInfo.getUserNick());
             int userId = userLogin.getUserId();
-            int releaseState = 3;
+            //科研成果状态未通过状态
+            int releaseState = UtilStatic.STATIC_THREE;
             map.put("userId", userId);
             map.put("releaseState", releaseState);
             List<Achievement> achievementList = achievementService.queryAllAchievementByUserId(map);
@@ -210,10 +211,10 @@ public class AchievementController {
         log.info(timeToken+"进入addAchievementByuserId方法");
         try{
             log.info(timeToken+"进入addAchievementByuserId的try方法");
-            int releaseState = 0;
-            Date date = new Date();
+            int releaseState = UtilStatic.STATIC_ZERO;
+            //Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String time = sdf.format(date);
+            String time = sdf.format(UtilStatic.NEW_DATE);
             System.out.println("时间转换"+time);
             UserLogin userLogin = (UserLogin) session.getAttribute("user");
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
@@ -287,7 +288,7 @@ public class AchievementController {
             Achievement achievement = achievementService.selectAchievementByAchievementId(id);
             List<Menu> selectOneMenu = menuService.findMenuLevels(1);
             List<City> selectOneCity = cityService.findCityLevel(1);
-            int address = Integer.parseInt(achievement.getLocationCity());
+            int address = achievement.getLocationCity();
             City city3 = cityService.selectCityNameBycityId(address);
             //所在地的第三个select框的值
             String addressThreeCity = city3.getCityName();
@@ -298,7 +299,7 @@ public class AchievementController {
 
             System.out.println("一级城市:"+addressTwoCity+"二级城市"+addressThreeCity);
             //三级ID
-            int menuUpStatusThree = Integer.parseInt(achievement.getAchievementType());
+            int menuUpStatusThree = achievement.getAchievementType();
             Menu menu = menuService.selectTopNameByTopId(menuUpStatusThree);
             //成果类型三级名称
             String menuNameThree = menu.getTopName();
@@ -339,7 +340,7 @@ public class AchievementController {
         try{
             log.info(timeToken+"进入selectAchievementByAchievementId的try方法!!!");
             Achievement achievement = achievementService.selectAchievementByAchievementId(id);
-            int address = Integer.parseInt(achievement.getLocationCity());
+            int address = achievement.getLocationCity();
             City city3 = cityService.selectCityNameBycityId(address);
             //所在地的第三个select框的值
             String addressThreeCity = city3.getCityName();
@@ -349,7 +350,7 @@ public class AchievementController {
             String addressTwoCity = city2.getCityName() ;
             System.out.println("一级城市:"+addressTwoCity+"二级城市"+addressThreeCity);
             //三级ID
-            int menuUpStatusThree = Integer.parseInt(achievement.getAchievementType());
+            int menuUpStatusThree = achievement.getAchievementType();
             Menu menu = menuService.selectTopNameByTopId(menuUpStatusThree);
             //成果类型三级名称
             String menuNameThree = menu.getTopName();
@@ -404,7 +405,7 @@ public class AchievementController {
         try{
             log.info("进入releaseAchievementByAchievementId的try方法!!!");
             //待审核的状态
-            int status = 1;
+            int status = UtilStatic.STATIC_ONE;
             UserLogin userLogin = (UserLogin) session.getAttribute("user");
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
             if(achievement.getUserNick().equals(userInfo.getUserNick())){
@@ -432,15 +433,15 @@ public class AchievementController {
         try{
             log.info(timeToken+"进入queryAllApproveAchievement的try方法!!!");
             //待审核状态
-            int resealState = 1;
+            int resealState = UtilStatic.STATIC_ONE;
             String achievementType = null;
             String unitName = null;
             List<Achievement> approveAchievementList = achievementService.queryAllApproveAchievement(resealState);
             for(Achievement list:approveAchievementList){
                 list.getAchievementType();
-                City city = cityService.selectCityNameBycityId(Integer.parseInt(list.getLocationCity()));
+                City city = cityService.selectCityNameBycityId(list.getLocationCity());
                 list.setCityTypeName(city.getCityName());
-                Menu menu = menuService.selectTopNameByTopId(Integer.parseInt(list.getAchievementType()));
+                Menu menu = menuService.selectTopNameByTopId(list.getAchievementType());
                 list.setAchievementTypeName(menu.getTopName());
             }
             modelMap.put("approveAchievementList",approveAchievementList);
@@ -462,16 +463,16 @@ public class AchievementController {
         log.info(timeToken+"进入queryAllReleasedAchievement方法!!!");
         try{
             log.info(timeToken+"进入queryAllReleasedAchievement的try方法!!!");
-            //科研成果已通过状态
-            int resealState = 2;
+            //科研成果已通过状态2
+            int resealState = UtilStatic.STATIC_TWO;
             String achievementType = null;
             String unitName = null;
             List<Achievement> approveAchievementList = achievementService.queryAllApproveAchievement(resealState);
             for(Achievement list:approveAchievementList){
                 list.getAchievementType();
-                City city = cityService.selectCityNameBycityId(Integer.parseInt(list.getLocationCity()));
+                City city = cityService.selectCityNameBycityId(list.getLocationCity());
                 list.setCityTypeName(city.getCityName());
-                Menu menu = menuService.selectTopNameByTopId(Integer.parseInt(list.getAchievementType()));
+                Menu menu = menuService.selectTopNameByTopId(list.getAchievementType());
                 list.setAchievementTypeName(menu.getTopName());
             }
             modelMap.put("approveAchievementList",approveAchievementList);
@@ -494,15 +495,15 @@ public class AchievementController {
         try{
             log.info(timeToken+"进入queryAllUnreleasedAchievement的try方法!!!");
             //科研成果未通过状态
-            int resealState = 3;
+            int resealState = UtilStatic.STATIC_THREE;
             String achievementType = null;
             String unitName = null;
             List<Achievement> approveAchievementList = achievementService.queryAllApproveAchievement(resealState);
             for(Achievement list:approveAchievementList){
                 list.getAchievementType();
-                City city = cityService.selectCityNameBycityId(Integer.parseInt(list.getLocationCity()));
+                City city = cityService.selectCityNameBycityId(list.getLocationCity());
                 list.setCityTypeName(city.getCityName());
-                Menu menu = menuService.selectTopNameByTopId(Integer.parseInt(list.getAchievementType()));
+                Menu menu = menuService.selectTopNameByTopId(list.getAchievementType());
                 list.setAchievementTypeName(menu.getTopName());
             }
             modelMap.put("approveAchievementList",approveAchievementList);
@@ -523,9 +524,9 @@ public class AchievementController {
         try{
             log.info(timeToken+"进入achievementDetailApprove的try方法,并且获取到成果详情的ID："+achievementId);
             Achievement achievement = achievementService.selectAchievementByAchievementId(achievementId);
-            City city = cityService.selectCityNameBycityId(Integer.parseInt(achievement.getLocationCity()));
+            City city = cityService.selectCityNameBycityId(achievement.getLocationCity());
             achievement.setCityTypeName(city.getCityName());
-            Menu menu = menuService.selectTopNameByTopId(Integer.parseInt(achievement.getAchievementType()));
+            Menu menu = menuService.selectTopNameByTopId(achievement.getAchievementType());
             achievement.setAchievementTypeName(menu.getTopName());
             modelMap.put("achievement",achievement);
             return "jsp-behind/achievement-approve-detail";
@@ -548,9 +549,9 @@ public class AchievementController {
         try{
             log.info(timeToken+"进入achievementDetailApprove的try方法,并且获取到成果详情的ID："+achievementId);
             Achievement achievement = achievementService.selectAchievementByAchievementId(achievementId);
-            City city = cityService.selectCityNameBycityId(Integer.parseInt(achievement.getLocationCity()));
+            City city = cityService.selectCityNameBycityId(achievement.getLocationCity());
             achievement.setCityTypeName(city.getCityName());
-            Menu menu = menuService.selectTopNameByTopId(Integer.parseInt(achievement.getAchievementType()));
+            Menu menu = menuService.selectTopNameByTopId(achievement.getAchievementType());
             achievement.setAchievementTypeName(menu.getTopName());
             modelMap.put("achievement",achievement);
             return "jsp-behind/achievement-approve-detail";
@@ -558,5 +559,110 @@ public class AchievementController {
             log.error(timeToken+"进入achievementDetailApprove的catch方法!!!");
             return "jsp-error/error-page";
         }
+    }
+
+    /**
+     * Main主页里的菜单，通过点击类型查询到科研成果
+     * @param modelMap
+     * @param topId
+     * @return
+     */
+    @RequestMapping("/selectAllAchievementByAchievementTypeForMenu")
+    public String selectAllAchievementByAchievementTypeForMenu(ModelMap modelMap,@RequestParam("topId") int topId){
+        log.info(timeToken+"进入selectAllAchievementByAchievementTypeForMenu方法!");
+        try{
+            log.info(timeToken+"进入selectAllAchievementByAchievementTypeForMenu的try方法,接收参数ID:"+topId);
+            int topStatus = UtilStatic.STATIC_ONE;
+            int page = 1;
+            int pageSize = UtilStatic.STATIC_PAGESIZE;
+            List<Menu> menuList = menuService.findMenuLevels(topStatus);
+            //科研成果已经发布的状态
+            Map map = new HashMap();
+            int releaseState = UtilStatic.STATIC_TWO;
+            map.put("startCount",(page-1)*pageSize);
+            map.put("pageSize",pageSize);
+            map.put("releaseState",releaseState);
+            map.put("topId",topId);
+            int count = achievementService.selectAllAchievementByTypeCount(map);
+            /*if(count !=0 && count>0 && count <=16){
+                page = 1;
+            }else if(count !=0 && count>0 && count >16){
+
+            }*/
+            List<Achievement> achieveList = achievementService.selectAllAchievementByType(map);
+
+            System.out.print("这是科研成果数量:"+"===================================="+count);
+            for(Achievement list:achieveList){
+                list.setTimeToString(UtilStatic.sdf.format(list.getReleaseTime()));
+            }
+            modelMap.put("count",count);
+            modelMap.put("menuList",menuList);
+            modelMap.put("achieveList",achieveList);
+            return "jsp-front/user-search-type";
+        }catch(Exception e){
+            log.error(timeToken+"进入selectAllAchievementByAchievementTypeForMenu的catch方法!");
+            return "jsp-error/error-page";
+        }
+    }
+
+    /**
+     * 用户搜索到的科研成果详情查看页面
+     * @return
+     */
+    @RequestMapping("/findAchievementDetailByAchievementId")
+    public String findAchievementDetailByAchievementId(ModelMap modelMap,@RequestParam("achievementId") int achievementId ,HttpSession session){
+        log.info(timeToken+"进入findAchievementDetailByAchievementId方法!");
+        try{
+            log.info(timeToken+"进入findAchievementDetailByAchievementId的try方法,科研成果编号:"+achievementId);
+
+            UserLogin user = (UserLogin) session.getAttribute("user");
+            UserInfo userInfo = userInfoService.selectByUserId(user.getUserId());
+
+            Achievement achievement = achievementService.selectAchievementByAchievementId(achievementId);
+            int address = achievement.getLocationCity();
+            City city3 = cityService.selectCityNameBycityId(address);
+            //所在地的第三个select框的值
+            String addressThreeCity = city3.getCityName();
+            //获得城市的一级ID
+            int cityTwoId = city3.getCityUpLevel();
+            City city2 = cityService.selectCityNameBycityId(cityTwoId);
+            String addressTwoCity = city2.getCityName() ;
+            System.out.println("一级城市:"+addressTwoCity+"二级城市"+addressThreeCity);
+            //三级ID
+            int menuUpStatusThree = achievement.getAchievementType();
+            Menu menu = menuService.selectTopNameByTopId(menuUpStatusThree);
+            //成果类型三级名称
+            String menuNameThree = menu.getTopName();
+            //二级ID
+            int menuUpStatusTwo = menu.getUpStatus();
+            Menu menu2 = menuService.selectTopNameByTopId(menuUpStatusTwo);
+            //成果类型二级名称
+            String menuNameTwo = menu2.getTopName();
+            //一级ID
+            int menuUpStatusOne = menu2.getUpStatus();
+            Menu menu3 = menuService.selectTopNameByTopId(menuUpStatusOne);
+            //成果类型一级名称
+            String menuNameOne = menu3.getTopName();
+            System.out.println("查询出来的成果详情:"+achievement);
+            System.out.println("三级类型名称:"+menuNameThree+"二级类型名称:"+menuNameTwo+"一级类型名称:"+menuNameOne);
+            modelMap.put("achievement", achievement);
+            modelMap.put("addressTwo", addressTwoCity);
+            modelMap.put("addressThree", addressThreeCity);
+            modelMap.put("menuNameThree", menuNameThree);
+            modelMap.put("menuNameTwo", menuNameTwo);
+            modelMap.put("menuNameOne", menuNameOne);
+            FotoPlace foto = new FotoPlace();
+            foto.setUserinfoId(userInfo.getUserinfoId());
+            foto.setAchievementId(achievementId);
+            foto.setState(UtilStatic.STATIC_ONE);
+            foto.setFotoPlaceDate(UtilStatic.NEW_DATE);
+            fotoPlaceService.addFotoPlaceById(foto);
+            //用户查看发布成功的科研成果详情
+            return "jsp-front/user-achievement";
+        }catch(Exception e){
+            log.info(timeToken+"进入findAchievementDetailByAchievementId的catch方法!");
+            return "jsp-error/error-page";
+        }
+
     }
 }
