@@ -24,7 +24,7 @@
 <body>
 <!--头 -->
 <header>
-    <article>
+    <article style="margin: 20px auto">
         <div class="mt-logo">
             <!--顶部导航条 -->
             <div class="am-container header">
@@ -45,37 +45,30 @@
                     </div>
                 </ul>
                 <ul class="message-r">
-                    <div class="topMessage home">
-                        <div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
-                    </div>
-                    <div class="topMessage my-shangcheng">
-                        <div class="menu-hd MyShangcheng"><a href="<%=path %>/package-jsp/jsp-front/user-center.jsp" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
-                    </div>
-                    <div class="topMessage my-shangcheng">
-                        <div class="menu-hd MyShangcheng">
-                            <c:choose>
-                                <c:when test="${sessionScope.user.userStatus == 2 }">
-                                    <a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:when>
-                                <c:when test="${sessionScope.user.userStatus == 1 }">
-                                    <a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:when>
-                                <c:when test="${sessionScope.user.userStatus == 0 }">
-                                    <a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="<%=path %>/package-jsp/jsp-front/user-unlogin.jsp" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                    </div>
-                    <div class="topMessage favorite">
-                        <div class="menu-hd"><a href="<%=path %>/collectionAll.do" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
-                    </div>
+                    <c:choose>
+                        <c:when test="${sessionScope.user == null }">
+                            <div class="topMessage home">
+                                <div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="topMessage home">
+                                <div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
+                            </div>
+                            <div class="topMessage my-shangcheng">
+                                <div class="menu-hd MyShangcheng"><a href="<%=path %>/userInfo/userCenterInfomation.do" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+                            </div>
+                            <div class="topMessage favorite">
+                                <div class="menu-hd"><a href="<%=path %>/achievementCollect/queryAllCollectionAchievement.do" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
+                            </div>
+                            <div class="topMessage favorite">
+                                <div class="menu-hd"><a href="<%=path %>/fotoPlace/queryAllFotoPlaceAchievementByUserInfoId.do" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>我的足迹</span></a></div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </div>
             <div class="clear"></div>
-        </div>
         </div>
     </article>
 </header>
@@ -123,41 +116,30 @@
                     <div class="u-progress-bar-inner"></div>
                 </div>
             </div>
-            <form class="am-form am-form-horizontal">
+            <form class="am-form am-form-horizontal" action="<%=path %>/userLogin/userSafetyQuestionInfo.do" method="post">
                 <div class="am-form-group select">
-                    <label for="user-question1" class="am-form-label">问题一</label>
+                    <label for="user-question1" class="am-form-label">问题</label>
                     <div class="am-form-content">
-                        <select data-am-selected>
-                            <option value="a" selected>请选择安全问题</option>
-                            <option value="b">您最喜欢的颜色是什么？</option>
-                            <option value="c">您的故乡在哪里？</option>
+                        <select data-am-selected id="safeQuestion" name="safeQuestion">
+                            <option value="" selected>请选择安全问题</option>
+                            <option value="您最喜欢的颜色是什么？">您最喜欢的颜色是什么？</option>
+                            <option value="您的小学学校叫什么名字？">您的小学学校叫什么名字？</option>
+                            <option value="您的高中学校叫什么名字？">您的高中学校叫什么名字？</option>
+                            <option value="您的父亲的名字？">您的父亲的名字？</option>
+                            <option value="您的母亲的名字？">您的母亲的名字？</option>
+                            <option value="您的故乡在哪里？">您的故乡在哪里？</option>
                         </select>
                     </div>
                 </div>
                 <div class="am-form-group">
                     <label for="user-answer1" class="am-form-label">答案</label>
                     <div class="am-form-content">
-                        <input type="text" id="user-answer1" placeholder="请输入安全问题答案">
+                        <input type="text" id="safeAnswer" name="safeAnswer" placeholder="请输入安全问题答案">
                     </div>
                 </div>
-                <div class="am-form-group select">
-                    <label for="user-question2" class="am-form-label">问题二</label>
-                    <div class="am-form-content">
-                        <select data-am-selected>
-                            <option value="a" selected>请选择安全问题</option>
-                            <option value="b">您最喜欢的颜色是什么？</option>
-                            <option value="c">您的故乡在哪里？</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <label for="user-answer2" class="am-form-label">答案</label>
-                    <div class="am-form-content">
-                        <input type="text" id="user-answer2" placeholder="请输入安全问题答案">
-                    </div>
-                </div>
+
                 <div class="info-btn">
-                    <div class="am-btn am-btn-danger">保存修改</div>
+                    <div><input class="am-btn am-btn-danger" type="submit" value="保存修改"/></div>
                 </div>
 
             </form>
@@ -203,38 +185,26 @@
     <aside class="menu">
         <ul>
             <li class="person">
-                <a href="index.html">个人中心</a>
+                <a href="<%=path %>/userInfo/userCenterInfomation.do">个人中心</a>
             </li>
             <li class="person">
-                <a href="#">个人资料</a>
+                <a href="#"><font style="font-weight: bold">个人资料</font></a>
                 <ul>
-                    <li> <a href="information.html">个人信息</a></li>
-                    <li> <a href="safety.html">安全设置</a></li>
-                    <li> <a href="address.html">收货地址</a></li>
+                    <li> <a href="<%=path %>/userInfo/selectPersonalCenter.do">个人信息</a></li>
+                    <li> <a href="<%=path %>/userLogin/userUpdateSafetyByUserId.do">安全设置</a></li>
+                    <li> <a href="<%=path %>/package-jsp/jsp-front/user-safety-pass.jsp">修改密码</a></li>
+                    <li> <a href="<%=path %>/achievementCollect/queryAllCollectionAchievement.do">我的收藏</a></li>
+                    <li> <a href="<%=path %>/fotoPlace/queryAllFotoPlaceAchievementByUserInfoId.do">足迹浏览</a></li>
                 </ul>
             </li>
             <li class="person">
-                <a href="#">我的交易</a>
+                <a href="#"><font style="font-weight: bold">我的成果</font></a>
                 <ul>
-                    <li><a href="order.html">订单管理</a></li>
-                    <li> <a href="change.html">退款售后</a></li>
-                </ul>
-            </li>
-            <li class="person">
-                <a href="#">我的资产</a>
-                <ul>
-                    <li> <a href="coupon.html">优惠券 </a></li>
-                    <li> <a href="bonus.html">红包</a></li>
-                    <li> <a href="bill.html">账单明细</a></li>
-                </ul>
-            </li>
-            <li class="person">
-                <a href="#">我的小窝</a>
-                <ul>
-                    <li> <a href="collection.html">收藏</a></li>
-                    <li> <a href="foot.html">足迹</a></li>
-                    <li> <a href="comment.html">评价</a></li>
-                    <li> <a href="news.html">消息</a></li>
+                    <li> <a href="<%=path %>/menu/selectMenuOne.do">成果新增</a></li>
+                    <li> <a href="<%=path %>/achievement/queryAllAchievementUnreleaseFront.do">未发布成果</a></li>
+                    <li> <a href="<%=path %>/achievement/queryAllAchievementByCheckPendingFront.do">待审核成果</a></li>
+                    <li> <a href="<%=path %>/achievement/queryAllAchievement.do">已发布成果</a></li>
+                    <li> <a href="<%=path %>/achievement/queryAllAchievementNotPass.do">未通过成果</a></li>
                 </ul>
             </li>
         </ul>
