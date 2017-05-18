@@ -23,7 +23,7 @@
 <body>
 <!--头 -->
 <header>
-    <article>
+    <article style="margin: 20px auto">
         <div class="mt-logo">
             <!--顶部导航条 -->
             <div class="am-container header">
@@ -44,37 +44,30 @@
                     </div>
                 </ul>
                 <ul class="message-r">
-                    <div class="topMessage home">
-                        <div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
-                    </div>
-                    <div class="topMessage my-shangcheng">
-                        <div class="menu-hd MyShangcheng"><a href="<%=path %>/package-jsp/jsp-front/user-center.jsp" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
-                    </div>
-                    <div class="topMessage my-shangcheng">
-                        <div class="menu-hd MyShangcheng">
-                            <c:choose>
-                                <c:when test="${sessionScope.user.userStatus == 2 }">
-                                    <a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:when>
-                                <c:when test="${sessionScope.user.userStatus == 1 }">
-                                    <a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:when>
-                                <c:when test="${sessionScope.user.userStatus == 0 }">
-                                    <a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="<%=path %>/package-jsp/jsp-front/user-unlogin.jsp" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                    </div>
-                    <div class="topMessage favorite">
-                        <div class="menu-hd"><a href="<%=path %>/collectionAll.do" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
-                    </div>
+                    <c:choose>
+                        <c:when test="${sessionScope.user == null }">
+                            <div class="topMessage home">
+                                <div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="topMessage home">
+                                <div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
+                            </div>
+                            <div class="topMessage my-shangcheng">
+                                <div class="menu-hd MyShangcheng"><a href="<%=path %>/userInfo/userCenterInfomation.do" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+                            </div>
+                            <div class="topMessage favorite">
+                                <div class="menu-hd"><a href="<%=path %>/achievementCollect/queryAllCollectionAchievement.do" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
+                            </div>
+                            <div class="topMessage favorite">
+                                <div class="menu-hd"><a href="<%=path %>/fotoPlace/queryAllFotoPlaceAchievementByUserInfoId.do" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>我的足迹</span></a></div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </div>
             <div class="clear"></div>
-        </div>
         </div>
     </article>
 </header>
