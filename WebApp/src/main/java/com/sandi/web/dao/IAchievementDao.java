@@ -55,10 +55,31 @@ public interface IAchievementDao {
     public List<Achievement> queryAchievementBySearchContent(Map<String, String> map);
 
     /**
+     * 查询用户搜索到科研成果的数量
+     * @param map
+     * @return
+     */
+    public Integer queryAchievementBySearchContentCount(Map map);
+
+    /**
      * 遍历所有的科研成果（状态是2的，代表已经发布）
      * @param releaseState
      * @return
      */
     public List<Achievement> queryAllAchievementForCollection(int releaseState);
+
+    /**
+     * 根据科研成果类型查询科研成果
+     * @param map
+     * @return
+     */
+    public List<Achievement> selectAllAchievementByType(Map<String,Integer> map);
+
+    /**
+     * 根据科研成果类型查询科研成果的数量
+     * @param map
+     * @return
+     */
+    public Integer selectAllAchievementByTypeCount(Map<String,Integer> map);
 
 }
