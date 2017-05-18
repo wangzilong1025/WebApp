@@ -4,6 +4,7 @@ import com.sandi.web.model.Admin;
 import com.sandi.web.model.Notice;
 import com.sandi.web.service.IAdminService;
 import com.sandi.web.service.INoticeService;
+import com.sandi.web.util.UtilStatic;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class NoticeController {
     @RequestMapping("/queryAllNoticeByStatus")
     public String queryAllNoticeByStatus(ModelMap modelMap,Notice notice){
         log.info(timeToken+"进入queryAllNoticeByStatus方法");
-        int noticeStatus = 1;
+        int noticeStatus = UtilStatic.STATIC_ONE;
         try{
             log.info("进入queryAllNoticeByStatus的try方法!!!");
             Map<String,Integer> map = new HashMap<String, Integer>();
@@ -61,7 +62,7 @@ public class NoticeController {
             log.info(timeToken+"进入addNoticeByAdmin的try方法!!!");
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
-            int status = 1;
+            int status = UtilStatic.STATIC_ONE;
             notice.setCreateTime(date);
             notice.setNoticeReleaseTime(sdf.parse(notice.getNoticeReleaseTimeStr()));
             notice.setNoticeEndTime(sdf.parse(notice.getNoticeEndTimeStr()));
@@ -80,13 +81,13 @@ public class NoticeController {
         log.info("进入selectNoticeById方法!!!");
         try{
             log.info("进入selectNoticeById的try方法");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Notice notice = noticeService.selectNoticeById(noticeId);
             //notice.getNoticeReleaseTime();
             String adminName = null;
-            notice.setNoticeReleaseTimeStr(sdf.format(notice.getNoticeReleaseTime()));
-            notice.setNoticeEndTimeStr(sdf.format(notice.getNoticeEndTime()));
-            notice.setCreateTimeStr(sdf.format(notice.getCreateTime()));
+            notice.setNoticeReleaseTimeStr(UtilStatic.sdf.format(notice.getNoticeReleaseTime()));
+            notice.setNoticeEndTimeStr(UtilStatic.sdf.format(notice.getNoticeEndTime()));
+            notice.setCreateTimeStr(UtilStatic.sdf.format(notice.getCreateTime()));
             Admin admin = adminService.selectByAdminId(notice.getAdminId());
             adminName = admin.getAdminName();
             if(!"".equals(adminName)){
@@ -110,12 +111,12 @@ public class NoticeController {
         log.info("进入selectNoticeById方法!!!");
         try{
             log.info("进入selectNoticeById的try方法");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Notice notice = noticeService.selectNoticeById(noticeId);
             String adminName = null;
-            notice.setNoticeReleaseTimeStr(sdf.format(notice.getNoticeReleaseTime()));
-            notice.setNoticeEndTimeStr(sdf.format(notice.getNoticeEndTime()));
-            notice.setCreateTimeStr(sdf.format(notice.getCreateTime()));
+            notice.setNoticeReleaseTimeStr(UtilStatic.sdf.format(notice.getNoticeReleaseTime()));
+            notice.setNoticeEndTimeStr(UtilStatic.sdf.format(notice.getNoticeEndTime()));
+            notice.setCreateTimeStr(UtilStatic.sdf.format(notice.getCreateTime()));
             Admin admin = adminService.selectByAdminId(notice.getAdminId());
             adminName = admin.getAdminName();
             if(!"".equals(adminName)){
@@ -138,10 +139,10 @@ public class NoticeController {
         log.info("进入updateNoticeById方法!!!");
         try{
             log.info("进入updateNoticeById的try方法");
-            int status = 1;
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            notice.setNoticeReleaseTime(sdf.parse(notice.getNoticeReleaseTimeStr()));
-            notice.setNoticeEndTime(sdf.parse(notice.getNoticeEndTimeStr()));
+            int status = UtilStatic.STATIC_ONE;
+            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            notice.setNoticeReleaseTime(UtilStatic.sdf.parse(notice.getNoticeReleaseTimeStr()));
+            notice.setNoticeEndTime(UtilStatic.sdf.parse(notice.getNoticeEndTimeStr()));
             notice.setNoticeStatus(status);
             noticeService.updateAdminByAdminId(notice);
             return "redirect:/notice/queryAllNoticeByStatus.do";
