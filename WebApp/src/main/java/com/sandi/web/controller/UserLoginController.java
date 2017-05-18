@@ -4,9 +4,11 @@ import com.sandi.web.model.UserInfo;
 import com.sandi.web.model.UserLogin;
 import com.sandi.web.service.IUserInfoService;
 import com.sandi.web.service.IUserLoginService;
+import com.sandi.web.util.UtilStatic;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -65,7 +67,7 @@ public class UserLoginController {
         log.info(timeToken+"进入用户注册方法addUserLogin()!!!");
         try{
             log.info(timeToken+"进入用户注册方法addUserLogin()的try方法!!!");
-            userLogin.setUserStatus(2);
+            userLogin.setUserStatus(UtilStatic.STATIC_TWO);
             userLoginService.addUserLogin(userLogin);
             UserInfo userInfo = new UserInfo();
             log.info("用户ID:"+userLogin.getUserId());
@@ -77,6 +79,71 @@ public class UserLoginController {
             log.error(timeToken+"进入用户注册方法addUserLogin()的catch方法!!!");
             request.setAttribute("message", "注册异常，请刷新页面重新注册!!!");
             return "jsp-front/user-regist";
+        }
+    }
+
+    /**
+     * 用户修改用户名和密码
+     * @param modelMap
+     * @param session
+     * @return
+     */
+    @RequestMapping("/userUpdateSafetyByUserId")
+    public String userUpdateSafetyByUserId(ModelMap modelMap, HttpSession session){
+        log.info(timeToken+"进入userUpdateSafetyByUserId方法!");
+        try{
+            log.info(timeToken+"进入userUpdateSafetyByUserId的try方法!");
+            UserLogin userLog = (UserLogin) session.getAttribute("user");
+            UserLogin user = userLoginService.selectUserLogin(userLog);
+            UserInfo userInfo = userInfoService.selectByUserId(userLog.getUserId());
+            modelMap.put("userInfo",userInfo);
+            modelMap.put("user",user);
+            return "jsp-front/user-safety";
+        }catch(Exception e){
+            log.error(timeToken+"进入userUpdateSafetyByUserId的catch方法,错误信息:"+e.getMessage());
+            return "jsp-error/error-page";
+        }
+    }
+
+    @RequestMapping("/userSavePasswordByUserLoginId")
+    public String userSavePasswordByUserLoginId(UserLogin userLogin,HttpSession session){
+        log.info("进入userSavePasswordByUserLoginId方法!");
+        try{
+            log.info("进入userSavePasswordByUserLoginId的try方法!");
+
+            return "jsp-front/user-safety-updated";
+        }catch(Exception e){
+            log.error("进入userSavePasswordByUserLoginId的catch方法,错误信息:"+e.getMessage());
+            return "jsp-error/error-page";
+        }
+
+    }
+
+    /**
+     * 用户的安全问题的保存
+     * @param
+     * @param session
+     * @return
+     */
+    @RequestMapping("/userSafetyQuestionInfo")
+    public String userSafetyQuestionInfo(UserLogin userLogin,HttpSession session){
+        log.info("进入userSafetyQuestionInfo方法!");
+        try{
+            log.info("进入userSafetyQuestionInfo的try方法!");
+            System.out.print(userLogin);
+            //UserLogin userLogin = new UserLogin();
+            UserLogin user = (UserLogin) session.getAttribute("user");
+            UserLogin userL = userLoginService.selectUserLogin(user);
+            userLogin.setUserId(userL.getUserId());
+            userLogin.setUserName(userL.getUserName());
+            userLogin.setUserPassword(userL.getUserPassword());
+            userLogin.setUserStatus(UtilStatic.STATIC_ONE);
+
+            userLoginService.updatePasswordByUserLoginId(userLogin);
+            return "redirect:/userLogin/userUpdateSafetyByUserId.do";
+        }catch(Exception e){
+            log.error("进入userSafetyQuestionInfo的catch方法!");
+            return "jsp-error/error-page";
         }
     }
 }
