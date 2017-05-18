@@ -53,9 +53,30 @@ public interface IAchievementService {
     public List<Achievement> queryAchievementBySearchContent(Map<String, String> map);
 
     /**
+     * 查询用户搜索到的科研成果的数量
+     * @param map
+     * @return
+     */
+    public int queryAchievementBySearchContentCount(Map map);
+
+    /**
      * 查询全部的已经发布状态的科研成果
      * @param releaseState
      * @return
      */
     public List<Achievement> queryAllAchievementForCollection(int releaseState);
+
+    /**
+     * 根据科研成果类型查询科研成果
+     * @param map
+     * @return
+     */
+    public List<Achievement> selectAllAchievementByType(Map<String,Integer> map);
+
+    /**
+     * 根据科研成果的类型查询科研成果的数量
+     * @param map
+     * @return
+     */
+    public int selectAllAchievementByTypeCount(Map<String,Integer> map);
 }
