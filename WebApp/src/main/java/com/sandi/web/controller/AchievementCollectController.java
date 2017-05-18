@@ -11,6 +11,7 @@ import com.sandi.web.model.UserLogin;
 import com.sandi.web.service.IAchievementCollectService;
 import com.sandi.web.service.IAchievementService;
 import com.sandi.web.service.IUserInfoService;
+import com.sandi.web.util.UtilStatic;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/achievementCollect")
 public class AchievementCollectController {
-    private static final Logger log = Logger.getLogger(AchievementController.class);
+    private static final Logger log = Logger.getLogger(AchievementCollectController.class);
     long timeToken = System.currentTimeMillis();
     @Autowired
     private IAchievementCollectService achievementCollectService;
@@ -44,14 +45,13 @@ public class AchievementCollectController {
         try{
             log.info(timeToken+"进入queryAllCollectionAchievementByUserInfoId的try方法!");
             //代表科研成果已经发布的状态
-            int releaseState = 2;
+            int releaseState = UtilStatic.STATIC_TWO;
             UserLogin user = (UserLogin) session.getAttribute("user");
             UserInfo userInfo = userInfoService.selectByUserId(user.getUserId());
             System.out.print("输出用户信息ID:"+userInfo.getUserinfoId());
             List<AchievementCollect> achieveCollect = achievementCollectService.achievementCollectByAchievementId(userInfo.getUserinfoId());
             for(AchievementCollect listcol:achieveCollect){
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                listcol.setCollectionTimeStr(sdf.format(listcol.getCollectionTime()));
+                listcol.setCollectionTimeStr(UtilStatic.sdf.format(listcol.getCollectionTime()));
             }
             List<Achievement> achieve = achievementService.queryAllAchievementForCollection(releaseState);
             modelMap.put("achieveCollect",achieveCollect);
