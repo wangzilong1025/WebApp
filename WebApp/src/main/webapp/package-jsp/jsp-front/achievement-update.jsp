@@ -222,7 +222,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<body>
 		<!--头 -->
 		<header>
-			<article>
+			<article style="margin: 20px auto">
 				<div class="mt-logo">
 					<!--顶部导航条 -->
 					<div class="am-container header">
@@ -243,35 +243,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 						</ul>
 						<ul class="message-r">
-							<div class="topMessage home">
-								<div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
-							</div>
-							<div class="topMessage my-shangcheng">
-								<div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
-							</div>
-							<div class="topMessage my-shangcheng">
-								<div class="menu-hd MyShangcheng">
-									<c:choose>  
-									   <c:when test="${sessionScope.user.userStatus == 2 }"> 
-									   		<a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>  
-									   </c:when>  
-									   <c:when test="${sessionScope.user.userStatus == 1 }"> 
-									   		<a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>管理员中心</a>  
-									   </c:when> 
-									   <c:when test="${sessionScope.user.userStatus == 0 }"> 
-									   		<a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>超级管理员中心</a>  
-									   </c:when> 
-									   <c:otherwise>
-									  		<a href="<%=path %>/jsp/front/registSeller.jsp" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-									   </c:otherwise>  
-									</c:choose>    
-								</div>
-							</div>
-							<div class="topMessage favorite">
-								<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
-							</div>
+							<c:choose>
+								<c:when test="${sessionScope.user == null }">
+									<div class="topMessage home">
+										<div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="topMessage home">
+										<div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
+									</div>
+									<div class="topMessage my-shangcheng">
+										<div class="menu-hd MyShangcheng"><a href="<%=path %>/userInfo/userCenterInfomation.do" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+									</div>
+									<div class="topMessage favorite">
+										<div class="menu-hd"><a href="<%=path %>/achievementCollect/queryAllCollectionAchievement.do" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
+									</div>
+									<div class="topMessage favorite">
+										<div class="menu-hd"><a href="<%=path %>/fotoPlace/queryAllFotoPlaceAchievementByUserInfoId.do" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>我的足迹</span></a></div>
+									</div>
+								</c:otherwise>
+							</c:choose>
 						</ul>
 					</div>
+
+
+
+
 					<div class="clear"></div>
 				</div>
 			</article>
@@ -459,22 +457,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<aside class="menu">
 				<ul>
 					<li class="person">
-						<a href="<%=path %>/getCustom.do ">个人中心</a>
+						<a href="<%=path %>/userInfo/userCenterInfomation.do">个人中心</a>
 					</li>
 					<li class="person">
 						<a href="#"><font style="font-weight: bold">个人资料</font></a>
 						<ul>
 							<li> <a href="<%=path %>/userInfo/selectPersonalCenter.do">个人信息</a></li>
-							<li> <a href="<%=path %>/package-jsp/jsp-front/user-safety.jsp">安全设置</a></li>
+							<li> <a href="<%=path %>/userLogin/userUpdateSafetyByUserId.do">安全设置</a></li>
 							<li> <a href="<%=path %>/package-jsp/jsp-front/user-safety-pass.jsp">修改密码</a></li>
-							<li> <a href="<%=path %>/findAddress.do">收货地址</a></li>
+							<li> <a href="<%=path %>/achievementCollect/queryAllCollectionAchievement.do">我的收藏</a></li>
+							<li> <a href="<%=path %>/fotoPlace/queryAllFotoPlaceAchievementByUserInfoId.do">足迹浏览</a></li>
 						</ul>
 					</li>
 					<li class="person">
 						<a href="#"><font style="font-weight: bold">我的成果</font></a>
 						<ul>
-							<li> <a href="<%=path %>/collectionAll.do">我的收藏</a></li>
-							<li> <a href="<%=path %>/footMark/listFoot.do">足迹浏览</a></li>
 							<li> <a href="<%=path %>/menu/selectMenuOne.do">成果新增</a></li>
 							<li> <a href="<%=path %>/achievement/queryAllAchievementUnreleaseFront.do">未发布成果</a></li>
 							<li> <a href="<%=path %>/achievement/queryAllAchievementByCheckPendingFront.do">待审核成果</a></li>
