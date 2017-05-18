@@ -26,4 +26,12 @@ public interface IUserLoginDao {
      * @return
      */
     public UserLogin insertUserLogin(UserLogin userLogin);
+
+    /**
+     * 用户更新密码方法
+     * @param userLogin
+     * @return
+     */
+    public int updatePasswordByUserLoginId(UserLogin userLogin);
+
 }
