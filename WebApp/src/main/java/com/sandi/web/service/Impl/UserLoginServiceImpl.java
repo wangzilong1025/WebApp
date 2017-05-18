@@ -13,12 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserLoginServiceImpl implements IUserLoginService {
     @Autowired
     private IUserLoginDao userLoginDao;
-//    public IUserLoginDao getUserLoginDao() {
-//        return userLoginDao;
-//    }
-//    public void setUserLoginDao(IUserLoginDao userLoginDao) {
-//        this.userLoginDao = userLoginDao;
-//    }
+
     /**
      * 用户登录Service方法
      */
@@ -36,5 +31,10 @@ public class UserLoginServiceImpl implements IUserLoginService {
      */
     public UserLogin insertUserLogin(UserLogin userLogin) {
         return userLoginDao.insertUserLogin(userLogin);
+    }
+
+    @Override
+    public int updatePasswordByUserLoginId(UserLogin userLogin) {
+        return userLoginDao.updatePasswordByUserLoginId(userLogin);
     }
 }
