@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				var uname= /^[a-zA-z][a-zA-Z0-9_]{2,9}$/;
 				var bChk=uname.test(mail);
 				if(bChk==false){
-					$("#message").html("用户名格式错误,不能输入汉字以字母开头.<br>用户名格式例如wzl7788");
+					$("#message").html("用户名格式错误,不能输入汉字,请以字母开头.<br>用户名格式例如wzl7788");
 					$("#message").val("new value");
 				}else{
 					$("#message").html("");
