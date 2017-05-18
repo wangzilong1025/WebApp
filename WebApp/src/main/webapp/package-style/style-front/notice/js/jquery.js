@@ -243,7 +243,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 
 jQuery.extend( {
 
-	// Unique for each copy of jQuery on the page
+	// Unique for each copy of jQuery on the util
 	expando: "jQuery" + ( version + Math.random() ).replace( /\D/g, "" ),
 
 	// Assume jQuery is ready without the ready module
@@ -1252,7 +1252,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 			// Support: Safari 8+, iOS 8+
 			// https://bugs.webkit.org/show_bug.cgi?id=136851
-			// In-page `selector#id sibing-combinator selector` fails
+			// In-util `selector#id sibing-combinator selector` fails
 			if ( !div.querySelectorAll( "a#" + expando + "+*" ).length ) {
 				rbuggyQSA.push(".#.+[+~]");
 			}
@@ -4872,7 +4872,7 @@ jQuery.event = {
 			eventHandle = elemData.handle = function( e ) {
 
 				// Discard the second event of a jQuery.event.trigger() and
-				// when an event is called after a page has unloaded
+				// when an event is called after a util has unloaded
 				return typeof jQuery !== "undefined" &&
 					( !e || jQuery.event.triggered !== e.type ) ?
 					jQuery.event.dispatch.apply( eventHandle.elem, arguments ) :
@@ -10580,7 +10580,7 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 var _load = jQuery.fn.load;
 
 /**
- * Load a url into a page
+ * Load a url into a util
  */
 jQuery.fn.load = function( url, params, callback ) {
 	if ( typeof url !== "string" && _load ) {
