@@ -9278,10 +9278,10 @@ ul.am-dropdown-content > .am-disabled > a:focus {
   display: block;
 }
 /**
- * .@{ns}offcanvas-page
+ * .@{ns}offcanvas-util
  *
- * Prepares the whole HTML page to slide-out
- * 1. Fix the main page and disallow scrolling
+ * Prepares the whole HTML util to slide-out
+ * 1. Fix the main util and disallow scrolling
  * 2. Side-out transition
  */
 .am-offcanvas-page {
