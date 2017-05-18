@@ -74,14 +74,14 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.sandi.web.model.UserLogin" >
+    <update id="updatePasswordByUserLoginId" parameterType="com.sandi.web.model.UserLogin" >
         update userlogin
         <set >
             <if test="userName != null" >
                 userName = #{userName,jdbcType=VARCHAR},
             </if>
             <if test="userPassword != null" >
-                userPass = #{userPassword,jdbcType=VARCHAR},
+                userPassword = #{userPassword,jdbcType=VARCHAR},
             </if>
             <if test="userStatus != null" >
                 userStatus = #{userStatus,jdbcType=INTEGER},
