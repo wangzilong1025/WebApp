@@ -16,13 +16,90 @@
     <link href="<%=path %>/package-style/style-front/css/stepstyle.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="<%=path %>/package-style/style-front/js/jquery-1.7.2.min.js"></script>
     <script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+    <script type="text/javascript">
+        function passCon(){
+            var passCon = $("#oldpassword").val();
+            if(passCon == ""){
+                $("#message").html("请输入旧密码!");
+                $("#message").val("new value");
+                return;
+            }else{
+                $("#message").html("");
+                $("#message").val("");
+            }
+            var pass = $("#user-new-password").val();
+            if(pass == ""){
+                $("#message").html("请输入新密码!");
+                $("#message").val("new value");
+                return;
+            }else{
+                $("#message").html("");
+                $("#message").val("");
+            }
+            var passCon = $("#user-confirm-password").val();
+            if(passCon == ""){
+                $("#message").html("请输入确认密码");
+                $("#message").val("new value");
+                return;
+            }else{
+                $("#message").html("");
+                $("#message").val("");
+            }
+            if(pass!=passCon){
+                $("#message").html("两次新密码输入不一致!");
+                $("#message").val("new value");
+                return false;
+            }else{
+                $("#message").html("");
+                return true;
+            }
+        }
 
+
+        function submitpass(){
+            var passCon = $("#oldpassword").val();
+            if(passCon == ""){
+                $("#message").html("请输入旧密码!");
+                return;
+            }else{
+                $("#message").html("");
+                $("#message").val("");
+            }
+            var pass = $("#user-new-password").val();
+            if(pass == ""){
+                $("#message").html("请输入新密码!");
+                $("#message").val("new value");
+                return;
+            }else{
+                $("#message").html("");
+                $("#message").val("");
+            }
+            var passCon = $("#user-confirm-password").val();
+            if(passCon == ""){
+                $("#message").html("请输入确认密码");
+                $("#message").val("new value");
+                return;
+            }else{
+                $("#message").html("");
+                $("#message").val("");
+            }
+            if(pass!=passCon){
+                $("#message").html("两次新密码输入不一致!");
+                $("#message").val("new value");
+                return false;
+            }else{
+                $("#message").html("");
+                return true;
+            }
+            document.getElementById("updatepass").submit();
+        };
+    </script>
 </head>
 
 <body>
 <!--头 -->
 <header>
-    <article>
+    <article style="margin: 20px auto">
         <div class="mt-logo">
             <!--顶部导航条 -->
             <div class="am-container header">
@@ -43,38 +120,30 @@
                     </div>
                 </ul>
                 <ul class="message-r">
-                    <div class="topMessage home">
-                        <div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
-                    </div>
-                    <div class="topMessage my-shangcheng">
-                        <div class="menu-hd MyShangcheng"><a href="<%=path %>/package-jsp/jsp-front/user-center.jsp" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
-                    </div>
-                    <div class="topMessage my-shangcheng">
-                        <div class="menu-hd MyShangcheng">
-                            <c:choose>
-                                <c:when test="${sessionScope.user.userStatus == 2 }">
-                                    <a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:when>
-                                <c:when test="${sessionScope.user.userStatus == 1 }">
-                                    <a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:when>
-                                <c:when test="${sessionScope.user.userStatus == 0 }">
-                                    <a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="<%=path %>/package-jsp/jsp-front/user-unlogin.jsp" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                    </div>
-                    <div class="topMessage favorite">
-                        <div class="menu-hd"><a href="<%=path %>/collectionAll.do" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
-                    </div>
+                    <c:choose>
+                        <c:when test="${sessionScope.user == null }">
+                            <div class="topMessage home">
+                                <div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="topMessage home">
+                                <div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
+                            </div>
+                            <div class="topMessage my-shangcheng">
+                                <div class="menu-hd MyShangcheng"><a href="<%=path %>/userInfo/userCenterInfomation.do" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+                            </div>
+                            <div class="topMessage favorite">
+                                <div class="menu-hd"><a href="<%=path %>/achievementCollect/queryAllCollectionAchievement.do" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
+                            </div>
+                            <div class="topMessage favorite">
+                                <div class="menu-hd"><a href="<%=path %>/fotoPlace/queryAllFotoPlaceAchievementByUserInfoId.do" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>我的足迹</span></a></div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </div>
-
             <div class="clear"></div>
-        </div>
         </div>
     </article>
 </header>
@@ -103,6 +172,11 @@
                 <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">修改密码</strong> / <small>Password</small></div>
             </div>
             <hr/>
+            <div class="m-progress" style="margin-top:10px;max-height: 30px;min-height: 30px;">
+                <div class="m-progress-list" float="center" text-align="center" style="min-height: 30px;max-height: 30px;">
+                    <p text-align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span text-align="center" id="message" style="color:red;"></span></p>
+                </div>
+            </div>
             <!--进度条-->
             <div class="m-progress">
                 <div class="m-progress-list">
@@ -119,33 +193,38 @@
                     <span class="u-progress-placeholder"></span>
                 </div>
                 <div class="u-progress-bar total-steps-2">
-                    <div class="u-progress-bar-inner"></div>
+                    <div class="u-progress-bar-inner">
+
+                    </div>
                 </div>
             </div>
-            <form class="am-form am-form-horizontal">
+            <form id="updatepass" class="am-form am-form-horizontal" action="<%=path %>/userLogin/userSavePasswordByUserLoginId.do" method="post">
                 <div class="am-form-group">
                     <label for="user-old-password" class="am-form-label">原密码</label>
                     <div class="am-form-content">
-                        <input type="password" id="user-old-password" placeholder="请输入原登录密码">
+                        <input type="hidden" name="userId" id="userId" value="${user.userId}">
+                        <input type="hidden" name="userName" id="userName" value="${user.userName}">
+                        <input type="password" name="userOldPass" id="oldpassword" placeholder="请输入原登录密码" onblur="passCon();">
                     </div>
                 </div>
                 <div class="am-form-group">
                     <label for="user-new-password" class="am-form-label">新密码</label>
                     <div class="am-form-content">
-                        <input type="password" id="user-new-password" placeholder="由数字、字母组合">
+                        <input type="password" name="userNewPass" id="user-new-password" placeholder="由数字、字母组合" onblur="passCon()">
                     </div>
                 </div>
                 <div class="am-form-group">
                     <label for="user-confirm-password" class="am-form-label">确认密码</label>
                     <div class="am-form-content">
-                        <input type="password" id="user-confirm-password" placeholder="请再次输入上面的密码">
+                        <input type="password" id="user-confirm-password" placeholder="请再次输入上面的密码" onblur="passCon()">
                     </div>
-                </div>
-                <div class="info-btn">
-                    <div class="am-btn am-btn-danger">保存修改</div>
                 </div>
 
             </form>
+            <div class="info-btn">
+                <div><input class="am-btn am-btn-danger" type="button" onclick="submitpass()" value="保存信息" /></div>
+            </div>
+
 
         </div>
         <!--底部-->
@@ -191,22 +270,21 @@
     <aside class="menu">
         <ul>
             <li class="person">
-                <a href="<%=path %>/getCustom.do ">个人中心</a>
+                <a href="<%=path %>/userInfo/userCenterInfomation.do">个人中心</a>
             </li>
             <li class="person">
                 <a href="#"><font style="font-weight: bold">个人资料</font></a>
                 <ul>
                     <li> <a href="<%=path %>/userInfo/selectPersonalCenter.do">个人信息</a></li>
-                    <li> <a href="<%=path %>/package-jsp/jsp-front/user-safety.jsp">安全设置</a></li>
+                    <li> <a href="<%=path %>/userLogin/userUpdateSafetyByUserId.do">安全设置</a></li>
                     <li> <a href="<%=path %>/package-jsp/jsp-front/user-safety-pass.jsp">修改密码</a></li>
-                    <li> <a href="<%=path %>/findAddress.do">收货地址</a></li>
+                    <li> <a href="<%=path %>/achievementCollect/queryAllCollectionAchievement.do">我的收藏</a></li>
+                    <li> <a href="<%=path %>/fotoPlace/queryAllFotoPlaceAchievementByUserInfoId.do">足迹浏览</a></li>
                 </ul>
             </li>
             <li class="person">
                 <a href="#"><font style="font-weight: bold">我的成果</font></a>
                 <ul>
-                    <li> <a href="<%=path %>/collectionAll.do">我的收藏</a></li>
-                    <li> <a href="<%=path %>/footMark/listFoot.do">足迹浏览</a></li>
                     <li> <a href="<%=path %>/menu/selectMenuOne.do">成果新增</a></li>
                     <li> <a href="<%=path %>/achievement/queryAllAchievementUnreleaseFront.do">未发布成果</a></li>
                     <li> <a href="<%=path %>/achievement/queryAllAchievementByCheckPendingFront.do">待审核成果</a></li>
