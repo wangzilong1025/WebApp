@@ -19,6 +19,8 @@ public class AchievementServiceImpl implements IAchievementService {
     public void setAchievementDao(IAchievementDao achievementDao) {
         this.achievementDao = achievementDao;
     }
+
+    @Override
     public List<Achievement> queryAllAchievementByUserId(Map<String, Integer> map) {
         return achievementDao.queryAllAchievementByUserId(map);
     }
@@ -45,6 +47,16 @@ public class AchievementServiceImpl implements IAchievementService {
     }
 
     /**
+     * 查询用户搜索所得到的科研成果的数量
+     * @param map
+     * @return
+     */
+    @Override
+    public int queryAchievementBySearchContentCount(Map map) {
+        return achievementDao.queryAchievementBySearchContentCount(map);
+    }
+
+    /**
      * 查询全部已经发布的科研成果（在collection方法里）
      * @param releaseState
      * @return
@@ -52,6 +64,26 @@ public class AchievementServiceImpl implements IAchievementService {
     @Override
     public List<Achievement> queryAllAchievementForCollection(int releaseState) {
         return achievementDao.queryAllAchievementForCollection(releaseState);
+    }
+
+    /**
+     * 根据科研成果类型查询科研成果
+     * @param map
+     * @return
+     */
+    @Override
+    public List<Achievement> selectAllAchievementByType(Map<String, Integer> map) {
+        return achievementDao.selectAllAchievementByType(map);
+    }
+
+    /**
+     * 根据科研成果的类型查询科研成果的数量
+     * @param map
+     * @return
+     */
+    @Override
+    public int selectAllAchievementByTypeCount(Map<String, Integer> map) {
+        return achievementDao.selectAllAchievementByTypeCount(map);
     }
 
     @Override
