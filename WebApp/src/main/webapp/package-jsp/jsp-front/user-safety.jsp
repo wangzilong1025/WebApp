@@ -19,7 +19,7 @@
 <body>
 <!--头 -->
 <header>
-    <article>
+    <article style="margin: 20px auto">
         <div class="mt-logo">
             <!--顶部导航条 -->
             <div class="am-container header">
@@ -40,41 +40,35 @@
                     </div>
                 </ul>
                 <ul class="message-r">
-                    <div class="topMessage home">
-                        <div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
-                    </div>
-                    <div class="topMessage my-shangcheng">
-                        <div class="menu-hd MyShangcheng"><a href="<%=path %>/package-jsp/jsp-front/user-center.jsp" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
-                    </div>
-                    <div class="topMessage my-shangcheng">
-                        <div class="menu-hd MyShangcheng">
-                            <c:choose>
-                                <c:when test="${sessionScope.user.userStatus == 2 }">
-                                    <a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:when>
-                                <c:when test="${sessionScope.user.userStatus == 1 }">
-                                    <a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:when>
-                                <c:when test="${sessionScope.user.userStatus == 0 }">
-                                    <a href="<%=path %>/shop/findByCustomId.do" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="<%=path %>/package-jsp/jsp-front/user-unlogin.jsp" target="_top"><i class="am-icon-user am-icon-fw"></i>用户中心</a>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                    </div>
-                    <div class="topMessage favorite">
-                        <div class="menu-hd"><a href="<%=path %>/collectionAll.do" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
-                    </div>
+                    <c:choose>
+                        <c:when test="${sessionScope.user == null }">
+                            <div class="topMessage home">
+                                <div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="topMessage home">
+                                <div class="menu-hd"><a href="<%=path %>/menu/getMenuList.do" target="_top" class="h">商城首页</a></div>
+                            </div>
+                            <div class="topMessage my-shangcheng">
+                                <div class="menu-hd MyShangcheng"><a href="<%=path %>/userInfo/userCenterInfomation.do" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+                            </div>
+                            <div class="topMessage favorite">
+                                <div class="menu-hd"><a href="<%=path %>/achievementCollect/queryAllCollectionAchievement.do" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
+                            </div>
+                            <div class="topMessage favorite">
+                                <div class="menu-hd"><a href="<%=path %>/fotoPlace/queryAllFotoPlaceAchievementByUserInfoId.do" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>我的足迹</span></a></div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </div>
 
             <div class="clear"></div>
         </div>
-        </div>
     </article>
 </header>
+
 <div class="nav-table">
     <div class="long-title"><span class="all-goods">全部分类</span></div>
     <div class="nav-cont">
@@ -91,6 +85,7 @@
         </div>
     </div>
 </div>
+
 <b class="line"></b>
 <div class="center">
     <div class="col-main">
@@ -105,22 +100,29 @@
 
                 <!--头像 -->
                 <div class="user-infoPic">
-
-                    <div class="filePic">
-                        <img class="am-circle am-img-thumbnail" src="<%=path %>/package-style/style-front/images/getAvatar.do.jpg" alt="" />
+                    <div class="filePic" id="localImag">
+                        <%--<input class="inputPic" type="file" id="file" name="file" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">--%>
+                        <c:choose>
+                            <c:when test="${userInfo.userImage == null}">
+                                <img class="am-circle am-img-thumbnail" id="userImage" src="<%=path %>/package-style/style-front/images/getAvatar.do.jpg"/>
+                            </c:when>
+                            <c:otherwise>
+                                <img class="am-circle am-img-thumbnail" id="userImage" src="<%=path %>/userInfoImage/${userInfo.userImage }"/>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
-
                     <p class="am-form-help">头像</p>
 
                     <div class="info-m">
-                        <div><b>用户名：<i>小叮当</i></b></div>
-                        <div class="u-level">
+                        <div><b>用户名：<i>${user.userName}</i></b></div>
+                        <div><b>昵称：<i>${userInfo.userNick}</i></b></div>
+                        <%--<div class="u-level">
 									<span class="rank r2">
 							             <s class="vip1"></s><a class="classes" href="#">铜牌会员</a>
 						            </span>
-                        </div>
+                        </div>--%>
                         <div class="u-safety">
-                            <a href="safety.html">
+                            <a href="#">
                                 账户安全
                                 <span class="u-profile"><i class="bc_ee0000" style="width: 60px;" width="0">60分</i></span>
                             </a>
@@ -137,12 +139,12 @@
                                 <div class="fore2"><small>为保证您购物安全，建议您定期更改密码以保护账户安全。</small></div>
                             </div>
                             <div class="fore3">
-                                <a href="password.html">
+                                <a href="<%=path %>/userLogin/userUpdatePasswordByUserLoginId.do">
                                     <div class="am-btn am-btn-secondary">修改</div>
                                 </a>
                             </div>
                         </li>
-                        <li>
+                       <%-- <li>
                             <i class="i-safety-wallet"></i>
                             <div class="m-left">
                                 <div class="fore1">支付密码</div>
@@ -153,7 +155,7 @@
                                     <div class="am-btn am-btn-secondary">立即启用</div>
                                 </a>
                             </div>
-                        </li>
+                        </li>--%>
                         <li>
                             <i class="i-safety-iphone"></i>
                             <div class="m-left">
@@ -178,7 +180,7 @@
                                 </a>
                             </div>
                         </li>
-                        <li>
+                        <%--<li>
                             <i class="i-safety-idcard"></i>
                             <div class="m-left">
                                 <div class="fore1">实名认证</div>
@@ -189,7 +191,7 @@
                                     <div class="am-btn am-btn-secondary">认证</div>
                                 </a>
                             </div>
-                        </li>
+                        </li>--%>
                         <li>
                             <i class="i-safety-security"></i>
                             <div class="m-left">
@@ -197,7 +199,7 @@
                                 <div class="fore2"><small>保护账户安全，验证您身份的工具之一。</small></div>
                             </div>
                             <div class="fore3">
-                                <a href="question.html">
+                                <a href="<%=path %>/package-jsp/jsp-front/user-safety-question.jsp">
                                     <div class="am-btn am-btn-secondary">认证</div>
                                 </a>
                             </div>
@@ -250,22 +252,21 @@
     <aside class="menu">
         <ul>
             <li class="person">
-                <a href="<%=path %>/getCustom.do ">个人中心</a>
+                <a href="<%=path %>/userInfo/userCenterInfomation.do">个人中心</a>
             </li>
             <li class="person">
                 <a href="#"><font style="font-weight: bold">个人资料</font></a>
                 <ul>
                     <li> <a href="<%=path %>/userInfo/selectPersonalCenter.do">个人信息</a></li>
-                    <li> <a href="<%=path %>/package-jsp/jsp-front/user-safety.jsp">安全设置</a></li>
+                    <li> <a href="<%=path %>/userLogin/userUpdateSafetyByUserId.do">安全设置</a></li>
                     <li> <a href="<%=path %>/package-jsp/jsp-front/user-safety-pass.jsp">修改密码</a></li>
-                    <li> <a href="<%=path %>/findAddress.do">收货地址</a></li>
+                    <li> <a href="<%=path %>/achievementCollect/queryAllCollectionAchievement.do">我的收藏</a></li>
+                    <li> <a href="<%=path %>/fotoPlace/queryAllFotoPlaceAchievementByUserInfoId.do">足迹浏览</a></li>
                 </ul>
             </li>
             <li class="person">
                 <a href="#"><font style="font-weight: bold">我的成果</font></a>
                 <ul>
-                    <li> <a href="<%=path %>/collectionAll.do">我的收藏</a></li>
-                    <li> <a href="<%=path %>/footMark/listFoot.do">足迹浏览</a></li>
                     <li> <a href="<%=path %>/menu/selectMenuOne.do">成果新增</a></li>
                     <li> <a href="<%=path %>/achievement/queryAllAchievementUnreleaseFront.do">未发布成果</a></li>
                     <li> <a href="<%=path %>/achievement/queryAllAchievementByCheckPendingFront.do">待审核成果</a></li>
