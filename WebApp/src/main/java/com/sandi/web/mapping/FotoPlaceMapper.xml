@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sandi.web.dao.IFotoPlaceDao" >
+    <resultMap id="ResultMap" type="com.sandi.web.model.FotoPlace" >
+        <id column="fotoPlaceId" property="fotoPlaceId" jdbcType="INTEGER" />
+        <result column="userinfoId" property="userinfoId" jdbcType="INTEGER" />
+        <result column="achievementId" property="achievementId" jdbcType="INTEGER" />
+        <result column="fotoPlaceDate" property="fotoPlaceDate" jdbcType="DATE" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        fotoPlaceId, userinfoId, achievementId, fotoPlaceDate, state
+    </sql>
+
+    <select id="findAllFotoPlaceByUserInfoId" resultMap="ResultMap" parameterType="java.util.Map" >
+        select
+        <include refid="Base_Column_List" />
+        from fotoplace
+        where state = #{state}
+        and userinfoId = #{userinfoId}
+        order by fotoPlaceDate
+    </select>
+
+    <insert id="addFotoPlaceById" parameterType="com.sandi.web.model.FotoPlace" >
+        insert into fotoplace
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="fotoPlaceId != null" >
+                fotoPlaceId,
+            </if>
+            <if test="userinfoId != null" >
+                userinfoId,
+            </if>
+            <if test="achievementId != null" >
+                achievementId,
+            </if>
+            <if test="fotoPlaceDate != null" >
+                fotoPlaceDate,
+            </if>
+            <if test="state != null" >
+                state,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="fotoPlaceId != null" >
+                #{fotoPlaceId,jdbcType=INTEGER},
+            </if>
+            <if test="userinfoId != null" >
+                #{userinfoId,jdbcType=INTEGER},
+            </if>
+            <if test="achievementId != null" >
+                #{achievementId,jdbcType=INTEGER},
+            </if>
+            <if test="fotoPlaceDate != null" >
+                #{fotoPlaceDate,jdbcType=DATE},
+            </if>
+            <if test="state != null" >
+                #{state,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+
+
+</mapper>
