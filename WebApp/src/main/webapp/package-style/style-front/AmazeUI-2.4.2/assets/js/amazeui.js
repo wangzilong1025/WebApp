@@ -3309,7 +3309,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  mandatory: false,			// you can't proceed if you don't add the app to the homescreen
 	  autostart: true,			// show the message automatically
 	  skipFirstVisit: false,		// show only to returning visitors (ie: skip the first time you visit)
-	  startDelay: 1,				// display the message after that many seconds from page load
+	  startDelay: 1,				// display the message after that many seconds from util load
 	  lifespan: 15,				// life of the message in seconds
 	  displayPace: 1440,			// minutes before the message is shown again (0: display every time, default 24 hours)
 	  maxDisplayCount: 0,			// absolute maximum number of times the message will be shown to the user (0: no limit)
@@ -3492,7 +3492,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return;
 	  }
 
-	  // (try to) check if the page has been added to the homescreen
+	  // (try to) check if the util has been added to the homescreen
 	  if (this.options.detectHomescreen) {
 	    // the URL has the token, we are likely coming from the homescreen
 	    if (ath.hasToken) {
@@ -8081,7 +8081,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  $body.css({
 	    width: window.innerWidth,
 	    height: $win.height()
-	  }).addClass('am-offcanvas-page');
+	  }).addClass('am-offcanvas-util');
 
 	  if (effect !== 'overlay') {
 	    $body.css({
@@ -8137,7 +8137,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  function complete() {
 	    $body
-	      .removeClass('am-offcanvas-page')
+	      .removeClass('am-offcanvas-util')
 	      .css({
 	        width: '',
 	        height: '',
