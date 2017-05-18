@@ -3,6 +3,7 @@ package com.sandi.web.controller;
 import com.sandi.web.model.UserInfo;
 import com.sandi.web.model.UserLogin;
 import com.sandi.web.service.IUserInfoService;
+import com.sandi.web.util.UtilStatic;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -76,5 +78,37 @@ public class UserInfoController {
             return "jsp-error/error-page";
         }
 
+    }
+
+    /**
+     * 用户中心的用户信息查找方法
+     * @param session
+     * @param modelMap
+     * @param userInfo
+     * @return
+     */
+    @RequestMapping("/userCenterInfomation")
+    public String userCenterInfomation(HttpSession session,ModelMap modelMap,UserInfo userInfo){
+        log.info("进入userCenterInfomation方法!");
+        try{
+            log.info("进入userCenterInfomation的try方法!");
+            //Date date = new Date();
+            String shortTime = UtilStatic.shortTime.format(UtilStatic.NEW_DATE);
+            String[] splitShortTime = shortTime.split("-");
+            String year = splitShortTime[0];
+            String month = splitShortTime[1];
+            String day = splitShortTime[2];
+            System.out.print("这是年:"+year+"========="+"这是月:"+month+"======="+"这是日:"+day);
+            UserLogin userlog = (UserLogin) session.getAttribute("user");
+            userInfo = userInfoService.selectByUserId(userlog.getUserId());
+            modelMap.put("userInfo",userInfo);
+            modelMap.put("day",day);
+            modelMap.put("month",month);
+            modelMap.put("year",year);
+            return "jsp-front/user-center";
+        }catch(Exception e){
+            log.error("进入userCenterInfomation的catch方法,错误信息:"+e.getMessage());
+            return "jsp-error/error-page";
+        }
     }
 }
