@@ -173,25 +173,34 @@
         where achievementId = #{achievementId,jdbcType=INTEGER}
     </update>
 
-    <!-- 用户根据条件查询可验证过，如果田间为空，默认查询全部-->
+    <!-- 用户根据条件查询可验证过，如果成果为空，默认查询全部-->
     <select id="queryAchievementBySearchContent" resultMap="ResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from achievement
-        <trim prefix="where" prefixOverrides="and \ or">
+
+        select <include refid="Base_Column_List" />
+        from achievement where 1=1
+
             <if test="releaseState!=null and releaseState != ''" >
-                releaseState = #{releaseState}
+               and  releaseState = #{releaseState}
             </if>
             <if test="searchContent!=null and searchContent !=''">
-                and achievementName like CONCAT('%',#{searchContent},'%')
-            </if>
-            <if test="searchContent!=null and searchContent !=''">
+                and (achievementName like CONCAT('%',#{searchContent},'%')
                 or userNick like CONCAT('%',#{searchContent},'%')
+                or unitName like CONCAT('%',#{searchContent},'%'))
             </if>
-            <if test="searchContent!=null and searchContent !=''">
-                or unitName like CONCAT('%',#{searchContent},'%')
-            </if>
-        </trim>
+            limit #{startCount},#{pageSize}
+    </select>
+
+    <!-- 用户根据条件查询可验证过，如果成果为空，则查询全部的数量-->
+    <select id="queryAchievementBySearchContentCount" resultType="Integer">
+        select count(1) from achievement where 1=1
+        <if test="releaseState!=null and releaseState != ''" >
+            and  releaseState = #{releaseState}
+        </if>
+        <if test="searchContent!=null and searchContent !=''">
+            and (achievementName like CONCAT('%',#{searchContent},'%')
+            or userNick like CONCAT('%',#{searchContent},'%')
+            or unitName like CONCAT('%',#{searchContent},'%'))
+        </if>
     </select>
 
     <!--y用户收藏查询全部的科研成果 -->
@@ -200,5 +209,22 @@
         <include refid="Base_Column_List" />
         from achievement
         where releaseState = #{releaseState}
+    </select>
+
+    <!--根据科研成果类型（achievementType）查询类型相同的成果 -->
+    <select id="selectAllAchievementByType" resultMap="ResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List" />
+        from achievement
+        where releaseState = #{releaseState}
+        and achievementType = #{topId}
+        limit #{startCount},#{pageSize}
+    </select>
+
+    <!--根据科研成果类型（achievementType）查询类型相同的成果的数量 -->
+    <select id="selectAllAchievementByTypeCount" resultType="Integer" parameterType="java.util.Map">
+        select count(1) from achievement
+        where releaseState = #{releaseState}
+        and achievementType = #{topId}
     </select>
 </mapper>
