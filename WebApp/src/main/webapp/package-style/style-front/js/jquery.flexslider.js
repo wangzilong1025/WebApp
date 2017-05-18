@@ -1299,7 +1299,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
       var style, ret, node, docOverflow,
           div = document.createElement('div'),
-          // After page load injecting a fake body doesn't work so check if body exists
+          // After util load injecting a fake body doesn't work so check if body exists
           body = document.body,
           // IE6 and 7 won't return offsetWidth or offsetHeight unless it's in the body element, so we fake it.
           fakeBody = body || document.createElement('body');
@@ -1322,7 +1322,7 @@ window.Modernizr = (function( window, document, undefined ) {
       style = ['&#173;','<style id="s', mod, '">', rule, '</style>'].join('');
       div.id = mod;
       // IE6 will false positive on some tests due to the style element inside the test div somehow interfering offsetHeight, so insert it into body or fakebody.
-      // Opera will act all quirky when injecting elements in documentElement when page is served as xml, needs fakebody too. #270
+      // Opera will act all quirky when injecting elements in documentElement when util is served as xml, needs fakebody too. #270
       (body ? div : fakeBody).innerHTML += style;
       fakeBody.appendChild(div);
       if ( !body ) {
@@ -1336,7 +1336,7 @@ window.Modernizr = (function( window, document, undefined ) {
       }
 
       ret = callback(div, rule);
-      // If this is done after page load we don't want to remove the body so check if body exists
+      // If this is done after util load we don't want to remove the body so check if body exists
       if ( !body ) {
           fakeBody.parentNode.removeChild(fakeBody);
           docElement.style.overflow = docOverflow;
@@ -1669,7 +1669,7 @@ window.Modernizr = (function( window, document, undefined ) {
     //
     // Using !!navigator.geolocation does two things we don't want. It:
     //   1. Leaks memory in IE9: github.com/Modernizr/Modernizr/issues/513
-    //   2. Disables page caching in WebKit: webk.it/43956
+    //   2. Disables util caching in WebKit: webk.it/43956
     //
     // Meanwhile, in Firefox < 8, an about:config setting could expose
     // a false positive that would throw an exception: bugzil.la/688158
@@ -2023,7 +2023,7 @@ window.Modernizr = (function( window, document, undefined ) {
     };
 
     // specifically for SVG inline in HTML, not within XHTML
-    // test page: paulirish.com/demo/inline-svg
+    // test util: paulirish.com/demo/inline-svg
     tests['inlinesvg'] = function() {
       var div = document.createElement('div');
       div.innerHTML = '<svg/>';
