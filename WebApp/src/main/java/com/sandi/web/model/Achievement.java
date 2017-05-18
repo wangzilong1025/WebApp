@@ -29,11 +29,11 @@ public class Achievement implements Serializable{
     /**
      * 科研成果发布的类型
      */
-    private String achievementType;
+    private int achievementType;
     /**
      * 所在地区
      */
-    private String locationCity;
+    private int locationCity;
     /**
      * 成果内容：achievementContent
      */
@@ -77,10 +77,6 @@ public class Achievement implements Serializable{
      */
     private String cityTypeName;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public int getAchievementId() {
         return achievementId;
     }
@@ -113,19 +109,19 @@ public class Achievement implements Serializable{
         this.unitName = unitName;
     }
 
-    public String getAchievementType() {
+    public int getAchievementType() {
         return achievementType;
     }
 
-    public void setAchievementType(String achievementType) {
+    public void setAchievementType(int achievementType) {
         this.achievementType = achievementType;
     }
 
-    public String getLocationCity() {
+    public int getLocationCity() {
         return locationCity;
     }
 
-    public void setLocationCity(String locationCity) {
+    public void setLocationCity(int locationCity) {
         this.locationCity = locationCity;
     }
 
@@ -216,8 +212,8 @@ public class Achievement implements Serializable{
                 ", timeToString='" + timeToString + '\'' +
                 ", achievementName='" + achievementName + '\'' +
                 ", unitName='" + unitName + '\'' +
-                ", achievementType='" + achievementType + '\'' +
-                ", locationCity='" + locationCity + '\'' +
+                ", achievementType=" + achievementType +
+                ", locationCity=" + locationCity +
                 ", achievementContent='" + achievementContent + '\'' +
                 ", achievementImages='" + achievementImages + '\'' +
                 ", achievementOneImage='" + achievementOneImage + '\'' +
@@ -230,4 +226,5 @@ public class Achievement implements Serializable{
                 ", cityTypeName='" + cityTypeName + '\'' +
                 '}';
     }
+
 }
