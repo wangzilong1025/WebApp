@@ -2,6 +2,7 @@ package com.sandi.web.controller;
 
 import com.sandi.web.model.Admin;
 import com.sandi.web.service.IAdminService;
+import com.sandi.web.util.UtilStatic;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,7 +56,7 @@ public class AdminController {
             log.info(timeToken+"进入addAdmin的try方法!!!");
             //管理员的状态是0代表管理首次注册不能操作任何东西
             //管理员的状态是1,2,3,4,5等代表拥有权限
-            admin.setAdminStatus(0);
+            admin.setAdminStatus(UtilStatic.STATIC_ZERO);
             adminService.insertAdminByAdminId(admin);
             return "jsp-behind/admin-login";
         }catch(Exception e){
