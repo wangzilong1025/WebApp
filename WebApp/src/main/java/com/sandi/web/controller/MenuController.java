@@ -11,6 +11,7 @@ import com.sandi.web.service.IAchievementService;
 import com.sandi.web.service.ICityService;
 import com.sandi.web.service.IMenuService;
 import com.sandi.web.service.INoticeService;
+import com.sandi.web.util.UtilStatic;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -155,24 +156,43 @@ public class MenuController {
         log.info(timeToken+"进入selectMenuOneInSearch方法!!!");
         try{
             log.info(timeToken+"进入selectMenuOneInSearch的try方法!!!");
-            List<Menu> oneMenuInSearch = menuService.findMenuLevels(1);
+            //默认的页数
+            int page = 1;
+            //默认的每页的个数12条每页
+            int pageSize = UtilStatic.STATIC_PAGESIZE;
+            List<Menu> oneMenuInSearch = menuService.findMenuLevels(UtilStatic.STATIC_ONE);
             System.out.print("这是搜索内容:"+searchContent);
             //状态2代表科研成果经过审核通过的，能展示给用户查看的
-            int releaseState = 2;
-            Map<String,String> map = new HashMap<String, String>();
+            int releaseState = UtilStatic.STATIC_TWO;
+            //String a = String.valueOf((page-1)*pageSize);
+            Map map = new HashMap();
             map.put("searchContent",searchContent);
             map.put("releaseState",String.valueOf(releaseState));
+            map.put("startCount",(page-1)*pageSize);
+            map.put("pageSize",pageSize);
             List<Achievement> searchList = achievementService.queryAchievementBySearchContent(map);
+            //查询总数
+            int count = achievementService.queryAchievementBySearchContentCount(map);
+            System.out.print("科研成果总数:"+"==========================================="+count);
+            if(count<=16){
+                page = 1;
+            }else{
+                page = (count + pageSize -1)/pageSize;
+                System.out.print("这是分页的总页数:"+page);
+            }
             for(Achievement list:searchList){
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 list.setTimeToString(sdf.format(list.getReleaseTime()));
-                Menu menu = menuService.selectTopNameByTopId(Integer.parseInt(list.getAchievementType()));
+                Menu menu = menuService.selectTopNameByTopId(list.getAchievementType());
                 list.setAchievementTypeName(menu.getTopName());
             }
             //遍历的科研成果菜单
             modelMap.put("oneMenuInSearch", oneMenuInSearch);
             //搜索到的科研成果
             modelMap.put("searchList",searchList);
+            modelMap.put("searchContent",searchContent);
+            modelMap.put("count",count);
+            modelMap.put("page",page);
             return "jsp-front/user-search";
         }catch(Exception e){
             log.error(timeToken+"进入selectMenuOneInSearch的catch方法!!!");
