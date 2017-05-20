@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
-		<title>新增科研成果</title>
+		<title>科研成果详情</title>
 		<link href="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
 		<link href="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
 		<link href="<%=path %>/package-style/style-front/css/personal.css" rel="stylesheet" type="text/css">
@@ -16,128 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="<%=path %>/package-style/style-front/css/refstyle.css" rel="stylesheet" type="text/css">
 		<script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
 		<script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
-		<script type="text/javascript">
-		function test(){
-			//var cityOne = $('#loc_province').select2('data').text;
-			//var cityTwo = $('#loc_city').select2('data').text;
-			//var cityThree = $('#loc_town').select2('data').text;
-			//$("#selectOneCity").val(cityOne);
-			//$("#selectTwoCity").val(cityTwo);
-			//$("#selectThreeCity").val(cityThree);
-			document.getElementById("achievementAdd").submit();
-	    };
-		$(function(){
-	    	$("#type1").change(function(){
-	    		$("#type2 option:not(:first)").remove();
-	    		var type1 = $(this).val();
-	    		//alert(type1);
-	    	    if(type1 != ""){
-	    	    	$.ajax({
-    	    		    type: "post",  //get或post
-    	    		    async : false,  //可选，默认true  true或false
-    	    		    url:  "<%=path %>/menu/selectMenuTwo.do",   //请求的服务器地址
-    	    		    contentType: "application/x-www-form-urlencoded; charset=utf-8",
-    	    		    data:{
-    	        		    "topId":type1,
-    	        		    "time":new Date()
-    	    		    	},
-    	    		    success:function(data)
-    	    		    { 
-    		               	var json = eval(data);
-    		                if(data.length == 0){
-    		                    alert("当前类没有子类");
-    		                }else{
-    		                    for(var i = 0;i<json.length;i++){
-    		                    	var type2id = json[i].topId;
-    		                        var type2name = json[i].topName;
-    		                        $("#type2").append("<option value='"+type2id+"'>"+type2name+"</option>");
-    		                    }
-    		                }
-    	    	        },
-    	    	        error:function()
-    	    	        {	
-	    	    	        //失败回调函数
-    	    	        	alert("出现异常");
-    	    	        }
-	    	    	}); 
-	    	    }
-	    	});
-		});
-		//第三极的联动查询
-		$(function(){
-			$("#type2").change(function(){
-	    		$("#type3 option:not(:first)").remove();
-	    		var type2 = $(this).val();
-	    		//alert(type2);
-	    	    if(type2 != ""){
-	    	    	$.ajax({
-		    		    type: "post",  //get或post
-		    		    async : false,  //可选，默认true  true或false
-		    		    url:  "<%=path %>/menu/selectMenuThree.do",   //请求的服务器地址
-		    		    contentType: "application/x-www-form-urlencoded; charset=utf-8",
-		    		    data:{
-		        		    "topId2":type2,
-		        		    "time":new Date()
-		    		    	},
-		    		    success:function(data1)
-		    		    { 
-			               	var json2 = eval(data1);
-			                if(data1.length == 0){
-			                    alert("当类没有子类");
-			                }else{
-			                    for(var i = 0;i<json2.length;i++){
-			                    	var type3id = json2[i].topId;
-			                        var type3name = json2[i].topName;
-			                        $("#type3").append("<option value='"+type3id+"'>"+type3name+"</option>");
-			                    }
-			                }
-		    	        },
-		    	        error:function()
-		    	        {	
-		    	        	alert("出现异常");
-		    	        }
-	    	    	}); 
-	    	    }
-	    	});
-		});
-		//查询二级市级的城市
-		$(function(){
-	    	$("#cityTwo").change(function(){
-	    		$("#cityThree option:not(:first)").remove();
-	    		var cityTwo = $(this).val();
-	    		alert(cityTwo);
-	    	    if(cityTwo != ""){
-	    	    	$.ajax({
-    	    		    type: "post",  //get或post
-    	    		    async : false,  //可选，默认true  true或false
-    	    		    url:  "<%=path %>/city/selectCityThree.do",   //请求的服务器地址
-    	    		    contentType: "application/x-www-form-urlencoded; charset=utf-8",
-    	    		    data:{
-    	        		    "cityId":cityTwo,
-    	        		    "time":new Date()
-    	    		    	},
-    	    		    success:function(data2)
-    	    		    { 
-    		               	var json3 = eval(data2);
-    		                if(data2.length == 0){
-    		                    alert("当前类没有子类");
-    		                }else{
-    		                    for(var i = 0;i<json3.length;i++){
-    		                    	var city2id = json3[i].cityId;
-    		                        var city2name = json3[i].cityName;
-    		                        $("#cityThree").append("<option value='"+city2id+"'>"+city2name+"</option>");
-    		                    }
-    		                }
-    	    	        },
-    	    	        error:function()
-    	    	        {	
-    	    	        	alert("出现异常");
-    	    	        }
-	    	    	}); 
-	    	    }
-	    	});
-		});
-		</script>
 		<script>
 			function setImagePreview() {
 		        var docObj=document.getElementById("file");
@@ -267,8 +145,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</ul>
 					</div>
 
-
-
 					<div class="clear"></div>
 				</div>
 			</article>
@@ -311,30 +187,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div class="am-form-group">
 											<label for="user-name" class="am-form-label">&nbsp;成果标题</label>
 											<div class="am-form-content">
-												<input type="text" id="achievementName" name="achievementName" readonly="readonly" value="${achievement.achievementName}" placeholder="科技成果标题">
+												<input type="text" style="border: 0px;" align="left" id="achievementName" readonly="readonly" value="${achievement.achievementName}">
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="user-name" class="am-form-label">&nbsp;单位名称</label>
 											<div class="am-form-content">
-												<input type="text" id="unitName" name="unitName" readonly="readonly" value="${achievement.unitName}" placeholder="所在单位名称">
+												<input type="text" style="border: 0px;" id="unitName" name="unitName" readonly="readonly" value="${achievement.unitName}" placeholder="所在单位名称">
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="user-address" class="am-form-label">&nbsp;成果分类</label>
 											<div class="am-form-content address">
-												<select data-am-selected="{maxHeight: 120}" id="type1">
-													<option value="" selected="selected">${menuNameOne}</option>
-													<%--<c:forEach items="${selectOneMenu }" var="list1">
-													     <option value="${list1.topId }">${list1.topName }</option>
-													</c:forEach>--%>
-												</select>
-												<select data-am-selected="{maxHeight: 120}" id="type2">
-													<option value="" selected="selected">${menuNameTwo}</option>
-												</select>
-												<select data-am-selected="{maxHeight: 120}" id="type3" name="achievementType">
-													<option value="" selected="selected">${menuNameThree}</option>
-												</select>
+												<div class="birth-select">
+													<%--<input type="text" id="menuNameOne" name="unitName" readonly="readonly" value="${menuNameOne}">--%>
+													<select data-am-selected="{maxHeight: 120}" id="type1" disabled="disabled" style="border: 0px;">
+														<option value="${menuNameOne}" selected="selected">${menuNameOne}</option>
+													</select>
+												</div>
+												<div class="birth-select">
+													<select data-am-selected="{maxHeight: 120}" id="type2" disabled="disabled" style="border: 0px;">
+														<option value="${menuNameTwo}" selected="selected">${menuNameTwo}</option>
+													</select>
+												</div>
+												<div class="birth-select">
+													<select data-am-selected="{maxHeight: 120}" id="type3" disabled="disabled" style="border: 0px;">
+														<option value="${menuNameThree}" selected="selected">${menuNameThree}</option>
+													</select>
+												</div>
 											</div>						
 										</div>
 										<div class="am-form-group">
@@ -347,12 +227,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												</div>
 												<div class="birth-select2">
 													<select id="cityTwo" data-am-selected="{maxHeight: 120}">
-														<option value="" selected="selected">${addressTwo}</option>
+														<option value="${addressTwo}" selected="selected">${addressTwo}</option>
 													</select>
 												</div>
 												<div class="birth-select2">
 													<select id="cityThree" data-am-selected="{maxHeight: 120}" name="locationCity">
-													   <option value="" selected="selected">${addressThree}</option>
+													   <option value="${addressThree}" selected="selected">${addressThree}</option>
 													</select>
 												</div>
 											</div>
@@ -360,7 +240,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div class="am-form-group">
 											<label for="user-intro" class="am-form-label">&nbsp;成果内容</label>
 											<div class="am-form-content"><!--rows="3" -->
-												<textarea class="" id="achievementContent" name="achievementContent" style="height: 260px;" value="${achievement.achievementContent}" placeholder="输入科技成果内容"></textarea>
+												<textarea class="" id="achievementContent" name="achievementContent" style="height: 353px;">${achievement.achievementContent}</textarea>
 												<small>请写出你的科研成果设计依据和思路...</small>
 											</div>
 										</div>
@@ -369,7 +249,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<!--<div class="refund-tip">-->
 											<div class="am-form-content">
 												<div class="filePic" id="localImag" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
-													<input type="file" id="file" name="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
 													<c:choose>
 														<c:when test="${achievement.achievementImages == null}">
 															<img id="userImage" src="<%=path %>/package-style/style-front/images/image.jpg">
@@ -380,7 +259,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</c:choose>
 												</div>
 												<div class="filePic" id="localImag1" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
-													<input type="file" id="file1" name="file1" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
 													<c:choose>
 														<c:when test="${achievement.achievementOneImage == null}">
 															<img id="userImage" src="<%=path %>/package-style/style-front/images/image.jpg">
@@ -391,7 +269,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</c:choose>
 												</div>
 												<div class="filePic" id="localImag2" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
-													<input type="file" id="file2" name="file2" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
 													<c:choose>
 														<c:when test="${achievement.achievementTwoImage == null}">
 															<img id="userImage" src="<%=path %>/package-style/style-front/images/image.jpg">
@@ -406,8 +283,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</div>
 										<div class="am-form-group">
 											<div class="am-u-sm-9 am-u-sm-push-3">
-												<input class="am-btn am-btn-danger" onclick="test()" type="button" value="&nbsp;返回&nbsp;" />
-												<%--<a href="javascript: void(0)" class="am-close am-btn am-btn-danger" data-am-modal-close>取消</a>--%>
+												<input class="am-btn am-btn-danger"  onclick="javascript:history.back(-1);" type="button" value="返回上一页" />
 											</div>
 										</div>
 									</form>
