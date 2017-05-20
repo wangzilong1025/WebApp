@@ -105,15 +105,32 @@ public class UserLoginController {
         }
     }
 
-    @RequestMapping("/userSavePasswordByUserLoginId")
-    public String userSavePasswordByUserLoginId(UserLogin userLogin,HttpSession session){
-        log.info("进入userSavePasswordByUserLoginId方法!");
+    @RequestMapping("/userUpdatePasswordByUserLoginId")
+    public String userUpdatePasswordByUserLoginId(UserLogin userLogin,HttpSession session,HttpServletRequest request){
+        log.info("进入userUpdatePasswordByUserLoginId方法!");
         try{
-            log.info("进入userSavePasswordByUserLoginId的try方法!");
+            log.info("进入userUpdatePasswordByUserLoginId的try方法!");
+            UserLogin user = (UserLogin) session.getAttribute("user");
+            UserLogin userlog  = userLoginService.selectUserLogin(user);
+            String newPass = request.getParameter("userNewPass");
+            String oldPass = request.getParameter("oldpassword");
 
-            return "jsp-front/user-safety-updated";
+            if(userlog.getUserPassword().equals(oldPass)){
+                log.info("进入userUpdatePasswordByUserLoginId的try中的if方法!");
+                userLogin.setUserId(userlog.getUserId());
+                userLogin.setUserName(userlog.getUserName());
+                userLogin.setUserPassword(newPass);
+                userLogin.setUserStatus(userlog.getUserStatus());
+                userLogin.setSafeQuestion(userlog.getSafeQuestion());
+                userLogin.setSafeAnswer(userlog.getSafeAnswer());
+                userLoginService.updatePasswordByUserLoginId(userLogin);
+                return "jsp-front/user-safety-updated";
+            }else{
+                log.info("进入userUpdatePasswordByUserLoginId的try中的else方法!");
+                return "jsp-front/user-safety-pass";
+            }
         }catch(Exception e){
-            log.error("进入userSavePasswordByUserLoginId的catch方法,错误信息:"+e.getMessage());
+            log.error("进入userUpdatePasswordByUserLoginId的catch方法,错误信息:"+e.getMessage());
             return "jsp-error/error-page";
         }
 
@@ -131,14 +148,12 @@ public class UserLoginController {
         try{
             log.info("进入userSafetyQuestionInfo的try方法!");
             System.out.print(userLogin);
-            //UserLogin userLogin = new UserLogin();
             UserLogin user = (UserLogin) session.getAttribute("user");
             UserLogin userL = userLoginService.selectUserLogin(user);
             userLogin.setUserId(userL.getUserId());
             userLogin.setUserName(userL.getUserName());
             userLogin.setUserPassword(userL.getUserPassword());
             userLogin.setUserStatus(UtilStatic.STATIC_ONE);
-
             userLoginService.updatePasswordByUserLoginId(userLogin);
             return "redirect:/userLogin/userUpdateSafetyByUserId.do";
         }catch(Exception e){
