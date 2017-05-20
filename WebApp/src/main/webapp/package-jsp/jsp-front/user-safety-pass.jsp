@@ -16,83 +16,158 @@
     <link href="<%=path %>/package-style/style-front/css/stepstyle.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="<%=path %>/package-style/style-front/js/jquery-1.7.2.min.js"></script>
     <script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+
     <script type="text/javascript">
-        function passCon(){
-            var passCon = $("#oldpassword").val();
-            if(passCon == ""){
-                $("#message").html("请输入旧密码!");
-                $("#message").val("new value");
-                return;
-            }else{
-                $("#message").html("");
-                $("#message").val("");
-            }
-            var pass = $("#user-new-password").val();
-            if(pass == ""){
-                $("#message").html("请输入新密码!");
-                $("#message").val("new value");
-                return;
-            }else{
-                $("#message").html("");
-                $("#message").val("");
-            }
-            var passCon = $("#user-confirm-password").val();
-            if(passCon == ""){
-                $("#message").html("请输入确认密码");
-                $("#message").val("new value");
-                return;
-            }else{
-                $("#message").html("");
-                $("#message").val("");
-            }
-            if(pass!=passCon){
-                $("#message").html("两次新密码输入不一致!");
-                $("#message").val("new value");
-                return false;
-            }else{
-                $("#message").html("");
-                return true;
-            }
-        }
+        $(function(){
 
+            $checkplaceholder=function(){
+                var input = document.createElement('input');
+                return 'placeholder' in input;
+            };
+            if(!$checkplaceholder()){
+                $("textarea[placeholder], input[placeholder]").each(function(index, element){
+                    var content=false;
+                    if($(this).val().length ===0 || $(this).val()==$(this).attr("placeholder")){content=true};
+                    if(content){
+                        $(element).val($(element).attr("placeholder"));
+                        $(element).css("color","rgb(169,169,169)");
+                        $(element).data("pintuerholder",$(element).css("color"));
+                        $(element).focus(function(){$hideplaceholder($(this));});
+                        $(element).blur(function(){$showplaceholder($(this));});
+                    }
+                })
+            };
 
-        function submitpass(){
-            var passCon = $("#oldpassword").val();
-            if(passCon == ""){
-                $("#message").html("请输入旧密码!");
-                return;
-            }else{
-                $("#message").html("");
-                $("#message").val("");
-            }
-            var pass = $("#user-new-password").val();
-            if(pass == ""){
-                $("#message").html("请输入新密码!");
-                $("#message").val("new value");
-                return;
-            }else{
-                $("#message").html("");
-                $("#message").val("");
-            }
-            var passCon = $("#user-confirm-password").val();
-            if(passCon == ""){
-                $("#message").html("请输入确认密码");
-                $("#message").val("new value");
-                return;
-            }else{
-                $("#message").html("");
-                $("#message").val("");
-            }
-            if(pass!=passCon){
-                $("#message").html("两次新密码输入不一致!");
-                $("#message").val("new value");
-                return false;
-            }else{
-                $("#message").html("");
-                return true;
-            }
-            document.getElementById("updatepass").submit();
-        };
+            $showplaceholder=function(element){
+                if( ($(element).val().length ===0 || $(element).val()==$(element).attr("placeholder")) && $(element).attr("type")!="password"){
+                    $(element).val($(element).attr("placeholder"));
+                    $(element).data("pintuerholder",$(element).css("color"));
+                    $(element).css("color","rgb(169,169,169)");
+                }
+            };
+
+            var $hideplaceholder=function(element){
+                if($(element).data("pintuerholder")){
+                    $(element).val("");
+                    $(element).css("color", $(element).data("pintuerholder"));
+                    $(element).removeData("pintuerholder");
+                }
+            };
+
+            $('textarea, input, select').blur(function(){
+                var e=$(this);
+                if(e.attr("data-validate")){
+                    e.closest('.am-form-content').find(".input-help").remove();
+                    var $checkdata=e.attr("data-validate").split(',');
+                    var $checkvalue=e.val();
+                    var $checkstate=true;
+                    var $checktext="";
+                    if(e.attr("placeholder")==$checkvalue){$checkvalue="";}
+                    if($checkvalue!="" || e.attr("data-validate").indexOf("required")>=0){
+                        for(var i=0;i<$checkdata.length;i++){
+                            var $checktype=$checkdata[i].split(':');
+                            if(! $pintuercheck(e,$checktype[0],$checkvalue)){
+                                $checkstate=false;
+                                $checktext=$checktext+"<li>"+$checktype[1]+"</li>";
+                            }
+                        }
+                    };
+                    if($checkstate){
+                        e.closest('.am-form-group').removeClass("check-error");
+                        e.parent().find(".input-help").remove();
+                        e.closest('.am-form-group').addClass("check-success");
+                    }else{
+                        e.closest('.am-form-group').removeClass("check-success");
+                        e.closest('.am-form-group').addClass("check-error");
+                        e.closest('.am-form-content').append('<div class="input-help"><ul>'+$checktext+'</ul></div>');
+                    }
+                }
+            });
+
+            $pintuercheck=function(element,type,value){
+                $pintu=value.replace(/(^\s*)|(\s*$)/g, "");
+                switch(type){
+                    case "required":return /[^(^\s*)|(\s*$)]/.test($pintu);break;
+                    case "chinese":return /^[\u0391-\uFFE5]+$/.test($pintu);break;
+                    case "number":return /^\d+$/.test($pintu);break;
+                    case "integer":return /^[-\+]?\d+$/.test($pintu);break;
+                    case "plusinteger":return /^[+]?\d+$/.test($pintu);break;
+                    case "double":return /^[-\+]?\d+(\.\d+)?$/.test($pintu);break;
+                    case "plusdouble":return /^[+]?\d+(\.\d+)?$/.test($pintu);break;
+                    case "english":return /^[A-Za-z]+$/.test($pintu);break;
+                    case "username":return /^[a-z]\w{3,}$/i.test($pintu);break;
+                    case "mobile":return /^((\(\d{3}\))|(\d{3}\-))?13[0-9]\d{8}?$|15[89]\d{8}?$|170\d{8}?$|147\d{8}?$/.test($pintu);break;
+                    case "phone":return /^((\(\d{2,3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7}(\-\d{1,4})?$/.test($pintu);break;
+                    case "tel":return /^((\(\d{3}\))|(\d{3}\-))?13[0-9]\d{8}?$|15[89]\d{8}?$|170\d{8}?$|147\d{8}?$/.test($pintu) || /^((\(\d{2,3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7}(\-\d{1,4})?$/.test($pintu);break;
+                    case "email":return /^[^@]+@[^@]+\.[^@]+$/.test($pintu);break;
+                    case "url":return /^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/.test($pintu);break;
+                    case "ip":return /^[\d\.]{7,15}$/.test($pintu);break;
+                    case "qq":return /^[1-9]\d{4,10}$/.test($pintu);break;
+                    case "currency":return /^\d+(\.\d+)?$/.test($pintu);break;
+                    case "zip":return /^[1-9]\d{5}$/.test($pintu);break;
+                    case "radio":
+                        var radio=element.closest('form').find('input[name="'+element.attr("name")+'"]:checked').length;
+                        return eval(radio==1);
+                        break;
+                    default:
+                        var $test=type.split('#');
+                        if($test.length>1){
+                            switch($test[0]){
+                                case "compare":
+                                    return eval(Number($pintu)+$test[1]);
+                                    break;
+                                case "regexp":
+                                    return new RegExp($test[1],"gi").test($pintu);
+                                    break;
+                                case "length":
+                                    var $length;
+                                    if(element.attr("type")=="checkbox"){
+                                        $length=element.closest('form').find('input[name="'+element.attr("name")+'"]:checked').length;
+                                    }else{
+                                        $length=$pintu.replace(/[\u4e00-\u9fa5]/g,"***").length;
+                                    }
+                                    return eval($length+$test[1]);
+                                    break;
+                                case "ajax":
+                                    var $getdata;
+                                    var $url=$test[1]+$pintu;
+                                    $.ajaxSetup({async:false});
+                                    $.getJSON($url,function(data){
+                                        //alert(data.getdata);
+                                        $getdata=data.getdata;
+                                    });
+                                    if($getdata=="true"){return true;}
+                                    break;
+                                case "repeat":
+                                    return $pintu==jQuery('input[name="'+$test[1]+'"]').eq(0).val();
+                                    break;
+                                default:return true;break;
+                            }
+                            break;
+                        }else{
+                            return true;
+                        }
+                }
+            };
+
+            $('form').submit(function(){
+                $(this).find('input[data-validate],textarea[data-validate],select[data-validate]').trigger("blur");
+                $(this).find('input[placeholder],textarea[placeholder]').each(function(){$hideplaceholder($(this));});
+                var numError = $(this).find('.check-error').length;
+                if(numError){
+                    $(this).find('.check-error').first().find('input[data-validate],textarea[data-validate],select[data-validate]').first().focus().select();
+                    return false;
+                }
+            });
+
+            $('.form-reset').click(function(){
+                $(this).closest('form').find(".input-help").remove();
+                $(this).closest('form').find('.form-submit').removeAttr('disabled');
+                $(this).closest('form').find('.am-form-group').removeClass("check-error");
+                $(this).closest('form').find('.am-form-group').removeClass("check-success");
+            });
+
+        })
     </script>
 </head>
 
@@ -198,35 +273,34 @@
                     </div>
                 </div>
             </div>
-            <form id="updatepass" class="am-form am-form-horizontal" action="<%=path %>/userLogin/userSavePasswordByUserLoginId.do" method="post">
+            <form id="updatepass" class="am-form am-form-horizontal" action="<%=path %>/userLogin/userUpdatePasswordByUserLoginId.do" method="post">
                 <div class="am-form-group">
-                    <label for="user-old-password" class="am-form-label">原密码</label>
+                    <label for="oldpassword" class="am-form-label">原密码</label>
                     <div class="am-form-content">
                         <input type="hidden" name="userId" id="userId" value="${user.userId}">
-                        <input type="hidden" name="userName" id="userName" value="${user.userName}">
-                        <input type="password" name="userOldPass" id="oldpassword" placeholder="请输入原登录密码" onblur="passCon();">
+                        <input type="hidden" name="userName" id="userName" value="${user.userName}"><!--onblur="passCon();"-->
+                        <input type="password" name="oldpassword" id="oldpassword" placeholder="请输入原登录密码"  data-validate="required:请输入原始密码">
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="user-new-password" class="am-form-label">新密码</label>
+                    <label for="userNewPass" class="am-form-label">新密码</label>
                     <div class="am-form-content">
-                        <input type="password" name="userNewPass" id="user-new-password" placeholder="由数字、字母组合" onblur="passCon()">
+                        <input type="password" name="userNewPass" id="userNewPass" placeholder="请输入新密码" data-validate="required:请输入新密码,length#>=5:新密码不能小于5位">
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="user-confirm-password" class="am-form-label">确认密码</label>
+                    <label for="reuserNewPass" class="am-form-label">确认密码</label>
                     <div class="am-form-content">
-                        <input type="password" id="user-confirm-password" placeholder="请再次输入上面的密码" onblur="passCon()">
+                        <input type="password" name="reuserNewPass" id="reuserNewPass" placeholder="请再次输入新密码" data-validate="required:请再次输入新密码,repeat#userNewPass:两次输入的密码不一致">
                     </div>
                 </div>
 
+                    <div class="info-btn"><!--onclick="submitpass()"-->
+                        <input class="am-btn am-btn-danger"  type="submit"  value="保存密码" />
+                    </div>
             </form>
-            <div class="info-btn">
-                <div><input class="am-btn am-btn-danger" type="button" onclick="submitpass()" value="保存信息" /></div>
-            </div>
-
-
         </div>
+
         <!--底部-->
         <div class="footer ">
             <div class="footer-hd ">
