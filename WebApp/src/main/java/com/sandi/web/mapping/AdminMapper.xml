@@ -22,13 +22,7 @@
         from admin
         where adminId = #{adminId,jdbcType=INTEGER}
     </select>
-   <!-- <select id="selectByAdminNameAndAdminPass" resultMap="ResultMap" parameterType="java.util.Map">
-        select
-        <include refid="Base_Column_List" />
-        from admin
-        where adminName = #{adminName}
-        and adminPassword = #{adminPassword}
-    </select>-->
+
     <select id="selectByAdminId" resultMap="ResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List" />
@@ -45,12 +39,7 @@
         delete from admin
         where adminStatus = #{adminStatus,jdbcType=INTEGER}
     </delete>
-   <!-- <insert id="insert" useGeneratedKeys="true" keyProperty="adminId" parameterType="com.sandi.web.model.Admin" >
-        insert into admin (adminName, adminPassword, adminImage, adminEmail, adminPhone, adminAddress, adminStatus)
-        values (#{adminName,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, #{adminImage,jdbcType=VARCHAR},
-        #{adminEmail,jdbcType=VARCHAR}, #{adminPhone,jdbcType=VARCHAR}, #{adminAddress,jdbcType=VARCHAR},
-        #{adminStatus,jdbcType=INTEGER})
-    </insert>-->
+
     <insert id="insertAdminByAdminId" parameterType="com.sandi.web.model.Admin" >
         insert into admin
         <trim prefix="(" suffix=")" suffixOverrides="," >
