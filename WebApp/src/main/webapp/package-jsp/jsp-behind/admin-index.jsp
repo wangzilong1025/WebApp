@@ -27,7 +27,6 @@
                 <h1><img src="<%=path %>/adminImage/${sessionScope.admin.adminImage}" class="radius-circle rotate-hover" height="50" alt="" />后台管理中心</h1>
             </c:otherwise>
         </c:choose>
-       <%-- <h1><img src="<%=path %>/package-style/style-behind/images/y.jpg" class="radius-circle rotate-hover" height="50" alt="" />后台管理中心</h1>--%>
     </div>
     <div class="head-l">
         <a class="button button-little bg-green" href="<%=path %>/adminLogin.do" target="_blank"><span class="icon-home"></span> 前台首页</a> &nbsp;&nbsp;
@@ -41,14 +40,13 @@
     <h2><span class="icon-user"></span>基本设置</h2>
     <ul style="display:block">
         <li><a href="<%=path %>/selectAdminInfo.do" target="right"><span class="icon-caret-right"></span>个人信息</a></li>
-        <li><a href="pass.html" target="right"><span class="icon-caret-right"></span>申请权限</a></li>
+        <li><a href="<%=path %>/adminApplicationAuthority.do" target="right"><span class="icon-caret-right"></span>申请权限</a></li>
         <li><a href="book.html" target="right"><span class="icon-caret-right"></span>留言管理</a></li>
     </ul>
     <h2><span class="icon-pencil-square-o"></span>公告管理</h2>
     <ul>
         <li><a href="<%=path %>/notice/queryAllNoticeByStatus.do" target="right"><span class="icon-caret-right"></span>发布的公告</a></li>
         <li><a href="<%=path %>/package-jsp/jsp-behind/notice-add.jsp" target="right"><span class="icon-caret-right"></span>添加公告</a></li>
-        <%--<li><a href="cate.html" target="right"><span class="icon-caret-right"></span>修改公告</a></li>--%>
     </ul>
     <h2><span class="icon-pencil-square-o"></span>科研成果管理</h2>
     <ul>
@@ -56,13 +54,11 @@
         <li><a href="<%=path %>/achievement/queryAllReleasedAchievement.do" target="right"><span class="icon-caret-right"></span>成果已通过</a></li>
         <li><a href="<%=path %>/achievement/queryAllUnreleasedAchievement.do" target="right"><span class="icon-caret-right"></span>成果未通过</a></li>
         <li><a href="add.html" target="right"><span class="icon-caret-right"></span>成果搜索</a></li>
-        <%--<li><a href="cate.html" target="right"><span class="icon-caret-right"></span></a></li>--%>
     </ul>
     <h2><span class="icon-pencil-square-o"></span>管理员管理</h2>
     <ul>
         <li><a href="list.html" target="right"><span class="icon-caret-right"></span>全限管理</a></li>
         <li><a href="add.html" target="right"><span class="icon-caret-right"></span>管理员列表</a></li>
-        <%--<li><a href="cate.html" target="right"><span class="icon-caret-right"></span></a></li>--%>
     </ul>
 </div>
 <script type="text/javascript">
