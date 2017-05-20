@@ -160,8 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<span class="amount-pay">${list.unitName }</span>
 									</td>
 									<td class="operation" align="center" style="padding: 20px;">
-										<a href="<%=path %>/achievement/selectAchievementByAchievementId.do?id=${list.achievementId}"><font color="#006400">查看</font></a>
-										<!--<a href="<%=path %>/achievement/updateAchievementByAchievementId.do?id=${list.achievementId}">修改</a>-->
+										<a href="<%=path %>/achievement/selectAchievementByAchievementId.do?id=${list.achievementId}"><font color="#006400">查看</font></a>&nbsp;&nbsp;
 										<a href="<%=path %>/achievement/deleteAchievementByAchievementId.do?id=${list.achievementId}" onclick="javascript:return deleteAchievement()"><font color="red">删除</font></a>
 									</td>
 									
