@@ -6,8 +6,6 @@ public interface IAdminService {
 
     public Admin selectByAdminNameAndAdminPass(Admin admin);
 
-    //public int addAdminInfo(Admin admin);
-
     public Admin selectAdminLogin(Admin admin);
 
     public int insertAdminByAdminId(Admin admin);
