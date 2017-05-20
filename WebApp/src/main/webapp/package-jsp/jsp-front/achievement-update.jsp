@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
-		<title>新增科研成果</title>
+		<title>科研成果修改</title>
 		<link href="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
 		<link href="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
 		<link href="<%=path %>/package-style/style-front/css/personal.css" rel="stylesheet" type="text/css">
@@ -18,13 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
 		<script type="text/javascript">
 		function test(){
-			//var cityOne = $('#loc_province').select2('data').text;
-			//var cityTwo = $('#loc_city').select2('data').text;
-			//var cityThree = $('#loc_town').select2('data').text;
-			//$("#selectOneCity").val(cityOne);
-			//$("#selectTwoCity").val(cityTwo);
-			//$("#selectThreeCity").val(cityThree);
-			document.getElementById("achievementAdd").submit();
+			document.getElementById("achievementUpdate").submit();
 	    };
 		$(function(){
 	    	$("#type1").change(function(){
@@ -105,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$("#cityTwo").change(function(){
 	    		$("#cityThree option:not(:first)").remove();
 	    		var cityTwo = $(this).val();
-	    		alert(cityTwo);
+	    		//alert(cityTwo);
 	    	    if(cityTwo != ""){
 	    	    	$.ajax({
     	    		    type: "post",  //get或post
@@ -266,10 +260,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</c:choose>
 						</ul>
 					</div>
-
-
-
-
 					<div class="clear"></div>
 				</div>
 			</article>
@@ -297,44 +287,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="user-address">
 						<!--标题 -->
 						<div class="clear"></div>
-						<a class="new-abtn-type" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0}">添加科研成果</a>
+						<a class="new-abtn-type" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0}">科研成果修改</a>
 						<!--例子-->
 						<div class="am-modal am-modal-no-btn" id="doc-modal-1">
 							<div class="add-dress">
 								<!--标题 -->
 								<div class="am-cf am-padding">
-									<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">新增成果</strong> / <small>Add&nbsp;address</small></div>
+									<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">修改成果</strong> / <small>Add&nbsp;update</small></div>
 								</div>
 								<hr/>
 								<div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;" align="center">
-									<form class="am-form am-form-horizontal" id="achievementAdd" action="<%=path %>/achievement/addAchievement.do" enctype="multipart/form-data" method="post">
+									<form class="am-form am-form-horizontal" id="achievementUpdate" action="<%=path %>/achievement/saveUpdateAchievementByAchievementId.do" enctype="multipart/form-data" method="post">
 										
 										<div class="am-form-group">
 											<label for="user-name" class="am-form-label">&nbsp;成果标题</label>
 											<div class="am-form-content">
-												<input type="text" id="achievementName" name="achievementName" placeholder="科技成果标题">
+												<input type="hidden" id="achievementId" name="achievementId" value="${achievement.achievementId}"/>
+												<input type="text" id="achievementName" name="achievementName" placeholder="科技成果标题" value="${achievement.achievementName}">
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="user-name" class="am-form-label">&nbsp;单位名称</label>
 											<div class="am-form-content">
-												<input type="text" id="unitName" name="unitName" placeholder="所在单位名称">
+												<input type="text" id="unitName" name="unitName" placeholder="所在单位名称" value="${achievement.unitName}">
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="user-address" class="am-form-label">&nbsp;成果分类</label>
 											<div class="am-form-content address">
 												<select data-am-selected="{maxHeight: 120}" id="type1">
-													<option value="" selected="selected">请选择</option>
+													<option value="${menuNameOne}" selected="selected">${menuNameOne}</option>
 													<c:forEach items="${selectOneMenu }" var="list1">
 													     <option value="${list1.topId }">${list1.topName }</option>
 													</c:forEach>
 												</select>
 												<select data-am-selected="{maxHeight: 120}" id="type2">
-													<option value="" selected="selected">请选择</option>
+													<option value="${menuNameTwo}" selected="selected">${menuNameTwo}</option>
 												</select>
 												<select data-am-selected="{maxHeight: 120}" id="type3" name="achievementType">
-													<option value="" selected="selected">请选择</option>
+													<option value="${achievement.achievementType}" selected="selected">${menuNameThree}</option>
 												</select>
 											</div>						
 										</div>
@@ -343,50 +334,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<div class="am-form-content birth">
 												<div class="birth-select">
 													<select id="cityOne" data-am-selected="{maxHeight: 120}">
-													<!--<option value="" selected="selected">中国</option>-->
 													   <option value="China" selected="selected">中国</option>
 													</select>
-													<!--<input type="hidden" id="selectOneCity" name="selectOneCity"/>-->
 												</div>
 												<div class="birth-select2">
 													<select id="cityTwo" data-am-selected="{maxHeight: 120}">
-														<option value="" selected="selected">请选择</option>
+														<option value="${addressTwo}" selected="selected">${addressTwo}</option>
 													   	<c:forEach items="${selectOneCity }" var="list2">
 													    	<option value="${list2.cityId }">${list2.cityName }</option>
 														</c:forEach>
 													</select>
-													<!--<input type="hidden" id="selectTwoCity" name="selectTwoCity"/>-->
 												</div>
 												<div class="birth-select2">
 													<select id="cityThree" data-am-selected="{maxHeight: 120}" name="locationCity">
-													   <option value="" selected="selected">请选择</option>
+													   <option value="${addressThree}" selected="selected">${addressThree}</option>
 													</select>
-													<!--<input type="hidden" id="selectThreeCity" name="selectThreeCity"/>-->
 												</div>
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="user-intro" class="am-form-label">&nbsp;成果内容</label>
 											<div class="am-form-content">
-												<textarea class="" rows="3" id="achievementContent" name="achievementContent" style="height: 260px;" placeholder="输入科技成果内容"></textarea>
+												<textarea class="" rows="3" id="achievementContent" name="achievementContent" style="height: 353px;" placeholder="输入科技成果内容">${achievement.achievementContent}</textarea>
 												<small>请写出你的科研成果设计依据和思路...</small>
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="user-intro" class="am-form-label">&nbsp;成果图片</label>&nbsp;&nbsp;&nbsp;
-											<!--<div class="refund-tip">-->
 											<div class="am-form-content">
 												<div class="filePic" id="localImag" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
-													<input type="file" id="file" name="file" class="inputPic" onchange="javascript:setImagePreview();" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-													<img id="userImage" src="<%=path %>/package-style/style-front/images/image.jpg">
+													<input type="file" id="file" value="${achievement.achievementImages}" name="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
+													<c:choose>
+														<c:when test="${achievement.achievementImages == null}">
+															<img id="userImage" src="<%=path %>/package-style/style-front/images/image.jpg">
+														</c:when>
+														<c:otherwise>
+															<img class="am-circle am-img-thumbnail" id="userImage" src="<%=path %>/achievementImage/${achievement.achievementImages }"/>
+														</c:otherwise>
+													</c:choose>
 												</div>
 												<div class="filePic" id="localImag1" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
-													<input type="file" id="file1" name="file1" class="inputPic" onchange="javascript:setImagePreview1();" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-													<img id="userImage1" src="<%=path %>/package-style/style-front/images/image.jpg">
+													<input type="file" id="file1" value="${achievement.achievementOneImage}" name="file1" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
+													<c:choose>
+														<c:when test="${achievement.achievementOneImage == null}">
+															<img id="userImage" src="<%=path %>/package-style/style-front/images/image.jpg">
+														</c:when>
+														<c:otherwise>
+															<img class="am-circle am-img-thumbnail" id="userImage" src="<%=path %>/achievementImage/${achievement.achievementOneImage }"/>
+														</c:otherwise>
+													</c:choose>
 												</div>
 												<div class="filePic" id="localImag2" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
-													<input type="file" id="file2" name="file2" class="inputPic" onchange="javascript:setImagePreview2();" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-													<img id="userImage2" src="<%=path %>/package-style/style-front/images/image.jpg">
+													<input type="file" id="file2" name="file2" value="${achievement.achievementTwoImage}" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
+													<c:choose>
+														<c:when test="${achievement.achievementTwoImage == null}">
+															<img id="userImage" src="<%=path %>/package-style/style-front/images/image.jpg">
+														</c:when>
+														<c:otherwise>
+															<img class="am-circle am-img-thumbnail" id="userImage" src="<%=path %>/achievementImage/${achievement.achievementTwoImage }"/>
+														</c:otherwise>
+													</c:choose>
 												</div>
 												<div class="filePic" style="width: 100px; max-width: 100px; float: left;" align="left">上传图片<br>最多三张</div>
 											</div>
