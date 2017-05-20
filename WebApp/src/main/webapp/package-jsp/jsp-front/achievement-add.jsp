@@ -293,7 +293,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="add-dress">
 								<!--标题 -->
 								<div class="am-cf am-padding">
-									<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">新增成果</strong> / <small>Add&nbsp;address</small></div>
+									<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">新增成果</strong> / <small>Add&nbsp;achievement</small></div>
 								</div>
 								<hr/>
 								<div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;" align="center">
