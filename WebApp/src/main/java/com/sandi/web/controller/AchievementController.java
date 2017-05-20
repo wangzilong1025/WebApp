@@ -48,8 +48,10 @@ public class AchievementController {
     private ICityService cityService;
     @Autowired
     private IFotoPlaceService fotoPlaceService;
+
     /**
      * 查询已经审核通过且发布的科研成果
+     *
      * @param modelMap
      * @param achievement
      * @param request
@@ -57,35 +59,36 @@ public class AchievementController {
      * @return
      */
     @RequestMapping("/queryAllAchievement")
-    public String queryAllAchievement(ModelMap modelMap,Achievement achievement,HttpServletRequest request,HttpSession session){
-        log.info(timeToken+"进入queryAllAchievement方法");
-        try{
-            log.info(timeToken+"进入queryAllAchievement的try方法");
-            Map<String,Integer> map = new HashMap<String, Integer>();
+    public String queryAllAchievement(ModelMap modelMap, Achievement achievement, HttpServletRequest request, HttpSession session) {
+        log.info(timeToken + "进入queryAllAchievement方法");
+        try {
+            log.info(timeToken + "进入queryAllAchievement的try方法");
+            Map<String, Integer> map = new HashMap<String, Integer>();
             UserLogin userLogin = (UserLogin) session.getAttribute("user");
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
-            System.out.println("用户昵称:"+userInfo.getUserNick());
+            System.out.println("用户昵称:" + userInfo.getUserNick());
             int userId = userLogin.getUserId();
             //已发布科研成果状态2
             int releaseState = UtilStatic.STATIC_TWO;
             map.put("userId", userId);
             map.put("releaseState", releaseState);
             List<Achievement> achievementList = achievementService.queryAllAchievementByUserId(map);
-            for(Achievement list:achievementList){
+            for (Achievement list : achievementList) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 list.setTimeToString(sdf.format(list.getReleaseTime()));
             }
-            System.out.println("list内容:"+achievementList);
+            System.out.println("list内容:" + achievementList);
             modelMap.put("achievementList", achievementList);
             return "jsp-front/achievement-show";
-        }catch(Exception e){
-            log.error(timeToken+"进入queryAllAchievement的catch方法"+e.getMessage());
+        } catch (Exception e) {
+            log.error(timeToken + "进入queryAllAchievement的catch方法" + e.getMessage());
             return "jsp-error/error-page";
         }
     }
 
     /**
      * 查询只是保存但未发布的科研成果
+     *
      * @param modelMap
      * @param achievement
      * @param request
@@ -93,35 +96,35 @@ public class AchievementController {
      * @return achievementList
      */
     @RequestMapping("/queryAllAchievementUnreleaseFront")
-    public String queryAllAchievementUnreleaseFront(ModelMap modelMap,Achievement achievement,HttpServletRequest request,HttpSession session){
-        log.info(timeToken+"进入queryAllAchievementUnreleaseFront方法");
-        try{
-            log.info(timeToken+"进入queryAllAchievementUnreleaseFront的try方法");
-            Map<String,Integer> map = new HashMap<String, Integer>();
+    public String queryAllAchievementUnreleaseFront(ModelMap modelMap, Achievement achievement, HttpServletRequest request, HttpSession session) {
+        log.info(timeToken + "进入queryAllAchievementUnreleaseFront方法");
+        try {
+            log.info(timeToken + "进入queryAllAchievementUnreleaseFront的try方法");
+            Map<String, Integer> map = new HashMap<String, Integer>();
             UserLogin userLogin = (UserLogin) session.getAttribute("user");
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
-            System.out.println("用户昵称:"+userInfo.getUserNick());
+            System.out.println("用户昵称:" + userInfo.getUserNick());
             int userId = userLogin.getUserId();
             //0是科研成果保存未发布状态0
             int releaseState = UtilStatic.STATIC_ZERO;
             map.put("userId", userId);
             map.put("releaseState", releaseState);
             List<Achievement> achievementList = achievementService.queryAllAchievementByUserId(map);
-            for(Achievement list:achievementList){
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                list.setTimeToString(sdf.format(list.getReleaseTime()));
+            for (Achievement list : achievementList) {
+                list.setTimeToString(UtilStatic.sdf.format(list.getReleaseTime()));
             }
-            System.out.println("list内容:"+achievementList);
+            System.out.println("list内容:" + achievementList);
             modelMap.put("achievementList", achievementList);
             return "jsp-front/achievement-showunrelease";
-        }catch(Exception e){
-            log.error(timeToken+"进入queryAllAchievementUnreleaseFront的catch方法"+e);
+        } catch (Exception e) {
+            log.error(timeToken + "进入queryAllAchievementUnreleaseFront的catch方法" + e);
             return "jsp-error/error-page";
         }
     }
 
     /**
      * 前台用户根据用户ID去查询自己的待审核科研成果
+     *
      * @param modelMap
      * @param achievement
      * @param request
@@ -129,35 +132,36 @@ public class AchievementController {
      * @return
      */
     @RequestMapping("/queryAllAchievementByCheckPendingFront")
-    public String queryAllAchievementByCheckPendingFront(ModelMap modelMap,Achievement achievement,HttpServletRequest request,HttpSession session){
-        log.info(timeToken+"进入queryAllAchievementByCheckPendingFront方法");
-        try{
-            log.info(timeToken+"进入queryAllAchievementByCheckPendingFront的try方法");
-            Map<String,Integer> map = new HashMap<String, Integer>();
+    public String queryAllAchievementByCheckPendingFront(ModelMap modelMap, Achievement achievement, HttpServletRequest request, HttpSession session) {
+        log.info(timeToken + "进入queryAllAchievementByCheckPendingFront方法");
+        try {
+            log.info(timeToken + "进入queryAllAchievementByCheckPendingFront的try方法");
+            Map<String, Integer> map = new HashMap<String, Integer>();
             UserLogin userLogin = (UserLogin) session.getAttribute("user");
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
-            System.out.println("用户昵称:"+userInfo.getUserNick());
+            System.out.println("用户昵称:" + userInfo.getUserNick());
             int userId = userLogin.getUserId();
             //科研成果状态1
             int releaseState = UtilStatic.STATIC_ONE;
             map.put("userId", userId);
             map.put("releaseState", releaseState);
             List<Achievement> achievementList = achievementService.queryAllAchievementByUserId(map);
-            for(Achievement list:achievementList){
+            for (Achievement list : achievementList) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 list.setTimeToString(sdf.format(list.getReleaseTime()));
             }
-            System.out.println("list内容:"+achievementList);
+            System.out.println("list内容:" + achievementList);
             modelMap.put("achievementList", achievementList);
             return "jsp-front/achievement-checkpending";
-        }catch(Exception e){
-            log.error(timeToken+"进入queryAllAchievementByCheckPendingFront的catch方法"+e);
+        } catch (Exception e) {
+            log.error(timeToken + "进入queryAllAchievementByCheckPendingFront的catch方法" + e);
             return "jsp-error/error-page";
         }
     }
 
     /**
      * 根据用户的ID去查询当前用户的科研成果审核未通过的数据
+     *
      * @param modelMap
      * @param achievement
      * @param request
@@ -165,36 +169,36 @@ public class AchievementController {
      * @return
      */
     @RequestMapping("/queryAllAchievementNotPass")
-    public String queryAllAchievementNotPass(ModelMap modelMap,Achievement achievement,HttpServletRequest request,HttpSession session){
-        log.info(timeToken+"进入queryAllAchievementNotPass方法");
-        try{
-            log.info(timeToken+"进入queryAllAchievementNotPass的try方法");
-            Map<String,Integer> map = new HashMap<String, Integer>();
+    public String queryAllAchievementNotPass(ModelMap modelMap, Achievement achievement, HttpServletRequest request, HttpSession session) {
+        log.info(timeToken + "进入queryAllAchievementNotPass方法");
+        try {
+            log.info(timeToken + "进入queryAllAchievementNotPass的try方法");
+            Map<String, Integer> map = new HashMap<String, Integer>();
             UserLogin userLogin = (UserLogin) session.getAttribute("user");
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
-            System.out.println("用户昵称:"+userInfo.getUserNick());
+            System.out.println("用户昵称:" + userInfo.getUserNick());
             int userId = userLogin.getUserId();
             //科研成果状态未通过状态
             int releaseState = UtilStatic.STATIC_THREE;
             map.put("userId", userId);
             map.put("releaseState", releaseState);
             List<Achievement> achievementList = achievementService.queryAllAchievementByUserId(map);
-            for(Achievement list:achievementList){
+            for (Achievement list : achievementList) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 list.setTimeToString(sdf.format(list.getReleaseTime()));
             }
-            System.out.println("list内容:"+achievementList);
+            System.out.println("list内容:" + achievementList);
             modelMap.put("achievementList", achievementList);
             return "jsp-front/achievement-notpass";
-        }catch(Exception e){
-            log.error(timeToken+"进入queryAllAchievementNotPass的catch方法"+e);
+        } catch (Exception e) {
+            log.error(timeToken + "进入queryAllAchievementNotPass的catch方法" + e);
             return "jsp-error/error-page";
         }
     }
 
     /**
      * 添加科研成果
-     * @param modelMap
+     *
      * @param achievement
      * @param session
      * @param request
@@ -206,41 +210,38 @@ public class AchievementController {
      * @throws IOException
      */
     @RequestMapping("/addAchievement")
-    public String addAchievementByuserId(ModelMap modelMap,Achievement achievement,HttpSession session,HttpServletRequest request,
-                                         @RequestParam("file") MultipartFile file,@RequestParam("file1") MultipartFile file1,@RequestParam("file2") MultipartFile file2)throws IllegalStateException, IOException{
-        log.info(timeToken+"进入addAchievementByuserId方法");
-        try{
-            log.info(timeToken+"进入addAchievementByuserId的try方法");
+    public String addAchievementByuserId(Achievement achievement, HttpSession session, HttpServletRequest request,
+                                         @RequestParam("file") MultipartFile file, @RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2) throws IllegalStateException, IOException {
+        log.info(timeToken + "进入addAchievementByuserId方法");
+        try {
+            log.info(timeToken + "进入addAchievementByuserId的try方法");
             int releaseState = UtilStatic.STATIC_ZERO;
-            //Date date = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String time = sdf.format(UtilStatic.NEW_DATE);
-            System.out.println("时间转换"+time);
+            String time = UtilStatic.sdf.format(UtilStatic.NEW_DATE);
+            System.out.println("时间转换" + time);
             UserLogin userLogin = (UserLogin) session.getAttribute("user");
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
             achievement.setUserId(userLogin.getUserId());
             achievement.setUserNick(userInfo.getUserNick());
-            achievement.setReleaseTime(sdf.parse(time));
-            //achievement.setLocationCity(localCity);
+            achievement.setReleaseTime(UtilStatic.sdf.parse(time));
             String path = request.getSession().getServletContext().getRealPath("/achievementImage");
             File savedir = new File(path);
             // 如果目录不存在就创建
             if (!savedir.exists()) {
                 savedir.mkdirs();
             }
-            System.out.println("地址路径:"+path);
+            System.out.println("地址路径:" + path);
             String achievementImage = null;
             String achievementImage1 = null;
             String achievementImage2 = null;
-            if(!file.isEmpty()){
+            if (!file.isEmpty()) {
                 achievementImage = UUID.randomUUID().toString() + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
                 file.transferTo(new File(path + "/" + achievementImage));
             }
-            if(!file1.isEmpty()){
+            if (!file1.isEmpty()) {
                 achievementImage1 = UUID.randomUUID().toString() + file1.getOriginalFilename().substring(file1.getOriginalFilename().lastIndexOf("."));
                 file1.transferTo(new File(path + "/" + achievementImage1));
             }
-            if(!file2.isEmpty()){
+            if (!file2.isEmpty()) {
                 achievementImage2 = UUID.randomUUID().toString() + file2.getOriginalFilename().substring(file2.getOriginalFilename().lastIndexOf("."));
                 file2.transferTo(new File(path + "/" + achievementImage2));
             }
@@ -255,25 +256,82 @@ public class AchievementController {
             achievement.setReleaseState(releaseState);
             achievementService.addAchievementByuserId(achievement);
             return "redirect:/achievement/queryAllAchievementUnreleaseFront.do";
-        }catch(Exception e){
-            log.error(timeToken+"进入addAchievementByuserId的catch方法");
+        } catch (Exception e) {
+            log.error(timeToken + "进入addAchievementByuserId的catch方法");
             return "jsp-error/error-page";
         }
     }
 
+    /**
+     * 科研成果更新保存
+     *
+     * @return
+     */
     @RequestMapping("/saveUpdateAchievementByAchievementId")
-    public String saveUpdateAchievementByAchievementId(){
-        log.info(timeToken+"进入saveUpdateAchievementByAchievementId方法!!!");
-        try{
+    public String saveUpdateAchievementByAchievementId(Achievement achievement, HttpSession session, HttpServletRequest request, @RequestParam("file") MultipartFile file, @RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2) throws IllegalStateException, IOException {
+        log.info(timeToken + "进入saveUpdateAchievementByAchievementId方法!!!");
+        Achievement ach = achievementService.selectAchievementByAchievementId(achievement.getAchievementId());
+        int releaseState = ach.getReleaseState();
+        try {
             log.info("进入saveUpdateAchievementByAchievementId的try方法!!!");
 
-            return "";
-        }catch(Exception e){
-            log.error(timeToken+"进入saveUpdateAchievementByAchievementId的catch方法!!!");
+            String time = UtilStatic.sdf.format(UtilStatic.NEW_DATE);
+            UserLogin userLogin = (UserLogin) session.getAttribute("user");
+            UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
+            achievement.setUserId(userLogin.getUserId());
+            achievement.setUserNick(userInfo.getUserNick());
+            achievement.setReleaseTime(UtilStatic.sdf.parse(time));
+            String path = request.getSession().getServletContext().getRealPath("/achievementImage");
+            File savedir = new File(path);
+            // 如果目录不存在就创建
+            if (!savedir.exists()) {
+                savedir.mkdirs();
+            }
+            System.out.println("地址路径:" + path);
+            String achievementImage = null;
+            String achievementImage1 = null;
+            String achievementImage2 = null;
+            if (!file.isEmpty()) {
+                achievementImage = UUID.randomUUID().toString() + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+                file.transferTo(new File(path + "/" + achievementImage));
+            }
+            if (!file1.isEmpty()) {
+                achievementImage1 = UUID.randomUUID().toString() + file1.getOriginalFilename().substring(file1.getOriginalFilename().lastIndexOf("."));
+                file1.transferTo(new File(path + "/" + achievementImage1));
+            }
+            if (!file2.isEmpty()) {
+                achievementImage2 = UUID.randomUUID().toString() + file2.getOriginalFilename().substring(file2.getOriginalFilename().lastIndexOf("."));
+                file2.transferTo(new File(path + "/" + achievementImage2));
+            }
+            achievement.setAchievementOneImage(achievementImage);
+            achievement.setAchievementTwoImage(achievementImage1);
+            achievement.setAchievementImages(achievementImage2);
+            /**
+             *科研成果状态为0时表示待审核状态
+             *科研成果状态为1时表示审核成功
+             *科研成果状态为2时表示审核失败
+             */
+
+            achievement.setReleaseState(releaseState);
+            achievementService.updateAchievementByAchievementId(achievement);
+            if (releaseState == 0) {
+                return "redirect:/achievement/queryAllAchievementUnreleaseFront.do";
+            } else if (releaseState == 1) {
+                return "redirect:/achievement/queryAllAchievementByCheckPendingFront.do";
+            } else if (releaseState == 2) {
+                return "redirect:/achievement/queryAllAchievement.do";
+            } else if (releaseState == 3) {
+                return "redirect:/achievement/queryAllAchievementNotPass.do";
+            }else{
+
+            }
+        } catch (Exception e) {
+            log.error(timeToken + "进入saveUpdateAchievementByAchievementId的catch方法!!!");
             return "jsp-error/error-page";
         }
-
+        return null;
     }
+
     /**
      * 更新科研成果查询(查询到后更新)
      * @param modelMap
@@ -286,8 +344,8 @@ public class AchievementController {
         try{
             log.info(timeToken+"进入updateAchievementByAchievementId的try方法!!!");
             Achievement achievement = achievementService.selectAchievementByAchievementId(id);
-            List<Menu> selectOneMenu = menuService.findMenuLevels(1);
-            List<City> selectOneCity = cityService.findCityLevel(1);
+            List<Menu> selectOneMenu = menuService.findMenuLevels(UtilStatic.STATIC_ONE);
+            List<City> selectOneCity = cityService.findCityLevel(UtilStatic.STATIC_ONE);
             int address = achievement.getLocationCity();
             City city3 = cityService.selectCityNameBycityId(address);
             //所在地的第三个select框的值
@@ -391,29 +449,49 @@ public class AchievementController {
         try{
             log.info(timeToken+"进入deleteAchievementByAchievementId的try方法!!!");
             log.info(timeToken+"要删除的科研成果的ID为:"+id);
-            achievementService.deleteAchievementByAchievementId(id);
-            return "redirect:/achievement/queryAllAchievement.do";
+
+            Achievement achievement = achievementService.selectAchievementByAchievementId(id);
+
+            if(achievement.getReleaseState() == 0){
+                achievementService.deleteAchievementByAchievementId(id);
+                return "redirect:/achievement/queryAllAchievementUnreleaseFront.do";
+            }else if(achievement.getReleaseState() == 1){
+                achievementService.deleteAchievementByAchievementId(id);
+                return "redirect:/achievement/queryAllAchievementByCheckPendingFront.do";
+            }else if(achievement.getReleaseState() == 2){
+                achievementService.deleteAchievementByAchievementId(id);
+                return "redirect:/achievement/queryAllAchievement.do";
+            }else if(achievement.getReleaseState() == 3){
+                achievementService.deleteAchievementByAchievementId(id);
+                return "redirect:/achievement/queryAllAchievementNotPass.do";
+            }
         }catch(Exception e){
             log.error(timeToken+"进入deleteAchievementByAchievementId的catch方法!!!"+e);
             return "jsp-error/error-page";
         }
+        return null;
     }
 
+    /**
+     * 发布科研成果方法（从未发布成果，或者未通过科研成果，通过发布功能进入该方法，进行发布，跳转到待审核状态）
+     * @param modelMap
+     * @param session
+     * @param request
+     * @param id
+     * @return
+     */
     @RequestMapping("releaseAchievementByAchievementId")
-    public String releaseAchievementByAchievementId(ModelMap modelMap,Achievement achievement,HttpSession session,HttpServletRequest request){
+    public String releaseAchievementByAchievementId(ModelMap modelMap,HttpSession session,HttpServletRequest request,@RequestParam("id") int id){
         log.info(timeToken+"进入releaseAchievementByAchievementId方法!!!");
         try{
             log.info("进入releaseAchievementByAchievementId的try方法!!!");
+            Achievement achievement = new Achievement();
+            achievement = achievementService.selectAchievementByAchievementId(id);
             //待审核的状态
             int status = UtilStatic.STATIC_ONE;
-            UserLogin userLogin = (UserLogin) session.getAttribute("user");
-            UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
-            if(achievement.getUserNick().equals(userInfo.getUserNick())){
-                log.info("判断achievement.getUserNick()的值与userInfo.getUserNick()的值是否相等:"+userInfo.getUserNick()+"========="+achievement.getUserNick());
-            }
             achievement.setReleaseState(status);
             achievementService.updateAchievementByAchievementId(achievement);
-            return "redirect:/achievement/queryAllAchievement.do";
+            return "redirect:/achievement/queryAllAchievementByCheckPendingFront.do";
         }catch(Exception e){
             log.error(timeToken+"进入releaseAchievementByAchievementId的catch方法!!!"+e);
             return "jsp-error/error-page";
