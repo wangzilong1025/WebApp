@@ -44,29 +44,6 @@
         clock_conti(300,cns1_,clockd1_);
 
     </script>
-    <!-- 数字时钟结束-->
-   <%-- <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>修改分类</strong></div>--%>
-   <%-- <div class="body-content">
-        <form method="post" class="form-x" action="">
-            <div class="form-group">
-                <div class="label">
-                    <label>分类标题：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input w50" name="title" value="" />
-                    <div class="tips"></div>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <div class="label">
-                    <label></label>
-                </div>
-                <div class="field">
-                    <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
-                </div>
-            </div>
-        </form>
-    </div>--%>
 </div>
 </body></html>
