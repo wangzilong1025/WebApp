@@ -1,6 +1,8 @@
 package com.sandi.web.controller;
 
 import com.sandi.web.model.Admin;
+import com.sandi.web.model.AdminRole;
+import com.sandi.web.service.IAdminRoleService;
 import com.sandi.web.service.IAdminService;
 import com.sandi.web.util.UtilStatic;
 import org.apache.log4j.Logger;
@@ -19,18 +21,22 @@ public class AdminController {
     long timeToken = System.currentTimeMillis();
     @Autowired
     private IAdminService adminService;
+    @Autowired
+    private IAdminRoleService adminRoleService;
 
     @RequestMapping("/adminLogin")
-    public String adminLogin(Admin admin, HttpServletRequest request, HttpSession session){
+    public String adminLogin(Admin admin, HttpServletRequest request, HttpSession session,ModelMap modelMap){
         log.info(timeToken+"进入adminLogin方法!!!");
         Admin adminlog = adminService.selectAdminLogin(admin);
         try{
             log.info(timeToken+"进入adminLogin的try方法!!!");
             if(adminlog!=null){
                 log.info(timeToken+"管理员的状态:"+adminlog.getAdminStatus());
-                if(adminlog.getAdminStatus()==0){
+                if(adminlog.getAdminStatus() == 1){
                     log.info(timeToken+"进入管理员的状态判断if条件语句!!!");
                     session.setAttribute("admin", adminlog);
+                    AdminRole adminRole = adminRoleService.selectAdminRoleByAdminId(adminlog.getAdminId());
+                    modelMap.put("adminRole",adminRole);
                     request.setAttribute("message", "欢迎您"+adminlog.getAdminName());
                     return "jsp-behind/admin-index";
                 }else{
@@ -56,8 +62,19 @@ public class AdminController {
             log.info(timeToken+"进入addAdmin的try方法!!!");
             //管理员的状态是0代表管理首次注册不能操作任何东西
             //管理员的状态是1,2,3,4,5等代表拥有权限
-            admin.setAdminStatus(UtilStatic.STATIC_ZERO);
+            admin.setAdminStatus(UtilStatic.STATIC_ONE);
             adminService.insertAdminByAdminId(admin);
+
+            Admin adm = adminService.selectAdminLogin(admin);
+            log.info("admin的ID号为:"+adm.getAdminId());
+            AdminRole adminRole = new AdminRole();
+            int roleId = UtilStatic.STATIC_FORE;
+            String roleNote = "无权限管理员";
+            adminRole.setAdminId(adm.getAdminId());
+            adminRole.setRoleId(roleId);
+            adminRole.setAdminRoleNote(roleNote);
+            adminRole.setIsNotApproval(UtilStatic.STATIC_ZERO);
+            adminRoleService.addAdminRoleInfo(adminRole);
             return "jsp-behind/admin-login";
         }catch(Exception e){
             log.error(timeToken+"进入addAdmin的catch方法!!!"+e.getMessage());
@@ -92,6 +109,29 @@ public class AdminController {
             return "redirect:/selectAdminInfo";
         }catch(Exception e){
             log.error("进入updateAdminInfo的catch方法!!!");
+            return "jsp-error/error-page";
+        }
+    }
+
+
+    /**
+     * 用户申请权限查到信息发送给管理员
+     * @param modelMap
+     * @param session
+     * @return
+     */
+    @RequestMapping("/adminApplicationAuthority")
+    public String adminApplicationAuthority(ModelMap modelMap, HttpSession session){
+        log.info(timeToken+"进入selectAdminInfo的方法中!!!");
+        try{
+            log.info(timeToken+"进入selectAdminInfo的try方法!!!");
+            Admin admin = (Admin) session.getAttribute("admin");
+            Admin adminInfo = adminService.selectByAdminId(admin.getAdminId());
+            modelMap.put("adminInfo",adminInfo);
+            log.info(timeToken+"数据:"+adminInfo);
+            return "jsp-behind/application-authority";
+        }catch(Exception e){
+            log.error(timeToken+"进入selectAdminInfo的catch方法!!!"+e.getMessage());
             return "jsp-error/error-page";
         }
     }
