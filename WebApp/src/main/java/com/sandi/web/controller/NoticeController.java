@@ -1,7 +1,9 @@
 package com.sandi.web.controller;
 
 import com.sandi.web.model.Admin;
+import com.sandi.web.model.AdminRole;
 import com.sandi.web.model.Notice;
+import com.sandi.web.service.IAdminRoleService;
 import com.sandi.web.service.IAdminService;
 import com.sandi.web.service.INoticeService;
 import com.sandi.web.util.UtilStatic;
@@ -20,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by 15049 on 2017-04-16.
+ * Created by 王子龙 on 2017-04-16.
  */
 @Controller
 @RequestMapping("/notice")
@@ -31,12 +33,18 @@ public class NoticeController {
     private INoticeService noticeService;
     @Autowired
     private IAdminService adminService;
+    @Autowired
+    private IAdminRoleService adminRoleService;
 
     @RequestMapping("/queryAllNoticeByStatus")
-    public String queryAllNoticeByStatus(ModelMap modelMap,Notice notice){
+    public String queryAllNoticeByStatus(ModelMap modelMap,Notice notice,HttpSession session){
         log.info(timeToken+"进入queryAllNoticeByStatus方法");
         int noticeStatus = UtilStatic.STATIC_ONE;
         try{
+            log.info(timeToken+"进入queryAllNoticeByStatus的try方法!");
+            Admin admin  = (Admin) session.getAttribute("admin");
+            Admin adminInfo = adminService.selectByAdminId(admin.getAdminId());
+            AdminRole adminRole = adminRoleService.selectAdminRoleByAdminId(adminInfo.getAdminId());
             log.info("进入queryAllNoticeByStatus的try方法!!!");
             Map<String,Integer> map = new HashMap<String, Integer>();
             map.put("noticeStatus",noticeStatus);
@@ -50,10 +58,9 @@ public class NoticeController {
             modelMap.put("noticeList",noticeList);
             return "jsp-behind/notice-list";
         }catch(Exception e){
-            log.error("进入queryAllNoticeByStatus的catch方法!!!");
+            log.error(timeToken+"进入queryAllNoticeByStatus的catch方法!!!");
             return "jsp-error/error-page";
         }
-
     }
     @RequestMapping("/addNoticeByAdmin")
     public String addNoticeByAdmin(Notice notice, ModelMap modelMap, HttpServletRequest request, HttpSession session){
@@ -78,12 +85,10 @@ public class NoticeController {
     }
     @RequestMapping("/selectNoticeById")
     public String selectNoticeById(ModelMap modelMap, @RequestParam("noticeId") int noticeId){
-        log.info("进入selectNoticeById方法!!!");
+        log.info(timeToken+"进入selectNoticeById方法!!!");
         try{
-            log.info("进入selectNoticeById的try方法");
-            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            log.info(timeToken+"进入selectNoticeById的try方法");
             Notice notice = noticeService.selectNoticeById(noticeId);
-            //notice.getNoticeReleaseTime();
             String adminName = null;
             notice.setNoticeReleaseTimeStr(UtilStatic.sdf.format(notice.getNoticeReleaseTime()));
             notice.setNoticeEndTimeStr(UtilStatic.sdf.format(notice.getNoticeEndTime()));
@@ -100,7 +105,7 @@ public class NoticeController {
             modelMap.put("notice",notice);
             return "jsp-behind/notice-detail";
         }catch (Exception e){
-            log.error("进入selectNoticeById的catch方法");
+            log.error(timeToken+"进入selectNoticeById的catch方法");
             return "jsp-error/error-page";
         }
 
@@ -108,10 +113,9 @@ public class NoticeController {
 
     @RequestMapping("/selectNoticeByIdForUpdate")
     public String selectNoticeByIdForUpdate(ModelMap modelMap, @RequestParam("noticeId") int noticeId){
-        log.info("进入selectNoticeById方法!!!");
+        log.info(timeToken+"进入selectNoticeById方法!!!");
         try{
-            log.info("进入selectNoticeById的try方法");
-            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            log.info(timeToken+"进入selectNoticeById的try方法");
             Notice notice = noticeService.selectNoticeById(noticeId);
             String adminName = null;
             notice.setNoticeReleaseTimeStr(UtilStatic.sdf.format(notice.getNoticeReleaseTime()));
@@ -129,27 +133,49 @@ public class NoticeController {
             modelMap.put("notice",notice);
             return "jsp-behind/notice-update";
         }catch (Exception e){
-            log.error("进入selectNoticeById的catch方法");
+            log.error(timeToken+"进入selectNoticeById的catch方法");
             return "jsp-error/error-page";
         }
 
     }
     @RequestMapping("/updateNoticeById")
     public String updateNoticeById(Notice notice){
-        log.info("进入updateNoticeById方法!!!");
+        log.info(timeToken+"进入updateNoticeById方法!!!");
         try{
-            log.info("进入updateNoticeById的try方法");
+            log.info(timeToken+"进入updateNoticeById的try方法");
             int status = UtilStatic.STATIC_ONE;
-            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             notice.setNoticeReleaseTime(UtilStatic.sdf.parse(notice.getNoticeReleaseTimeStr()));
             notice.setNoticeEndTime(UtilStatic.sdf.parse(notice.getNoticeEndTimeStr()));
             notice.setNoticeStatus(status);
             noticeService.updateAdminByAdminId(notice);
             return "redirect:/notice/queryAllNoticeByStatus.do";
         }catch (Exception e){
-            log.error("进入updateNoticeById的catch方法"+e.getMessage());
+            log.error(timeToken+"进入updateNoticeById的catch方法"+e.getMessage());
             return "jsp-error/error-page";
         }
     }
+
+    /**
+     * 删除公告（状态变成0）
+     * @param noticeId
+     * @return
+     */
+    @RequestMapping("/deleteNoticeByNoticeId")
+    public String deleteNoticeByNoticeId(@RequestParam("noticeId") int noticeId){
+        log.info(timeToken+"进入deleteNoticeByNoticeId方法1");
+        try{
+            log.info(timeToken+"进入deleteNoticeByNoticeId的try方法1");
+            Notice notice = noticeService.selectNoticeById(noticeId);
+            notice.setNoticeStatus(UtilStatic.STATIC_ZERO);
+            noticeService.updateAdminByAdminId(notice);
+            return "redirect:/notice/queryAllNoticeByStatus.do";
+        }catch(Exception e){
+            log.error(timeToken+"进入deleteNoticeByNoticeId的catch方法,异常信息:"+e.getMessage());
+            return "jsp-error/error-page";
+        }
+    }
+
+
+
 
 }

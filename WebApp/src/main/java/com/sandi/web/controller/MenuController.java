@@ -181,8 +181,7 @@ public class MenuController {
                 System.out.print("这是分页的总页数:"+page);
             }
             for(Achievement list:searchList){
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                list.setTimeToString(sdf.format(list.getReleaseTime()));
+                list.setTimeToString(UtilStatic.sdf.format(list.getReleaseTime()));
                 Menu menu = menuService.selectTopNameByTopId(list.getAchievementType());
                 list.setAchievementTypeName(menu.getTopName());
             }
@@ -199,6 +198,65 @@ public class MenuController {
             return "jsp-error/error-page";
         }
     }
+
+
+    /**
+     * 管理员的科研成果搜索功能（后台）
+     * @param searchContent
+     * @param modelMap
+     * @param request
+     * @return
+     */
+    @RequestMapping("/searchAchievementForBehind")
+    public String searchAchievementForBehind(@RequestParam("searchContent") String searchContent, ModelMap modelMap, HttpServletRequest request){
+        log.info(timeToken+"进入searchAchievementForBehind方法!!!");
+        try{
+            log.info(timeToken+"进入searchAchievementForBehind的try方法!!!");
+            //默认的页数
+            int page = 1;
+            //默认的每页的个数12条每页
+            int pageSize = UtilStatic.STATIC_PAGESIZE;
+            List<Menu> oneMenuInSearch = menuService.findMenuLevels(UtilStatic.STATIC_ONE);
+            System.out.print("这是搜索内容:"+searchContent);
+            //状态2代表科研成果经过审核通过的，能展示给用户查看的
+            int releaseState = UtilStatic.STATIC_TWO;
+            //String a = String.valueOf((page-1)*pageSize);
+            Map map = new HashMap();
+            map.put("searchContent",searchContent);
+            map.put("releaseState",String.valueOf(releaseState));
+            map.put("startCount",(page-1)*pageSize);
+            map.put("pageSize",pageSize);
+            List<Achievement> searchList = achievementService.queryAchievementBySearchContent(map);
+            //查询总数
+            int count = achievementService.queryAchievementBySearchContentCount(map);
+            System.out.print("科研成果总数:"+"==========================================="+count);
+            if(count<=16){
+                page = 1;
+            }else{
+                page = (count + pageSize -1)/pageSize;
+                System.out.print("这是分页的总页数:"+page);
+            }
+            for(Achievement list:searchList){
+                list.setTimeToString(UtilStatic.sdf.format(list.getReleaseTime()));
+                Menu menu = menuService.selectTopNameByTopId(list.getAchievementType());
+                list.setAchievementTypeName(menu.getTopName());
+                City city = cityService.selectCityNameBycityId(list.getLocationCity());
+                list.setCityTypeName(city.getCityName());
+            }
+            //遍历的科研成果菜单
+            modelMap.put("oneMenuInSearch", oneMenuInSearch);
+            //搜索到的科研成果
+            modelMap.put("searchList",searchList);
+            modelMap.put("searchContent",searchContent);
+            modelMap.put("count",count);
+            modelMap.put("page",page);
+            return "jsp-behind/achievement-search";
+        }catch(Exception e){
+            log.error(timeToken+"进入searchAchievementForBehind的catch方法!!!");
+            return "jsp-error/error-page";
+        }
+    }
+
 
     /**
      * 用户搜索页面科研成果的 二级类查询方法

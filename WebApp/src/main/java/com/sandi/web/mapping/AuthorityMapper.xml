@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sandi.web.dao.IAuthorityDao" >
-    <resultMap id="ResultMap" type="com.sandi.web.model.Authority" >
-        <id column="authorityId" property="authorityId" jdbcType="INTEGER" />
-        <result column="authorityName" property="authorityName" jdbcType="VARCHAR" />
-        <result column="authorityNote" property="authorityNote" jdbcType="VARCHAR" />
+    <resultMap id="ResultMap" type="com.sandi.web.model.Authority">
+        <id column="authorityId" property="authorityId" jdbcType="INTEGER"/>
+        <result column="authorityName" property="authorityName" jdbcType="VARCHAR"/>
+        <result column="authorityNote" property="authorityNote" jdbcType="VARCHAR"/>
+        <result column="authorityState" property="authorityState" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="Base_Column_List" >
-        authorityId, authorityName, authorityNote
+        authorityId, authorityName, authorityNote,authorityState
     </sql>
 
-    <select id="selectByPrimaryKey" resultMap="ResultMap" parameterType="java.lang.Integer" >
+    <!--查询全部的权限信息-->
+    <select id="queryAllAuthority" resultMap="ResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from authority
+    </select>
+
+
+    <!--根据authorityId查询权限的名称和内容-->
+    <select id="selectAuthorityByAuthorityId" resultMap="ResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List" />
         from authority
         where authorityId = #{authorityId,jdbcType=INTEGER}
     </select>
-    <select id="selectByAdminNameAndAdminPass" resultMap="ResultMap" parameterType="java.util.Map">
-        select
-        <include refid="Base_Column_List" />
-        from authority
-        where authorityName = #{authorityName,jdbcType=VARCHAR}
-    </select>
-    <delete id="deleteAdminByAdminStatus" parameterType="java.lang.Integer" >
-        delete from authority
-        where authorityId = #{authorityId,jdbcType=INTEGER}
-    </delete>
-    <insert id="insert" useGeneratedKeys="true" keyProperty="authorityId" parameterType="com.sandi.web.model.Authority" >
-        insert into authority (authorityName, authorityNote)
-        values (#{authorityName,jdbcType=VARCHAR}, #{authorityNote,jdbcType=VARCHAR})
-    </insert>
-    <insert id="insertAdminByAdminId" parameterType="com.sandi.web.model.Authority" >
+
+
+
+
+    <insert id="addAuthority" parameterType="com.sandi.web.model.Authority" >
         insert into authority
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="authorityId != null" >
@@ -41,6 +41,9 @@
             </if>
             <if test="authorityNote != null" >
                 authorityNote,
+            </if>
+            <if test="authorityState != null" >
+                authorityState,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -53,8 +56,18 @@
             <if test="authorityNote != null" >
                 #{authorityNote,jdbcType=VARCHAR},
             </if>
+            <if test="authorityState != null" >
+                #{authorityState,jdbcType=INTEGER},
+            </if>
         </trim>
     </insert>
+
+
+    <delete id="deleteAuthorityById" parameterType="java.lang.Integer" >
+        delete from authority
+        where authorityId = #{authorityId,jdbcType=INTEGER}
+    </delete>
+
     <update id="updateAdminByAdminId" parameterType="com.sandi.web.model.Authority" >
         update authority
         <set>
@@ -63,6 +76,9 @@
             </if>
             <if test="authorityNote != null" >
                 authorityNote = #{authorityNote,jdbcType=VARCHAR},
+            </if>
+            <if test="authorityState != null" >
+                authorityState = #{authorityState,jdbcType=INTEGER},
             </if>
         </set>
         where authorityId = #{authorityId,jdbcType=INTEGER}

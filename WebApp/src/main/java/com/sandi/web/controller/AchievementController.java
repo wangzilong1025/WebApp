@@ -616,28 +616,47 @@ public class AchievementController {
 
 
     /**
-     * 科研成果管理员审核通过（实际为灯芯方法，更新科研成果的状态）
-     * @param modelMap
+     * 科研成果管理员审核通过（实际为更新方法，更新科研成果的状态）(审核通过后跳转到提示页面)
+     * @param //modelMap
      * @param achievementId
      * @return
      */
-    @RequestMapping("/achievementDetailReleased")
-    public String achievementDetailReleased(ModelMap modelMap,@RequestParam("achievementId") int achievementId){
-        log.info(timeToken+"进入achievementDetailApprove方法!!!");
+    @RequestMapping("/achievementAgreementPass")
+    public String achievementAgreementPass(@RequestParam("achievementId") int achievementId){
+        log.info(timeToken+"进入achievementAgreementPass方法!!!");
         try{
-            log.info(timeToken+"进入achievementDetailApprove的try方法,并且获取到成果详情的ID："+achievementId);
+            log.info(timeToken+"进入achievementAgreementPass的try方法,并且获取到成果详情的ID："+achievementId);
             Achievement achievement = achievementService.selectAchievementByAchievementId(achievementId);
-            City city = cityService.selectCityNameBycityId(achievement.getLocationCity());
-            achievement.setCityTypeName(city.getCityName());
-            Menu menu = menuService.selectTopNameByTopId(achievement.getAchievementType());
-            achievement.setAchievementTypeName(menu.getTopName());
-            modelMap.put("achievement",achievement);
-            return "jsp-behind/achievement-approve-detail";
+            log.info(timeToken+"获得的科研成果的状态;"+achievement.getReleaseState());
+            //set状态为2的书是代表审核通过
+            achievement.setReleaseState(UtilStatic.STATIC_TWO);
+            achievementService.updateAchievementByAchievementId(achievement);
+            return "jsp-behind/achievement-pass-prompt";
         }catch(Exception e){
-            log.error(timeToken+"进入achievementDetailApprove的catch方法!!!");
+            log.error(timeToken+"进入achievementAgreementPass的catch方法!!!");
             return "jsp-error/error-page";
         }
     }
+
+
+
+    @RequestMapping("/achievementAgreementNotPass")
+    public String achievementAgreementNotPass(@RequestParam("achievementId") int achievementId){
+        log.info(timeToken+"进入achievementAgreementNotPass方法!!!");
+        try{
+            log.info(timeToken+"进入achievementAgreementNotPass的try方法,并且获取到成果详情的ID："+achievementId);
+            Achievement achievement = achievementService.selectAchievementByAchievementId(achievementId);
+            log.info(timeToken+"获得的科研成果的状态;"+achievement.getReleaseState());
+            //set状态为33333333333的书是代表审核不通过
+            achievement.setReleaseState(UtilStatic.STATIC_THREE);
+            achievementService.updateAchievementByAchievementId(achievement);
+            return "jsp-behind/achievement-unpass-prompt";
+        }catch(Exception e){
+            log.error(timeToken+"进入achievementAgreementNotPass的catch方法!!!");
+            return "jsp-error/error-page";
+        }
+    }
+
 
     /**
      * Main主页里的菜单，通过点击类型查询到科研成果

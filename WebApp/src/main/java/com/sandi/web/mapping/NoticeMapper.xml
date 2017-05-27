@@ -12,9 +12,10 @@
         <result column="noticeStatus" property="noticeStatus" jdbcType="INTEGER" />
         <result column="operatorId" property="operatorId" jdbcType="INTEGER" />
         <result column="noticePhoto" property="noticePhoto" jdbcType="VARCHAR" />
+        <result column="noticeType" property="noticeType" jdbcType="INTEGER" />
     </resultMap>
     <sql id="Base_Column_List" >
-        noticeId, noticeTitle, noticeContent, createTime, adminId, noticeReleaseTime, noticeEndTime, noticeStatus,operatorId,noticePhoto
+        noticeId, noticeTitle, noticeContent, createTime, adminId, noticeReleaseTime, noticeEndTime, noticeStatus,operatorId,noticePhoto,noticeType
     </sql>
 
     <select id="selectNoticeById" resultMap="ResultMap" parameterType="java.lang.Integer" >
@@ -69,6 +70,9 @@
             <if test="noticePhoto != null" >
                 noticePhoto,
             </if>
+            <if test="noticeType != null" >
+                noticeType,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="noticeId != null" >
@@ -100,6 +104,9 @@
             </if>
             <if test="noticePhoto != null" >
                 #{noticePhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="noticeType != null" >
+                #{noticeType,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -133,6 +140,9 @@
             </if>
             <if test="noticePhoto != null" >
                 noticePhoto = #{noticePhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="noticeType != null" >
+                noticeType = #{noticeType,jdbcType=INTEGER},
             </if>
         </set>
         where noticeId = #{noticeId,jdbcType=INTEGER}

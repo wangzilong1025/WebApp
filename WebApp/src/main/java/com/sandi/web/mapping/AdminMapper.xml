@@ -10,10 +10,11 @@
         <result column="adminPhone" property="adminPhone" jdbcType="VARCHAR" />
         <result column="adminAddress" property="adminAddress" jdbcType="VARCHAR" />
         <result column="adminStatus" property="adminStatus" jdbcType="INTEGER" />
+        <result column="applicationState" property="applicationState" jdbcType="INTEGER" />
         <result column="realName" property="realName" jdbcType="VARCHAR" />
     </resultMap>
     <sql id="Base_Column_List" >
-        adminId, adminName, adminPassword, adminImage, adminEmail, adminPhone, adminAddress, adminStatus,realName
+        adminId, adminName, adminPassword, adminImage, adminEmail, adminPhone, adminAddress, adminStatus, applicationState ,realName
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="ResultMap" parameterType="java.lang.Integer" >
@@ -29,16 +30,42 @@
         from admin
         where adminId = #{adminId,jdbcType=INTEGER}
     </select>
+
+    <!--用户登录方法-->
     <select id="selectAdminLogin" parameterType="com.sandi.web.model.Admin" resultType="com.sandi.web.model.Admin">
         select
         <include refid="Base_Column_List" />
         from admin
         WHERE adminName = #{adminName} AND adminPassword = #{adminPassword}
     </select>
+
+    <select id="selectAdminAddByAdminName" parameterType="java.lang.String" resultType="com.sandi.web.model.Admin">
+        select
+        <include refid="Base_Column_List" />
+        from admin
+        where adminName = #{adminName}
+    </select>
+
     <delete id="deleteAdminByAdminStatus" parameterType="java.lang.Integer" >
         delete from admin
         where adminStatus = #{adminStatus,jdbcType=INTEGER}
     </delete>
+
+    <!--查询全部的管理员-->
+    <select id="queryAllAdminInfo" resultMap="ResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from admin
+    </select>
+
+    <!--查询状态为1的可以使用的管理员账号-->
+    <select id="queryAllAdminInfoForApproval" resultMap="ResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from admin
+        where adminStatus = #{adminStatus,jdbcType=INTEGER}
+    </select>
+
 
     <insert id="insertAdminByAdminId" parameterType="com.sandi.web.model.Admin" >
         insert into admin
@@ -66,6 +93,9 @@
             </if>
             <if test="adminStatus != null" >
                 adminStatus,
+            </if>
+            <if test="applicationState != null" >
+                applicationState,
             </if>
             <if test="realName != null" >
                 realName,
@@ -96,6 +126,9 @@
             <if test="adminStatus != null" >
                 #{adminStatus,jdbcType=INTEGER},
             </if>
+            <if test="applicationState != null" >
+                #{applicationState,jdbcType=INTEGER},
+            </if>
             <if test="realName != null" >
                 #{realName,jdbcType=VARCHAR},
             </if>
@@ -124,6 +157,9 @@
             </if>
             <if test="adminStatus != null" >
                 adminStatus = #{adminStatus,jdbcType=INTEGER},
+            </if>
+            <if test="applicationState != null" >
+                applicationState = #{applicationState,jdbcType=INTEGER},
             </if>
             <if test="realName != null" >
                 realName = #{realName,jdbcType=VARCHAR},

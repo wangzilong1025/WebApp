@@ -20,7 +20,7 @@ import com.sandi.web.service.ICityService;
 @RequestMapping("/city")
 public class CityController {
 
-    private static final Logger log = Logger.getLogger(MenuController.class);
+    private static final Logger log = Logger.getLogger(CityController.class);
     long timeToken = System.currentTimeMillis();
     @Autowired
     private ICityService cityService;

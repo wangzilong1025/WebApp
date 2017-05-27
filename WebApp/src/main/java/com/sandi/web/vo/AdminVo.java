@@ -1,6 +1,9 @@
-package com.sandi.web.model;
+package com.sandi.web.vo;
 
-public class Admin {
+/**
+ * Created by 15049 on 2017-05-22.
+ */
+public class AdminVo {
 
     private int adminId;
 
@@ -19,6 +22,12 @@ public class Admin {
     private int adminStatus;
 
     private String realName;
+
+    private int adminRoleId;
+
+    private int roleId;
+
+    private int isNotApproval;
 
     private int applicationState;
 
@@ -94,6 +103,30 @@ public class Admin {
         this.realName = realName;
     }
 
+    public int getAdminRoleId() {
+        return adminRoleId;
+    }
+
+    public void setAdminRoleId(int adminRoleId) {
+        this.adminRoleId = adminRoleId;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public int getIsNotApproval() {
+        return isNotApproval;
+    }
+
+    public void setIsNotApproval(int isNotApproval) {
+        this.isNotApproval = isNotApproval;
+    }
+
     public int getApplicationState() {
         return applicationState;
     }
@@ -104,7 +137,7 @@ public class Admin {
 
     @Override
     public String toString() {
-        return "Admin{" +
+        return "AdminVo{" +
                 "adminId=" + adminId +
                 ", adminName='" + adminName + '\'' +
                 ", adminPassword='" + adminPassword + '\'' +
@@ -114,6 +147,9 @@ public class Admin {
                 ", adminAddress='" + adminAddress + '\'' +
                 ", adminStatus=" + adminStatus +
                 ", realName='" + realName + '\'' +
+                ", adminRoleId=" + adminRoleId +
+                ", roleId=" + roleId +
+                ", isNotApproval=" + isNotApproval +
                 ", applicationState=" + applicationState +
                 '}';
     }

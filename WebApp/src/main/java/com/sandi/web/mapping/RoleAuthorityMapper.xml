@@ -11,12 +11,18 @@
         roleAuthorityId, roleId, authorityId, roleAuthorityNote
     </sql>
 
-    <select id="selectByPrimaryKey" resultMap="ResultMap" parameterType="java.lang.Integer" >
+    <!--根据roleid查询角色拥有的权限-->
+    <select id="sellectAuthorityByRoleId" resultMap="ResultMap" parameterType="java.lang.Integer" >
         select
         <include refid="Base_Column_List" />
         from roleauthority
-        where roleAuthorityId = #{roleAuthorityId,jdbcType=INTEGER}
+        where roleId = #{roleId,jdbcType=INTEGER}
+        order by authorityId
     </select>
+
+
+
+
     <select id="selectByAdminNameAndAdminPass" resultMap="ResultMap" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List" />

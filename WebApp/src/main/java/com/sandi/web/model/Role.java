@@ -13,7 +13,11 @@ public class Role {
     /**
      * 角色备注
      */
-    private String rolrNote;
+    private String roleNote;
+    /**
+     * 角色使用状态
+     */
+    private int roleState;
 
     public int getRoleId() {
         return roleId;
@@ -31,29 +35,29 @@ public class Role {
         this.roleName = roleName;
     }
 
-    public String getRolrNote() {
-        return rolrNote;
+    public String getRoleNote() {
+        return roleNote;
     }
 
-    public void setRolrNote(String rolrNote) {
-        this.rolrNote = rolrNote;
+    public void setRoleNote(String roleNote) {
+        this.roleNote = roleNote;
     }
 
-    public Role(int roleId, String roleName, String rolrNote) {
-        super();
-        this.roleId = roleId;
-        this.roleName = roleName;
-        this.rolrNote = rolrNote;
+    public int getRoleState() {
+        return roleState;
     }
 
-    public Role() {
-        super();
+    public void setRoleState(int roleState) {
+        this.roleState = roleState;
     }
 
     @Override
     public String toString() {
-        return "Role [roleId=" + roleId + ", roleName=" + roleName
-                + ", rolrNote=" + rolrNote + "]";
+        return "Role{" +
+                "roleId=" + roleId +
+                ", roleName='" + roleName + '\'' +
+                ", roleNote='" + roleNote + '\'' +
+                ", roleState=" + roleState +
+                '}';
     }
-
 }

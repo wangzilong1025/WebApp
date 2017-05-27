@@ -1,6 +1,9 @@
-package com.sandi.web.model;
+package com.sandi.web.vo;
 
-public class Authority {
+/**
+ * Created by 王子龙 on 2017-05-23.
+ */
+public class AdminAuthority {
 
     /**
      * 权限编号
@@ -18,6 +21,18 @@ public class Authority {
      * 权限状态
      */
     private int authorityState;
+    /**
+     * 角色权限ID
+     */
+    private int roleAuthorityId;
+    /**
+     * 角色ID
+     */
+    private int roleId;
+    /**
+     * 角色权限备注
+     */
+    private String roleAuthorityNote;
 
 
     public int getAuthorityId() {
@@ -52,13 +67,40 @@ public class Authority {
         this.authorityState = authorityState;
     }
 
+    public int getRoleAuthorityId() {
+        return roleAuthorityId;
+    }
+
+    public void setRoleAuthorityId(int roleAuthorityId) {
+        this.roleAuthorityId = roleAuthorityId;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getRoleAuthorityNote() {
+        return roleAuthorityNote;
+    }
+
+    public void setRoleAuthorityNote(String roleAuthorityNote) {
+        this.roleAuthorityNote = roleAuthorityNote;
+    }
+
     @Override
     public String toString() {
-        return "Authority{" +
+        return "AdminAuthority{" +
                 "authorityId=" + authorityId +
                 ", authorityName='" + authorityName + '\'' +
                 ", authorityNote='" + authorityNote + '\'' +
                 ", authorityState=" + authorityState +
+                ", roleAuthorityId=" + roleAuthorityId +
+                ", roleId=" + roleId +
+                ", roleAuthorityNote='" + roleAuthorityNote + '\'' +
                 '}';
     }
 }
