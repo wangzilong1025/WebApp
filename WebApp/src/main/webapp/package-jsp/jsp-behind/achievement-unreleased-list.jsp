@@ -20,7 +20,7 @@
 <body>
 <form method="post" action="" id="listform">
     <div class="panel admin-panel">
-        <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+        <div class="panel-head"><strong class="icon-reorder">成果未通过</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
         <div class="padding border-bottom">
             <ul class="search" style="padding-left:10px;">
                 <li>搜索：</li>
@@ -50,9 +50,7 @@
                     <td>${list.unitName}</td>
                     <td width="">
                         <div class="button-group">
-                            <a class="button border-main" href="<%=path %>/achievement/achievementDetailApprove.do?achievementId=${list.achievementId}"><span class="icon-edit"></span> 详情</a>
-                           <%-- <a class="button border-green" href=""><span class="icon-book"></span> 通过</a>
-                            <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1,1)"><span class="icon-trash-o"></span>未通过 </a>--%>
+                            <a class="button border-main" href="<%=path %>/achievement/achievementDetailApprove.do?achievementId=${list.achievementId}"><span></span> 详情</a>
                         </div>
                     </td>
                 </tr>

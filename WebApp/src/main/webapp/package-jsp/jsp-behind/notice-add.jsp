@@ -11,7 +11,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta name="renderer" content="webkit">
-        <title>网站信息</title>
+        <title>公告添加</title>
         <link rel="stylesheet" href="<%=path %>/package-style/style-behind/css/pintuer.css">
         <link rel="stylesheet" href="<%=path %>/package-style/style-behind/css/admin.css">
         <script src="<%=path %>/package-style/style-behind/js/jquery.js"></script>
@@ -19,12 +19,23 @@
 
         <script type="text/javascript" src="<%=path %>/package-style/style-behind/time-style/jedate/jedate.js"></script>
         <script type="text/javascript" src="<%=path %>/package-style/style-behind/time-style/jedate/jedate.min.js"></script>
+        <script type="text/javascript">
+            function save(){
+                var noticeType = $("#noticeType").val();
+                if(noticeType != "" && noticeType != null){
+                    document.getElementById("noticeAdd").submit();
+                }else{
+                    alert("请选择要填写的公告类型!")
+                    return false;
+                }
+            }
+        </script>
     </head>
     <body>
         <div class="panel admin-panel">
-            <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 网站信息</strong></div>
+            <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>公告添加</strong></div>
             <div class="body-content">
-                <form method="post" class="form-x" action="<%=path %>/notice/addNoticeByAdmin.do">
+                <form method="post" id="noticeAdd" class="form-x" action="<%=path %>/notice/addNoticeByAdmin.do">
 
                     <div class="form-group">
                         <div class="label">
@@ -62,6 +73,22 @@
                             <div class="tips"></div>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="label">
+                            <label>公告类型：</label>
+                        </div>
+                        <div class="field">
+                            <select id="noticeType" name="noticeType" class="input w50">
+                                <option value="">请选择公告的类型</option>
+                                <option value="1">普通公告</option>
+                                <option value="2">系统公告</option>
+                                <option value="3">系统通知公告</option>
+                            </select>
+                            <div class="tips"></div>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <div class="label">
                             <label>发布人：</label>
@@ -83,7 +110,7 @@
                             <label></label>
                         </div>
                         <div class="field">
-                            <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                            <button class="button bg-main icon-check-square-o" type="button" onclick="save()"> 保存公告</button>
                         </div>
                     </div>
                 </form>

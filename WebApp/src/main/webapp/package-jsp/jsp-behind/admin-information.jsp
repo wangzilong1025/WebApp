@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
-    <title>管理员信息</title>
+    <title>管理人员信息</title>
     <link rel="stylesheet" href="<%=path %>/package-style/style-behind/css/pintuer.css">
     <link rel="stylesheet" href="<%=path %>/package-style/style-behind/css/admin.css">
     <script src="<%=path %>/package-style/style-behind/js/jquery.js"></script>
@@ -19,7 +19,7 @@
 </head>
 <body>
 <div class="panel admin-panel">
-    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>管理员信息</strong></div>
+    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>管理人员信息</strong></div>
     <div class="body-content">
         <form method="post" class="form-x" action="<%=path %>/updateAdminInfo.do ">
             <div class="form-group">
@@ -27,7 +27,7 @@
                     <label>管理员名称：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input w50" value="${adminInfo.adminName}" name="adminName" data-validate="required:请输入管理员名称" />
+                    <input type="text" class="input w50" readonly="readonly" value="${adminInfo.adminName}" name="adminName" data-validate="required:请输入管理员名称" />
                     <div class="tips"></div>
                 </div>
             </div>

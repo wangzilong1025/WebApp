@@ -42,8 +42,6 @@
         var c = document.getElementById('clock1_');
         cns1_ = c.getContext('2d');
         clock_conti(300,cns1_,clockd1_);
-
     </script>
-
 </div>
 </body></html>

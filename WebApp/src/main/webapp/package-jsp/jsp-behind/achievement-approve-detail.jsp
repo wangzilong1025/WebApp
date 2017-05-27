@@ -16,13 +16,22 @@
     <link rel="stylesheet" href="<%=path %>/package-style/style-behind/css/admin.css">
     <script src="<%=path %>/package-style/style-behind/js/jquery.js"></script>
     <script src="<%=path %>/package-style/style-behind/js/pintuer.js"></script>
+    <script type="text/javascript">
+        function agreeAchievement() {
+            var msg = "您确定该项成果审核通过吗？\n\n请确认！";
+            if (confirm(msg)==true){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="panel admin-panel">
     <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>科研成果详情</strong></div>
     <div class="body-content">
-        <form method="post" class="form-x" action="">
-
+        <form method="post" id="noticeAdd" class="form-x" action="<%=path %>/notice/addNoticeByAdmin.do">
             <div class="form-group">
                 <div class="field" style="margin: 0px;text-align: center;">
                     <h3 id="achievementName" style="margin-left: 20px; align-content: center" name="achievementName">${achievement.achievementName}<h3/>
@@ -52,7 +61,6 @@
                 <div class="field">&nbsp;</div>
                 <div class="field">
                     <label style="margin-left: 40px;">成果内容:</label>
-                    <%--<label style="margin-left: 20px;" id="achievementContent" name="achievementContent">${achievement.achievementContent}</label>--%>
                     <div style="margin-left: 40px;" id="achievementContent" name="achievementContent">${achievement.achievementContent}</div>
                 </div>
             </div>
@@ -61,7 +69,7 @@
                     <label></label>
                 </div>
                 <div class="field">
-                    <button class="button bg-main icon-check-square-o" type="submit"> 返回</button>
+                    <button class="button bg-main icon-check-square-o" style="margin-left: 36%;margin-top: 50px;" type="button" onclick="javascript:history.back(-1);"> 返回上一页</button>
                 </div>
             </div>
         </form>
@@ -82,7 +90,9 @@
                 minDate:"2014-09-19 00:00:00",
                 okfun:function(val){alert(val);}
             });
+            
         </script>
+
     </div>
 </div>
 </body>

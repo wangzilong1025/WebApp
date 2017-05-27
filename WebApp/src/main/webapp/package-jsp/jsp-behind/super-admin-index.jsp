@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
-    <title>后台管理中心-------管理员</title>
+    <title>后台管理中心------超级管理员</title>
     <link rel="stylesheet" href="<%=path %>/package-style/style-behind/css/pintuer.css">
     <link rel="stylesheet" href="<%=path %>/package-style/style-behind/css/admin.css">
     <script src="<%=path %>/package-style/style-behind/js/jquery.js"></script>
@@ -46,8 +46,9 @@
             <c:if test="${adminRoleId == 4}">
                 <c:out value="暂无权限人员"></c:out>
             </c:if>
-        </span></a>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a style="float: right" class="button button-little bg-blue"><span>欢迎您,${sessionScope.admin.adminName }</span></a>
+        </span></a>
+        <a style="float: right" class="button button-little bg-blue"><span>欢迎您,${sessionScope.admin.adminName }</span></a>&nbsp;&nbsp;
+
     </div>
 </div>
 <div class="leftnav">
@@ -75,9 +76,13 @@
     <ul>
         <li><a href="<%=path %>/queryAllApplicationState.do" target="right"><span class="icon-caret-right"></span>待授权管理</a></li>
         <li><a href="<%=path %>/queryAllAlreadyAuthorizedAdminInfo.do" target="right"><span class="icon-caret-right"></span>已授权管理</a></li>
-        <li><a href="<%=path %>/queryAllUpGradeAdminInfo.do" target="right"><span class="icon-caret-right"></span>上级管理人员</a></li>
-        <li><a href="<%=path %>/queryAllTheSameGradeAdminInfo.do" target="right"><span class="icon-caret-right"></span>同级管理人员</a></li>
         <li><a href="<%=path %>/queryAllDownAdminInfo.do" target="right"><span class="icon-caret-right"></span>下级管理人员</a></li>
+        <li><a href="<%=path %>/queryAllTheSameGradeAdminInfo.do" target="right"><span class="icon-caret-right"></span>同级管理人员</a></li>
+    </ul>
+    <h2><span class="icon-pencil-square-o"></span>角色与权限</h2>
+    <ul>
+        <li><a href="<%=path %>/role/queryAllAdminRole.do" target="right"><span class="icon-caret-right"></span>查看角色</a></li>
+        <li><a href="<%=path %>/authority/queryAllAuthorityInfo.do" target="right"><span class="icon-caret-right"></span>查看权限</a></li>
     </ul>
 </div>
 <script type="text/javascript">

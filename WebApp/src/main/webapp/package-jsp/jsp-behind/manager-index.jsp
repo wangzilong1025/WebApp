@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
-    <title>后台管理中心-------管理员</title>
+    <title>后台管理中心------经理</title>
     <link rel="stylesheet" href="<%=path %>/package-style/style-behind/css/pintuer.css">
     <link rel="stylesheet" href="<%=path %>/package-style/style-behind/css/admin.css">
     <script src="<%=path %>/package-style/style-behind/js/jquery.js"></script>
@@ -57,28 +57,24 @@
         <li><a href="<%=path %>/selectAdminInfo.do" target="right"><span class="icon-caret-right"></span>个人信息</a></li>
         <li><a href="<%=path %>/adminApplicationAuthority.do" target="right"><span class="icon-caret-right"></span>申请权限</a></li>
         <li><a href="<%=path %>/roleAuthority/selectAdminAuthorityByRoleId.do" target="right"><span class="icon-caret-right"></span>我的权限</a></li>
-        <li><a href="book.html" target="right"><span class="icon-caret-right"></span>留言管理</a></li>
+        <li><a href="book.html" target="right"><span class="icon-caret-right"></span>消息管理</a></li>
     </ul>
-    <h2><span class="icon-pencil-square-o"></span>公告管理</h2>
-    <ul>
-        <li><a href="<%=path %>/notice/queryAllNoticeByStatus.do" target="right"><span class="icon-caret-right"></span>发布的公告</a></li>
-        <li><a href="<%=path %>/package-jsp/jsp-behind/notice-add.jsp" target="right"><span class="icon-caret-right"></span>添加公告</a></li>
-    </ul>
-    <h2><span class="icon-pencil-square-o"></span>科研成果管理</h2>
-    <ul>
-        <li><a href="<%=path %>/achievement/queryAllApproveAchievement.do" target="right"><span class="icon-caret-right"></span>成果待审批</a></li>
-        <li><a href="<%=path %>/achievement/queryAllReleasedAchievement.do" target="right"><span class="icon-caret-right"></span>成果已通过</a></li>
-        <li><a href="<%=path %>/achievement/queryAllUnreleasedAchievement.do" target="right"><span class="icon-caret-right"></span>成果未通过</a></li>
-        <li><a href="<%=path %>/package-jsp/jsp-behind/achievement-search.jsp" target="right"><span class="icon-caret-right"></span>成果搜索</a></li>
-    </ul>
-    <h2><span class="icon-pencil-square-o"></span>管理员管理</h2>
-    <ul>
-        <li><a href="<%=path %>/queryAllApplicationState.do" target="right"><span class="icon-caret-right"></span>待授权管理</a></li>
-        <li><a href="<%=path %>/queryAllAlreadyAuthorizedAdminInfo.do" target="right"><span class="icon-caret-right"></span>已授权管理</a></li>
-        <li><a href="<%=path %>/queryAllUpGradeAdminInfo.do" target="right"><span class="icon-caret-right"></span>上级管理人员</a></li>
-        <li><a href="<%=path %>/queryAllTheSameGradeAdminInfo.do" target="right"><span class="icon-caret-right"></span>同级管理人员</a></li>
-        <li><a href="<%=path %>/queryAllDownAdminInfo.do" target="right"><span class="icon-caret-right"></span>下级管理人员</a></li>
-    </ul>
+    <c:forEach items="${map}" var="map">
+        <c:if test="${map.authorityId ==4}">
+            <h2><span class="icon-pencil-square-o"></span>公告管理</h2>
+            <ul>
+                <li><a href="<%=path %>/notice/queryAllNoticeByStatus.do" target="right"><span class="icon-caret-right"></span>发布的公告</a></li>
+                <li><a href="<%=path %>/package-jsp/jsp-behind/notice-add.jsp" target="right"><span class="icon-caret-right"></span>添加公告</a></li>
+            </ul>
+            <h2><span class="icon-pencil-square-o"></span>科研成果管理</h2>
+            <ul>
+                <li><a href="<%=path %>/achievement/queryAllApproveAchievement.do" target="right"><span class="icon-caret-right"></span>成果待审批</a></li>
+                <li><a href="<%=path %>/achievement/queryAllReleasedAchievement.do" target="right"><span class="icon-caret-right"></span>成果已通过</a></li>
+                <li><a href="<%=path %>/achievement/queryAllUnreleasedAchievement.do" target="right"><span class="icon-caret-right"></span>成果未通过</a></li>
+                <li><a href="<%=path %>/package-jsp/jsp-behind/achievement-search.jsp" target="right"><span class="icon-caret-right"></span>成果搜索</a></li>
+            </ul>
+        </c:if>
+    </c:forEach>
 </div>
 <script type="text/javascript">
     $(function(){

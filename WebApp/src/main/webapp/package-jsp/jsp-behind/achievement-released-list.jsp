@@ -11,22 +11,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
-    <title></title>
+    <title>科研成果已通过</title>
     <link rel="stylesheet" href="<%=path %>/package-style/style-behind/css/pintuer.css">
     <link rel="stylesheet" href="<%=path %>/package-style/style-behind/css/admin.css">
     <script src="<%=path %>/package-style/style-behind/js/jquery.js"></script>
     <script src="<%=path %>/package-style/style-behind/js/pintuer.js"></script>
+    <script type="text/javascript">
+        function searchAchievement() {
+            document.getElementById("searchAch").submit();
+        }
+    </script>
 </head>
 <body>
-<form method="post" action="" id="listform">
     <div class="panel admin-panel">
-        <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+        <div class="panel-head"><strong class="icon-reorder">科研成果已通过</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
         <div class="padding border-bottom">
             <ul class="search" style="padding-left:10px;">
                 <li>搜索：</li>
                 <li>
-                    <input type="text" placeholder="请输入搜索关键字" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block" />
-                    <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 搜索</a>
+                    <form method="post" action="<%=path %>/menu/searchAchievementForBehind.do" id="searchAch">
+                        <input type="text" id="searchContent" placeholder="输入成果标题/发布人/单位名称" name="searchContent" class="input" style="width:250px; line-height:17px;display:inline-block" />
+                        <a href="javascript:void(0)" class="button border-main icon-search" onclick="searchAchievement()" > 搜索</a>
+                    </form>
                 </li>
             </ul>
         </div>
@@ -50,9 +56,7 @@
                     <td>${list.unitName}</td>
                     <td width="">
                         <div class="button-group">
-                            <a class="button border-main" href="<%=path %>/achievement/achievementDetailApprove.do?achievementId=${list.achievementId}"><span class="icon-edit"></span> 详情</a>
-                            <%--<a class="button border-green" href=""><span class="icon-book"></span> 通过</a>
-                            <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1,1)"><span class="icon-trash-o"></span>未通过 </a>--%>
+                            <a class="button border-main" href="<%=path %>/achievement/achievementDetailApprove.do?achievementId=${list.achievementId}"><span></span> 详情</a>
                         </div>
                     </td>
                 </tr>
@@ -62,7 +66,6 @@
             </tr>
         </table>
     </div>
-</form>
 <script type="text/javascript">
 
     //搜索

@@ -11,18 +11,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
-    <title>网站信息</title>
+    <title>公告详情</title>
     <link rel="stylesheet" href="<%=path %>/package-style/style-behind/css/pintuer.css">
     <link rel="stylesheet" href="<%=path %>/package-style/style-behind/css/admin.css">
     <script src="<%=path %>/package-style/style-behind/js/jquery.js"></script>
     <script src="<%=path %>/package-style/style-behind/js/pintuer.js"></script>
-
-    <script type="text/javascript" src="<%=path %>/package-style/style-behind/time-style/jedate/jedate.js"></script>
-    <script type="text/javascript" src="<%=path %>/package-style/style-behind/time-style/jedate/jedate.min.js"></script>
 </head>
 <body>
 <div class="panel admin-panel">
-    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 网站信息</strong></div>
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>公告详情</strong></div>
     <div class="body-content">
         <form method="post" class="form-x" action="">
 
@@ -84,28 +81,10 @@
                     <label></label>
                 </div>
                 <div class="field">
-                    <button class="button bg-main icon-check-square-o" type="submit"> 返回</button>
+                    <button class="button bg-main icon-check-square-o" type="button" onclick="javascript:history.back(-1);"> 返回</button>
                 </div>
             </div>
         </form>
-        <script type="text/javascript">
-            jeDate({
-                dateCell:"#noticeReleaseTimeStr",
-                format:"YYYY-MM-DD hh:mm:ss",
-                isinitVal:false,
-                isTime:true, //isClear:false,
-                minDate:"2014-09-19 00:00:00",
-                okfun:function(val){alert(val);}
-            });
-            jeDate({
-                dateCell:"#noticeEndTimeStr",
-                format:"YYYY-MM-DD hh:mm:ss",
-                isinitVal:false,
-                isTime:true, //isClear:false,
-                minDate:"2014-09-19 00:00:00",
-                okfun:function(val){alert(val);}
-            });
-        </script>
     </div>
 </div>
 </body>
