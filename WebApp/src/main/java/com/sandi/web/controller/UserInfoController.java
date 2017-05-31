@@ -37,6 +37,17 @@ public class UserInfoController {
             log.info(timeToken+"进入selectPersonalCenter的try方法");
             UserLogin userLogin = (UserLogin) session.getAttribute("user");
             UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
+            String birth = UtilStatic.shortTime.format(userInfo.getUserBirth());
+            System.out.print("这是用户的生日:"+birth);
+            if(birth != null && birth != ""){
+                String[] birthList = birth.split("-");
+                String YYYY = birthList[0];
+                String MM = birthList[1];
+                String DD = birthList[2];
+                modelMap.put("YYYY",YYYY);
+                modelMap.put("MM",MM);
+                modelMap.put("DD",DD);
+            }
             modelMap.put("userInfo", userInfo);
             log.info(timeToken+"数据:"+userInfo);
             return "jsp-front/user-information";
@@ -47,7 +58,7 @@ public class UserInfoController {
     }
 
     @RequestMapping("/updatePersonalUserInfo")
-    public String updateUserInfo(ModelMap modelMap, UserInfo userInfo, HttpServletRequest request, HttpSession session, @RequestParam("file") MultipartFile file)throws IllegalStateException, IOException {
+    public String updateUserInfo(ModelMap modelMap, UserInfo userInfo, HttpServletRequest request, HttpSession session,@RequestParam("YYYY") String YYYY,@RequestParam("MM") String MM,@RequestParam("DD") String DD, @RequestParam("file") MultipartFile file)throws IllegalStateException, IOException {
         log.info(timeToken+"进入updateUserInfo方法");
         try{
             log.info(timeToken+"进入updateUserInfo的try方法");
@@ -55,6 +66,7 @@ public class UserInfoController {
             UserInfo uI = new UserInfo();
             uI = userInfoService.selectByUserId(userLo.getUserId());
             userInfo.setUserId(uI.getUserId());
+            userInfo.setUserBirth(UtilStatic.shortTime.parse(YYYY+"-"+MM+"-"+DD));
             //上传用户头像
             String path = request.getSession().getServletContext().getRealPath("/userInfoImage");
             File savedir = new File(path);
@@ -72,7 +84,6 @@ public class UserInfoController {
             userInfoService.updateUserInfoByUserInfoId(userInfo);
             modelMap.put("userInfo", userInfo);
             return "redirect:/userInfo/selectPersonalCenter.do";
-
         }catch(Exception e){
             log.error("进入updateUserInfo的catch方法"+e);
             return "jsp-error/error-page";
