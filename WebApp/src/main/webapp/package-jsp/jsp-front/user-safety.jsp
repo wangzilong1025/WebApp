@@ -101,7 +101,6 @@
                 <!--头像 -->
                 <div class="user-infoPic" style="margin: 20px 5% 20px">
                     <div class="filePic" id="localImag">
-                        <%--<input class="inputPic" type="file" id="file" name="file" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">--%>
                         <c:choose>
                             <c:when test="${userInfo.userImage == null}">
                                 <img class="am-circle am-img-thumbnail" id="userImage" src="<%=path %>/package-style/style-front/images/getAvatar.do.jpg"/>

@@ -18,10 +18,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
 		<script type="text/javascript">
 		function test(){
-			document.getElementById("achievementAdd").submit();
+		    var type3 = $("#type3").val();
+		    var cityThree = $("#cityThree").val();
+		    if(type3 == "" || cityThree == ""){
+		        alert("科研成果类型或所在城市不能为空!");
+		        return false;
+			} else{
+                document.getElementById("achievementAdd").submit();
+			}
+
 	    };
 		$(function(){
 	    	$("#type1").change(function(){
+	    	    alert("1");
 	    		$("#type2 option:not(:first)").remove();
 	    		var type1 = $(this).val();
 	    		//alert(type1);
@@ -60,6 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		//第三极的联动查询
 		$(function(){
 			$("#type2").change(function(){
+                alert("2");
 	    		$("#type3 option:not(:first)").remove();
 	    		var type2 = $(this).val();
 	    		//alert(type2);
@@ -97,6 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		//查询二级市级的城市
 		$(function(){
 	    	$("#cityTwo").change(function(){
+                alert("3");
 	    		$("#cityThree option:not(:first)").remove();
 	    		var cityTwo = $(this).val();
 	    		//alert(cityTwo);
@@ -333,10 +344,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<div class="am-form-content birth">
 												<div class="birth-select">
 													<select id="cityOne" data-am-selected="{maxHeight: 120}">
-													<!--<option value="" selected="selected">中国</option>-->
 													   <option value="China" selected="selected">中国</option>
 													</select>
-													<!--<input type="hidden" id="selectOneCity" name="selectOneCity"/>-->
 												</div>
 												<div class="birth-select2">
 													<select id="cityTwo" data-am-selected="{maxHeight: 120}">
@@ -345,13 +354,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													    	<option value="${list2.cityId }">${list2.cityName }</option>
 														</c:forEach>
 													</select>
-													<!--<input type="hidden" id="selectTwoCity" name="selectTwoCity"/>-->
 												</div>
 												<div class="birth-select2">
 													<select id="cityThree" data-am-selected="{maxHeight: 120}" name="locationCity">
 													   <option value="" selected="selected">请选择</option>
 													</select>
-													<!--<input type="hidden" id="selectThreeCity" name="selectThreeCity"/>-->
 												</div>
 											</div>
 										</div>
@@ -384,7 +391,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div class="am-form-group">
 											<div class="am-u-sm-9 am-u-sm-push-3">
 												<input class="am-btn am-btn-danger" onclick="test()" type="button" value="&nbsp;保存&nbsp;" />
-												<a href="javascript: void(0)" class="am-close am-btn am-btn-danger" data-am-modal-close>取消</a>
+												<input href="javascript: void(0)" type="button" onclick="javascript:history.back(-1);" class="am-close am-btn am-btn-danger" data-am-modal-close value="返回上一页"/>
 											</div>
 										</div>
 									</form>

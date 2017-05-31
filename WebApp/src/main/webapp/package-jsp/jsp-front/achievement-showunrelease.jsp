@@ -21,13 +21,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
 		<script type="text/javascript">
 		function deleteAchievement() { 
-			var msg = "确定要删除您的科研成果吗?"; 
+			var msg = "您确定要删除您的科研成果吗?";
 			if (confirm(msg)==true){ 
 				return true; 
 			}else{ 
 				return false; 
 			} 
-		} 
+		}
+        function releaseAchievement() {
+            var msg = "您确定要发布您的科研成果吗,发布后不能修改?";
+            if (confirm(msg)==true){
+                return true;
+            }else{
+                return false;
+            }
+        }
 		</script>
 	</head>
 	<body>
@@ -126,12 +134,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<table width="100%">
 						<thead>
 							<tr>
-								<th class="memo">成果图片</th>
-								<th class="time">创建时间</th>
-								<th class="name">成果标题</th>
-								<th class="amount">作者</th>
-								<th class="amount">所在单位</th>
-								<th class="action">操作</th>
+								<th class="memo" style="font-weight: bold">成果图片</th>
+								<th class="name" style="font-weight: bold">创建时间</th>
+								<th class="name" style="font-weight: bold">成果标题</th>
+								<th class="amount" style="font-weight: bold">作者</th>
+								<th class="amount" style="font-weight: bold">所在单位</th>
+								<th class="action" style="font-weight: bold">操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -147,25 +155,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											</c:otherwise>
 										</c:choose>
 									</td>
-									<td align="center" style="text-align: center; min-width: 150px; padding: 20px;">
+									<td align="center" style="text-align: center; min-width: 150px; padding: 30px;">
 										${list.timeToString}
 									</td>
-									<td class="title name" align="center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width: 180px; max-width: 180px; border: 10px 10px; padding: 20px;">
+									<td class="title name" align="center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width: 180px; max-width: 180px; border: 10px 10px; padding: 30px;">
 											${list.achievementName }
 									</td>
-									<td class="title name" align="center" style="padding: 20px;">
+									<td class="title name" align="center" style="padding: 30px;">
 											${list.userNick }
 									</td>
-									<td class="amount" align="center" style="padding: 20px;">
+									<td class="amount" align="center" style="padding: 30px;">
 										<span class="amount-pay">${list.unitName }</span>
 									</td>
-									<td class="operation" align="center" style="padding: 20px;">
+									<td class="operation" align="center" style="padding: 30px;">
 										<a href="<%=path %>/achievement/selectAchievementByAchievementId.do?id=${list.achievementId}"><font color="#006400">查看</font></a>&nbsp;&nbsp;
 										<a href="<%=path %>/achievement/updateAchievementByAchievementId.do?id=${list.achievementId}"><font color="#4169e1">修改</font></a>&nbsp;&nbsp;
-										<a href="<%=path %>/achievement/releaseAchievementByAchievementId.do?id=${list.achievementId}">发布</a>&nbsp;&nbsp;
+										<a href="<%=path %>/achievement/releaseAchievementByAchievementId.do?id=${list.achievementId}" onclick="javascript:return releaseAchievement()">发布</a>&nbsp;&nbsp;
 										<a href="<%=path %>/achievement/deleteAchievementByAchievementId.do?id=${list.achievementId}" onclick="javascript:return deleteAchievement()"><font color="red">删除</font></a>
 									</td>
-									
+
 								</tr>
 							</c:forEach>
 						</tbody>

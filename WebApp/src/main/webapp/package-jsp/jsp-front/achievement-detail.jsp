@@ -182,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 								<hr/>
 								<div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;" align="center">
-									<form class="am-form am-form-horizontal" id="achievementAdd" action="<%=path %>/achievement/addAchievement.do" enctype="multipart/form-data" method="post">
+									<form class="am-form am-form-horizontal" id="achievementAdd" enctype="multipart/form-data" method="post">
 										
 										<div class="am-form-group">
 											<label for="user-name" class="am-form-label">&nbsp;成果标题</label>
@@ -200,7 +200,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<label for="user-address" class="am-form-label">&nbsp;成果分类</label>
 											<div class="am-form-content address">
 												<div class="birth-select">
-													<%--<input type="text" id="menuNameOne" name="unitName" readonly="readonly" value="${menuNameOne}">--%>
 													<select data-am-selected="{maxHeight: 120}" id="type1" disabled="disabled" style="border: 0px;">
 														<option value="${menuNameOne}" selected="selected">${menuNameOne}</option>
 													</select>
@@ -246,7 +245,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</div>
 										<div class="am-form-group">
 											<label for="user-intro" class="am-form-label">&nbsp;成果图片</label>&nbsp;&nbsp;&nbsp;
-											<!--<div class="refund-tip">-->
 											<div class="am-form-content">
 												<div class="filePic" id="localImag" style="width: 110px; max-width: 110px; float: left; max-height: 110px; height: 110px;">
 													<c:choose>

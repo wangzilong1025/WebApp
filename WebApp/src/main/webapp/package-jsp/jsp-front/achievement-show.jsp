@@ -126,12 +126,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<table width="100%">
 						<thead>
 							<tr>
-								<th class="memo">成果图片</th>
-								<th class="time">创建时间</th>
-								<th class="name">成果标题</th>
-								<th class="amount">作者</th>
-								<th class="amount">所在单位</th>
-								<th class="action">操作</th>
+								<th class="memo" style="font-weight: bold">成果图片</th>
+								<th class="name" style="font-weight: bold">创建时间</th>
+								<th class="name" style="font-weight: bold">成果标题</th>
+								<th class="amount" style="font-weight: bold">作者</th>
+								<th class="amount" style="font-weight: bold">所在单位</th>
+								<th class="action" style="font-weight: bold">操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -147,19 +147,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											</c:otherwise>
 										</c:choose>
 									</td>
-									<td align="center" style="text-align: center; min-width: 150px; padding: 20px;">
+									<td align="center" style="text-align: center; min-width: 150px; padding: 30px;">
 										${list.timeToString}
 									</td>
-									<td class="title name" align="center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width: 180px; max-width: 180px; padding: 20px;">
+									<td class="title name" align="center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width: 180px; max-width: 180px; padding: 30px;">
 											${list.achievementName }
 									</td>
-									<td class="title name" align="center" style="padding: 20px;">
+									<td class="title name" align="center" style="padding: 30px;">
 											${list.userNick }
 									</td>
-									<td class="amount" align="center" style="padding: 20px;">
+									<td class="amount" align="center" style="padding: 30px;">
 										<span class="amount-pay">${list.unitName }</span>
 									</td>
-									<td class="operation" align="center" style="padding: 20px;">
+									<td class="operation" align="center" style="padding: 30px;">
 										<a href="<%=path %>/achievement/selectAchievementByAchievementId.do?id=${list.achievementId}"><font color="#006400">查看</font></a>&nbsp;&nbsp;
 										<a href="<%=path %>/achievement/deleteAchievementByAchievementId.do?id=${list.achievementId}" onclick="javascript:return deleteAchievement()"><font color="red">删除</font></a>
 									</td>

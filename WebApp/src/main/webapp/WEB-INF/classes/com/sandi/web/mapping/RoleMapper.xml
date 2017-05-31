@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sandi.web.dao.IRoleDao" >
-    <resultMap id="ResultMap" type="com.sandi.web.model.Role" >
-        <id column="roleId" property="roleId" jdbcType="INTEGER" />
-        <result column="roleName" property="roleName" jdbcType="VARCHAR" />
-        <result column="rolrNote" property="rolrNote" jdbcType="VARCHAR" />
+    <resultMap id="ResultMap" type="com.sandi.web.model.Role">
+        <id column="roleId" property="roleId" jdbcType="INTEGER"/>
+        <result column="roleName" property="roleName" jdbcType="VARCHAR"/>
+        <result column="roleNote" property="roleNote" jdbcType="VARCHAR"/>
+        <result column="roleState" property="roleState" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="Base_Column_List" >
-        roleId, roleName, rolrNote
+        roleId, roleName, roleNote, roleState
     </sql>
 
-    <select id="selectAdminByAdminId" resultMap="ResultMap" parameterType="java.lang.Integer" >
+    <!--便利所有管理员的角色 -->
+    <select id="queryAllRole" resultMap="ResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from role
+    </select>
+
+    <!--根据角色编号查询角色名称-->
+    <select id="selectRoleNameByRoleId" resultMap="ResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List" />
         from role
         where roleId = #{roleId,jdbcType=INTEGER}
     </select>
-    <select id="selectByAdminNameAndAdminPass" resultMap="ResultMap" parameterType="java.util.Map">
-        select
-        <include refid="Base_Column_List" />
-        from role
-        where roleName = #{roleName,jdbcType=VARCHAR}
-    </select>
-    <delete id="deleteAdminByAdminStatus" parameterType="java.lang.Integer" >
-        delete from role
-        where roleId = #{roleId,jdbcType=INTEGER}
-    </delete>
-    <insert id="insert" useGeneratedKeys="true" keyProperty="roleId" parameterType="com.sandi.web.model.Role" >
-        insert into role (roleName, rolrNote)
-        values (#{roleName,jdbcType=VARCHAR}, #{rolrNote,jdbcType=VARCHAR})
-    </insert>
-    <insert id="insertAdminByAdminId" parameterType="com.sandi.web.model.Role" >
+
+    <!--管理员角色的添加 -->
+    <insert id="addRoleInfo" parameterType="com.sandi.web.model.Role" >
         insert into role
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="roleId != null" >
@@ -39,8 +36,11 @@
             <if test="roleName != null" >
                 roleName,
             </if>
-            <if test="rolrNote != null" >
-                rolrNote,
+            <if test="roleNote != null" >
+                roleNote,
+            </if>
+            <if test="roleState != null" >
+                roleState,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -50,21 +50,44 @@
             <if test="roleName != null" >
                 #{roleName,jdbcType=VARCHAR},
             </if>
-            <if test="rolrNote != null" >
-                #{rolrNote,jdbcType=VARCHAR},
+            <if test="roleNote != null" >
+                #{roleNote,jdbcType=VARCHAR},
+            </if>
+            <if test="roleState != null" >
+                #{roleState,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
-    <update id="updateAdminByAdminId" parameterType="com.sandi.web.model.Role" >
+
+    <!--管理员角色的修改-->
+    <update id="updateRoleByRoleId" parameterType="com.sandi.web.model.Role" >
         update role
         <set>
             <if test="roleName != null" >
                 roleName = #{roleName,jdbcType=VARCHAR},
             </if>
-            <if test="rolrNote != null" >
-                rolrNote = #{rolrNote,jdbcType=VARCHAR},
+            <if test="roleNote != null" >
+                roleNote = #{roleNote,jdbcType=VARCHAR},
+            </if>
+            <if test="roleState != null" >
+                roleState = #{roleState,jdbcType=INTEGER},
             </if>
         </set>
         where roleId = #{roleId,jdbcType=INTEGER}
     </update>
+
+    <select id="selectAdminByAdminId" resultMap="ResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from role
+        where roleId = #{roleId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteRoleByRoleId" parameterType="java.lang.Integer" >
+        delete from role
+        where roleId = #{roleId,jdbcType=INTEGER}
+    </delete>
+
+
+
 </mapper>

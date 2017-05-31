@@ -24,7 +24,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$("#type1").change(function(){
 	    		$("#type2 option:not(:first)").remove();
 	    		var type1 = $(this).val();
-	    		//alert(type1);
 	    	    if(type1 != ""){
 	    	    	$.ajax({
     	    		    type: "post",  //get或post

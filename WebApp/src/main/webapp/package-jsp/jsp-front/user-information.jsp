@@ -16,10 +16,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="<%=path %>/package-style/style-front/css/infstyle.css" rel="stylesheet" type="text/css">
 		<script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
 		<script src="<%=path %>/package-style/style-front/AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
+		<!--生日插件 -->
+		<script type="text/javascript" src="<%=path %>/package-style/style-front/js/birthday.js"></script>
+		<!--生日插件 -->
 		<script type="text/javascript">
 	    $(function(){
-     	var hidRadio = $("#usersex").val();
-     	var radios = document.getElementsByName("usersex"); 
+     	var hidRadio = $("#userSex").val();
+     	var radios = document.getElementsByName("userSex");
      	if (hidRadio == 0) {  
             radios[0].checked = true;  
         } else if(hidRadio == 1){  
@@ -28,8 +31,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             radios[2].checked = true;
        	}   	
 	    });
-	</script>	
-	<script type="text/javascript">
+		</script>
+		<script>
+            $(function () {
+                $.ms_DatePicker({
+                    YearSelector: ".sel_year",
+                    MonthSelector: ".sel_month",
+                    DaySelector: ".sel_day"
+                });
+                $.ms_DatePicker();
+            });
+		</script>
+		<style type="text/css">
+			.birth-select select,.birth-select2 select {
+				-webkit-appearance: none !important;
+				-moz-appearance: none !important;
+				-webkit-border-radius: 0;
+				background: #ffffff url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMTJweCIgeT0iMHB4IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIzcHgiIHZpZXdCb3g9IjAgMCA2IDMiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDYgMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlnb24gcG9pbnRzPSI1Ljk5MiwwIDIuOTkyLDMgLTAuMDA4LDAgIi8+PC9zdmc+') no-repeat 100% center;
+			}
+
+			.birth-select{width:38%;margin-right:0 ;position: relative;height:32px ;line-height:32px;}
+			.birth-select2{width:32.3%;margin-right:0 ;margin-left: 1%;position: relative;height:32px ;line-height: 32px;}
+			.birth-select select,.birth-select2 select{width:90%;}
+			.birth-select em,.birth-select2 em{position: absolute;right:0px ;}
+			.birth-select .am-selected,.birth-select2 .am-selected {width:auto;position: absolute ;left:0px;right:20px;}
+			.birth button{border:1px solid #E4EAEE}
+			.birth .am-selected-icon::before{opacity: 1;margin:5px 0px 5px -10px;}
+			.birth .am-selected-status{padding-top:3px;}
+
+
+		</style>
+		<script type="text/javascript">
 	function setImagePreview() {
         var docObj=document.getElementById("file");
         var imgObjPreview=document.getElementById("userImage");
@@ -162,30 +194,60 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						<!--个人信息 -->
 						<div class="info-main">
-							<!--<form class="am-form am-form-horizontal">-->
 								<div class="am-form-group">
 									<label for="user-name" class="am-form-label">昵称</label>
 									<div class="am-form-content">
 									<input type="hidden" name="userinfoId" value="${userInfo.userinfoId }" />	
-										<input type="text" id="userNick" placeholder="Name" value="${userInfo.userNick }">
+										<input type="text" id="userNick" name="userNick" placeholder="Name" value="${userInfo.userNick }">
 									</div>
 								</div>
 								<div class="am-form-group">
 									<label class="am-form-label">性别</label>
 									<div class="am-form-content sex">
 										<label class="am-radio-inline">
-											<input type="hidden" id="usersex" value="${userInfo.userSex }" />
-											<input type="radio" name="usersex" value="0" data-am-ucheck> 男
+											<input type="hidden" id="userSex" value="${userInfo.userSex }" />
+											<input type="radio" name="userSex" value="0" data-am-ucheck> 男
 										</label>
 										<label class="am-radio-inline">
-											<input type="radio" name="usersex" value="1" data-am-ucheck> 女
+											<input type="radio" name="userSex" value="1" data-am-ucheck> 女
 										</label>
 										<label class="am-radio-inline">
-											<input type="radio" name="usersex" value="2" data-am-ucheck> 保密
+											<input type="radio" name="userSex" value="2" data-am-ucheck> 保密
 										</label>
 									</div>
 								</div>
-								<div class="am-form-group">
+
+							<div class="am-form-group">
+								<label for="user-birth" class="am-form-label">生日</label>
+								<div class="am-form-content birth" style="margin-left: 80px;">
+
+									<div class="birth-select2">
+										<select name="YYYY" id="sel_year" rel="${YYYY}">
+											<option value="">${YYYY }</option>
+											<option value="" selected="selected">${YYYY }</option>
+										</select>
+										<em>年</em>
+									</div>
+
+									<div class="birth-select2">
+										<select name="MM" id="sel_month" rel="${MM }">
+											<option value="">${MM }</option>
+											<option value="${MM }" selected="selected">${MM }</option>
+										</select>
+										<em>月</em>
+									</div>
+
+									<div class="birth-select2">
+										<select name="DD" id="sel_day" rel="${DD }">
+											<option value="">${DD }</option>
+											<option value="${DD }" selected="selected">${DD }</option>
+										</select>
+										<em>日</em>
+									</div>
+								</div>
+							</div>
+
+								<%--<div class="am-form-group">
 									<label for="user-birth" class="am-form-label">生日</label>
 									<div class="am-form-content birth">
 										<div class="birth-select">
@@ -210,7 +272,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<em>日</em>
 										</div>
 									</div>
-								</div>
+								</div>--%>
+
 								<div class="am-form-group">
 									<label for="user-email" class="am-form-label">电话</label>
 									<div class="am-form-content">
