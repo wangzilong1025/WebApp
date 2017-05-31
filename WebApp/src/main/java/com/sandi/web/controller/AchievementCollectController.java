@@ -73,4 +73,20 @@ public class AchievementCollectController {
 
     }
 
+
+
+    @RequestMapping("/collectAchievementByAchievementId")
+    @ResponseBody
+    public String collectAchievementByAchievementId(){
+        log.info("进入collectAchievementByAchievementId方法!");
+        try{
+            log.info("进入collectAchievementByAchievementId的try方法!");
+
+            return "";
+        }catch(Exception e){
+            log.error("进入collectAchievementByAchievementId的catch方法,异常信息:"+e.getMessage());
+            return "";
+        }
+    }
+
 }
