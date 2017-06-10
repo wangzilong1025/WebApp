@@ -3,15 +3,13 @@ package com.sandi.web.controller;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sandi.web.model.Achievement;
-import com.sandi.web.model.City;
-import com.sandi.web.model.Menu;
-import com.sandi.web.model.Notice;
+import com.sandi.web.model.*;
 import com.sandi.web.service.IAchievementService;
 import com.sandi.web.service.ICityService;
 import com.sandi.web.service.IMenuService;
 import com.sandi.web.service.INoticeService;
 import com.sandi.web.util.UtilStatic;
+import com.sandi.web.vo.NoticeVo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,13 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by 15049 on 2017-04-11.
@@ -55,6 +51,7 @@ public class MenuController {
             /*菜单的实现*/
             List<Menu> menuListAll = menuService.findAllMenuLevels();
             List<Menu> menuListOne = new ArrayList<Menu>();
+            //List<NoticeVo> noticeVoList = new ArrayList<NoticeVo>();
             for(Menu menuOne:menuListAll){
                 if(menuOne.getTopStatus()==1){
                     List<Menu> menuListTwo = new ArrayList<Menu>();
@@ -76,19 +73,23 @@ public class MenuController {
             }
             modelMap.put("menuListOne", menuListOne);
             //公告便利功能
-            int noticeStatus = 1;
+            int noticeStatus = UtilStatic.STATIC_ONE;
             Map<String,Integer> map = new HashMap<String, Integer>();
             map.put("noticeStatus",noticeStatus);
             List<Notice> noticeList = noticeService.queryAllNoticeByStatus(map);
+            Date date = UtilStatic.NEW_DATE;
             for(Notice list:noticeList){
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                list.setCreateTimeStr(sdf.format(list.getCreateTime()));
-                list.setNoticeReleaseTimeStr(sdf.format(list.getNoticeReleaseTime()));
-                list.setNoticeEndTimeStr(sdf.format(list.getNoticeEndTime()));
+                list.setCreateTimeStr(UtilStatic.sdf.format(list.getCreateTime()));
+                list.setNoticeReleaseTimeStr(UtilStatic.sdf.format(list.getNoticeReleaseTime()));
+                list.setNoticeEndTimeStr(UtilStatic.sdf.format(list.getNoticeEndTime()));
             }
             modelMap.put("noticeList",noticeList);
+            String shortTime = UtilStatic.shortTime.format(UtilStatic.NEW_DATE);
+            String[] timeList = shortTime.split("-");
+            String years = timeList[0];
+            modelMap.put("years",years);
         }catch(Exception e){
-            log.error(timeToken+"进入getMenuList的catch方法");
+            log.error(timeToken+"进入getMenuList的catch方法"+e.getMessage());
         }
         return "jsp-front/Main";
     }
@@ -96,19 +97,25 @@ public class MenuController {
     /**
      * 科研处成果添加的方法
      * @param modelMap
-     * @param request
+     * @param session
      * @return
      */
     @RequestMapping("/selectMenuOne")
-    public String selectMenuOne(ModelMap modelMap,HttpServletRequest request){
+    public String selectMenuOne(ModelMap modelMap, HttpSession session,HttpServletRequest request){
         log.info(timeToken+"进入selectMenuOne方法!!!");
         try{
             log.info(timeToken+"进入selectMenuOne的try方法!!!");
-            List<Menu> selectOneMenu = menuService.findMenuLevels(1);
-            List<City> selectOneCity = cityService.findCityLevel(1);
-            modelMap.put("selectOneMenu", selectOneMenu);
-            modelMap.put("selectOneCity", selectOneCity);
-            return "jsp-front/achievement-add";
+            UserLogin userLogin = (UserLogin) session.getAttribute("user");
+            if(userLogin ==null){
+                request.setAttribute("testid","<script type=\"text/javascript\">\n" + "alert(请您登陆后在添加科研成果!!!);"+"\t\t</script>");
+                return "jsp-front/user-login";
+            }else{
+                List<Menu> selectOneMenu = menuService.findMenuLevels(UtilStatic.STATIC_ONE);
+                List<City> selectOneCity = cityService.findCityLevel(UtilStatic.STATIC_ONE);
+                modelMap.put("selectOneMenu", selectOneMenu);
+                modelMap.put("selectOneCity", selectOneCity);
+                return "jsp-front/achievement-add";
+            }
         }catch(Exception e){
             log.error(timeToken+"进入selectMenuOne的catch方法!!!");
             return "jsp-error/error-page";

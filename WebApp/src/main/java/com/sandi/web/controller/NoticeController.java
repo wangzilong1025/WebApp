@@ -7,6 +7,7 @@ import com.sandi.web.service.IAdminRoleService;
 import com.sandi.web.service.IAdminService;
 import com.sandi.web.service.INoticeService;
 import com.sandi.web.util.UtilStatic;
+import com.sandi.web.vo.NoticeVo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by 王子龙 on 2017-04-16.
@@ -49,13 +47,29 @@ public class NoticeController {
             Map<String,Integer> map = new HashMap<String, Integer>();
             map.put("noticeStatus",noticeStatus);
             List<Notice> noticeList = noticeService.queryAllNoticeByStatus(map);
+            List<NoticeVo> noticeVoList = new ArrayList<NoticeVo>();
             for(Notice list:noticeList){
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                list.setCreateTimeStr(sdf.format(list.getCreateTime()));
-                list.setNoticeReleaseTimeStr(sdf.format(list.getNoticeReleaseTime()));
-                list.setNoticeEndTimeStr(sdf.format(list.getNoticeEndTime()));
+                NoticeVo noticeVo = new NoticeVo();
+                Admin adminUser = adminService.selectByAdminId(list.getAdminId());
+                noticeVo.setAdminId(list.getAdminId());
+                noticeVo.setAdminName(adminUser.getAdminName());
+                noticeVo.setCreateTime(list.getCreateTime());
+                noticeVo.setCreateTimeStr(UtilStatic.sdf.format(list.getCreateTime()));
+                noticeVo.setNoticeContent(list.getNoticeContent());
+                noticeVo.setNoticeId(list.getNoticeId());
+                noticeVo.setNoticeStatus(list.getNoticeStatus());
+                noticeVo.setNoticeTitle(list.getNoticeTitle());
+                noticeVo.setOperatorId(list.getOperatorId());
+                noticeVo.setNoticeType(list.getNoticeType());
+                noticeVo.setNoticeReleaseTimeStr(UtilStatic.sdf.format(list.getNoticeReleaseTime()));
+                noticeVo.setNoticeEndTimeStr(UtilStatic.sdf.format(list.getNoticeEndTime()));
+
+                noticeVoList.add(noticeVo);
+                //list.setCreateTimeStr();
+                //list.setNoticeReleaseTimeStr();
+                //list.setNoticeEndTimeStr();
             }
-            modelMap.put("noticeList",noticeList);
+            modelMap.put("noticeList",noticeVoList);
             return "jsp-behind/notice-list";
         }catch(Exception e){
             log.error(timeToken+"进入queryAllNoticeByStatus的catch方法!!!");
@@ -67,12 +81,12 @@ public class NoticeController {
         log.info(timeToken+"进入addNoticeByAdmin方法!!!");
         try{
             log.info(timeToken+"进入addNoticeByAdmin的try方法!!!");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date date = new Date();
+            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //Date date = new Date();
             int status = UtilStatic.STATIC_ONE;
-            notice.setCreateTime(date);
-            notice.setNoticeReleaseTime(sdf.parse(notice.getNoticeReleaseTimeStr()));
-            notice.setNoticeEndTime(sdf.parse(notice.getNoticeEndTimeStr()));
+            notice.setCreateTime(UtilStatic.NEW_DATE);
+            notice.setNoticeReleaseTime(UtilStatic.sdf.parse(notice.getNoticeReleaseTimeStr()));
+            notice.setNoticeEndTime(UtilStatic.sdf.parse(notice.getNoticeEndTimeStr()));
             notice.setNoticeStatus(status);
             noticeService.insertAdminByAdminId(notice);
             return "redirect:/notice/queryAllNoticeByStatus.do";
@@ -171,6 +185,22 @@ public class NoticeController {
             return "redirect:/notice/queryAllNoticeByStatus.do";
         }catch(Exception e){
             log.error(timeToken+"进入deleteNoticeByNoticeId的catch方法,异常信息:"+e.getMessage());
+            return "jsp-error/error-page";
+        }
+    }
+
+    @RequestMapping("/lookForNoticeDetailForFront")
+    public String lookForNoticeDetailForFront(@RequestParam("noticeId") int noticeId,ModelMap modelMap){
+        log.info(timeToken+"进入lookForNoticeDetailForFront方法!");
+        try{
+            log.info(timeToken+"进入lookForNoticeDetailForFront的try方法!");
+            Notice notice = noticeService.selectNoticeById(noticeId);
+            notice.setCreateTimeStr(UtilStatic.sdf.format(notice.getCreateTime()));
+            modelMap.put("notice",notice);
+
+            return "jsp-front/notice-detail";
+        }catch(Exception e){
+            log.error(timeToken+"进入lookForNoticeDetailForFront的catch方法,异常信息:"+e.getMessage());
             return "jsp-error/error-page";
         }
     }
