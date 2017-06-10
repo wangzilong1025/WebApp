@@ -73,11 +73,11 @@
     <div class="long-title"><span class="all-goods">全部分类</span></div>
     <div class="nav-cont">
         <ul>
-            <li class="index"><a href="#">首页</a></li>
+            <li class="index"><a href="<%=path %>/menu/getMenuList.do">首页</a></li>
             <li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
-            <li class="qc"><a href="#">统计</a></li>
+            <li class="qc"><a href="<%=path %>/statistics/statisticsAchievementCount.do">往年统计</a></li>
             <li class="qc"><a href="#">公告</a></li>
-            <li class="qc last"><a href="#">排行</a></li>
+            <li class="qc last"><a href="<%=path %>/statistics/selectCityByPie.do">当年排行</a></li>
         </ul>
         <div class="nav-extra">
             <i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利

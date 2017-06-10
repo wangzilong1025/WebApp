@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<body>
 		<input type="hidden" value="${message}" id="message">
 		<div class="login-boxtitle">
-		
+		<span id="testid" name="testid" style="display: none"></span>
 		</div>
 		<div class="login-banner">
 			<div class="login-main">

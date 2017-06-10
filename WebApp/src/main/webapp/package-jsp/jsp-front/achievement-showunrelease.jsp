@@ -98,9 +98,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<ul>
 						<li class="index"><a href="<%=path %>/menu/getMenuList.do">首页</a></li>
 						<li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
-						<li class="qc"><a href="#">统计</a></li>
+						<li class="qc"><a href="<%=path %>/statistics/statisticsAchievementCount.do">往年统计</a></li>
 						<li class="qc"><a href="#">公告</a></li>
-						<li class="qc last"><a href="#">排行</a></li>
+						<li class="qc last"><a href="<%=path %>/statistics/selectCityByPie.do">当年排行</a></li>
 					</ul>
 				    <div class="nav-extra">
 				    	<i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
@@ -155,19 +155,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											</c:otherwise>
 										</c:choose>
 									</td>
-									<td align="center" style="text-align: center; min-width: 150px; padding: 30px;">
+									<td align="center" style="text-align: center; min-width: 170px; padding-top: 30px;padding-left: 20px;padding-right: 20px;">
 										${list.timeToString}
 									</td>
-									<td class="title name" align="center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width: 180px; max-width: 180px; border: 10px 10px; padding: 30px;">
+									<td class="title name" align="center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width: 180px; max-width: 180px; border: 10px 10px; padding-top: 30px;padding-left: 20px;padding-right: 20px;">
 											${list.achievementName }
 									</td>
-									<td class="title name" align="center" style="padding: 30px;">
+									<td class="title name" align="center" style="padding-top: 30px;padding-left: 20px;padding-right: 20px;min-width: 100px;">
 											${list.userNick }
 									</td>
-									<td class="amount" align="center" style="padding: 30px;">
+									<td class="amount" align="center" style="padding-top: 30px;padding-left: 20px;padding-right: 20px;">
 										<span class="amount-pay">${list.unitName }</span>
 									</td>
-									<td class="operation" align="center" style="padding: 30px;">
+									<td class="operation" align="center" style="padding-top: 30px;">
 										<a href="<%=path %>/achievement/selectAchievementByAchievementId.do?id=${list.achievementId}"><font color="#006400">查看</font></a>&nbsp;&nbsp;
 										<a href="<%=path %>/achievement/updateAchievementByAchievementId.do?id=${list.achievementId}"><font color="#4169e1">修改</font></a>&nbsp;&nbsp;
 										<a href="<%=path %>/achievement/releaseAchievementByAchievementId.do?id=${list.achievementId}" onclick="javascript:return releaseAchievement()">发布</a>&nbsp;&nbsp;

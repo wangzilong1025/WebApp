@@ -79,7 +79,7 @@
         <li><a href="<%=path %>/queryAllDownAdminInfo.do" target="right"><span class="icon-caret-right"></span>下级管理人员</a></li>
         <li><a href="<%=path %>/queryAllTheSameGradeAdminInfo.do" target="right"><span class="icon-caret-right"></span>同级管理人员</a></li>
     </ul>
-    <h2><span class="icon-pencil-square-o"></span>角色与权限</h2>
+    <h2><span class="icon-pencil-square-o"></span>角色与权限管理</h2>
     <ul>
         <li><a href="<%=path %>/role/queryAllAdminRole.do" target="right"><span class="icon-caret-right"></span>查看角色</a></li>
         <li><a href="<%=path %>/authority/queryAllAuthorityInfo.do" target="right"><span class="icon-caret-right"></span>查看权限</a></li>
@@ -105,7 +105,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> </li>
 </ul>
 <div class="admin">
-    <iframe scrolling="auto" rameborder="0" src="<%=path %>/package-jsp/jsp-behind/admin-main.jsp" name="right" width="100%" height="100%"></iframe>
+    <iframe scrolling="auto" rameborder="0" src="<%=path %>/statistics/selectCityByPieForBehind.do" name="right" width="100%" height="100%"></iframe>
 </div>
 </body>
 </html>

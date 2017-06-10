@@ -100,7 +100,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> </li>
 </ul>
 <div class="admin">
-    <iframe scrolling="auto" rameborder="0" src="<%=path %>/package-jsp/jsp-behind/admin-main.jsp" name="right" width="100%" height="100%"></iframe>
+    <iframe scrolling="auto" rameborder="0" src="<%=path %>/statistics/selectCityByPieForBehind.do" name="right" width="100%" height="100%"></iframe>
 </div>
 </body>
 </html>

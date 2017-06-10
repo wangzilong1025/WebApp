@@ -2320,7 +2320,7 @@
 }
 
 .single-project figcaption .content{
-  position: relative;
+  /*position: relative;*/
   text-align: center;
   display: inline-block;
   top: 60%;

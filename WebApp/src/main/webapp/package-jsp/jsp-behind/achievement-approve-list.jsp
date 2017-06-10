@@ -50,7 +50,7 @@
         <table class="table table-hover text-center">
             <tr>
                 <th width="10%">成果编号</th>
-                <th width="20%">成果名称</th>
+                <th width="20%">成果标题</th>
                 <th width="6%">发布人</th>
                 <th width="12%">成果类型</th>
                 <th width="12%">发布城市</th>
@@ -61,7 +61,7 @@
                 <tr>
                     <td>${list.achievementId}</td>
                     <td>${list.achievementName}</td>
-                    <td>${list.unitName}</td>
+                    <td>${list.userNick}</td>
                     <td><font color="#00CC99">${list.achievementTypeName}</font></td>
                     <td><font color="red">${list.cityTypeName}</font></td>
                     <td>${list.unitName}</td>

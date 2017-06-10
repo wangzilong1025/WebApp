@@ -29,6 +29,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <script src="<%=path %>/package-style/style-map/js/ichartjs.release.v1.2-all-in-one-20130626/ichart.1.2.min.js"></script>
 	    <script src="<%=path %>/package-style/style-map/js/echarts-2.2.7/build/dist/echarts.js"></script>
 	    <script src="<%=path %>/package-style/style-map/js/index.js"></script>
+		<script type="text/javascript">
+			function test() {
+				alert("没有更多了,程序员正在疯狂开发......\n\n请耐心等待!");
+				return false;
+            }
+		</script>
 	</head>
 	<body>
 		<div class="hmtop">
@@ -106,9 +112,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <ul>
 						  <li class="index"><a href="<%=path %>/menu/getMenuList.do">首页</a></li>
 						  <li class="qc"><a href="<%=path %>/menu/selectMenuOne.do">登记成果</a></li>
-						  <li class="qc"><a href="#">统计</a></li>
+						  <li class="qc"><a href="<%=path %>/statistics/statisticsAchievementCount.do">往年统计</a></li>
 						  <li class="qc"><a href="#">公告</a></li>
-						  <li class="qc last"><a href="#">排行</a></li>
+						  <li class="qc last"><a href="<%=path %>/statistics/selectCityByPie.do">当年排行</a></li>
 					  </ul>
 					  <div class="nav-extra">
 						  <i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的消息
@@ -284,7 +290,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<h4>公告专栏</h4>
 							<h3>专栏类型</h3>
 							<span class="more ">
-                              	<a href="# ">更多专栏<i class="am-icon-angle-right" style="padding-left:10px ;" ></i></a>
+                              	<a href="#" onclick="javascript:return test()">更多专栏<i class="am-icon-angle-right" style="padding-left:10px ;" ></i></a>
                         	</span>
 						</div>
 					  <div class="am-g am-g-fixed" style="padding: 15px;">
@@ -294,68 +300,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<%--<div class="boxed_wrapper">--%>
 										<section class="latest-project sec-padd">
 												<div class="latest-project-carousel">
-													<div class="item" style="padding-bottom: 0px">
-														<div class="single-project">
-															<figure class="imghvr-shutter-in-out-horiz">
-																<img src="<%=path %>/package-style/style-front/notice/images/resource/4.jpg" alt="Awesome Image">
-																<figcaption>
-																	<div class="content">
-																		<a href="<%=path %>/jsp/testSuccess.jsp" style="min-width:160px;"><h4>Latest Technology</h4></a>
-																		<p  style="min-width:120px;">Consulting</p>
-																	</div>
-																</figcaption>
-															</figure>
-														</div>
-													</div>
-													<div class="item" style="padding-bottom: 0px">
-														<div class="single-project">
-															<figure class="imghvr-shutter-in-out-horiz">
-																<img src="<%=path %>/package-style/style-front/notice/images/resource/4.jpg" alt="Awesome Image">
-																<figcaption>
-																	<div class="content">
-																		<a href="<%=path %>/jsp/testSuccess.jsp" style="min-width:160px;"><h4>Latest Technology</h4></a>
-																		<p style="min-width:120px;">Consulting</p>
-																	</div>
-																</figcaption>
-															</figure>
-														</div>
-													</div>
-													<div class="item" style="padding-bottom: 0px">
-														<div class="single-project">
-															<figure class="imghvr-shutter-in-out-horiz">
-																<img src="<%=path %>/package-style/style-front/notice/images/resource/4.jpg" alt="Awesome Image">
-																<figcaption>
-																	<div class="content">
-																		<a href="<%=path %>/jsp/testSuccess.jsp" style="min-width:160px;"><h4>Latest Technology</h4></a>
-																		<p style="min-width:120px;">Consulting</p>
-																	</div>
-																</figcaption>
-															</figure>
-														</div>
-													</div>
-													<div class="item" style="padding-bottom: 0px">
-														<div class="single-project">
-															<figure class="imghvr-shutter-in-out-horiz">
-																<img src="<%=path %>/package-style/style-front/notice/images/resource/4.jpg" alt="Awesome Image">
-																<figcaption>
-																	<div class="content">
-																		<a href="<%=path %>/jsp/testSuccess.jsp" style="min-width:160px;"><h4>Latest Technology</h4></a>
-																		<p style="min-width:120px;">Consulting</p>
-																	</div>
-																</figcaption>
-															</figure>
-														</div>
-													</div>
+
 													<c:forEach items="${noticeList }" var="list">
 														<div class="item" style="padding-bottom: 0px">
 															<div class="single-latest-project-carousel">
 																<div class="single-project">
 																	<figure class="imghvr-shutter-in-out-horiz">
-																		<img src="<%=path %>/package-style/style-front/notice/images/resource/5.jpg" alt="Awesome Image">
+																		<c:if test="${list.noticeType == 1}">
+																			<img height="90px;" src="<%=path %>/package-style/style-front/notice/images/resource/4.jpg" alt="Awesome Image">
+																		</c:if>
+																		<c:if test="${list.noticeType == 2}">
+																			<img height="90px;" src="<%=path %>/package-style/style-front/notice/images/resource/5.jpg" alt="Awesome Image">
+																		</c:if>
+																		<c:if test="${list.noticeType == 3}">
+																			<img height="90px;" src="<%=path %>/package-style/style-front/notice/images/resource/6.jpg" alt="Awesome Image">
+																		</c:if>
 																		<figcaption>
-																			<div class="content">
-																				<a href="<%=path %>/jsp/testSuccess.jsp" style="min-width:160px;"><h4>${list.noticeTitle}</h4></a>
-																				<p style="min-width:120px;">${list.adminId}</p>
+																			<div class="content" align="center">
+																				<a href="<%=path %>/notice/lookForNoticeDetailForFront.do?noticeId=${list.noticeId}" style="min-width:180px;min-height: 50px;text-align: center;"><h4>${list.noticeTitle}</h4></a>
+																				<c:if test="${list.noticeType == 1}">
+																					<p style="min-width:160px;min-height: 25px;text-align: center;padding-bottom: 10px;padding-top: 5px;"><font color="red">普通公告</font></p>
+																				</c:if>
+																				<c:if test="${list.noticeType == 2}">
+																					<p style="min-width:160px;min-height: 40px;text-align: center;padding-bottom: 10px;padding-top: 5px;"><font color="red">系统公告</font></p>
+																				</c:if>
+																				<c:if test="${list.noticeType == 3}">
+																					<p style="min-width:160px;min-height: 40px;text-align: center;padding-bottom: 10px;padding-top: 5px;"><font color="red">系统通知</font></p>
+																				</c:if>
 																			</div>
 																		</figcaption>
 																	</figure>
@@ -382,28 +353,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<h4>国家科技成果转化服务示范基地</h4>
 							<!--<h3>每一道甜品都有一个故事</h3>-->
 							<span class="more">
-                    			<a href="#">更多信息<i class="am-icon-angle-right" style="padding-left:10px ;" ></i></a>
+                    			<a href="#" onclick="javascript:return test()">更多信息<i class="am-icon-angle-right" style="padding-left:10px ;" ></i></a>
                         	</span>
 						</div>
 					</div>
 					<div class="am-g am-g-fixed floodFour">
 						<div class="am-u-sm-5 am-u-md-4 text-one list ">
 							<div class="word">
-								<a class="outer" href="#"><span class="inner"><b class="text">厦门</b></span></a>
-								<a class="outer" href="#"><span class="inner"><b class="text">济南</b></span></a>
-								<a class="outer" href="#"><span class="inner"><b class="text">南宁</b></span></a>	
-								<a class="outer" href="#"><span class="inner"><b class="text">宝鸡</b></span></a>
-								<a class="outer" href="#"><span class="inner"><b class="text">苏州</b></span></a>
-								<a class="outer" href="#"><span class="inner"><b class="text">成都</b></span></a>
-								<a class="outer" href="#"><span class="inner"><b class="text">沈阳</b></span></a>
-								<a class="outer" href="#"><span class="inner"><b class="text">北京</b></span></a>	
-								<a class="outer" href="#"><span class="inner"><b class="text">锦州</b></span></a>
-								<a class="outer" href="#"><span class="inner"><b class="text">银川</b></span></a>
-								<a class="outer" href="#"><span class="inner"><b class="text">十堰</b></span></a>
-								<a class="outer" href="#"><span class="inner"><b class="text">太原</b></span></a>
-								<a class="outer" href="#"><span class="inner"><b class="text">贵阳</b></span></a>
-								<a class="outer" href="#"><span class="inner"><b class="text">青岛</b></span></a>
-								<a class="outer" href="#"><span class="inner"><b class="text">甘肃</b></span></a>									
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=厦门"><span class="inner"><b class="text">厦门</b></span></a>
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=济南"><span class="inner"><b class="text">济南</b></span></a>
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=南宁"><span class="inner"><b class="text">南宁</b></span></a>
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=宝鸡"><span class="inner"><b class="text">宝鸡</b></span></a>
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=苏州"><span class="inner"><b class="text">苏州</b></span></a>
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=成都"><span class="inner"><b class="text">成都</b></span></a>
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=沈阳"><span class="inner"><b class="text">沈阳</b></span></a>
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=北京"><span class="inner"><b class="text">北京</b></span></a>
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=锦州"><span class="inner"><b class="text">锦州</b></span></a>
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=银川"><span class="inner"><b class="text">银川</b></span></a>
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=十堰"><span class="inner"><b class="text">十堰</b></span></a>
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=太原"><span class="inner"><b class="text">太原</b></span></a>
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=贵阳"><span class="inner"><b class="text">贵阳</b></span></a>
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=青岛"><span class="inner"><b class="text">青岛</b></span></a>
+								<a class="outer" href="<%=path %>/base/baseDetail.do?baseAddress=甘肃"><span class="inner"><b class="text">甘肃</b></span></a>
 							</div>
 							<a href="# ">
 								<img src="<%=path %>/package-style/style-front/images/actaction.png" />
@@ -415,20 +386,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						 	 <div class="main-flow">
 						        <div class="business-header">
 						            <div class="business-header-l fl">流程相关</div>
-						            <div class="nian">2017年</div>
+						            <div class="nian">${years}年</div>
 						            <ul class="business-header-ul">
 						                <li>1月</li>
 						                <li>2月</li>
 						                <li>3月</li>
 						                <li>4月</li>
 						                <li>5月</li>
-						                <li>6月</li>
+						                <li class="highlight">6月</li>
 						                <li>7月</li>
 						                <li>8月</li>
 						                <li>9月</li>
 						                <li>10月</li>
 						                <li>11月</li>
-						                <li class="highlight">12月</li>
+						                <li>12月</li>
 						            </ul>
 						        </div>
 						        <div class="map">

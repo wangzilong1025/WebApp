@@ -56,10 +56,17 @@
                         <td hidden="hidden">${list.noticeId}</td>
                         <td>${list.noticeTitle}</td>
                         <td>${list.createTimeStr}</td>
-                        <td>${list.adminId}</td>
+                        <td>${list.adminName}</td>
                         <td><font color="#00CC99">${list.noticeReleaseTimeStr}</font></td>
                         <td><font color="red">${list.noticeEndTimeStr}</font></td>
-                        <td>${list.noticeStatus}</td>
+                        <td>
+                            <c:if test="${list.noticeStatus ==1}">
+                                <c:out value="使用中"></c:out>
+                            </c:if>
+                            <c:if test="${list.noticeStatus != 1}">
+                                <c:out value="未使用"></c:out>
+                            </c:if>
+                        </td>
                         <td width="">
                             <div class="button-group">
                                 <c:forEach items="${map}" var="mapp">
