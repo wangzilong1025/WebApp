@@ -257,8 +257,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						<div class="am-u-sm-4 am-u-lg-3 ">
 							<div class="info ">
-								<h3>历年登记</h3>
-								<h4>成果统计</h4>
+								<h3>科网快讯</h3>
+								<h4>与世界同步</h4>
 							</div>
 							<div class="recommendationMain one">
 								<a href="#"><img src="<%=path %>/package-style/style-front/images/recommendTwo.jpg "></img></a>
