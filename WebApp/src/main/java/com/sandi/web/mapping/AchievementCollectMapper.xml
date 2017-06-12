@@ -25,7 +25,7 @@
         where achievementCollectId = #{achievementCollectId,jdbcType=INTEGER}
     </delete>
 
-    <insert id="insertAdminByAdminId" parameterType="com.sandi.web.model.AchievementCollect" >
+    <insert id="addAchievementCollect" parameterType="com.sandi.web.model.AchievementCollect">
         insert into achievementcollect
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="achievementCollectId != null" >

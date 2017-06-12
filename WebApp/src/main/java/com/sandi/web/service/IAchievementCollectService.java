@@ -9,5 +9,17 @@ import java.util.List;
  */
 public interface IAchievementCollectService {
 
+    /**
+     * 用户收藏的科研成果便利
+     * @param userinfoId
+     * @return
+     */
     public List<AchievementCollect> achievementCollectByAchievementId(int userinfoId);
+
+    /**
+     * 用户科研成果的收藏（添加）
+     * @param achievementCollect
+     * @return
+     */
+    public int addAchievementCollect(AchievementCollect achievementCollect);
 }

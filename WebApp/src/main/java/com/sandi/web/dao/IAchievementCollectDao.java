@@ -16,4 +16,12 @@ public interface IAchievementCollectDao {
      * @return
      */
     public List<AchievementCollect> achievementCollectByAchievementId(int userinfoId);
+
+    /**
+     * 用户收藏科研成果（添加）
+     * @param achievementCollect
+     * @return
+     */
+    public int addAchievementCollect(AchievementCollect achievementCollect);
+
 }

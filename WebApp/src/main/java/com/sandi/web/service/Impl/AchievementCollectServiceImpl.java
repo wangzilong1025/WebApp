@@ -33,4 +33,14 @@ public class AchievementCollectServiceImpl implements IAchievementCollectService
     public List<AchievementCollect> achievementCollectByAchievementId(int userinfoId) {
         return achievementCollectDao.achievementCollectByAchievementId(userinfoId);
     }
+
+    /**
+     * 用户科研成果的收藏添加方法
+     * @param achievementCollect
+     * @return
+     */
+    @Override
+    public int addAchievementCollect(AchievementCollect achievementCollect) {
+        return achievementCollectDao.addAchievementCollect(achievementCollect);
+    }
 }

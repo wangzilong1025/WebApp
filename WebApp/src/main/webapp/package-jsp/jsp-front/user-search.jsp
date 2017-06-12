@@ -277,15 +277,14 @@
                 <!--分页 -->
                 <ul class="am-pagination am-pagination-right">
                     <li class="am-disabled"><a href="#">&laquo;</a></li>
-                   <%-- <li class="am-active"><a href="<%=path %>/menu/selectMenuOneInSearch.do">1</a></li>
+                    <li class="am-active"><a href="<%=path %>/menu/selectMenuOneInSearch.do">1</a></li>
                     <li><a href="<%=path %>/menu/selectMenuOneInSearch.do">2</a></li>
                     <li><a href="<%=path %>/menu/selectMenuOneInSearch.do">3</a></li>
                     <li><a href="<%=path %>/menu/selectMenuOneInSearch.do">4</a></li>
                     <li><a href="<%=path %>/menu/selectMenuOneInSearch.do">5</a></li>
-                    <li><a href="<%=path %>/menu/selectMenuOneInSearch.do">&raquo;</a></li>--%>
-                    <c:forEach var="1" begin="1" end="${page}">
+                    <%--<c:forEach var="1" begin="1" end="${page}">
                         <li><a href="<%=path %>/menu/selectMenuOneInSearch.do?currentPage="+${i}>${i}</a></li>
-                    </c:forEach>
+                    </c:forEach>--%>
                     <li><a href="<%=path %>/menu/selectMenuOneInSearch.do">&raquo;</a></li>
                 </ul>
 

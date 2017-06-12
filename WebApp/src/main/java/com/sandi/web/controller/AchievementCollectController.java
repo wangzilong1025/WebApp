@@ -11,6 +11,7 @@ import com.sandi.web.model.UserLogin;
 import com.sandi.web.service.IAchievementCollectService;
 import com.sandi.web.service.IAchievementService;
 import com.sandi.web.service.IUserInfoService;
+import com.sandi.web.service.IUserLoginService;
 import com.sandi.web.util.UtilStatic;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ public class AchievementCollectController {
     private IUserInfoService userInfoService;
     @Autowired
     private IAchievementService achievementService;
+    @Autowired
+    private IUserLoginService userLoginService;
 
     @RequestMapping("/queryAllCollectionAchievement")
     public String queryAllCollectionAchievementByUserInfoId(ModelMap modelMap, HttpServletRequest request , HttpSession session, Achievement achievement, AchievementCollect achievementCollect){
@@ -77,15 +80,22 @@ public class AchievementCollectController {
 
     @RequestMapping("/collectAchievementByAchievementId")
     @ResponseBody
-    public String collectAchievementByAchievementId(){
-        log.info("进入collectAchievementByAchievementId方法!");
+    public void collectAchievementByAchievementId(HttpServletRequest request,HttpSession session){
+        log.info(timeToken+"进入collectAchievementByAchievementId方法!");
         try{
-            log.info("进入collectAchievementByAchievementId的try方法!");
-
-            return "";
+            log.info(timeToken+"进入collectAchievementByAchievementId的try方法!");
+            UserLogin userLogin = (UserLogin) session.getAttribute("user");
+            UserInfo userInfo = userInfoService.selectByUserId(userLogin.getUserId());
+            String achievementCollectId = request.getParameter("collectId");
+            AchievementCollect achievementCollect = new AchievementCollect();
+            achievementCollect.setAchievementId(Integer.parseInt(achievementCollectId));
+            achievementCollect.setCollectionTime(UtilStatic.NEW_DATE);
+            achievementCollect.setUserId(userLogin.getUserId());
+            achievementCollect.setUserinfoId(userInfo.getUserinfoId());
+            achievementCollectService.addAchievementCollect(achievementCollect);
+            log.info(timeToken+"科研成果的收藏添加完成!!!");
         }catch(Exception e){
-            log.error("进入collectAchievementByAchievementId的catch方法,异常信息:"+e.getMessage());
-            return "";
+            log.error(timeToken+"进入collectAchievementByAchievementId的catch方法,异常信息:"+e.getMessage());
         }
     }
 
