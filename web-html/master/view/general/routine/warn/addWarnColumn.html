@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>添加新告警字段</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+
+
+
+
+        <div class="box-content clearfix">
+            <form class="aiui-form"  id="warnColumnForm" >
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;告警字段名称：</span>
+                        <span class="col-md-8">
+                            <input type="hidden" disabled="disabled" id="warnTypeId"/>
+                            <input id="warnColumnName" class="k-textbox">
+                        </span>
+                    </div>
+
+                    <!--<div class="col-md-12">-->
+                        <!--<span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;告警字段英文名：</span>-->
+                        <!--<span class="col-md-8">-->
+                            <!--<input id="warnColumnAlias" class="k-textbox">-->
+                        <!--</span>-->
+                    <!--</div>-->
+
+                    <!--<div class="col-md-12">-->
+                        <!--<span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;告警字段类型：</span>-->
+                        <!--<span class="col-md-8">-->
+                            <!--<select class="aiui-combobox" id="warnColumnType"-->
+                                    <!--type="static"-->
+                                    <!--dataTextField="codeName"-->
+                                    <!--dataValueField="codeValue"-->
+                                    <!--autoBind="false"-->
+                                    <!--codeType="WARN_COLUMN_TYPE">-->
+                            <!--</select>-->
+                        <!--</span>-->
+                    <!--</div>-->
+
+                    <div class="col-md-12">
+                        <span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;告警字段编码：</span>
+                        <span class="col-md-8">
+
+                            <!--<select class="aiui-combobox" id="warnColumnCode"-->
+                                    <!--type="static"-->
+                                    <!--dataTextField="codeName"-->
+                                    <!--dataValueField="codeValue"-->
+                                    <!--parentCodeField="warnColumnType"-->
+                                    <!--autoBind="false"-->
+                                    <!--codeType="WARN_COLUMN">-->
+                            <!--</select>-->
+
+                            <input id="warnColumnCode" class="k-textbox">
+
+                        </span>
+                    </div>
+
+                    <!--<div class="col-md-12">-->
+                        <!--<span class="col-md-4 span-lineHeight40 text-right">告警字段长度：</span>-->
+                        <!--<span class="col-md-8">-->
+                             <!--<input id="warnColumnLen" class="k-textbox" disabled="disabled">-->
+                        <!--</span>-->
+                    <!--</div>-->
+
+
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-md-5" align="center">&nbsp;</div>
+                <div class="col-md-2">
+                    <button class="k-button k-primary" id="addButton">保存</button>
+                </div>
+                <div class="col-md-5" align="center">&nbsp;</div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+<script type="text/javascript" src="/js/general/routine/warn/addWarnColumn.js"></script>
+</html>

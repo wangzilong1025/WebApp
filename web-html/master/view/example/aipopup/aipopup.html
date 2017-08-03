@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI-POPUP</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+<body>
+
+<div class="row" id="example">
+    <div class="box-inside">
+        <div class="box-header">
+            <h4>POPUP控件(关闭后销毁,用来实现每次点击打开不同的URL或高度或宽度等。通过beforeOpen实现，注意属性data-refresh-on-open,beforeOpen)</h4>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row">
+                <div class="col-md-4 lineHeight40 text-right" style="display: inline-block; ">弹框高度</div>
+                <div class="col-md-8 lineHeight40">
+                    <input type="text" class="k-textbox" id="popupwinHeight" data-bind="value: defaultHeight">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 lineHeight40 text-right">弹框（MVVM方式实现）</div>
+                <div class="col-md-8 lineHeight40">
+                    <input name="popupexample"
+                           id="popupexample"
+                           data-role="aipopup"
+                           style="width: 200px;"
+                           data-bind="value: popupValue, events: { change: onChange }"
+                           data-param="./aipopup_popup.html|||700|||500"
+                           data-refresh-on-open="true"
+                           beforeOpen="$('#popupexample').data('kendoAIPopup').setOption('winWidth',$('#popupwinHeight').val());"
+                           required validationMessage="请输入数据"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 lineHeight40 text-right">弹框（原生方式实现）</div>
+                <div class="col-md-8 lineHeight40">
+                    <input type="text" id="popupexample2">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-inside">
+        <div class="box-header box-white">
+            <h4>POPUP控件(关闭后不销毁,第二次打开时只是显示出来)</h4>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row">
+                <div class="col-md-4 lineHeight40 text-right">弹框</div>
+                <div class="col-md-8 lineHeight40">
+                    <input type="text" id="popupexample3">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-inside">
+        <div class="box-header box-white">
+            <h4>POPUP控件(显式返回值,在子页面通过parent.aipopup.close(this, $("#textInput").val());传值)</h4>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row">
+                <div class="col-md-4 lineHeight40 text-right">弹框</div>
+                <div class="col-md-8 lineHeight40">
+                    <input type="text" id="popupexample4">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-inside">
+        <div class="box-header box-white">
+            <h4>POPUP控件(隐式返回值,通过dataReturn返回值,dataReturn直接配置成子页面元素的ID)</h4>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row">
+                <div class="col-md-4 lineHeight40 text-right">弹框</div>
+                <div class="col-md-8">
+                    <input type="text lineHeight40" id="popupexample5">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    //MVVM控制
+    var viewModel = kendo.observable({
+        popupValue: "defalutVlaue",
+        defaultHeight: 500,
+        onChange: function () {
+            alert("value has changed!");
+        }
+    });
+    kendo.bind($("#example"), viewModel);
+
+
+    //原生方式调用
+    $("#popupexample2").kendoAIPopup({
+        winUrl: "./aipopup_popup.html",
+        winHeight: 600,
+        winWidth: 500,
+        beforeOpen: function () {
+            $('#popupexample2').data('kendoAIPopup').setOption('winWidth', $('#popupwinHeight').val());
+        },
+        refreshOnOpen: true
+    });
+
+
+    //关闭后不销毁
+    $("#popupexample3").kendoAIPopup({
+        winUrl: "./aipopup_popup.html",
+        winHeight: 600,
+        winWidth: 500
+    });
+
+
+    //显式传值
+    $("#popupexample4").kendoAIPopup({
+        winUrl: "./aipopup_popup.html",
+        winHeight: 600,
+        winWidth: 500
+    });
+
+
+    //隐式传值
+    $("#popupexample5").kendoAIPopup({
+        winUrl: "./aipopup_popup.html",
+        winHeight: 600,
+        winWidth: 500,
+        dataReturn: "textInput"
+    });
+
+</script>
+</body>
+</html>

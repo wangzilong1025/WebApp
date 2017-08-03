@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="/js/common/header.js"></script>
+    <title>客户关怀</title>
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-content padding-top-15 clearfix">
+            <div class="box-query clearfix">
+                <ul>
+                    <li class="col-md-12">
+                        <span class="col-md-2 text-left">关怀分类</span>
+                        <span class="col-md-10">
+                               <select id="CARE_CLASS" class="aiui-tilecombobox" type="static" codeType="CFG_CARE_CLASS" multFlag=false hasMore=true hasAll=true defaultValue=""></select>
+                        </span>
+                    </li>
+                    <li class="col-md-12">
+                        <span class="col-md-2 text-left">关怀类型</span>
+                        <span class="col-md-10">
+                            <select id="CARE_TYPE" class="aiui-tilecombobox" multFlag=false hasMore=true hasAll=true type="static"  codeType="CFG_CARE_TYPE" parentCodeField="CARE_CLASS"></select>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-11 padding-top-15">
+               <span class="col-md-3 text-left">
+                   <input class="k-textbox" type="text" id="CARE_NAME" placeholder="关怀标题"/>
+               </span>
+                <span class="col-md-1">&nbsp;</span>
+                <span class="col-md-8 text-left">
+                     <button class="k-button k-primary" id="QUERY" type="button">查询</button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-inside">
+        <div class="box-header">
+            <h6>查询结果</h6>
+        </div>
+        <div class="box-content clearfix">
+            <table class="aiui-datagrid" id="resultGrid" height="300"
+                   schemaData="data.data"
+                   schemaTotal="data.count"
+                   sortable="true"
+                   srvId="ICFGCARETYPEFSV_QUERYCFGCARETYPEINFO"
+                   rownumbers="true" checkbox="false"
+                   autoBind="true"
+                   selectable="multiple,row"
+                   pageable="true"
+                   pageSize="10"
+                   data-options="beforeLoad: EsWorkLog.getParams">
+                <thead>
+                <tr>
+                    <th field="careName" width="150">关怀标题</th>
+                    <th field="careClass" width="100" data-options="template: function (dataItem) {
+                        if (dataItem.careClass == 1) {
+                            return '集团联系人'
+                        } else if (dataItem.careClass == 2) {
+                            return '集团'
+                        } else {
+                            return '其他'
+                        }
+                    }">关怀分类</th>
+                    <th field="careType" width="100" data-options="template: function (dataItem) {
+                        if (dataItem.careType == 1) {
+                            return '生日'
+                        } else if (dataItem.careType == 2) {
+                            return '过年'
+                        } else if (dataItem.careType == 3) {
+                            return '元旦'
+                        } else if (dataItem.careType == 4) {
+                            return '欠费预警'
+                        } else if (dataItem.careType == 5) {
+                            return '离网预警'
+                        } else {
+                            return '其他'
+                        }
+                    }">关怀类型</th>
+                    <th field="careValue1" width="100">关怀值</th>
+                    <th field="careWay" width="100" data-options="template: function (dataItem) {
+                        if (dataItem.careWay == 1) {
+                            return '短信'
+                        } else if (dataItem.careWay == 2) {
+                            return '任务'
+                        } else {
+                            return '其他'
+                        }
+                    }">关怀方式</th>
+                    <th field="careDay" width="100">提前日期</th>
+                    <th field="createDate" width="100">创建时间</th>
+                    <th field="validDate" width="100">生效时间</th>
+                    <th field="expireDate" width="100">失效时间</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="row clearfix">
+            <div id="button" class="box-content clearfix text-center">
+                <button class="k-button k-primary" id="addValue" type="button">新增关怀</button>
+                <button class="k-button k-primary" id="updateValue" type="button">变更关怀</button>
+                <button class="k-button k-primary" id="delValue" type="button">删除关怀</button>
+                <button class="k-button k-primary" id="queryById" type="button">查看关怀</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../../../js/general/routine/careinfo/cfgCareType.js"></script>
+</body>
+</html>

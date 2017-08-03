@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>COMBOBOX</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+</head>
+<body>
+
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header">
+            <h4>COMBOBOX控件</h4>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row">
+                <div class="col-md-12">
+                    【1】ComboBox 直接设置数据
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input id="combobox1" placeholder="请选择..."/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="col-md-12 text-left">
+                        【2】ComboBox 从后台获取数据
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input id="combobox2" placeholder="请选择..."/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $("#combobox1").kendoComboBox({
+        dataSource: [
+            {id: "apple", name: "Apples"},
+            {id: "orange", name: "Oranges"}
+        ],
+        dataTextField: "name",
+        dataValueField: "id",
+        change: function (e) {
+            //获取选中的值
+            kendo.ui.notification("提示", "您选择了：" + this.value() + "--" + this.text());
+        }
+    });
+    //设置值
+    $("#combobox1").data("kendoComboBox").value("orange");
+
+
+    $("#combobox2").kendoComboBox({
+        dataSource: {
+            transport: {
+                read: {
+                    url: SERVER_URL,
+                    type: "POST"
+                },
+                parameterMap: function (data, operation) {
+                    if (operation == "read") {
+                        var userName = $("#username").val();
+                        var jsonRequstParam = {
+                            "busiParams": {"userName": userName},
+                            "busiCode": "IEXAMPLEFSV_GETUSER"
+                        };
+                        return commonModel.paramWrap(jsonRequstParam);
+                    } else if (data.models) {
+                        return JSON.stringify(data.models);
+                    }
+                }
+            },
+            batch: true,
+            schema: {
+                data: "retInfo.list"
+            }
+        },
+        dataTextField: "name",
+        dataValueField: "id",
+        change: function (e) {
+            //获取选中的值
+            kendo.ui.notification("提示", "您选择了：" + this.value() + "--" + this.text() + "--" + JSON.stringify(this.getSelect()));
+        }
+    });
+    //设置值
+    $("#combobox2").data("kendoComboBox").value("2");
+
+
+</script>
+</body>
+</html>

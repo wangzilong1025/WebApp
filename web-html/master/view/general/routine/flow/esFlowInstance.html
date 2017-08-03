@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>日常工作流程</title>
+    <script type="text/javascript" src="../../../../js/common/header.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-inside">
+                <div class="box-content padding-top-10 clearfix">
+                    <div class="box-query clearfix">
+                        <ul>
+                            <li class="col-md-12">
+                                <span class="col-md-2 text-left">流程状态</span>
+                                <span class="col-md-10">
+                                    <select id="processState" class="aiui-tilecombobox" multFlag=true hasMore=true hasAll=true defaultValue="0">
+                                        <option value="0">待处理</option>
+                                        <option value="1">已完成</option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li class="col-md-12">
+                                <span class="col-md-2 text-left">流程类型</span>
+                                <span class="col-md-10">
+                                    <select id="processType" class="aiui-tilecombobox" srvId="ICFGPROCESSFSV_QUERYVALIDPROCESSINFO" param='{"processType":"1"}' multFlag=false hasMore=true hasAll=true defaultValue="" dataTextField="processName" dataValueField="processDefineId" schemaData="list"></select>
+                                </span>
+                            </li>
+                            <li  class="col-md-12">
+                                <span class="col-md-2 text-left">创建时间</span>
+                                <span class="col-md-10 ">
+                                       <span class="col-md-3">
+                                            <input class="aiui-datebox pui-full-width" id="startDate" type="date" format="yyyy-MM-dd"/>
+                                        </span>
+                                       <span class="col-md-1 text-center line-span"><hr></span>
+                                       <span class="col-md-3">
+                                            <input class="aiui-datebox pui-full-width" id="endDate" type="date" format="yyyy-MM-dd"/>
+                                        </span>
+                                   </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-11 padding-top-15">
+                           <span class="col-md-3 text-left">
+                               <input class="k-textbox" type="text" id="queryFiled" placeholder="流程编号/流程名称"/>
+                           </span>
+                        <span class="col-md-1">&nbsp;</span>
+                        <span class="col-md-8 text-left">
+                            <button class="k-button k-primary margin-left-15" id="queryProcess">查询</button>
+                            <button class="k-button k-primary padding-left-5" id="newProcess">启动流程</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="box-inside">
+                <div class="box-header clearfix">
+                    <h6>流程列表</h6>
+                </div>
+                <div class="box-content">
+                    <table class="aiui-datagrid" id="processGrid" srvId=""
+                           sortable="true" pageable="false" rownumbers="false"
+                           checkbox="false" autoBind="false"
+                           >
+                        <thead>
+                        <tr>
+                            <th field="processId" width="100" hidden>流程编号</th>
+                            <th field="processDefineId" hidden>流程编号</th>
+                            <th field="processInsId" width="100">流程编号</th>
+                            <th field="processName" width="150">流程名称</th>
+                            <th field="processState" width="250">流程信息</th>
+                            <th field="processState" width="250">流程任务节点</th>
+                            <th field="processInfo" width="250">流程状态</th>
+                            <th field="processInfo" width="250">集团编号</th>
+                            <th field="processInfo" width="250">集团名称</th>
+                            <th field="processInfo" width="250">创建时间</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../../../js/general/routine/flow/esFlowInstance.js"></script>
+</body>
+</html>

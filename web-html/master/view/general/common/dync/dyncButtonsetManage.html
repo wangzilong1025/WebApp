@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="/js/common/header.js"></script>
+    <title>动态表单按钮集配置</title>
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header">
+            <h6>查询条件</h6>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row span-lineHeight40">
+                <div class="col-md-4">
+                    <div class="col-md-3 text-right">
+                        <label>按钮集名称：</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input id="buttonsetName" class="k-textbox"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button id="queryButton" class="k-button k-primary" type="button">查询</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-inside">
+        <div class="box-header">
+            <h6>查询结果</h6>
+            <div class="box-content clearfix">
+                <div id="toolbar"></div>
+                <table class="aiui-datagrid" id="dyncButtonsetGird" height="300"
+                       schemaData="data.list"
+                       schemaTotal="data.count"
+                       sortable="true"
+                       rownumbers="true" checkbox="true"
+                       autoBind="false" pageable="true"
+                       srvId="ICFGDYNCCOMMONFSV_QUERYCFGBUTTONSETDATA" selectable="row"
+                       data-options="beforeLoad: dyncButtonsetManageModule.getParams">
+                    <thead>
+                    <tr>
+                        <th field="BUTTONSET_ID" hidden="true">buttonsetId</th>
+                        <th field="BUTTONSET_NAME" width="200">按钮集名称</th>
+                        <th field="CREATE_DATE" width="150" type="datetime">创建时间</th>
+                        <th field="DONE_DATE" width="150" type="datetime">修改时间</th>
+                        <th field="REMARK" width="200">备注</th>
+                        <th field="BUTTONS" data-options="template: function (dataItem) {
+                            var html = '';
+                            if(dataItem.BUTTONS != ''){
+                                var buttons = dataItem.BUTTONS.split(',');
+                                for(var i=0;i<buttons.length;i++){
+                                    var button = buttons[i].split(';');
+                                    //html = html + '<a>'+button[1]+'</a><a><span class=\'k-icon k-i-cancel\'></span></a>&nbsp;&nbsp;';
+                                    html = html + '<button class=\'k-button\'>'+button[1]+'</button>';
+                                }
+                            }
+                            //html = html + '<a><span class=\'k-icon k-i-plus\'></span></a>';
+                            return html;
+                        }">按钮
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="buttonsetUpdateWindow" style="display: none;">
+    <input name="buttonsetId" type="hidden"/>
+    <div class="box-inside">
+        <div class="box-content clearfix">
+            <div class="row span-lineHeight30">
+                <div class="col-md-12">
+                    <div class="col-md-3 text-right">
+                        <label>按钮集名称：</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input name="buttonsetName" class="k-textbox" placeholder="请输入按钮集名称" required
+                               validationMessage="请输入数据"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-3 text-right">
+                        <label>描述：</label>
+                    </div>
+                    <div class="col-md-9">
+                        <textarea name="remark" style="width: 300px; height: 80px; resize: both;" class="k-textbox" required validationMessage="请输入数据" placeholder="请输入描述"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row span-lineHeight30">
+                <div class="col-md-12">
+                    <div class="col-md-3 text-right">
+                        <label>按钮（有序）：</label>
+                    </div>
+                    <div class="col-md-9">
+                        <select name="buttons" multiple required validationMessage="请选择按钮"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row text-center">
+                <button type="button" class="k-button k-primary">确定</button>
+                <button type="button" class="k-button">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/general/common/dync/dyncButtonsetManage.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="/js/common/header.js"></script>
+    <title>动态表单规则集配置</title>
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header">
+            <h4>查询条件</h4>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row span-lineHeight40">
+                <div class="col-md-4">
+                    <div class="col-md-3 text-right">
+                        <label>规则集名称：</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input id="rulesetName" class="k-textbox"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button id="queryButton" class="k-button k-primary" type="button">查询</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-inside">
+        <div class="box-header">
+            <h4>查询结果</h4>
+            <div class="box-content clearfix">
+                <div id="toolbar"></div>
+                <table class="aiui-datagrid" id="dyncRulesetGird" height="300"
+                       schemaData="data.list"
+                       schemaTotal="data.count"
+                       sortable="true"
+                       rownumbers="true" checkbox="true"
+                       autoBind="false" pageable="true"
+                       srvId="ICFGDYNCCOMMONFSV_QUERYCFGRULESETDATA" selectable="row"
+                       data-options="beforeLoad: dyncRulesetManageModule.getParams">
+                    <thead>
+                    <tr>
+                        <th field="RULESET_ID" hidden="true">rulesetId</th>
+                        <th field="RULESET_NAME" width="200">规则集名称</th>
+                        <th field="RULESET_TYPE" width="150">规则集类型</th>
+                        <th field="CREATE_DATE" width="150" type="datetime">创建时间</th>
+                        <th field="DONE_DATE" width="150" type="datetime">修改时间</th>
+                        <th field="REMARK" width="200">备注</th>
+                        <th field="RULES" data-options="template: function (dataItem) {
+                            var html = '';
+                            if(dataItem.RULES != ''){
+                                var rules = dataItem.RULES.split(',');
+                                for(var i=0;i<rules.length;i++){
+                                    var rule = rules[i].split(';');
+                                    html = html + '<p>' + rule[0] + ': ' + rule[2] + '<p>';
+                                }
+                            }
+                            return html;
+                        }">规则
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="rulesetUpdateWindow" style="display: none;">
+    <input name="rulesetId" type="hidden"/>
+    <div class="box-inside">
+        <div class="box-content clearfix">
+            <div class="row span-lineHeight30">
+                <div class="col-md-12">
+                    <div class="col-md-3 text-right">
+                        <label>规则集名称：</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input name="rulesetName" class="k-textbox" placeholder="请输入规则集名称" required
+                               validationMessage="请输入数据"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row span-lineHeight30">
+                <div class="col-md-12">
+                    <div class="col-md-3 text-right">
+                        <label>规则集类型：</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input name="rulesetType" class="k-textbox" placeholder="请输入规则集类型" required
+                               validationMessage="请输入数据"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-3 text-right">
+                        <label>描述：</label>
+                    </div>
+                    <div class="col-md-9">
+                        <textarea name="remark" style="width: 300px; height: 80px; resize: both;" class="k-textbox"
+                                  required validationMessage="请输入数据" placeholder="请输入描述"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row span-lineHeight30">
+                <div class="col-md-12">
+                    <div class="col-md-3 text-right">
+                        <label>规则（有序）：</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input name="rullTriggerType"/>
+                        <input name="rule"/>&nbsp;
+                        <button class="k-icon k-i-plus" name="addNewRule"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-3">&nbsp;</div>
+                    <div class="col-md-9">
+                        <div name="rules" style="height: 100px; width: 300px; border: 1px solid #dbdbdb; overflow: auto;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row text-center" style="padding-top: 10px;">
+                <button type="button" class="k-button k-primary">确定</button>
+                <button type="button" class="k-button">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/general/common/dync/dyncRulesetManage.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>流程参数</title>
+    <script type="text/javascript" src="../../../../js/common/header.js"></script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-content clearfix">
+                <ul>
+                    <li class="col-md-6">
+                        <span class="col-md-3 text-left span-lineHeight40">参数名称：</span>
+                        <span class="col-md-8">
+                            <input id="paramName" type="text" class="k-textbox col-md-8"/>
+                        </span>
+                        <span class="font-red span-lineHeight40">*</span>
+                    </li>
+                    <li class="col-md-6">
+                        <span class="col-md-3 text-left span-lineHeight40">参数编码：</span>
+                        <span class="col-md-8">
+                            <input id="paramCode" type="text" class="k-textbox col-md-8"/>
+                        </span>
+                        <span class="font-red span-lineHeight40">*</span>
+                    </li>
+                    <li class="col-md-6">
+                        <span class="col-md-3 text-left span-lineHeight40">参数类型：</span>
+                        <span class="col-md-8">
+                            <select class="aiui-combobox" id="paramType">
+                                <option value="0">字符串</option>
+                                <option value="1" selected>数字</option>
+                                <option value="2" >日期</option>
+                            </select>
+                        </span>
+                        <span class="font-red span-lineHeight40">*</span>
+                    </li>
+                    <li class="col-md-6">
+                        <span class="col-md-3 text-left span-lineHeight40">默认值：</span>
+                        <span class="col-md-8">
+                            <input id="defaultValue"  type="text" class="k-textbox"/>
+                        </span>
+                    </li>
+                    <li class="col-md-12 padding-top-15">
+                        <span class="col-md-12 text-center">
+                            <button class="k-button k-primary"  id="okBtn">确认</button>
+                            <button class="k-button k-primary padding-left-10" id="cancelBtn">取消</button>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="../../../../js/general/common/process/processParam.js"></script>
+</body>
+</html>

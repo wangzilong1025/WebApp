@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="/js/common/header.js"></script>
+    <title>缓存</title>
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header">
+            <h6>查询条件</h6>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row clearfix">
+                <div class="col-md-2">
+                    <input type="radio" name="cache" title="一般缓存" id="commonCache" checked="checked">
+                    <span>一般缓存</span>
+                </div>
+                <div class="col-md-2">
+                    <input type="radio" name="cache" title="主键缓存" id="idCache">
+                    <span>主键缓存</span>
+                </div>
+                <div class="col-md-2">
+                    <input type="radio" name="cache" title="权限缓存" id="sysCache">
+                    <span>权限缓存</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="cacheName">关键字：</label>
+                    <input type="text" class="k-textbox" id="cacheName">
+                </div>
+                <div class="col-md-2">
+                    <button class="k-button k-primary" id="queryButton2" type="button">查询</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-inside">
+        <div class="box-header">
+            <h6>缓存列表</h6>
+        </div>
+        <div class="box-content clearfix">
+            <div id="pageGrid"></div>
+            <div id="idCacheGrid"></div>
+            <div id="sysCacheGrid"></div>
+        </div>
+    </div>
+</div>
+<span id="popupNotification"></span>
+<script type="text/javascript" src="/js/general/sysmgr/cache/cache.js"></script>
+</body>
+</html>

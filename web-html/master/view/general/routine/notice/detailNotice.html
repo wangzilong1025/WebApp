@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh">
+    <meta charset="UTF-8">
+    <title>公告详情</title>
+    <script src="../../../../js/common/header.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-inside">
+                <div class="box-content clearfix">
+                    <form id="detailNoticeForm" class="aiui-form">
+                        <ul>
+                           <li class="col-md-12">
+                               <h6 id="subject" class="text-center"></h6>
+                           </li>
+                            <li class="col-md-12 text-right">
+                                <span class="span-lineHeight40">
+                                    <span id="extent" type="static" param="NOTICE_EXTENT"></span>
+                                    <span class="padding-left-12" id="createDate" type="date"></span>
+                                </span>
+                            </li>
+                            <li class="col-md-12">
+                                <div id="content" style="min-height:200px; max-width: 740px"></div>
+                            </li>
+                            <!--<div class="col-md-12">
+
+                            </div>-->
+                            <li class="col-md-12" >
+                                <span class="col-md-1">附件名称:</span>
+                                <span class="col-md-3">
+                                    <span id="annex" type="file"></span>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="text-center">
+                            <button class="k-button k-primary" id="closeButton" type="button">&nbsp;关闭&nbsp;</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../../../js/general/routine/notice/detailNotice.js"></script>
+</body>
+</html>

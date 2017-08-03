@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商机信息查看</title>
+    <script type="text/javascript" src="../../../../js/common/header.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box-content clearfix" id="businessViewDiv">
+                    <ul>
+                        <li class="col-md-12">
+                            <div class="padding-10 pui-text-white bg-green2">
+                                <span>商机编号:<label id="busiOpportInfoId"></label></span>
+                                <span class="float-right"><label id="createDate"></label></span>
+                            </div>
+                        </li>
+                        <li class="col-md-12 padding-top-5">
+                            <div class="text-center col-md-2">
+                                <span class="pui-text-bold" style="line-height:120px;">集团基本信息</span>
+                            </div>
+                            <div class="col-md-10">
+                                <span class="col-md-12">
+                                    <label class="">集团编号：</label>
+                                    <label class="padding-left-10 pui-text-black" id="groupId" defaultValue="未建档集团"></label>
+                                </span>
+                                <span class="col-md-12">
+                                    <label class="">集团名称：</label>
+                                    <label class="padding-left-10 pui-text-black" id="groupName"></label>
+                                </span>
+                                <span class="col-md-12">
+                                    <label>证件类型：</label>
+                                    <label class="padding-left-10 pui-text-black" id="certType" type="static" param="CM_CERT_TYPE"></label>
+                                </span>
+                                <span class="col-md-12">
+                                    <label class="">证件号码：</label>
+                                    <label class="padding-left-10 pui-text-black" id="certNo"></label>
+                                </span>
+                                <span class="col-md-12">
+                                    <label class="">办公地址：</label>
+                                    <label class="padding-left-10 pui-text-black" id="groupAddress"></label>
+                                </span>
+                            </div>
+                        </li>
+                        <li class="col-md-12" style="background-color:#fbfbfb">
+                            <div class="col-md-2 text-center">
+                                <span class="pui-text-bold" style="line-height:100px;">联系人信息</span>
+                            </div>
+                            <div class="col-md-10">
+                                <span class="col-md-12">
+                                    <label>联系人姓名：</label>
+                                    <label class="padding-left-10 pui-text-black" id="contName"></label>
+                                </span>
+                                <span class="col-md-12">
+                                    <label>联系人手机号：</label>
+                                    <label class="padding-left-10 pui-text-black" id="contPhone"></label>
+                                </span>
+                                <span class="col-md-12">
+                                    <label>联系人性别：</label>
+                                    <label class="padding-left-10 pui-text-black" id="contSex" type="static" param="CONT_GENDER"></label>
+                                </span>
+                                <span class="col-md-12">
+                                    <label>联系人邮箱:</label>
+                                    <label class="padding-left-10 pui-text-black" id="contEmail"></label>
+                                </span>
+                            </div>
+                        </li>
+                        <li class="col-md-12">
+                            <div class="col-md-2 text-center">
+                                <span class="pui-text-bold" style="line-height:100px;">商机信息</span>
+                            </div>
+                            <div class="col-md-10">
+                                <span class="col-md-12">
+                                    <label>业务需求：</label>
+                                    <label class="paddding-left-10 pui-text-black" id="productRequirement" type="dynamic" srvId="ICFGPRODFSV_GETPRODSPEC" dataTextField="specName" dataValueField="specId" valueSplitFlag="," schemaData="" ></label></span>
+                                <span class="col-md-12">
+                                    <label>预计收入：</label>
+                                    <label class="padding-left-10 pui-text-black" id="expectedIncome" postfix="万元/月"></label>
+                                </span>
+                                <span class="col-md-12">
+                                    <label>预计签约时间：</label>
+                                    <label class="padding-left-10 pui-text-black" id="expectedOpenTime" type="date"></label>
+                                </span>
+                                <span class="col-md-12">
+                                    <label>预计协议期:</label>
+                                    <label class="padding-left-10 pui-text-black" id="expectedProtocolTime" type="staticdata" param='[{"text":"一年","value":"1"},{"text":"二年","value":"2"}]'></label>
+                                </span>
+                                <span class="col-md-12">
+                                    <label>商机描述:</label>
+                                    <label class="padding-left-10 pui-text-black" id="busiDesc"></label>
+                                </span>
+                            </div>
+                        </li>
+                        <li class="col-md-12" style="background-color:#fbfbfb">
+                            <div class="col-md-2 text-center">
+                                <span class="pui-text-bold" style="line-height:40px;">商机提供人信息</span>
+                            </div>
+                            <div class="col-md-10">
+                                <span class="col-md-12">
+                                    <label>商机提供人姓名：</label>
+                                    <label class="padding-left-10 pui-text-black" id="providerName"></label></span>
+                                <span class="col-md-12">
+                                    <label>商机提供人电话：</label>
+                                    <label class="padding-left-10 pui-text-black" id="ptoviderPhone"></label></span>
+                            </div>
+                        </li>
+                        <li class="col-md-12 padding-top-25">
+                            <ul>
+                                <li class="col-md-12" id="operate_001" hidden>
+                                    <div class="col-md-6">
+                                        <span class="col-md-3 span-lineHeight40">
+                                             处理结果:
+                                        </span>
+                                        <span class="col-md-6">
+                                             <select id="contSex1" class="aiui-combobox full-width">
+                                                <option value="0">接单</option>
+                                                <option value="1">不接单</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="col-md-3 span-lineHeight40">
+                                             不接单原因:
+                                        </span>
+                                        <span class="col-md-6">
+                                             <input id="contPhone1" class="k-textbox full-width">
+                                        </span>
+                                    </div>
+                                    <div class="col-md-12 text-center">
+                                        <button class="k-button k-primary acceptBtn" type="button">提交</button>
+                                        <button class="k-button k-primary viewProcessTrace" type="button">查看流程</button>
+                                    </div>
+                                </li>
+                                <li class="col-md-12" id="operate_002" hidden>
+                                    <div class="col-md-12 text-center">
+                                        <button class="k-button k-primary portocolBtn"  type="button">转协议单</button>
+                                        <button class="k-button k-primary viewProcessTrace" type="button">查看流程</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="../../../../js/general/routine/business/businessView.js"></script>
+</body>
+</html>

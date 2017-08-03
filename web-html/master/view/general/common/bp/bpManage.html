@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="/js/common/header.js"></script>
+    <title>批量业务管理</title>
+</head>
+<body>
+<div class="row">
+
+    <div id="tabstrip">
+        <ul>
+            <li>批量上传</li>
+            <li>批量进度</li>
+        </ul>
+        <div>
+            <div class="box-inside">
+                <div class="box-header">
+                    <h6>上传</h6>
+                </div>
+                <div class="box-content clearfix">
+                    <div class="row">
+                        <span class="col-md-10 span-lineHeight40">
+                            <span class="col-md-2 text-right">文件类型：</span>
+                            <span class="col-md-8">
+                                <select class="aiui-combobox"
+                                        id="fileTemplate"
+                                        schemaData="data"
+                                        srvId="IBPIMPORTFSV_QUERYCFGBPTEMPLATE"
+                                        dataTextField="templateName"
+                                        dataValueField="templateId"
+                                        data-options="">
+                                </select>
+                            </span>
+                        </span>
+                        <span class="col-md-2 span-lineHeight40 text-right">
+                            <a id="templateDownload">模板下载</a>
+                        </span>
+                    </div>
+                    <div class="row">
+                        <span class="col-md-10 span-lineHeight40">
+                            <span class="col-md-2 text-right">文件选择：</span>
+                            <span class="col-md-10">
+                                <input type="file" name="files" id="files"/>
+                            </span>
+                        </span>
+                        <span class="col-md-2 span-lineHeight40 text-right">
+                            &nbsp;
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="box-inside">
+                <div class="box-header">
+                    <h6>查询条件</h6>
+                </div>
+                <div class="box-content clearfix">
+                    <div class="row col-md-12">
+                        <span class="col-md-6 span-lineHeight40">
+                            <span class="col-md-2 text-right">文件类型：</span>
+                            <span class="col-md-8">
+                                <select class="aiui-combobox" id="fileTemplate2" schemaData="data"
+                                        srvId="IBPIMPORTFSV_QUERYCFGBPTEMPLATE"
+                                        dataTextField="templateName"
+                                        dataValueField="templateId"
+                                        data-options="">
+                                </select>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="row col-md-12">
+                        <span class="col-md-6 span-lineHeight40">
+                            <span class="col-md-2 text-right">导入时间：</span>
+                            <span class="col-md-8">
+                                <input class="aiui-calendar" type="date" data-options="format:'yyyy-MM-dd'"
+                                       maxid="endDate"
+                                       defaultValue="now" id="startDate"/>
+                                &nbsp;-&nbsp;
+                                <input class="aiui-calendar" type="date" data-options="format:'yyyy-MM-dd'"
+                                       minid="startDate" id="endDate"/>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="row col-md-12">
+                        <span class="col-md-6 span-lineHeight40 text-right">
+                            <button id="queryButton" class="k-button k-primary" type="button">查询</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-inside">
+                <div class="box-header">
+                    <h6><span id="title2"></span>批量处理进度列表</h6>
+                    <div class="box-content clearfix">
+                        <div id="toolbar"></div>
+                        <table class="aiui-datagrid" id="businessProcessGird" height="300"
+                               schemaData="data.list"
+                               schemaTotal="data.count"
+                               sortable="true"
+                               rownumbers="true" checkbox="true"
+                               autoBind="false" pageable="true"
+                               srvId="IBPIMPORTFSV_QUERYESBPDATA" selectable="multiple,row"
+                               data-options="beforeLoad: bpManageModule.getParams">
+                            <thead>
+                            <tr>
+                                <th field="DATA_ID" hidden="true">dataId</th>
+                                <th field="TEMPLATE_NAME" width="200">模板名称</th>
+                                <th field="FILE_NAMES" width="200">文件名称</th>
+                                <th field="CREATE_DATE" width="150" type="datetime">导入时间</th>
+                                <th field="STATE" width="180" data-options="template: function (dataItem) {
+                                    if (dataItem.STATE == 1) {
+                                        return '等待文件解析入库';
+                                    } else if (dataItem.STATE == 2){
+                                        return '文件解析入库中';
+                                    } else if (dataItem.STATE == 3){
+                                        return '等待业务处理';
+                                    } else if (dataItem.STATE == 4){
+                                        return '文件解析入库失败';
+                                    } else if (dataItem.STATE == 5){
+                                        return '业务处理中';
+                                    } else if (dataItem.STATE == 6){
+                                        return '业务处理成功';
+                                    } else if (dataItem.STATE == 7){
+                                        return '业务处理失败';
+                                    }
+                                }">状态</th>
+                                <th field="HEADER_TOTAL" width="80">头行数</th>
+                                <th field="DATA_TOTAL" width="80">数据行数</th>
+                                <th field="DATA_SUCCESS" width="80">成功数量</th>
+                                <th field="DATA_ERROR" width="80" data-options="template: function (dataItem) {
+                                    if(dataItem.DATA_ERROR){
+                                        return '<span style=\'color:red\'>'+dataItem.DATA_ERROR+'</span>';
+                                    }else{
+                                        return '';
+                                    }
+                                }">失败数量</th>
+                                <th field="REMARK">备注</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/general/common/bp/bpManage.js"></script>
+</body>
+</html>

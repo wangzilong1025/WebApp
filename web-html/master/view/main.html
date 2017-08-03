@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工作台页面</title>
+    <script type="text/javascript" src="../js/common/header.js"></script>
+    <script type="text/javascript" src="../resources/frame/jquery/plugin/jquery.gridster.js"></script>
+    <link rel='stylesheet' href="main.css"/>
+</head>
+<body>
+<div class="text-center" id="saveLayoutBtn" style="display:none">
+    <button class="k-button k-primary margin-left-15" id="saveNewLayout">保存布局</button>
+    <button class="k-button k-primary margin-left-15" id="cancelLayout">取消</button>
+</div>
+<div class="wapper" show-context-menu="#contextmenu">
+    <div class="gridster box-content" ondblclick="mainModel.updateLayout()">
+        <ul id="wrapper">
+            <script type="text/x-kendo-template" id="portlet">
+                #var portletList = data.portletList;#
+                #for(var i=0;i<portletList.length;i++){#
+                    #var theme = portletList[i].theme;#
+                    #var portletIcon = portletList[i].portletIcon;#
+                    #var height = "200px";#
+                    #if(portletList[i].showHead!=null && portletList[i].showHead=="1"){#
+                        #height = (portletList[i].rowNum*200-50)+"px";#
+                    #}else{#
+                        #height = (portletList[i].rowNum*200)+"px";#
+                    #}#
+                    #if(theme==null || theme==""){#
+                        #theme = "pui-card-success";#
+                    #}#
+                    #if(portletIcon==null || portletIcon==""){#
+                        #portletIcon = "fa-server";#
+                    #}#
+                    <li id="portlet-li-#:portletList[i].insPortalId#-#:portletList[i].insPortletId#" insPortletId="#:portletList[i].insPortletId#" insPortalId="#:portletList[i].insPortalId#" old-data-row="#:portletList[i].insRowNum#" old-data-col="#:portletList[i].insColNum#" data-row="#:portletList[i].insRowNum#"  data-col="#:portletList[i].insColNum#" data-sizex="#:portletList[i].colNum#" data-sizey="#:portletList[i].rowNum#">
+                        <div class="pui-card pui-card-default #:theme#" style="width:99%;height:99%">
+                            #if(portletList[i].showHead!=null && portletList[i].showHead=="1"){#
+                                <div class="pui-card-title pui-card-title-underline">
+                                    <span class="pui-card-title-right portlet-header-icon">
+                                        <!--刷新-->
+                                        #if(portletList[i].refreshMode!=null && portletList[i].refreshMode=="1"){#
+                                            <label title="刷新" class="fa fa-refresh icon-operation" onclick="mainModel.refreh('#:portletList[i].insPortalId#','#:portletList[i].insPortletId#','#:portletList[i].portletUrl#')"></label>
+                                        #}#
+                                        <!--编辑-->
+                                        #if(portletList[i].editMode!=null && portletList[i].editMode=="1"){#
+                                            <label title="组件个性化编辑" class="fa fa-edit icon-operation" onclick="mainModel.edit('#:portletList[i].insPortalId#','#:portletList[i].insPortletId#','#:portletList[i].portletName#')"></label>
+                                        #}#
+                                        <!--配置-->
+                                        #if(portletList[i].confMode!=null && portletList[i].confMode=="1"){#
+                                            <label title="配置" class="fa fa-gear icon-operation" onclick="mainModel.config('#:portletList[i].insPortalId#','#:portletList[i].insPortletId#','#:portletList[i].portletName#','#:portletList[i].confUrl#')"></label>
+                                        #}#
+                                        <!--更多-->
+                                        #if(portletList[i].moreMode!=null && portletList[i].moreMode=="1"){#
+                                            <label title="更多" class="fa fa-share icon-operation" onclick="mainModel.more('#:portletList[i].insPortalId#','#:portletList[i].insPortletId#','#:portletList[i].portletName#','#:portletList[i].moreUrl#','#:portletList[i].portletUrl#')"></label>
+                                        #}#
+                                        <!--最小化-->
+                                        #if(portletList[i].minimized!=null && portletList[i].minimized=="1"){#
+                                            <label title="隐藏" class="fa fa-chevron-down icon-operation"  onclick="mainModel.min('#:portletList[i].insPortalId#','#:portletList[i].insPortletId#')"></label>
+                                        #}#
+                                        <!--最大化-->
+                                        #if(portletList[i].maxmized!=null && portletList[i].maxmized=="1"){#
+                                            <label title="最大化" class="fa fa-plus icon-operation" onclick="mainModel.max('#:portletList[i].insPortalId#','#:portletList[i].insPortletId#','#:portletList[i].portletName#','#:portletList[i].portletUrl#')"></label>
+                                        #}#
+                                        <!--关闭-->
+                                        #if(portletList[i].showType==null || portletList[i].showType!="0"){#
+                                            <label title="删除组件" class="fa fa-close icon-operation" onclick="mainModel.close('#:portletList[i].insPortalId#','#:portletList[i].insPortletId#','#:portletList[i].portletName#')"></label>
+                                        #}#
+                                    </span>
+                                    <span>
+                                        <h6>
+                                            <label class="fa padding-right-10  #:portletIcon# "></label>#:portletList[i].portletName#
+                                            #if(portletList[i].secondTitle!=null && portletList[i].secondTitle!=""){#
+                                                <small>#:portletList[i].secondTitle#</small>
+                                            #}#
+                                        </h6>
+                                    </span>
+                                </div>
+                            #}#
+                            <div class="portlet-content" id="portlet-content-#:portletList[i].insPortalId#-#:portletList[i].insPortletId#" src="#:portletList[i].portletUrl#" style="width:100%;height:#:height#;overflow: auto;"></div>
+                        </div>
+                    </li>
+                #}#
+            </script>
+        </ul>
+    </div>
+    <ul class="pui-menu pui-menu-dropdown pui-menu-dropdown-unarrow" id="contextmenu">
+        <li>
+            <a href="javascript:;" onclick="mainModel.reloadPortlet()">刷新工作台</a>
+        </li>
+        <li>
+            <a href="javascript:;" onclick="mainModel.updateLayout()">修改组件布局</a>
+        </li>
+        <li>
+            <a href="javascript:;" onclick="mainModel.addPortlet()">添加新组件</a>
+        </li>
+    </ul>
+</div>
+</body>
+<script type="text/javascript" src="../js/general/main.js"></script>
+</html>

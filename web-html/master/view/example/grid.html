@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>查询表格</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header">
+            <h4>查询条件</h4>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="username">用户名：</label>
+                    <input data-role="text" id="username" type="text" class="k-textbox"/>
+                </div>
+                <div class="col-md-4">
+                    <label for="gender">性别：</label>
+                    <input data-role="dropdownlist"
+                           data-bind="{source:genderSource}"
+                           data-text-field="text"
+                           data-value-field="value"
+                           id="gender" class="k-textbox"/>
+                </div>
+                <div class="col-md-4">
+                    <button class="k-button k-primary">查询</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-inside">
+        <div class="box-header">
+            <h4>查询结果</h4>
+        </div>
+        <div class="box-content clearfix">
+            <div data-role="grid"
+                 data-columns="[{'field': 'text', 'width': 270, 'title': '性别'},
+                                {'field': 'value', 'title': '值'}]"
+                 data-bind="visible: isVisible, source: genderSource"
+                 style="height: 200px"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    (function ($) {
+        kendo.bind(document.body, {
+            genderSource: [{text: "男", value: 1}, {text: "女", value: 0}],
+            isVisible: true
+        });
+    })(jQuery);
+</script>
+</body>
+</html>

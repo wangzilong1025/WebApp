@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商机列表</title>
+    <script type="text/javascript" src="../../../../js/common/header.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box-header box-bottom clearfix">
+                    <h6>查询条件</h6>
+                </div>
+                <div class="box-content clearfix">
+                    <ul>
+                        <li class="col-md-4">
+                            <span class="col-md-3 span-lineHeight40 text-right clearfix">商机编号：</span>
+                            <span class="col-md-8">
+                                <input id="busiOpportInfoId" class="k-textbox full-width">
+                            </span>
+                        </li>
+                        <li class="col-md-4">
+                            <span class="col-md-3 span-lineHeight40 text-right clearfix">集团编号：</span>
+                            <span class="col-md-8">
+                                <input id="groupId" class="k-textbox full-width">
+                            </span>
+                        </li>
+                        <li class="col-md-4">
+                            <span class="col-md-3 span-lineHeight40 text-right clearfix">集团名称：</span>
+                            <span class="col-md-8">
+                                <input id="groupName" class="k-textbox full-width">
+                            </span>
+                        </li>
+                        <li class="col-md-4">
+                            <span class="col-md-3 span-lineHeight40 text-right clearfix">联系人电话：</span>
+                            <span class="col-md-8">
+                                <input id="contPhone" class="k-textbox full-width">
+                            </span>
+                        </li>
+                        <li class="col-md-4">
+                            <span class="col-md-3 span-lineHeight40 text-right clearfix">创建时间：</span>
+                            <span class="col-md-4">
+                                <input id="createStartDate" class="aiui-datebox full-width">
+                            </span>
+                            <span class="col-md-1 line-span"><hr/></span>
+                            <span class="col-md-4">
+                                <input id="createEndDate" class="aiui-datebox full-width">
+                            </span>
+                        </li>
+                        <li class="col-md-4 text-right">
+                            <span class="col-md-10">
+                                 <button class="k-button k-primary" id="queryBusinessBtn" type="button">查询</button>
+                                 <button class="k-button k-primary" id="newBusinessBtn" type="button">新建商机</button>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="box-header box-bottom clearfix">
+                    <h6>查询结果</h6>
+                </div>
+                <div class="box-content clearfix">
+                    <table class="aiui-datagrid" id="businessList" srvId="IBUSIOPPORTINFOFSV_QUERYOPPORTINFO"
+                           pageable="true" data-options="beforeLoad: getParams"
+                           autobind="true" height="400" idField="busiOpportInfoId">
+                        <thead>
+                            <tr>
+                                <th field="busiOpportInfoId" width="80">商机编号</th>
+                                <th data-options="field:'groupId',width:90,template:function(dataItem){
+                                        var title = '';
+                                        if (dataItem.groupId==null || dataItem.groupId == '') {
+                                            title = '未建档集团';
+                                        }else{
+                                            title = dataItem.groupId
+                                        }
+                                        return title;
+                                    }">集团编号</th>
+                                <th field="groupName" width="150">集团名称</th>
+                                <th field="productRequirement" width="80" type="dynamic" srvId="ICFGPRODFSV_GETPRODSPEC" dataTextField="specName" param="" dataValueField="specId" valueSplitFlag=",">业务需求</th>
+                                <th field="contEmail" width="80" type="STATICDATA" valueSplitFlag="," param="getParam">商机状态</th>
+                                <th field="createDate" type="datetime" width="80">创建时间</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function getParam(){
+            return [{"text":"一年","value":"1"},{"text":"二年","value":"2"}];
+        }
+    </script>
+<script type="text/javascript" src="../../../../js/general/routine/business/businessList.js"></script>
+
+</body>
+</html>

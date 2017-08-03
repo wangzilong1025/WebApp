@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>流程信息查看</title>
+    <!--<link type="text/css" href="../../../../resources/frame/jquery/jquery-ui.css" rel="stylesheet" />-->
+    <script type="text/javascript" src="../../../../js/common/header.js"></script>
+    <script type="text/javascript" src="../../../../resources/frame/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../../../../js/general/common/process/raphael-min.js"></script>
+    <script type="text/javascript" src="../../../../js/general/common/process/process.js"></script>
+    <script type="text/javascript" src="../../../../js/general/common/process/process.editors.js"></script>
+    <script type="text/javascript" src="../../../../js/general/common/process/processView.js"></script>
+    <style>
+        .process-props-tb th{
+            width: 30%;
+            background-color: #fff !important;
+            font-weight: normal;
+            border:1px #8fc31f solid;
+            padding-left:10px;
+        }
+        .process-props-tb td{
+            border:1px #8fc31f solid;
+        }
+
+        .process_input{
+            width:100%;
+            padding:0px !important;
+            margin:0px !important;
+            border:0px !important;
+        }
+
+        .process_span_text{
+            width:100%;
+            padding:0px 0px 0px 5px;
+            margin:0px;
+            border:0px;
+            line-height:36px;
+        }
+
+        .selected{
+            background-color:#efefef;
+        }
+    </style>
+</head>
+<body>
+    <div id="process_tools" style="position:absolute; top:10;left:10;width:120px;cursor: default;border:1px #8fc31f solid">
+        <div class="pui-pui-list-view-group">
+            <ul class="pui-list pui-list-view pui-list-view-radius pui-list-view-small">
+                <li id="process_tools_handle" class="pui-list-view-header bg-green2 font-white padding-left-10">工具箱</li>
+                <li id="process_save">
+                    <a href="javascript:;">
+                        <i class="fa font14 fa-save pui-text-grey-500 padding-top-5"></i>
+                        <label class="padding-left-10 font-bold">保存</label>
+                    </a>
+                </li>
+                <li id="pointer" class="selectable selected">
+                    <a href="javascript:;">
+                        <i class="fa font14 fa-location-arrow pui-text-indigo-400 padding-top-5"></i>
+                        <label class="padding-left-10 font-bold">选择</label>
+                    </a>
+                </li>
+                <li id="path" class="selectable">
+                    <a href="javascript:;">
+                        <i class="fa font14 fa-link pui-text-teal-300 padding-top-5"></i>
+                        <label class="padding-left-10 font-bold">连线</label>
+                    </a>
+                </li>
+                <li id="start" type="start" class="state">
+                    <a href="javascript:;">
+                        <i class="fa font14 fa-circle-o pui-text-green-400 padding-top-5"></i>
+                        <label class="padding-left-10 font-bold">开始节点</label>
+                    </a>
+                </li>
+                <li id="task" type="task" class="state">
+                    <a href="javascript:;">
+                        <i class="fa font14 fa-male pui-text-blue-500 padding-top-5"></i>
+                        <label class="padding-left-10 font-bold">任务节点</label>
+                    </a>
+                </li>
+                <li id="childProcess" type="childProcess" class="state">
+                    <a href="javascript:;">
+                        <i class="fa font14 fa-cogs pui-text-blue-grey-200 padding-top-5"></i>
+                        <label class="padding-left-10 font-bold">子流程</label>
+                    </a>
+                </li>
+                <li id="end" type="end" class="state">
+                    <a href="javascript:;">
+                        <i class="fa font14 fa-circle pui-text-deep-orange-400 padding-top-5"></i>
+                        <label class="padding-left-10 font-bold">结束节点</label>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="process_props" style="position: absolute;top: 30; right: 50; width: 380px; ">
+        <div id="process_props_handle" class="bg-green2 font-white padding-left-10" style="line-height:25px;">属性</div>
+        <table  class="process-props-tb" width="100%" cellpadding="0" cellspacing="0"></table>
+    </div>
+    <div id="process"></div>
+</body>
+</html>

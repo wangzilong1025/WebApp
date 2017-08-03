@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>COMBOBOX</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header box-white">
+            <h4>下拉框控件</h4>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row">
+                <div class="col-md-4 text-right">通过后台获取数据，自动加载</div>
+                <div class="col-md-8">
+                    <select class="aiui-combobox" id="businessType1" schemaData="data.data"
+                            srvId="ICFGSTATICDATAFSV_GETCFGSTATICDATABYCODETYPE"
+                            dataTextField="codeName"
+                            dataValueField="codeValue"
+                            data-options="beforeLoad: getParams">
+                    </select>
+                </div>
+                <div class="col-md-4 text-right">通过后台获取数据，鼠标触发加载</div>
+                <div class="col-md-8">
+                    <select class="aiui-combobox" id="businessType2" schemaData="data.data"
+                            srvId="ICFGSTATICDATAFSV_GETCFGSTATICDATABYCODETYPE"
+                            dataTextField="codeName"
+                            dataValueField="codeValue"
+                            defaultValue="客户服务"
+                            autoBind="false"
+                            data-options="beforeLoad: getParams">
+                    </select>
+                </div>
+                <div class="col-md-4 text-right">通过静态数据表配置的静态数据</div>
+                <div class="col-md-8">
+                    <select class="aiui-combobox" id="businessType3"
+                            type="static"
+                            param="CITY"
+                            dataTextField="codeName"
+                            dataValueField="codeValue"
+                            defaultValue="衡水">
+                    </select>
+                </div>
+                <div class="col-md-4 text-right">通过静态数据表配置的静态数据,带全选,带事件</div>
+                <div class="col-md-8">
+                    <select class="aiui-combobox" id="businessType4"
+                            type="static"
+                            param="CITY"
+                            dataTextField="codeName"
+                            dataValueField="codeValue"
+                            defaultValue="衡水"
+                            hasAll="true">
+                    </select>
+                </div>
+                <div class="col-md-4 text-right">前台option渲染</div>
+                <div class="col-md-8">
+                    <select class="aiui-combobox" id="businessType5">
+                        <option value="HlBusiOppo">商机</option>
+                        <option value="apply" selected>申请单</option>
+                        <option value="need">需求单</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-inside">
+        <div class="box-header box-white">
+            <h4>下拉框控件（级联下拉框--通过cfg_static_data表中的parent_code配置，parent_code用来指示父枚举值或枚举分类）</h4>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row">
+                <div class="col-md-4 text-right">证件类型</div>
+                <div class="col-md-8">
+                    <select class="aiui-combobox" id="cmCertType"
+                            type="static"
+                            param="CITY"
+                            dataTextField="codeName"
+                            dataValueField="codeValue"
+                            defaultValue="工商登记证">
+                    </select>
+                </div>
+                <div class="col-md-4 text-right">证件名称</div>
+                <div class="col-md-8">
+                    <select class="aiui-combobox" id="partyNature"
+                            type="static"
+                            param="PARTY_NATURE"
+                            parentCode="cmCertType"
+                            dataTextField="codeName"
+                            dataValueField="codeValue">
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-inside">
+        <div class="box-header box-white">
+            <h4>下拉框控件（级联下拉框--通过事件）</h4>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row">
+                <div class="col-md-4 span-lineHeight40 text-right">行业类型</div>
+                <div class="col-md-8 span-lineHeight40">
+                    <select class="aiui-combobox" id="industryType"
+                            type="static"
+                            param="industryType"
+                            dataTextField="codeName"
+                            dataValueField="codeValue"
+                            defaultValue="12500">
+                    </select>
+                </div>
+                <div class="col-md-4 span-lineHeight40 text-right">行业</div>
+                <div class="col-md-8 span-lineHeight40">
+                    <select class="aiui-combobox" id="industry"
+                            schemaData="data"
+                            srvId="ICFGSTATICDATAFSV_GETCFGSTATICDATABYCODETYPE"
+                            dataTextField="codeName"
+                            dataValueField="codeValue"
+                            index="-1"
+                            data-options="beforeLoad: getIndustryParams">
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" defer="defer">
+    var getParams = function (data) {
+        data = data || {};
+        data.codeType = "CITY";
+        return data;
+    };
+
+    //====================下拉框控件（级联下拉框--通过事件）==========================start====================
+    var getIndustryParams = function (data) {
+        var key = ["CM_CERT_TYPE", "DSLinkManForGroup", "District", "LOG_ORIGIN_TYPE", "area", "bulletin_type", "extent", "groupProduct"];
+        var industryType = $("#industryType").combobox().value();
+        industryType = industryType / 100 - 110;
+        if (industryType > 7) {
+            industryType = 1;
+        }
+        data = data || {};
+        data.codeType = key[industryType];
+        return data;
+    };
+
+    $("#industryType").combobox().bind('change', function (e) {
+        $("#industry").combobox().load();
+        $("#industry").combobox().value("")
+    });
+    //====================下拉框控件（级联下拉框--通过事件）==========================end====================
+
+    /**
+     * change事件
+     */
+    $("#businessType4").combobox().bind('change', function (e) {
+        var value = this.value();
+        var text = this.text();
+        alert(text + "---" + value);
+
+        //getSelect 方法
+        alert($("#businessType4").combobox().getSelect().codeName);
+    });
+
+    /**
+     * select事件
+     */
+    $("#businessType5").combobox().bind('select', function (e) {
+        var item = e.item;
+        var text = item.text();
+        alert(text);
+    });
+
+
+    /**
+     * 初始化后设置值
+     */
+    $("#industry").combobox().bind("dataBound", function (e) {
+        $("#industry").combobox().value("1123");
+    });
+
+</script>
+
+</body>
+</html>

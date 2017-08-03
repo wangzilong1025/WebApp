@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>个人设置</title>
+    <script src="/js/common/header.js"></script>
+</head>
+<body>
+<div class="wapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-content clearfix" style="padding:10px;">
+                <ul>
+                    <li class="col-md-2" style="padding-top:35px;">
+                        <ul id="panelbar">
+                            <li id="item1"><b>个人设置</b>
+                                <ul>
+                                    <li id="baseinfo">基本资料</li>
+                                    <li id="portlet">工作台组件</li>
+                                </ul>
+                            </li>
+                            <li id="item2"><b>系统设置</b>
+                                <ul>
+                                    <li id="account">账号设置</li>
+                                    <li id="update">系统更新</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="col-md-10 padding-left-30">
+                        <div class="box-bottom">
+                            <h6 id="top-text"></h6>
+                        </div>
+                        <div>
+                            <iframe src='sec/author/query/selectOrganization.html' style='width: 99%; height: 390px;' id="mainframe"></iframe>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        function initUI(){
+            $("#panelbar").kendoPanelBar();
+
+            var panelBar = $("#panelbar").data("kendoPanelBar");
+            panelBar.expand($("#item1"), false);
+            panelBar.expand($("#item2"), false);
+            panelBar.bind("select", function(e){
+                var itemId = e.item.id;
+                if (itemId != "item1" && itemId != "item2"){
+                    $("#top-text").html(e.item.parentNode.parentNode.firstChild.innerText + "-" + e.item.innerText);
+
+                    var iframeUrl = PROJECT_URL + "/404.html";
+                    if (itemId == "baseinfo") {//基本资料
+                        iframeUrl = "/view/general/sec/setting/baseinfo.html";
+                    } else if (itemId == "portlet") {
+                        iframeUrl = PROJECT_URL + "/view/general/sec/workbench/settingSecPortal.html";
+                    } else if (itemId == "account") {
+                        iframeUrl = "/view/general/sec/setting/accountsetting.html";
+                    } else if (itemId == "update") {
+                        iframeUrl = "/view/general/sec/setting/sysupdateinfo.html";
+                    }
+
+                    $("#mainframe").attr('src', iframeUrl);
+                }
+            });
+            panelBar.select("#baseinfo");
+        }
+
+        function init(){
+            initUI();
+        }
+
+        init();
+    })();
+</script>
+</body>
+</html>

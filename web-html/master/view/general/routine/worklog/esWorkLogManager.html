@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>工作日志明细页面</title>
+    <meta charset="utf8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="/css/style.css" type="text/css" rel="stylesheet">
+    <link href="/iconfont/iconfont.css" type="text/css" rel="stylesheet">
+    <script src="/js/common/header.js"></script>
+    <link href="/css/kendo-stripe-table.css" rel="stylesheet"/>
+    <link href="/css/kendo_style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header box-white clearfix">
+            <h6>基本信息</h6>
+        </div>
+        <div class="box-content clearfix">
+            <div class="form-content">
+                <div class="forms-columns">
+                    <form class="aiui-form" id="workLogInfoForm">
+                        <div class="forms col-md-6 pui-card-box">
+                            <div class="col-md-3">
+                                <label class="control-label">日志标题</label>
+                            </div>
+                            <div class="col-md-7">
+                                <input name="LOG_TITLE" id="LOG_TITLE" class="k-textbox"/>
+                                <span class="font-red">*</span>
+                            </div>
+                        </div>
+
+                        <div class="forms col-md-6 pui-card-box">
+                            <div class="col-md-3">
+                                <label class="control-label">来源类型</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select id="LOG_ORIGIN" class="aiui-combobox" type="static"  codeType="200018" dataTextField="codeName" dataValueField="codeValue">
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="font-red">*</span>
+                            </div>
+                        </div>
+
+                        <div class="forms col-md-6 pui-card-box">
+                            <div class="col-md-3">
+                                <label class="control-label">是否接触客户</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select id="CUST_TOUCH_FLAG" class="aiui-combobox" type="static"  codeType="200032" dataTextField="codeName" dataValueField="codeValue">
+                                </select>
+                            </div><span class="font-red">*</span>
+                        </div>
+
+                        <div class="forms col-md-6 pui-card-box">
+                            <div class="col-md-3">
+                                <label class="control-label">创建时间</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input id="CREATE_DATE" class="aiui-datebox" type="date"/>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="font-red">*</span>
+                            </div>
+                        </div>
+
+                        <div class="forms col-md-12 pui-card-box">
+                            <div class="col-md-2">
+                                <label class="control-label" for="WORK_DESC">工作描述</label>
+                            </div>
+                            <div class="col-md-9 text-left" style="margin-left: -32px">
+                                <textarea class="k-textbox col-md-12 text-left span-lineHeight40" id="WORK_DESC"></textarea>
+                            </div>
+                            <div class="col-md-1">
+                                <span class="font-red">*</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div id="button" class="box-content clearfix text-center">
+                <button class="k-button k-primary" id="save" type="button">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../../../js/general/routine/worklog/esWorkLogManager.js"></script>
+</body>
+</html>

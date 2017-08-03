@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>告警查询</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header box-bottom">
+            <h6>查询条件</h6>
+        </div>
+        <div class="box-content clearfix padding-top-15">
+            <ul>
+                <li class="col-md-4">
+                    <span class="col-md-4 span-lineHeight40 text-right">告警类型：</span>
+                    <span class="col-md-8">
+                        <select class="aiui-combobox full-width" id="warnTypeId" schemaData="data.data"
+                                srvId="IWARNTYPEDEFINEFSV_GETWARNTYPEDEFINE"
+                                dataTextField="warnTypeName"
+                                dataValueField="warnTypeId"
+                                autoBind="false"
+                                hasAll="true"
+                                data-options="beforeLoad:getStaticParams">
+                    </select>
+                    </span>
+                </li>
+                <li class="col-md-4">
+                    <span class="col-md-4 span-lineHeight40 text-right">告警子类：</span>
+                    <span class="col-md-8">
+                        <select class="aiui-combobox full-width" id="warnTypeBId" schemaData="data.data"
+                                srvId="IWARNTYPEDEFINEFSV_GETWARNTYPEDEFINE"
+                                dataTextField="warnTypeName"
+                                dataValueField="warnTypeId"
+                                autoBind="false"
+                                hasAll="true"
+                                data-options="beforeLoad:getParamsForWarn">
+                    </select>
+                    </span>
+                </li>
+                <li class="col-md-4">
+                    <span class="col-md-4 span-lineHeight40 text-right">集团编号：</span>
+                    <span class="col-md-8">
+                        <input id="groupId" class="k-textbox full-width">
+                    </span>
+
+                </li>
+                <li class="col-md-4">
+                    <span class="col-md-4 span-lineHeight40 text-right">集团名称：</span>
+                    <span class="col-md-8">
+                        <input id="partyName" class="k-textbox full-width">
+                    </span>
+                </li>
+
+                <li class="col-md-4">
+                    <span class="col-md-4 span-lineHeight40 text-right">状态：</span>
+                    <span class="col-md-8">
+                        <select class="aiui-combobox full-width" id="state"
+                                type="static"
+                                autoBind="false"
+                                dataTextField="codeName"
+                                dataValueField="codeValue"
+                                codeType="WARN_STATE">
+                    </select>
+                    </span>
+                </li>
+
+                <li class="col-md-4">
+                    <span class="col-md-4 span-lineHeight40 text-right">告警起始日期：</span>
+                    <span class="col-md-8">
+                        <input id="startDate" type="date" format="yyyy-MM-dd"  class="aiui-datebox full-width"/>
+                    </span>
+
+                </li>
+                <li class="col-md-4">
+                    <span class="col-md-4 span-lineHeight40 text-right">告警结束日期：</span>
+                    <span class="col-md-8">
+                        <input id="endDate" type="date" format="yyyy-MM-dd" class="aiui-datebox full-width"/>
+                    </span>
+                </li>
+                <li class="col-md-4" align="center">
+                    <button class="k-button k-primary" id="queryButton">查询</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="box-inside">
+        <div class="box-header box-bottom">
+            <h6>查询结果</h6>
+        </div>
+        <div class="box-content clearfix">
+            <table class="aiui-datagrid" id="resultGrid" height="350"
+                   selectable="multiple,row"
+                   schemaData="data.data"
+                   schemaTotal="data.count"
+                   srvId="IWARNGROUPINFOFSV_GETWARNGROUPINFO"
+                   data-options="pageSize:5,beforeLoad:getParams"
+                   >
+                <thead>
+                <tr>
+                    <th field="warnId" width="130">告警编号</th>
+                    <th field="warnTypeId" width="130">告警类型</th>
+                    <th field="groupId" width="130">集团编号</th>
+                    <th field="partyName" width="130">集团名称</th>
+                    <th field="warnDate" width="130">告警时间</th>
+                    <th field="warnDesc" width="130">告警内容</th>
+                    <th field="state" width="130">状态</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/js/general/routine/warn/warnGroupInfo.js"></script>
+</html>

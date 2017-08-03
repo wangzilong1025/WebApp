@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>进度条</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header">
+            <h4>进度条
+                <button class="k-button k-primary" type="button" onclick="showProgress();">显示</button>
+                <button class="k-button k-primary" type="button" onclick="hideProgress();">隐藏</button>
+            </h4>
+        </div>
+        <div class="box-content" style="height: 100px;" id="container">
+            <button class="k-button k-primary" type="button">注意是否被遮罩</button>
+        </div>
+    </div>
+    <div class="box-inside">
+        <div class="box-content" style="height: 100px;">
+            <button class="k-button k-primary" type="button">注意是否被遮罩</button>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    var showProgress = function () {
+        aiui.progress($("#container"), true, "正在加载");
+    };
+    var hideProgress = function () {
+        aiui.progress($("#container"), false, "正在加载");
+    };
+</script>
+</html>

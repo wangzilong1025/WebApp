@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>更新告警类型</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+
+
+        <div class="box-content clearfix">
+            <form class="aiui-form"  id="warnTypeForm" >
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;告警类型名称：</span>
+                        <span class="col-md-8">
+                            <input id="warnTypeId" type="text" hidden="hidden">
+                            <input id="warnTypeName" class="k-textbox">
+                        </span>
+                    </div>
+
+                    <div class="col-md-12">
+                        <span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;告警等级：</span>
+                        <span class="col-md-8">
+                            <select class="aiui-combobox" id="warnLevel">
+                                    <option value="0" selected="selected">一级告警</option>
+                                    <option value="1" >二级告警</option>
+                            </select>
+                        </span>
+                    </div>
+
+                    <div class="col-md-12">
+                        <span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;父告警类型：</span>
+                        <span class="col-md-8">
+
+                            <select class="aiui-combobox" id="parentWarnType" schemaData="data.data"
+                                    srvId="IWARNTYPEDEFINEFSV_GETWARNTYPEDEFINE"
+                                    dataTextField="warnTypeName"
+                                    dataValueField="warnTypeId"
+                                    disabled="disabled"
+                                    autoBind="false"
+                                    hasAll="false"
+                                    data-options="beforeLoad:getStaticParams">
+                            </select>
+                        </span>
+                    </div>
+
+                    <div class="col-md-12">
+                        <span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;告警分类：</span>
+                        <span class="col-md-8">
+                            <select class="aiui-combobox" id="warnClass"
+                                    type="static"
+                                    dataTextField="codeName"
+                                    dataValueField="codeValue"
+                                    codeType="WARN_TYPE_STATE">
+                            </select>
+                        </span>
+                    </div>
+
+                    <div class="col-md-12">
+                        <span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;告警期限：</span>
+                        <span class="col-md-8">
+                            <input id="deadline" class="k-textbox">
+                        </span>
+                    </div>
+
+                    <div class="col-md-12">
+                        <span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;延长时间：</span>
+                        <span class="col-md-8">
+                            <input id="delayTime" class="k-textbox">
+                        </span>
+                    </div>
+
+                    <div class="col-md-12">
+                        <span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;是否需要处理：</span>
+                        <span class="col-md-8">
+                            <select class="aiui-combobox" id="needDeal">
+                                    <option value="0" selected="selected">需要处理</option>
+                                    <option value="1" >自动处理</option>
+                            </select>
+                        </span>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <span class="col-md-4 span-lineHeight40 text-right">告警口径：</span>
+                        <span class="col-md-8">
+                            <input id="notes" class="k-textbox">
+                        </span>
+                    </div>
+
+
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-md-5">&nbsp;</div>
+                <div class="col-md-2">
+                    <button class="k-button k-primary" id="updateButton">更新</button>
+                </div>
+                <div class="col-md-5">&nbsp;</div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+<script type="text/javascript" src="/js/general/routine/warn/updateWarnType.js?v=2"></script>
+</html>

@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="/js/common/header.js"></script>
+    <title>表单配置</title>
+    <style>
+        .requireSymbol {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="row">
+    <div id="splitter">
+        <div>
+            <div id="leftTreeDiv">
+                <div class="box-header">
+                    <h6>组件树</h6>
+                </div>
+                <div class="box-content clearfix">
+                    <div class="col-md-12">
+                        <div id="componentTree"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <button type="button" class="k-button k-primary" id="addButton">添加</button>
+                        <button type="button" class="k-button k-primary" id="delButton">删除</button>
+                        <button type="button" class="k-button k-primary" id="saveButton">保存</button>
+                        <button type="button" class="k-button" id="viewButton">保存并预览</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="box-header">
+                <h6>组件属性配置</h6>
+            </div>
+            <div class="box-content clearfix" id="content">
+                <div id="framePropertyWindow" style="display: none;">
+                    <div class="col-md-12" id="cfgDyncBusiFrameRel">
+                        <div class="box-header">
+                            <h4>【业务】-【框架】关联属性</h4>
+                        </div>
+                        <div class="box-content clearfix">
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">业务ID：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="busiId" class="k-textbox" placeholder="请输入业务ID" required
+                                               validationMessage="请输入数据"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">操作ID：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="operateId" class="k-textbox" placeholder="请输入操作ID" required
+                                               validationMessage="请输入数据"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">框架模板：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="pageTemplateId" required validationMessage="请选择模板"
+                                               placeholder="请选择框架模板"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">数据操作来源：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="moduleId" required validationMessage="请选择来源"
+                                               placeholder="请选择数据操作来源"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">业务名称：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="remark" class="k-textbox" placeholder="请输入业务名称" required
+                                               validationMessage="请输入数据"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="cfgDyncFrame">
+                        <div class="box-header">
+                            <h4>【框架】自有属性</h4>
+                        </div>
+                        <div class="box-content clearfix">
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">框架名称：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="remark" class="k-textbox" placeholder="墙输入框架名称" required
+                                               validationMessage="请输入数据"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">版本号：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="version" class="k-textbox" placeholder="请输入版本号" required
+                                               validationMessage="请输入数据"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label>框架按钮集：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="buttonsetId"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label>框架规则集：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="rulesetId"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row text-center">
+                        <button type="button" class="k-button k-primary">确定</button>
+                        <button type="button" class="k-button">取消</button>
+                    </div>
+                </div>
+
+
+                <div id="pagePropertyWindow" style="display: none;">
+                    <div class="col-md-12" id="cfgDyncFramePage">
+                        <div class="box-header">
+                            <h4>【框架】-【页面】关联属性</h4>
+                        </div>
+                        <div class="box-content clearfix">
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">页面标题：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="pageTitle" class="k-textbox" placeholder="请输入页面标题" required
+                                               validationMessage="请输入数据"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">页面编码：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="pageCode" class="k-textbox" placeholder="请输入页面编码" required
+                                               validationMessage="请输入数据"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">是否展示：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="isDisplay" required validationMessage="请选择" placeholder="请选择是否展示"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label>页面规则集：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="rulesetId"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row col-md-12 span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label>备注：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="remark" class="k-textbox" placeholder="备注"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" id="cfgDyncPage">
+                        <div class="box-header">
+                            <h4>【页面】自有属性</h4>
+                        </div>
+                        <div class="box-content clearfix">
+
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">页面类型：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="pageType" required placeholder="请选择页面类型"
+                                               validationMessage="请选择页面类型"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">页面名称：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="pageName" class="k-textbox" placeholder="请输入页面名称" required
+                                               validationMessage="请输入数据"/>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label>页面地址：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="pageUrl" class="k-textbox"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label>备注：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="remark" class="k-textbox"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label>页面按钮集：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="buttonsetId"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label>页面规则集：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="rulesetId"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row text-center">
+                        <button type="button" class="k-button k-primary">确定</button>
+                        <button type="button" class="k-button">取消</button>
+                    </div>
+                </div>
+
+
+                <div id="areaPropertyWindow" style="display: none;">
+                    <div class="col-md-12" id="cfgDyncPageArea">
+                        <div class="box-header">
+                            <h4>【页面】-【域】关联属性</h4>
+                        </div>
+                        <div class="box-content clearfix">
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">域是否显示：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="isDisplay" required validationMessage="请选择"
+                                               placeholder="请选择是否展示域"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">标题是否显示：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="isShowTitle" required validationMessage="请选择"
+                                               placeholder="请选择是否显示标题"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">是否可编辑：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="isEditable" required validationMessage="请选择"
+                                               placeholder="请选择是否可编辑"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label>备注：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="remark" class="k-textbox"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="cfgDyncArea">
+                        <div class="box-header">
+                            <h4>【域】自有属性</h4>
+                        </div>
+                        <div class="box-content clearfix">
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">域名称：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="areaName" class="k-textbox" placeholder="请输入域名称" required
+                                               validationMessage="请输入数据"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">域编码：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="areaCode" class="k-textbox" placeholder="请输入域编码" required
+                                               validationMessage="请输入数据"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label class="requireSymbol">域类型：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="areaType" required validationMessage="请选择" placeholder="请选择域类型"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label>初始化服务：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="initSrvId" class="k-textbox"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label>域按钮集：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="buttonsetId"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label>域规则集：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="rulesetId"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row span-lineHeight30">
+                                <div class="col-md-6">
+                                    <div class="col-md-3 text-right">
+                                        <label>备注：</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input name="remark" class="k-textbox"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row text-center">
+                        <button type="button" class="k-button k-primary">确定</button>
+                        <button type="button" class="k-button">取消</button>
+                    </div>
+                </div>
+
+
+                <div id="attrPropertyWindow" style="display: none;">
+                    <div class="col-md-12" id="cfgDyncAreaAttr">
+                        <div class="box-inside">
+                            <div class="box-header">
+                                <h4>【域】-【属性】关联属性</h4>
+                            </div>
+                            <div class="box-content clearfix">
+                                <div class="row span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label class="requireSymbol">行数：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="rowSpan" class="k-textbox" placeholder="请输入行数" required
+                                                   validationMessage="请输入数据"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label class="requireSymbol">列数：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="colSpan" class="k-textbox" placeholder="请输入列数" required
+                                                   validationMessage="请输入数据"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>规则集：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="rulesetId"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>默认值：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="defaultValue" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label class="requireSymbol">是否可为空：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="isNullable" required validationMessage="请选择"
+                                                   placeholder="请选择是否可为空"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label class="requireSymbol">是否展示：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="isVisible" required validationMessage="请选择"
+                                                   placeholder="请选择是否展示"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label class="requireSymbol">是否可编辑：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="isEditable" required validationMessage="请选择"
+                                                   placeholder="请选择是否可编辑"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>备注：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="remark" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="cfgDyncAttr">
+                        <div class="box-inside">
+                            <div class="box-header">
+                                <h4>【属性】自有属性</h4>
+                            </div>
+                            <div class="box-content clearfix">
+                                <div class="row span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label class="requireSymbol">属性名称：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="attrName" class="k-textbox" placeholder="请输入属性名称" required
+                                                   validationMessage="请输入数据"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label class="requireSymbol">属性类型：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="editType" required validationMessage="请选择"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label class="requireSymbol">属性编码：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="attrCode" class="k-textbox" placeholder="请输入属性编码" required
+                                                   validationMessage="请输入数据"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>编辑格式：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="editFormat" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-md-12 span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>默认值：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="defaultValue" class="k-textbox"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>打开页面地址：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="url" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>页面参数：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="urlParam" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>属性数据源：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="resSrc" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>属性数据源方法：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="resMethod" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-md-12 span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>属性数据源参数：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="resParam" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>返回值Text：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="dataText" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>返回值Value：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="dataValue" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>正则校验：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="regexpId"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>属性规则集：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="rulesetId"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>最大值：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="maxValue" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>最小值：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="minValue" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>关联属性编号：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="relatAttrId" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>提示语：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="placeHolder" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-md-12 span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>数据初始化参数：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="initParam" class="k-textbox"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row col-md-12 span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>字体样式：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="fontClass" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>图标样式：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="iconClass" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-md-12 span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>数据路径：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="dataPath" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>初始化下拉框：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="isInit"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row col-md-12 span-lineHeight30">
+                                    <div class="col-md-6">
+                                        <div class="col-md-3 text-right">
+                                            <label>备注：</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input name="remark" class="k-textbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row text-center">
+                        <button type="button" class="k-button k-primary">确定</button>
+                        <button type="button" class="k-button">取消</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<span id="notification"></span>
+
+<div id="commitWindow" style="display: none;">
+    <div id="commitPage"></div>
+    <div class="row text-center">
+        <button type="button" class="k-button k-primary">停用并级联更新</button>
+        <button type="button" class="k-button">取消</button>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="/js/general/common/dync/dyncConfigure.js"></script>
+</body>
+</html>

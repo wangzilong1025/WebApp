@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>客户关怀明细页面</title>
+    <meta charset="utf8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="/css/style.css" type="text/css" rel="stylesheet">
+    <link href="/iconfont/iconfont.css" type="text/css" rel="stylesheet">
+    <script src="/js/common/header.js"></script>
+    <link href="/css/kendo-stripe-table.css" rel="stylesheet"/>
+    <link href="/css/kendo_style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header box-white clearfix">
+            <h6>基本信息</h6>
+        </div>
+        <div class="box-content clearfix">
+            <div class="form-content">
+                <div class="forms-columns">
+                    <form class="aiui-form" id="caerInfoForm">
+                        <div class="forms col-md-6 pui-card-box">
+                            <div class="col-md-3">
+                                <label class="control-label">关怀标题</label>
+                            </div>
+                            <div class="col-md-7">
+                                <input name="careName" id="careName" class="k-textbox"/>
+                                <span class="font-red">*</span>
+                            </div>
+                        </div>
+
+                        <div class="forms col-md-6 pui-card-box">
+                            <div class="col-md-3">
+                                <label class="control-label">关怀分类</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select id="careClass" class="aiui-combobox" type="static"  codeType="CFG_CARE_CLASS" dataTextField="codeName" hasAll="true" dataValueField="codeValue">
+                                </select>
+                                <span class="font-red">*</span>
+                            </div>
+                        </div>
+
+                        <div class="forms col-md-6 pui-card-box">
+                            <div class="col-md-3">
+                                <label class="control-label">关怀类型</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select id="careType" class="aiui-combobox" type="static"  codeType="CFG_CARE_TYPE" dataTextField="codeName" parentCodeField="careClass" hasAll="true" dataValueField="codeValue">
+                                </select>
+                                <span class="font-red">*</span>
+                            </div>
+                        </div>
+
+                        <div id="careValue">
+                            <div class="forms col-md-6 pui-card-box">
+                                <div class="col-md-3">
+                                    <label class="control-label">关怀值</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input name="careValue1" id="careValue1" class="k-textbox"/>
+                                    <span class="font-red">*</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forms col-md-6 pui-card-box">
+                            <div class="col-md-3">
+                                <label class="control-label">关怀方式</label>
+                            </div>
+                            <div class="col-md-7">
+                                <select id="careWay" class="aiui-combobox" type="static"  codeType="CFG_CARE_WAY" dataTextField="codeName" dataValueField="codeValue">
+                                </select>
+                                <span class="font-red">*</span>
+                            </div>
+                        </div>
+
+                        <div class="forms col-md-6 pui-card-box">
+                            <div class="col-md-3">
+                                <label class="control-label">创建时间</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input id="createDate" class="aiui-datebox" type="date"/>
+                                <span class="font-red">*</span>
+                            </div>
+                            <!--<div class="col-md-2">
+
+                            </div>-->
+                        </div>
+
+
+                        <div class="forms col-md-6 pui-card-box">
+                            <div class="col-md-3">
+                                <label class="control-label">提前日期</label>
+                            </div>
+                            <div class="col-md-7">
+                                <input name="careDay" id="careDay" class="k-textbox"/>
+                                <span class="font-red">*</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div id="button" class="box-content clearfix text-center">
+                <button class="k-button k-primary" id="save" type="button">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../../../js/general/routine/careinfo/cfgCareTypeManage.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="/js/common/header.js"></script>
+    <title>配置业务管理</title>
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header box-bottom">
+            <h6>查询条件</h6>
+        </div>
+        <div class="box-content clearfix padding-top-15">
+            <div class="row span-lineHeight40">
+                <div class="col-md-4">
+                    <div class="col-md-3 text-right">
+                        <label>业务名称：</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input id="remark" class="k-textbox full-width"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-3 text-right">
+                        <label>业务状态：</label>
+                    </div>
+                    <div class="col-md-8">
+                        <select class="aiui-combobox full-width" id="state">
+                            <option value="">全部状态</option>
+                            <option value="1">使用中</option>
+                            <option value="2">已停用</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button id="queryButton" class="k-button k-primary" type="button">查询</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-inside">
+        <div class="box-header">
+            <h6>查询结果</h6>
+            <div class="box-content clearfix">
+                <div id="toolbar" class="text-right padding-right-25"></div>
+                <table class="aiui-datagrid" id="dyncBuisGird" height="300"
+                       schemaData="data.list"
+                       schemaTotal="data.count"
+                       sortable="true"
+                       rownumbers="true" checkbox="true"
+                       autoBind="false" pageable="true"
+                       srvId="ICFGDYNCCOMMONFSV_QUERYCFGDYNCBUSIDATA" selectable="multiple,row"
+                       data-options="beforeLoad: dyncBusiManageModule.getParams">
+                    <thead>
+                    <tr>
+                        <th field="BUSI_FRAME_ID" hidden="true">BUSI_FRAME_ID</th>
+                        <th field="REMARK" width="200">业务名称</th>
+                        <th field="BUSI_ID" width="100">业务编号</th>
+                        <th field="OPERATE_ID" width="100">操作编号</th>
+                        <th field="TEMPLATE_NAME" width="150">页面模板类型</th>
+                        <th field="STATE" width="120" data-options="template: function (dataItem) {
+                                    if (dataItem.STATE == 1) {
+                                        return '使用中';
+                                    } else if (dataItem.STATE == 2){
+                                        return '已停用';
+                                    }
+                                }">状态
+                        </th>
+                        <th field="CREATE_DATE" width="150" type="datetime">创建时间</th>
+                        <th field="DONE_DATE" width="150" type="datetime">修改时间</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/general/common/dync/dyncBusiManage.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>流程列表</title>
+    <script type="text/javascript" src="../../../../js/common/header.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box-header box-header-item clearfix">
+                    <span class="col-md-2">
+                        <h6>选择流程</h6>
+                    </span>
+                    <span class="col-md-2">&nbsp;</span>
+                    <span class="col-md-4">
+                        <input class="k-textbox" type="text" id="queryFiled" placeholder="流程编号/流程名称"/>
+                    </span>
+                </div>
+                <div class="box-content">
+                    <table class="aiui-datagrid" id="processGrid" srvId="ICFGPROCESSFSV_QUERYVALIDPROCESSINFO"
+                           sortable="true" pageable="false" rownumbers="false"
+                           checkbox="false" autoBind="true" height="300" data-options="beforeLoad:getParams">
+                        <thead>
+                        <tr>
+                            <th field="processId" hidden>流程编号</th>
+                            <th field="processDefineId" width="50">流程编号</th>
+                            <th field="processName" width="150">流程名称</th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <div class="padding-top-15 text-center">
+                        <button class="k-button k-primary margin-left-15" id="okBtn">确定</button>
+                        <button class="k-button k-primary padding-left-5" id="cancelBtn">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="../../../../js/general/routine/flow/esFlowList.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head lang="zh">
+    <meta charset="UTF-8">
+    <title>公告更新</title>
+    <script src="../../../../js/common/header.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-inside">
+                <div class="box-header">
+                    <h6>公告更新</h6>
+                </div>
+                <form id="updateNoticeForm" class="aiui-form">
+                    <div class="box-content clearfix">
+                        <ul>
+                            <li class="col-md-3 clearfix" style="display:none;">
+                                <span class="col-md-3 span-lineHeight40 text-right">公告编号</span>
+                                <span class="col-md-8">
+                                    <input id="bulletinId" class="k-textbox" value=""/>
+                                </span>
+                            </li>
+                            <li class="col-md-12 clearfix">
+                                <span class="col-md-1 span-lineHeight40 ">公告主题</span>
+                                <span class="col-md-9"  >
+                                    <input id="subject" name="check" class="k-textbox" value="" style="width:100%;"  ></input>
+                                </span>
+                                <span class="col-md-1"  id="subjectNote"  >
+                                </span>
+                            </li>
+                            <li class="col-md-12 clearfix">
+                                <span class="col-md-1 span-lineHeight40 ">公告内容</span>
+                                <span class="col-md-9 " >
+                                    <textarea id="content" class="k-textbox" value=""  style="width:100%;height:300px;">
+                                    </textarea>
+                                </span>
+                                <span class="col-md-1" id="contentNote"></span>
+                            </li>
+                            <li class="col-md-12 clearfix">
+                                <span class="col-md-1 span-lineHeight40">发布日期</span>
+                                <span class="col-md-3 span-lineHeight40">
+                                    <input class="aiui-datebox" id="bulletinStartDate" type="datetime" format="yyyy-MM-dd HH:mm:ss"/>
+                                </span>
+                                <span class="col-md-1" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="col-md-1 span-lineHeight40 ">结束日期</span>
+                                <span class="col-md-3 span-lineHeight40">
+                                    <input class="aiui-datebox" id="bulletinEndDate" type="datetime" format="yyyy-MM-dd HH:mm:ss"/>
+                                </span>
+                            </li>
+                            <li class="col-md-12">
+                                <span class="col-md-1 span-lineHeight40 ">紧急程度</span>
+                                <span class="col-md-3 span-lineHeight40">
+                                    <select id="extent" class="aiui-combobox" type="static" codeType="NOTICE_EXTENT" dataTextField="codeName" dataValueField="codeValue" >
+                                    </select>
+                                 </span>
+                                <span class="col-md-1" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="col-md-1 span-lineHeight40 ">公告类别</span>
+                                <span class="col-md-3 span-lineHeight40" >
+                                    <select id="bulletinType" class="aiui-combobox" type="static" codeType="NOTICE_BULLETIN_TYPE" dataTextField="codeName" dataValueField="codeValue">
+                                    </select>
+                                </span>
+                            </li>
+                            <li class="col-md-12 clearfix">
+                                <span class="col-md-1 span-lineHeight40 ">接收对象</span>
+                                <span class="col-md-3 span-lineHeight40">
+                                    <input id="sendObj" class="k-textbox" value="" readonly="readonly">
+                                </span>
+                                <span class="col-md-1" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="col-md-1 span-lineHeight40 ">附件上传</span>
+                                <span class="col-md-3  span-lineHeight40">
+                                    <input  id="annex" class="k-textbox" readonly/>
+                                </span>
+                            </li>
+                            <li class="col-md-12 clearfix" style="display:none;">
+                                <span class="col-md-3 span-lineHeight40 text-right" >创建员id</span>
+                                <span class="col-md-8">
+                                    <input id="partyRoleId" value="4321" >
+                                </span>
+                            </li>
+                            <p name="operBtn" class="k-tool">
+                                <div class="col-md-4">&nbsp;</div>
+                                <div class="col-md-2" style="">
+                                    <button class="k-button k-primary" id="updateNotice" type="button">保存</button>
+                                </div>
+                                <div class="col-md-2" style="">
+                                    <button class="k-button k-primary" id="cancelSaveNotice" type="button">取消</button>
+                                </div>
+                                <div class="col-md-4">&nbsp;</div>
+                            </p>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../../../js/general/routine/notice/updateNotice.js"></script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>商机漏斗分析</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+    <script type="text/javascript" src="/resources/frame/echarts/echarts.js"></script>
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header">
+            <h4>商机分析</h4>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row">
+                <div class="col-md-6" id="funnelChart" style="height: 600px;">
+
+                </div>
+                <div class="col-md-6" id="sankeyChart" style="height: 600px;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="box-inside">
+        <div class="box-header">
+            <h4>商机流向分析</h4>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row">
+                <div id="sankeyChart" style="width: 580px;height:600px;"></div>
+            </div>
+        </div>
+    </div>-->
+</div>
+
+<script type="text/javascript">
+    (function ($) {
+        var funnelChart = echarts.init(document.getElementById('funnelChart'));
+        funnelChart.setOption({
+            title: {
+                text: '商机漏斗分析',
+                subtext: '2016-10至2016-12'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c}%"
+            },
+            toolbox: {
+                feature: {
+                    dataView: {readOnly: false},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            legend: {
+                data: ['发现商机', '商机确认', '制定方案', '合同签订', '商机转订单']
+            },
+            series: [{
+                name: '数量',
+                type: 'funnel',
+                left: '10%',
+                width: '80%',
+                maxSize: '80%',
+                label: {
+                    normal: {
+                        position: 'inside',
+                        formatter: '{b} : {c}',
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    emphasis: {
+                        position: 'inside',
+                        formatter: '{b}: {c}'
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        opacity: 0.5,
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }
+                },
+                data: [
+                    {value: 210, name: '发现商机'},
+                    {value: 100, name: '商机确认'},
+                    {value: 80, name: '制定方案'},
+                    {value: 70, name: '合同签订'},
+                    {value: 70, name: '商机转订单'}
+                ]
+            }]
+        });
+
+
+        var d1 = ["客服商机", "商机爬虫", "客户经理录入商机"];
+        var d2 = ["浦东录入", "黄浦录入", "普陀录入", "虹口录入", "闵行录入", "松江录入", "奉贤录入", "金山录入", "宝山录入", "嘉定录入", "青浦录入", "崇明录入", "长宁录入", "徐汇录入", "静安录入", "杨浦录入"];
+        var d3 = ["浦东接单", "黄浦接单", "普陀接单", "虹口接单", "闵行接单", "松江接单", "奉贤接单", "金山接单", "宝山接单", "嘉定接单", "青浦接单", "崇明接单", "长宁接单", "徐汇接单", "静安接单", "杨浦接单"];
+        var d4 = ["商机转订单", "无效商机", "商机流失"];
+
+        var nodes = [];
+        for (var i = 0; i < d1.length; i++) {
+            nodes.push({"name": d1[i]});
+        }
+        for (var i = 0; i < d2.length; i++) {
+            nodes.push({"name": d2[i]});
+        }
+        for (var i = 0; i < d3.length; i++) {
+            nodes.push({"name": d3[i]});
+        }
+        for (var i = 0; i < d4.length; i++) {
+            nodes.push({"name": d4[i]});
+        }
+
+        var links = [];
+
+//        //all random
+//        for (var n = 0; n < 500; n++) {
+//            var x1 = Math.floor(Math.random() * d1.length);
+//            if (d1[x1] == "客服商机" || d1[x1] == "商机爬虫") {
+//                var x3 = Math.floor(Math.random() * d3.length);
+//                var x4 = Math.floor(Math.random() * d4.length);
+//                if(d3[x3] &&  d4[x4]){
+//                    links.push(d1[x1] + "|" + d3[x3]);
+//                    links.push(d3[x3] + "|" + d4[x4])
+//                }
+//            } else if (d1[x1] == "客户经理录入商机") {
+//                var x2 = Math.floor(Math.random() * d2.length);
+//                var x3 = Math.floor(Math.random() * d3.length);
+//                var x4 = Math.floor(Math.random() * d4.length);
+//                if(d2[x2] && d3[x3] &&  d4[x4]){
+//                    links.push(d1[x1] + "|" + d2[x2]);
+//                    links.push(d2[x2] + "|" + d3[x3]);
+//                    links.push(d3[x3] + "|" + d4[x4]);
+//                }
+//            }
+//        }
+
+        for (var n = 0; n < 500; n++) {
+            var x1 = Math.random();
+            if (x1 < 0.7) {
+                x1 = 0;
+            } else if (x1 >= 0.7 && x1 < 0.9) {
+                x1 = 1;
+            } else {
+                x1 = 2;
+            }
+            if (d1[x1] == "客服商机" || d1[x1] == "商机爬虫") {
+                var x3 = Math.floor(Math.random() * d3.length);
+//                var x4 = Math.floor(Math.random() * d4.length);
+                var x4 = Math.random();
+                if (x4 < 0.5) {
+                    x4 = 0;
+                } else if (x4 >= 0.5 && x4 < 0.8) {
+                    x4 = 1;
+                } else {
+                    x4 = 2;
+                }
+
+                if (d3[x3] && d4[x4]) {
+                    links.push(d1[x1] + "|" + d3[x3]);
+                    links.push(d3[x3] + "|" + d4[x4])
+                }
+            } else if (d1[x1] == "客户经理录入商机") {
+                var x2 = Math.floor(Math.random() * d2.length);
+//                var x3 = Math.floor(Math.random() * d3.length);
+//                var x4 = Math.floor(Math.random() * d4.length);
+                var dv3 = "";
+                var x3 = Math.random();
+                if (x3 < 0.8 && d2[x2]) {
+                    dv3 = d2[x2].substring(0, 2) + "接单";
+                } else {
+                    dv3 = Math.floor(Math.random() * d3.length);
+                }
+                var x4 = Math.random();
+                if (x4 < 0.5) {
+                    x4 = 0;
+                } else if (x4 >= 0.5 && x4 < 0.8) {
+                    x4 = 1;
+                } else {
+                    x4 = 2;
+                }
+                if (d2[x2] && dv3 && d4[x4]) {
+                    links.push(d1[x1] + "|" + d2[x2]);
+                    links.push(d2[x2] + "|" + dv3);
+                    links.push(dv3 + "|" + d4[x4]);
+                }
+            }
+        }
+
+        var linkMap = {};
+        for (var n = 0; n < links.length; n++) {
+            if (linkMap[links[n]] == undefined) {
+                linkMap[links[n]] = 0;
+            }
+            linkMap[links[n]] = linkMap[links[n]] + 1;
+        }
+
+        var linkArray = [];
+        for (var k in linkMap) {
+            var tmp = k.split("|");
+            linkArray.push({
+                "source": tmp[0],
+                "target": tmp[1],
+                "value": linkMap[k]
+            });
+        }
+
+        var sankeyChart = echarts.init(document.getElementById('sankeyChart'));
+        sankeyChart.setOption({
+            title: {
+                text: '商机流向分析',
+                subtext: '2016-10至2016-12'
+            },
+            tooltip: {
+                trigger: 'item',
+                triggerOn: 'mousemove'
+            },
+            series: [{
+                type: 'sankey',
+                layout: 'none',
+                data: nodes,
+                links: linkArray,
+                itemStyle: {
+                    normal: {
+                        borderWidth: 1,
+                        borderColor: '#aaa'
+                    }
+                },
+                lineStyle: {
+                    normal: {
+                        color: 'source',
+                        curveness: 0.5
+                    }
+                }
+            }]
+        });
+    })(jQuery);
+</script>
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>wizardPage</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+</head>
+<body>
+<style>
+    .flow li {
+        display: block;
+        float: left;
+        /*margin: 15px 5px;*/
+        cursor: pointer;
+    }
+
+    .flow-hr hr {
+        border-style: solid;
+        border-width: 2px;
+        border-color: #4A8ACA;
+        width: 25px;
+        margin-left: 5px;
+        margin-right: 10px;
+        margin-top: 18px;
+    }
+
+    .flow-step span {
+        height: 40px;
+        padding: 5px 15px;
+        border-radius: 30px;
+        line-height: 40px;
+        color: #FFFFFF;
+        background-color: #4A8ACA;
+        text-align: center;
+    }
+
+    .flow-step-white span {
+        background-color: #FFFFFF;
+        color: #4A8ACA;
+        border: solid 1px #4A8ACA;
+    }
+
+    .flow-step-gray span {
+        background-color: #f7f8fa;
+        color: #999;
+        border: solid 1px #E3E3E3;
+    }
+
+    .flow-hr-gray hr {
+        border-color: #E3E3E3;
+    }
+
+    .flow-hr-gray .angleRight {
+        color: #E3E3E3;
+    }
+</style>
+<div class="row" id="wizardPage"></div>
+<script type="text/x-kendo-template" id="wizardPageTemplate">
+    #var cfgDyncFramePageEntities = dyncData[0].cfgDyncFramePageEntities;#
+    #var cfgDyncButtonEntities = dyncData[0].cfgDyncButtonEntities;#
+    #var cfgDyncRuleEntities = dyncData[0].cfgDyncRuleEntities;#
+    <div class="box-inside" style="margin-top: 0px; margin-bottom: 5px;">
+        <div class="box-content clearfix" style="padding-top: 10px; padding-bottom: 10px;">
+            <ul class="flow clearfix" style="margin: 0px;">
+                #for(var y=0 ; y < cfgDyncFramePageEntities.length ; y++){#
+                    #var cfgDyncFramePageEntity = cfgDyncFramePageEntities[y];#
+                    #if(y==0){#
+                        <li class="flow-step flow-step-white" data-uid="#:cfgDyncFramePageEntity.pageId#">
+                            <span>#:cfgDyncFramePageEntity.pageTitle#</span>
+                        </li>
+                    #}else{#
+                        <li class="flow-hr flow-hr-gray" data-uid="#:cfgDyncFramePageEntity.pageId#">
+                            <hr>
+                            <div class="angleRight"></div>
+                        </li>
+                        <li class="flow-step flow-step-gray" data-uid="#:cfgDyncFramePageEntity.pageId#">
+                            <span>#:cfgDyncFramePageEntity.pageTitle#</span>
+                        </li>
+                    #}#
+                #}#
+            </ul>
+        </div>
+    </div>
+    <div id="tabstrip_#:dyncData[0].busiFrameId#">
+        <ul>
+            #for(var y=0 ; y < cfgDyncFramePageEntities.length ; y++){#
+                #var cfgDyncFramePageEntity = cfgDyncFramePageEntities[y];#
+                #if(y==0){#
+                    <li class="k-state-active" data-uid="#:cfgDyncFramePageEntity.pageId#">
+                        #:cfgDyncFramePageEntity.pageTitle#
+                    </li>
+                #}else{#
+                    <li data-uid="#:cfgDyncFramePageEntity.pageId#">
+                        #:cfgDyncFramePageEntity.pageTitle#
+                    </li>
+                #}#
+            #}#
+        </ul>
+        #for(var i=0 ; i < cfgDyncFramePageEntities.length ; i++){#
+            #var cfgDyncFramePageEntity = cfgDyncFramePageEntities[i];#
+            #var cfgDyncPageEntity = cfgDyncFramePageEntity.cfgDyncPageEntity;#
+            <!--规则文件包含进来-->
+            #var cfgDyncFramePageRules = cfgDyncFramePageEntity.cfgDyncRuleEntities;#
+            #var cfgDyncPageRules = cfgDyncPageEntity.cfgDyncRuleEntities;#
+            #if(cfgDyncFramePageRules!=null&&cfgDyncFramePageRules.length>0){#
+                #for(var ii=0; ii < cfgDyncFramePageRules.length; ii++){#
+                    #var cfgDyncFramePageRule = cfgDyncFramePageRules[ii];#
+                    <script src="#:cfgDyncFramePageRule.fileName#" type="text/javascript" />
+                #}#
+            #}#
+            #if(cfgDyncPageRules!=null&&cfgDyncPageRules.length>0){#
+                #for(var ii=0;ii<cfgDyncPageRules.length;ii++){#
+                    #var cfgDyncPageRule = cfgDyncPageRules[ii];#
+                    <script src="#:cfgDyncPageRule.fileName#" type="text/javascript" />
+                #}#
+            #}#
+            <div style="box-sizing: border-box">
+                <div class="box-inside" id="page_#:cfgDyncPageEntity.pageId#" dataid="#:cfgDyncPageEntity.pageId#" datacode="#:cfgDyncFramePageEntity.pageCode#">
+                    <!--page_type,1配置模式2iframe3native-->
+                    #if(cfgDyncPageEntity.pageType==1){#
+                        <div class="box-header">
+                            <h4>#:cfgDyncFramePageEntity.pageTitle#</h4>
+                        </div>
+                        <div class="box-content clearfix">
+                            <!--页面域内容-->
+                            #var cfgDyncPageAreaEntities = cfgDyncPageEntity.cfgDyncPageAreaEntities;#
+                            #for(var j=0;j<cfgDyncPageAreaEntities.length;j++){#
+                                #var cfgDyncPageAreaEntity = cfgDyncPageAreaEntities[j];#
+                                #var cfgDyncAreaEntity = cfgDyncPageAreaEntity.cfgDyncAreaEntity;#
+                                #var cfgDyncAreaRules = cfgDyncAreaEntity.cfgDyncRuleEntities;#
+                                #var cfgDyncAreaButtons = cfgDyncAreaEntity.cfgDyncButtonEntities;#
+                                <!--引入按钮的事件js文件-->
+                                #if(cfgDyncAreaButtons!=null && cfgDyncAreaButtons.length>0){#
+                                    #for(var ii=0; ii < cfgDyncAreaButtons.length; ii++){#
+                                        #var cfgDyncAreaButton = cfgDyncAreaButtons[ii];#
+                                        <script src="#:cfgDyncAreaButton.fileName#" type="text/javascript" />
+                                    #}#
+                                #}#
+                                <!--引入规则js文件-->
+                                #if(cfgDyncAreaRules!=null&&cfgDyncAreaRules.length>0){#
+                                    #for(var ii=0; ii < cfgDyncAreaRules.length; ii++){#
+                                        #var cfgDyncAreaRule = cfgDyncAreaRules[ii];#
+                                        <script src="#:cfgDyncAreaRule.fileName#" type="text/javascript" />
+                                    #}#
+                                #}#
+                                <!--areaType=1form类型-->
+                                #if(cfgDyncAreaEntity.areaType == 'form'){#
+                                    <div class="box-inside area-content form-type"
+                                         id="area_#:cfgDyncPageEntity.pageId#_#:cfgDyncAreaEntity.areaId#" dataid="#:cfgDyncAreaEntity.areaId#"
+                                         datacode="#:cfgDyncAreaEntity.areaId#">
+                                        #if(cfgDyncPageAreaEntity.isShowTitle==1){#
+                                            <div class="box-header">
+                                                <h4>#:cfgDyncAreaEntity.areaName#
+                                                    #if(cfgDyncAreaButtons != null && cfgDyncAreaButtons.length > 0){#
+                                                    <div class="float-right">
+                                                        #for(var ii=0;ii<cfgDyncAreaButtons.length;ii++){#
+                                                        #var cfgDyncAreaButton = cfgDyncAreaButtons[ii];#
+                                                        <a class="small"
+                                                           onClick="${cfgDyncAreaButton.clickFunc}(this)">${cfgDyncAreaButton.buttonText}</a>
+                                                            #if(ii<cfgDyncAreaButtons.length-1){#
+                                                                <span>|</span>
+                                                            #}#
+                                                        #}#
+                                                    </div>
+                                                    #}#
+                                                </h4>
+                                            </div>
+                                        #}#
+                                        <div class="box-content clearfix">
+                                            #var cfgDyncAreaAttrEntities = cfgDyncAreaEntity.cfgDyncAreaAttrEntities;#
+                                            #for(var k=0; k < cfgDyncAreaAttrEntities.length; k++){#
+                                                #var cfgDyncAreaAttrEntity = cfgDyncAreaAttrEntities[k];#
+                                                #var cfgDyncAttrEntity = cfgDyncAreaAttrEntity.cfgDyncAttrEntity;#
+                                                #if(!cfgDyncAttrEntity){continue;}#
+                                                #var attrId=cfgDyncAttrEntity.attrId;#
+                                                #var areaId=cfgDyncAreaEntity.areaId;#
+                                                #var pageId=cfgDyncPageEntity.pageId;#
+                                                #var attrCode=cfgDyncAttrEntity.attrCode==null?"":cfgDyncAttrEntity.attrCode;#
+                                                #var attrEditType=cfgDyncAttrEntity.editType==null?"textbox":cfgDyncAttrEntity.editType;#
+                                                #var colSpan=2;#
+                                                <!--这部分控制控件一行显示多少格，colspan=1,2,3,对应控件在form一行中，展示一个，2个，3个-->
+                                                #if(cfgDyncAreaAttrEntity.colSpan!=null){#
+                                                    #colSpan=cfgDyncAreaAttrEntity.colSpan;#
+                                                #}#
+                                                #var lineSpan=12/colSpan;#
+                                                #var labWidth = 12 / lineSpan * 2#
+                                                <!--备注之类的信息，通过labelClass控制样式-->
+                                                #if(attrEditType == "label"){#
+                                                    <div class="col-md-#:lineSpan#"
+                                                         data-bind="visible: visibleData.AT_#:pageId#_#:areaId#_#:attrId#">
+                                                        <div class="col-md-#:lineSpan#">
+                                                            <label class="#:cfgDyncAttrEntity.fontClass#" name="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                   id="AT_#:pageId#_#:areaId#_#:attrId#" style="padding-left: 20px;">#:cfgDyncAttrEntity.attrName#</label>
+                                                        </div>
+                                                    </div>
+                                                #}else{#
+                                                    <div class="col-md-#:lineSpan# span-lineHeight30" >
+                                                        <span class="col-md-#:labWidth#">
+                                                            <label class="text-nowrap input-label" for="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                   title="#:cfgDyncAttrEntity.attrName#">#:cfgDyncAttrEntity.attrName#</label>
+                                                        </span>
+                                                        <span class="col-md-#: 12 - labWidth#">
+                                                            #if(attrEditType == "dropdownlist"){#
+                                                                <input needCommit
+                                                                       name="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       id="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       datacode="#:attrCode#"
+                                                                       dataid="#:attrId#"
+                                                                       data-role="dropdownlist"
+                                                                       #if(cfgDyncAttrEntity.resSrc!=null){#
+                                                                       resSrc= "#:cfgDyncAttrEntity.resSrc#"
+                                                                       #}#
+                                                                       #if(cfgDyncAttrEntity.resParam!=null){#
+                                                                       resParam="#:cfgDyncAttrEntity.resParam#"
+                                                                       #}#
+                                                                       #if(cfgDyncAttrEntity.dataPath!=null){#
+                                                                       dataPath="#:cfgDyncAttrEntity.dataPath#"
+                                                                       #}#
+                                                                       #if(cfgDyncAttrEntity.relatAttrId!=null){#
+                                                                       relatAttrId="#:cfgDyncAttrEntity.relatAttrId#"
+                                                                       data-option-label="请选择"
+                                                                       #}#
+                                                                       #if(cfgDyncAreaAttrEntity.isNullable==0){#
+                                                                       required
+                                                                       validationMessage="不能为空."
+                                                                       #}else if(cfgDyncAreaAttrEntity.isNullable==2){#
+                                                                       data-custcheck-msg="不能为空."
+                                                                       #}else{#
+                                                                       data-option-label="请选择"
+                                                                       #}#
+                                                                       data-value-primitive="true"
+                                                                       #if(cfgDyncAttrEntity.dataText){#
+                                                                       data-text-field="#:cfgDyncAttrEntity.dataText#"
+                                                                       #}else{#
+                                                                       data-text-field="codeName"
+                                                                       #}#
+                                                                       #if(cfgDyncAttrEntity.dataValue){#
+                                                                       data-value-field="#:cfgDyncAttrEntity.dataValue#"
+                                                                       #}else{#
+                                                                       data-value-field="codeValue"
+                                                                       #}#
+                                                                       data-bind="enabled: enabledData.AT_#:pageId#_#:areaId#_#:attrId#,source:dropdownData.AT_#:pageId#_#:areaId#_#:attrId#, value:valueData.AT_#:pageId#_#:areaId#_#:attrId#,events: {change: onChange}"/>
+                                                            #}else if(attrEditType == "combobox"){#
+                                                                <input needCommit name="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       id="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       datacode="#:attrCode#"
+                                                                       dataid="#:attrId#"
+                                                                       data-role="combobox"
+                                                                       data-filter="contains"
+                                                                       #if(cfgDyncAttrEntity.resSrc!=null){#
+                                                                       resSrc="#:cfgDyncAttrEntity.resSrc#"
+                                                                       #}#
+                                                                       #if(cfgDyncAttrEntity.resParam!=null){#
+                                                                       resParam="#:cfgDyncAttrEntity.resParam#"
+                                                                       #}#
+                                                                       #if(cfgDyncAttrEntity.dataPath!=null){#
+                                                                       dataPath="#:cfgDyncAttrEntity.dataPath#"
+                                                                       #}#
+                                                                       #if(cfgDyncAttrEntity.relatAttrId!=null){#
+                                                                       relatAttrId="#:cfgDyncAttrEntity.relatAttrId#"
+                                                                       data-option-label="请选择"
+                                                                       #}#
+                                                                       #if(cfgDyncAreaAttrEntity.isNullable== 0){#
+                                                                       required
+                                                                       validationMessage="不能为空."
+                                                                       #}else if(cfgDyncAreaAttrEntity.isNullable== 2){#
+                                                                       data-custcheck-msg="不能为空."
+                                                                       #}else{#
+                                                                       data-option-label="请选择"
+                                                                       #}#
+                                                                       data-value-primitive="true"
+                                                                       #if(cfgDyncAttrEntity.dataText){#
+                                                                       data-text-field="#:cfgDyncAttrEntity.dataText#"
+                                                                       #}else{#
+                                                                       data-text-field="codeName"
+                                                                       #}#
+                                                                       #if(cfgDyncAttrEntity.dataValue){#
+                                                                       data-value-field="#:cfgDyncAttrEntity.dataValue#"
+                                                                       #}else{#
+                                                                       data-value-field="codeValue"
+                                                                       #}#
+                                                                       data-bind="enabled: enabledData.AT_#:pageId#_#:areaId#_#:attrId#,source: dropdownData.AT_#:pageId#_#:areaId#_#:attrId#, value: valueData.AT_#:pageId#_#:areaId#_#:attrId#,events: {change: onChange}"/>
+                                                            #}else if(attrEditType == "multiselect"){#
+                                                                <select needCommit name="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                        id="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                        datacode="#:attrCode#"
+                                                                        dataid="#:attrId#"
+                                                                        multiple="multiple"
+                                                                        data-role="multiselect"
+                                                                        #if(cfgDyncAttrEntity.resSrc!=null){#
+                                                                        resSrc="#:cfgDyncAttrEntity.resSrc#"
+                                                                        #}#
+                                                                        #if(cfgDyncAttrEntity.resParam!=null){#
+                                                                        resParam="#:cfgDyncAttrEntity.resParam#"
+                                                                        #}#
+                                                                        #if(cfgDyncAttrEntity.dataPath!=null){#
+                                                                        dataPath="#:cfgDyncAttrEntity.dataPath#"
+                                                                        #}#
+                                                                        #if(cfgDyncAttrEntity.relatAttrId!=null){#
+                                                                        relatAttrId="#:cfgDyncAttrEntity.relatAttrId#"
+                                                                        data-option-label="请选择"
+                                                                        #}#
+                                                                        #if(cfgDyncAttrEntity.isNullable== 0){#
+                                                                        required
+                                                                        validationMessage="不能为空."
+                                                                        #}else if(cfgDyncAreaAttrEntity.isNullable== 2){#
+                                                                        data-custcheck-msg="不能为空."
+                                                                        #}else{#
+                                                                        data-option-label="请选择"
+                                                                        #}#
+                                                                        data-value-primitive="true"
+                                                                        #if(cfgDyncAttrEntity.dataText){#
+                                                                        data-text-field="#:cfgDyncAttrEntity.dataText#"
+                                                                        #}else{#
+                                                                        data-text-field="codeName"
+                                                                        #}#
+                                                                        #if(cfgDyncAttrEntity.dataValue){#
+                                                                        data-value-field="#:cfgDyncAttrEntity.dataValue#"
+                                                                        #}else{#
+                                                                        data-value-field="codeValue"
+                                                                        #}#
+                                                                        data-bind="enabled: enabledData.AT_#:pageId#_#:areaId#_#:attrId#,source: dropdownData.AT_#:pageId#_#:areaId#_#:attrId#, value: valueData.AT_#:pageId#_#:areaId#_#:attrId#,events: {change: onChange}"></select>
+                                                            #}else if(attrEditType == "timepicker"){#
+                                                                <input needCommit name="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       id="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       datacode="#:attrCode#"
+                                                                       dataid="#:attrId#"
+                                                                       data-role="timepicker"
+                                                                       data-format="yyyy-MM-dd hh:mm:tt"
+                                                                       #if(cfgDyncAreaAttrEntity.isNullable== 0){#
+                                                                       required
+                                                                       validationMessage="不能为空."
+                                                                       #}else if(cfgDyncAreaAttrEntity.isNullable== 2){#
+                                                                       data-custcheck-msg="不能为空."
+                                                                       #}#
+                                                                       data-bind="enabled: enabledData.AT_#:pageId#_#:areaId#_#:attrId#,value: valueData.AT_#:pageId#_#:areaId#_#:attrId#,events: {change: onChange}"/>
+                                                            #}else if(attrEditType == "datepicker"){#
+                                                                <input needCommit name="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       id="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       datacode="#:attrCode#"
+                                                                       dataid="#:attrId#"
+                                                                       data-role="datepicker"
+                                                                       data-format="yyyy-MM-dd"
+                                                                       mypattern="^((?:19|20)[0-9][0-9])-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"
+                                                                       data-regcheck-msg="不是yyyy-MM-dd格式"
+                                                                       #if(cfgDyncAreaAttrEntity.isNullable== 0){#
+                                                                       required
+                                                                       validationMessage="不能为空."
+                                                                       #}else if(cfgDyncAreaAttrEntity.isNullable== 2){#
+                                                                       data-custcheck-msg="不能为空."
+                                                                       #}#
+                                                                       data-bind="enabled: enabledData.AT_#:pageId#_#:areaId#_#:attrId#,value: valueData.AT_#:pageId#_#:areaId#_#:attrId#,events: {change: onChange}"/>
+                                                            #}else if(attrEditType == "aipopup"){#
+                                                                <input needCommit name="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       id="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       datacode="#:attrCode#"
+                                                                       dataid="#:attrId#"
+                                                                       data-role="aipopup"
+                                                                       #if(cfgDyncAreaAttrEntity.isNullable== 0){#
+                                                                       required
+                                                                       validationMessage="不能为空."
+                                                                       #}else if(cfgDyncAreaAttrEntity.isNullable== 2){#
+                                                                       data-custcheck-msg="不能为空."
+                                                                       #}#
+                                                                       data-param="#:cfgDyncAttrEntity.resSrc#|||#:cfgDyncAttrEntity.resParam#"
+                                                                       data-return="#:cfgDyncAttrEntity.dataText#"
+                                                                       data-bind="enabled: enabledData.AT_#:pageId#_#:areaId#_#:attrId#,value: valueData.AT_#:pageId#_#:areaId#_#:attrId#,events: {change: onChange}"/>
+                                                            #}else if(attrEditType == "aibcerinput"){#
+                                                                <input needCommit class="k-textbox" name="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       id="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       datacode="#:attrCode#"
+                                                                       dataid="#:attrId#"
+                                                                       data-role="aibcerinput"
+                                                                       #if(cfgDyncAreaAttrEntity.isNullable== 0){#
+                                                                       required
+                                                                       validationMessage="不能为空."
+                                                                       #}else if(cfgDyncAreaAttrEntity.isNullable== 2){#
+                                                                       data-custcheck-msg="不能为空."
+                                                                       #}#
+                                                                       data-return="#:cfgDyncAttrEntity.dataText#"
+                                                                       data-busicode="#:cfgDyncAttrEntity.resSrc#"
+                                                                       data-bind="enabled: enabledData.AT_#:pageId#_#:areaId#_#:attrId#,value:valueData.AT_#:pageId#_#:areaId#_#:attrId#,events: {change: onChange}"/>
+                                                            #}else if(attrEditType == "numerictextbox"){#
+                                                                <input needCommit name="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       id="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       datacode="#:attrCode#"
+                                                                       dataid="#:attrId#"
+                                                                       data-role="numerictextbox"
+                                                                       #if(cfgDyncAttrEntity.editFormat!=null){#
+                                                                       data-format="#:cfgDyncAttrEntity.editFormat#"
+                                                                       #}#
+                                                                       #if(cfgDyncAttrEntity.minValue!=null){#
+                                                                       data-min="#:cfgDyncAttrEntity.minValue#"
+                                                                       #}#
+                                                                       #if(cfgDyncAttrEntity.maxValue!=null){#
+                                                                       data-max="#:cfgDyncAttrEntity.maxValue#"
+                                                                       #}#
+                                                                       data-decimals="#:cfgDyncAttrEntity.decimals?cfgDyncAttrEntity.decimals:''#"
+                                                                       #if(cfgDyncAreaAttrEntity.isNullable== 0){#
+                                                                       required
+                                                                       validationMessage="不能为空."
+                                                                       #}else if(cfgDyncAreaAttrEntity.isNullable==2){#
+                                                                       data-custcheck-msg="不能为空."
+                                                                       #}#
+                                                                       data-bind="enabled: enabledData.AT_#:pageId#_#:areaId#_#:attrId#,value:valueData.AT_#:pageId#_#:areaId#_#:attrId#,events: {change: onChange}"/>
+                                                            #}else if(attrEditType == "textarea"){#
+                                                                <textarea needCommit class="k-textbox" name="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                          id="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                          datacode="#:attrCode#"
+                                                                          dataid="#:attrId#"
+                                                                          class="k-textbox"
+                                                                          #if(cfgDyncAttrEntity.cfgDyncRuleExpEntity!=null){#
+                                                                          mypattern="#:cfgDyncAttrEntity.cfgDyncRuleExpEntity.expText#"
+                                                                          data-regcheck-msg="#:cfgDyncAttrEntity.cfgDyncRuleExpEntity.remark#"
+                                                                          #}#
+                                                                          #if(cfgDyncAttrEntity.placeHolder!=null){#
+                                                                          placeholder="#:cfgDyncAttrEntity.placeHolder#"
+                                                                          #}#
+                                                                          #if(cfgDyncAreaAttrEntity.isNullable== 0){#
+                                                                          required
+                                                                          validationMessage="不能为空."
+                                                                          #}else if(cfgDyncAreaAttrEntity.isNullable== 2){#
+                                                                          data-custcheck-msg="不能为空."
+                                                                          #}#
+                                                                          data-bind="enabled: enabledData.AT_#:pageId#_#:areaId#_#:attrId#,value: valueData.AT_#:pageId#_#:areaId#_#:attrId#,events: {change: onChange}"></textarea>
+                                                            #}else if(attrEditType == "address"){#
+                                                                <div style="display: inline-block;" needCommit name="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                     id="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                     datacode="#:attrCode#"
+                                                                     dataid="#:attrId#"
+                                                                     data-role="aiaddress"
+                                                                     #if(cfgDyncAreaAttrEntity.isNullable== 0){#
+                                                                     required
+                                                                     validationMessage="不能为空."
+                                                                     #}else if(cfgDyncAreaAttrEntity.isNullable==2){#
+                                                                     data-custcheck-msg="不能为空."
+                                                                     #}#
+                                                                     data-bind="enabled: enabledData.AT_#:pageId#_#:areaId#_#:attrId#,value: valueData.AT_#:pageId#_#:areaId#_#:attrId#,events: {change: onChange}"></div>
+                                                            #}else{#
+                                                                <input needCommit class="k-textbox" name="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       id="AT_#:pageId#_#:areaId#_#:attrId#"
+                                                                       datacode="#:attrCode#"
+                                                                       dataid="#:attrId#"
+                                                                       class="k-textbox"
+                                                                       #if(cfgDyncAttrEntity.cfgDyncRegexpEntity!=null){#
+                                                                       mypattern="#:cfgDyncAttrEntity.cfgDyncRegexpEntity.expText#" data-regcheck-msg="#:cfgDyncAttrEntity.cfgDyncRegexpEntity.remark#"
+                                                                       #}#
+                                                                       #if(cfgDyncAttrEntity.placeHolder!=null){#
+                                                                       placeholder="#:cfgDyncAttrEntity.placeHolder#"
+                                                                       #}#
+                                                                       #if(cfgDyncAreaAttrEntity.isNullable== 0){#
+                                                                       required
+                                                                       validationMessage="不能为空."
+                                                                       #}else if(cfgDyncAreaAttrEntity.isNullable== 2){#
+                                                                       data-custcheck-msg="不能为空."
+                                                                       #}#
+                                                                       data-bind="enabled: enabledData.AT_#:pageId#_#:areaId#_#:attrId#,value: valueData.AT_#:pageId#_#:areaId#_#:attrId#,events: {change: onChange}"/>
+                                                            #}#
+                                                            #if(cfgDyncAreaAttrEntity.isNullable != 1){# <span style="color:red; font-weight: bold;">*</span> #}#
+                                                            #if(cfgDyncAttrEntity.iconClass!=null){# <i class="#:cfgDyncAttrEntity.iconClass#"></i> #}#
+                                                            <span class="k-invalid-msg" data-for="AT_#:pageId#_#:areaId#_#:attrId#"></span>
+                                                        </span>
+                                                    </div>
+                                                #}#
+                                            #}#
+                                        </div>
+                                    </div>
+                                <!--areaType=2table类型-->
+                                #}else if(cfgDyncAreaEntity.areaType == 'table'){#
+                                    <table class="aiui-datagrid area-content grid-type" id="#:cfgDyncAreaEntity.areaId#" height="400"
+                                           schemaData="retInfo.list"
+                                           schemaTotal="retInfo.count" sortable="true"
+                                           rownumbers="true" checkbox="true"
+                                           autoBind="false" pageSize="4"
+                                           srvId="#:cfgDyncAreaEntity.initSrvId==null?'':cfgDyncAreaEntity.initSrvId#" selectable ="multiple,row"
+                                           data-options="" >
+                                        <thead>
+                                            <tr>
+                                                #var cfgDyncAreaAttrEntities = cfgDyncAreaEntity.cfgDyncAreaAttrEntities;#
+                                                #for(var k=0;k<cfgDyncAreaAttrEntities.length;k++){#
+                                                    #var cfgDyncAreaAttrEntity = cfgDyncAreaAttrEntities[k];#
+                                                    #var cfgDyncAttrEntity = cfgDyncAreaAttrEntity.cfgDyncAttrEntity;#
+                                                    <th field="#:cfgDyncAttrEntity.attrCode#" width="140" hidden="#:cfgDyncAreaAttrEntity.isVisible==1?false:true#">#:cfgDyncAttrEntity.attrName#</th>
+                                                #}#
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                #}#
+                            #}#
+                        </div>
+                    <!--页面的按钮组弄进来-->
+                    #var cfgDyncPageButtons = cfgDyncPageEntity.cfgDyncButtonEntities;#
+                    #if(cfgDyncPageButtons!=null&&cfgDyncPageButtons.length>0){#
+                        <div class="box-content btn-group text-right clearfix col-md-12">
+                            #if(cfgDyncPageButtons!=null&&cfgDyncPageButtons.length>0){#
+                                #for(var b=0;b<cfgDyncPageButtons.length;b++){#
+                                    #var cfgDyncButtonEntity = cfgDyncPageButtons[b];#
+                                    <button class="k-button button btn-white" id="btn_#:cfgDyncButtonEntity.buttonId#"
+                                            onClick="#:cfgDyncButtonEntity.clickFunc#()">#:cfgDyncButtonEntity.buttonText#</button>
+                                #}#
+                            #}#
+                        </div>
+                    #}#
+                    #}else if(cfgDyncPageEntity.pageType==2){#
+                        <div class="box-header">
+                            <h4>#:cfgDyncFramePageEntity.pageTitle#</h4>
+                        </div>
+                        <div class="box-content clearfix">
+                            <iframe id="iframePage_#:cfgDyncPageEntity.pageId#" scrolling="no" frameborder="0" src="" width=100% marginheight="0" marginwidth="0"
+                                    height="100%"
+                                    hidesrc="#:cfgDyncPageEntity.pageUrl#?pageId=#:cfgDyncFramePageEntity.pageId#&pageCode=#:cfgDyncFramePageEntity.pageCode#"></iframe>
+                        </div>
+                    #}else if(cfgDyncPageEntity.pageType==3){#
+                        <div class="box-header">
+                            <h4>#:cfgDyncFramePageEntity.pageTitle#</h4>
+                        </div>
+                        <div class="box-content clearfix" id="nativePage_#:cfgDyncPageEntity.pageId#">
+                        </div>
+                    #}#
+                </div>
+            </div>
+        #}#
+    </div>
+    <!--按钮组-->
+    <div class="box-inside" style="margin-top: 5px; margin-bottom: 0px;">
+        <div class="box-content text-right clearfix" style="padding-top: 10px; padding-bottom: 10px;">
+            <!--向导类型的模版自带上一步，下一步按钮-->
+            <button class="k-button button btn-white preBtn" id="preBtn">上一步</button>
+            <button class="k-button button btn-white nextBtn" id="nextBtn">下一步</button>
+            #if(cfgDyncButtonEntities!=null&&cfgDyncButtonEntities.length>0){#
+                #for(var b=0;b<cfgDyncButtonEntities.length;b++){#
+                    #var cfgDyncButtonEntity = cfgDyncButtonEntities[b];#
+                    <button class="k-button button btn-white" id="btn_#:cfgDyncButtonEntity.buttonId#"
+                            onClick="#:cfgDyncButtonEntity.clickFunc#()">#:cfgDyncButtonEntity.buttonText#</button>
+                #}#
+            #}#
+        </div>
+    </div>
+    <!--引入按钮文件-->
+    #if(cfgDyncButtonEntities!=null&&cfgDyncButtonEntities.length>0){#
+        #for(var r=0;r < cfgDyncButtonEntities.length; r++){#
+            #var cfgDyncButtonEntity = cfgDyncButtonEntities[r];#
+            <script src="#:cfgDyncButtonEntity.fileName#" type="text/javascript" />
+        #}#
+    #}#
+    <!--引入规则文件-->
+    #if(cfgDyncRuleEntities!=null&&cfgDyncRuleEntities.length>0){#
+        #for(var r=0;r<cfgDyncRuleEntities.length;r++){#
+            #var cfgDyncRuleEntity = cfgDyncRuleEntities[r];#
+            <script src="#:cfgDyncRuleEntity.fileName#" type="text/javascript" />
+        #}#
+    #}#
+</script>
+
+<script src="/js/general/common/dync/page/dyncPageClass.js"></script>
+<script src="/js/general/common/dync/page/wizardPageFrame.js"></script>
+
+</body>
+</html>

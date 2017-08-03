@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>流程配置列表</title>
+    <script type="text/javascript" src="../../../../js/common/header.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-inside">
+                <div class="box-header">
+                     <h4>查询条件</h4>
+                </div>
+                <div class="box-content clearfix">
+                    <div class="box-query clearfix">
+                        <ul>
+                            <li class="col-md-12">
+                                <span class="col-md-2 text-left">省份</span>
+                                <span class="col-md-10">
+                                    <select id="province" class="aiui-tilecombobox" type="static" codeType="PROVINCE" hasAll="false"  defaultValue="20000311" multFlag=false hasMore=true></select>
+                                </span>
+                            </li>
+                            <li class="col-md-12">
+                                <span class="col-md-2 text-left">地市</span>
+                                <span class="col-md-10">
+                                    <select id="city" class="aiui-tilecombobox" type="static" codeType="CITY" parentCodeField="province" hasAll="true"  defaultValue="30000317" multFlag=true hasMore=true></select>
+                                </span>
+                            </li>
+                            <li class="col-md-12">
+                                <span class="col-md-2 text-left">省份2</span>
+                                <span class="col-md-10 ">
+                                  <select id="province2" class="aiui-combobox" type="static" codeType="PROVINCE" hasAll="false"  defaultValue="30000350" multFlag=false hasMore=true></select>
+                                </span>
+                            </li>
+                            <li class="col-md-12">
+                                <span class="col-md-2 text-left">地市2</span>
+                                <span class="col-md-10">
+                                    <select id="city2" class="aiui-combobox" type="static" parentCodeField="province2" codeType="CITY" hasAll="false"  multFlag=true hasMore=true></select>
+                                </span>
+                            </li>
+                            <li class="col-md-12">
+                                <span class="col-md-2 text-left">创建时间</span>
+                                <span class="col-md-10 ">
+                                   <span class="col-md-3">
+                                    <input class="aiui-datebox" id="sDate" type="date" format="yyyy-MM-dd"/>
+                                </span>
+                               <span class="col-md-1 text-center line-span"><hr></span>
+                               <span class="col-md-3">
+                                    <input class="aiui-datebox" id="sDate2" type="date" format="yyyy-MM-dd"/>
+                                </span>
+                               </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-11 padding-top-15">
+                       <span class="col-md-3 text-left">
+                           <input class="k-textbox" type="text" placeholder="集团编号/集团名称"/>
+                       </span>
+                        <span class="col-md-1">&nbsp;</span>
+                        <span class="col-md-8 text-left">
+                            <button class="k-button k-primary"  onclick="f1();" id="queryAppliButton">获取省份值</button>
+                            <button class="k-button k-primary" onclick="f2()">&nbsp;&nbsp;获取省份2值&nbsp;&nbsp;</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="box-inside" id="appliArea">
+                    <div class="box-header box-white box-border-bottom">
+                        <h4>流程列表</h4>
+                    </div>
+                    <div class="box-content">
+                        <table class="aiui-datagrid" id="taskGrid" height="400"
+                               sortable="true" pageable="true"
+                               rownumbers="false" checkbox="false"
+                               autoBind="false" pageSize="10">
+                            <thead>
+                            <tr>
+                                <th field="businessId" width="140">编号</th>
+                                <th field="businessType" width="140">类型</th>
+                                <th field="district" width="140">区域名称</th>
+                                <th field="processName" width="140">流程名称</th>
+                                <th field="taskName" width="130">任务名称</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    function f1(){
+        var retVal = $("#province").tilecombobox().value();
+        if(retVal!=null && retVal.length>0){
+            for(var i=0;i<retVal.length;i++){
+                alert(retVal[i]);
+            }
+        }
+    }
+
+    function f2(){
+        var retVal = $("#province2").combobox().value();
+        alert(retVal);
+    }
+</script>
+</html>

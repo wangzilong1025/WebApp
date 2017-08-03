@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>反馈信息</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+
+
+
+    </div>
+
+    <div class="box-inside">
+        <div class="box-content clearfix">
+            <input type="hidden" disabled="disabled" id="warnTypeId"/>
+            <table class="aiui-datagrid" id="resultGrid" height="420" width="1000"
+                   selectable="multiple,row"
+                   schemaData="data.data"
+                   schemaTotal="data.count"
+                   srvId="IWANDEALRULEFSV_GETWARNDEALRULE"
+                   data-options="pageSize:10,beforeLoad: warnDealRuleModule.getParams"
+                   autoBind="true"
+            >
+                <thead>
+                <tr>
+                    <th field="warnDealRuleInfoId" width="130">告警处理规则编号</th>
+                    <th field="warnTypeId" width="130">告警类型编号</th>
+                    <!--<th field="warnDealRuleType" width="130">规则类型</th>-->
+                    <th field="warnDealRuleName" width="130" >规则名称</th>
+                    <!--<th field="warnDealRuleObject" width="130" >规则对象</th>-->
+                    <!--<th field="warnDealRuleParam" width="130">规则参数</th>-->
+                    <!--<th field="warnDealDetailObject" width="130">规则扩展对象</th>-->
+                    <!--<th field="warnDealDetailParam" width="130" >扩展对象参数</th>-->
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+    </div>
+    <div class="col-md-4" align="center">&nbsp;</div>
+    <div class="col-md-4" align="center">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="k-button k-primary" id="addButton">添加</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="k-button k-primary" id="updateButton">修改</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="k-button k-primary" id="delButton">删除</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+    <div class="col-md-4" align="center">&nbsp;</div>
+
+</div>
+</body>
+<script type="text/javascript" src="/js/general/routine/warn/warnDealRule.js"></script>
+</html>

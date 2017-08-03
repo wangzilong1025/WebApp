@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>notification</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+</head>
+<body>
+<div style="height: 300px;">
+    <input type="text" class="k-textbox">
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <button class="k-button k-primary" type="button" onclick="notification(1);">success 1</button>
+    </div>
+    <div class="col-md-6">
+        <button class="k-button k-primary" type="button" onclick="notification(10);">success 0</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <button class="k-button k-primary" type="button" onclick="notification(2);">info 1</button>
+    </div>
+    <div class="col-md-6">
+        <button class="k-button k-primary" type="button" onclick="notification(20);">info 0</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <button class="k-button k-primary" type="button" onclick="notification(3);">warning 1</button>
+    </div>
+    <div class="col-md-6">
+        <button class="k-button k-primary" type="button" onclick="notification(30);">warning 0</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <button class="k-button k-primary" type="button" onclick="notification(4);">error 1</button>
+    </div>
+    <div class="col-md-6">
+        <button class="k-button k-primary" type="button" onclick="notification(40);">error 0</button>
+    </div>
+</div>
+<div class="row">
+    <button class="k-button k-primary" type="button" onclick="notification(5);">confirm 1</button>
+</div>
+
+<div style="height: 1000px;">
+
+</div>
+</body>
+<script type="text/javascript">
+    function notification(kind) {
+        switch (kind) {
+            case 1:
+                aiui.notification(1, "恭喜", "这是成功信息！", "success", function (flag) {
+                    alert(flag);
+                });
+                break;
+            case 2:
+                aiui.notification(1, "提示", "这是提示信息！", "info", function (flag) {
+                    alert(flag);
+                });
+                break;
+            case 3:
+                aiui.notification(1, "警告", "这是警告信息！", "warning", function (flag) {
+                    alert(flag);
+                });
+                break;
+            case 4:
+                aiui.notification(1, "错误", "这是错误信息！", "error", function (flag) {
+                    alert(flag);
+                });
+                break;
+            case 5:
+                aiui.notification(1, "确认", "这是确认信息！", "confirm", function (flag) {
+                    alert(flag);
+                });
+                break;
+
+
+            case 10:
+                aiui.notification(0, "恭喜", "这是成功信息！", "success");
+                break;
+            case 20:
+                aiui.notification(0, "提示", "这是提示信息！", "info");
+                break;
+            case 30:
+                aiui.notification(0, "警告", "这是警告信息！", "warning");
+                break;
+            case 40:
+                aiui.notification(0, "错误", "这是错误信息！", "error");
+                break;
+        }
+
+    }
+</script>
+</html>

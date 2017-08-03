@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>消息提醒信息</title>
+    <script type="text/javascript" src="../../../../js/common/header.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-inside">
+                <div class="box-content clearfix">
+                    <ul class="pui-list pui-list-view pui-list-view-radius pui-list-view-small pui-list-view-angle-right" id="mess-info">
+                        <script type="text/x-kendo-template" id="mess-info-temp">
+                            #if(data && data.length>0){#
+                                #for(var i=0; i< data.length; i++){#
+                                    <li style="display:block">
+                                        <a href="javascript:void(0);" onclick="showMessInfo(this);" class="no-angle-right">
+                                            #if(data[i].msgIcon==null || data[i].msgIcon==""){#
+                                                <i class="fa fa-envelope-o pui-text-blue-400"></i>
+                                            #}else{#
+                                                <i class="fa #:data[i].msgIcon#"></i>
+                                            #}#
+                                            <summary>
+                                                <strong>#:data[i].msgName#</strong>
+                                            </summary>
+                                            <lable class="pui-badge pui-badge-error pui-circle pui-badge-right" id="msg_#:data[i].msgId#_count" msgCount="#:data[i].msgCount#">#:data[i].msgCount#</lable>
+                                        </a>
+                                        <span style="display:none">
+                                            <ul class="pui-list pui-list-view pui-list-view-radius" style="padding-left:20px;">
+                                                #if(data[i].msgInfo && data[i].msgInfo.length>0){#
+                                                    #for(var j=0; j< data[i].msgInfo.length; j++){#
+                                                         <li>
+                                                            <a href="javascript:void(0)" isRead="false" msgInfoId="#:data[i].msgInfo[j].msgInfoId#" msgId="#:data[i].msgId#" onclick="readMsg(this)">
+                                                                <summary>
+                                                                    <h6>#:data[i].msgInfo[j].sendDate#<small id="msg_#:data[i].msgInfo[j].msgInfoId#_small"></small></h6>
+                                                                    <span class="font-bold msgInfo" id="msg_#:data[i].msgInfo[j].msgInfoId#_span"></span>
+                                                                </summary>
+                                                            </a>
+                                                        </li>
+                                                    #}#
+                                                #}#
+                                            </ul>
+                                        </span>
+                                    </li>
+                                #}#
+                            #}#
+                        </script>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../../../js/general/common/mess/webMessInfoList.js"></script>
+</body>
+</html>

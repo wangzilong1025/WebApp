@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="/js/common/header.js"></script>
+    <title>工作日志</title>
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header">
+            <h6>查询条件</h6>
+        </div>
+        <div class="box-content clearfix">
+            <ul>
+                <li class="col-md-4">
+                    <span class="col-md-4 span-lineHeight40 text-right clearfix">日志来源：</span>
+                    <span class="col-md-8">
+                        <select id="LOG_ORIGIN" class="aiui-combobox" type="static"  codeType="200018"
+                            dataTextField="codeName"
+                            dataValueField="codeValue">
+                        </select>
+                    </span>
+                </li>
+                <li class="col-md-4">
+                    <span class="col-md-4 span-lineHeight40 text-right clearfix">客户经理：</span>
+                    <span class="col-md-8">
+                         <input id="OP_ID" class="k-textbox">
+                    </span>
+                </li>
+
+                <li class="col-md-4">
+                    <span class="col-md-4 span-lineHeight40 text-right clearfix">生效时间：</span>
+                    <span class="col-md-8">
+                        <input id="VALID_DATE" class="aiui-datebox" type="date" format="yyyy-MM-dd"/>
+                    </span>
+                </li>
+                <li class="col-md-4">
+                    <span class="col-md-4 span-lineHeight40 text-right clearfix">失效时间：</span>
+                    <span class="col-md-8">
+                        <input id="EXPIRE_DATE" class="aiui-datebox" type="date" format="yyyy-MM-dd"/>
+                    </span>
+                </li>
+                <li class="col-md-6 text-right">
+                    <button class="k-button k-primary" id="QUERY" type="button">查询</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="box-inside">
+        <div class="box-header">
+            <h6>查询结果</h6>
+        </div>
+        <div class="box-content clearfix">
+            <table class="aiui-datagrid" id="resultGrid" height="300"
+                   schemaData="data.data"
+                   schemaTotal="data.count"
+                   sortable="true"
+                   srvId="IESWORKLOGFSV_QUERYESWORKLOGINFO"
+                   rownumbers="true" checkbox="false"
+                   autoBind="true"
+                   selectable="multiple,row"
+                   pageable="true"
+                   pageSize="10"
+                   data-options="beforeLoad: EsWorkLog.getParams">
+                <thead>
+                <tr>
+                    <th field="logTitle" width="100">日志标题</th>
+                    <th field="logOrigin" width="80" data-options="template: function (dataItem) {
+                        if (dataItem.logOrigin == 1) {
+                            return '工作任务'
+                        } else if (dataItem.logOrigin == 2) {
+                            return '告警处理'
+                        } else if (dataItem.logOrigin == 3) {
+                            return '业务受理'
+                        } else if (dataItem.logOrigin == 4) {
+                            return '客户服务'
+                        } else if (dataItem.logOrigin == 98) {
+                            return '手机端日志'
+                        } else if (dataItem.logOrigin == 99) {
+                            return '其他'
+                        }
+                    }">日志来源</th>
+                    <th field="workDesc" width="600">工作描述</th>
+                    <th field="custTouchFlag" width="80" data-options="template: function (dataItem) {
+                        if (dataItem.custTouchFlag == 1) {
+                            return '是'
+                        } else if (dataItem.custTouchFlag == 0) {
+                            return '否';
+                        }
+                    }">是否接触</th>
+                    <th field="createDate">创建时间</th>
+                    <th field="validDate">生效时间</th>
+                    <th field="expireDate">失效时间</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="row clearfix">
+            <div id="button" class="box-content clearfix text-center">
+                <button class="k-button k-primary" id="add" type="button">新增日志</button>
+                <button class="k-button k-primary" id="queryById" type="button">查看日志</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../../../js/general/routine/worklog/esWorkLogInfo.js"></script>
+</body>
+</html>

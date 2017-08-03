@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>告警明细</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-content clearfix">
+            <div class="row">
+
+                <div id="warnShow"></div>
+                <script id="warnDtlPortlet" type="text/x-kendo-template">
+                    #var detailData = data.detailData;#
+                    #var dealData = data.dealData;#
+                    #var state = data.state;#
+                    # if (detailData != '' &&  detailData.length > 0) { #
+                        <div class='box-header'><h6>告警详情</h6></div>
+                        <div class='box-content clearfix'>
+                            <div class='row'>
+                                # for (var i = 0; i < detailData.length; i++) { #
+                                <div class='col-md-4'>
+                                    <span class='col-md-4 span-lineHeight40 text-right'>#: detailData[i].ext1 # ：</span>
+                                    <span class='col-md-8 span-lineHeight40 text-left'>#: detailData[i].columnValue #</span>
+                                </div>
+                                # } #
+                            </div>
+                        </div>
+                    # }#
+
+
+                    # if (dealData.length > 0) { #
+                    <div class='box-header'><h6>告警反馈</h6></div>
+                    <div class='box-content clearfix'>
+                        <div class='row'>
+                            <form class='aiui-form'  id='warnDealDetailForm' >
+                                #if(state == 1){#
+                                    #for (var i = 0; i < dealData.length; i++) {#
+                                        #var ext1="已阅读";#
+                                        #if(dealData[i].ext1 !=null){#
+                                            #ext1 = dealData[i].ext1;#
+                                        #}#
+                                <div class='col-md-4'><span class='col-md-4 span-lineHeight40 text-right'>#:dealData[i].warnDealRuleName# ：</span>
+                                    <span class='col-md-8 span-lineHeight40 text-left'><input id='warnTmpId_#:dealData[i].warnDealRuleInfoId #' class='k-textbox' value='#: ext1 #'></span></div>
+                                        #}#
+                                #}else{#
+                                    #for (var i = 0; i < dealData.length; i++) {#
+                                        #var ext1="";#
+                                        #if(dealData[i].ext1 !=null){#
+                                            #ext1 = dealData[i].ext1;#
+                                        #}#
+                                    <div class='col-md-4'><span class='col-md-4 span-lineHeight40 text-right'>#: dealData[i].warnDealRuleName # ：</span>
+                                        <span class='col-md-8 span-lineHeight40 text-left'>#: ext1 #</span></div>
+                                    #}#
+                                #}#
+
+                            </form>
+                        </div>
+                    </div>
+                    # }#
+
+                    <div class='row'>
+                        <div class='col-md-5' align='center'>&nbsp;</div>
+                        <div class='col-md-2'>
+                            <button class='k-button k-primary' id='okButton'>#if(state == 1){# 确定处理 #}else{# 关闭 #}#</button>
+                        </div>
+                        <div class='col-md-5' align='center'>&nbsp;</div>
+                    </div>
+
+                </script>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+<script type="text/javascript" src="/js/general/routine/warn/warnGroupDtl.js"></script>
+</html>

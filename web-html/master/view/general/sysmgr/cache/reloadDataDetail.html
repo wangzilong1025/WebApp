@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="/js/common/header.js"></script>
+    <title>缓存明细</title>
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header">
+            <h6><span id="cacheName"></span>缓存数据</h6>
+        </div>
+        <div class="box-content clearfix">
+            <div class="col-md-6">
+                <div class="col-md-6">
+                    <label for="key">关键字</label>
+                    <input type="text" class="k-textbox" id="key">
+                </div>
+                <div class="col-md-2">
+                    <button class="k-button k-primary" id="queryButton2" type="button">查询</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-inside clearfix">
+        <div class="box-content">
+            <div id="detailData"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="box-inside">
+        <div class="box-content">
+            <button type="button" class="k-button k-primary" id="return">返回到重载界面</button>
+        </div>
+    </div>
+</div>
+<span id="popupNotification"></span>
+</body>
+<script type="text/javascript" src="/js/general/sysmgr/cache/cacheDetail.js"></script>
+</html>

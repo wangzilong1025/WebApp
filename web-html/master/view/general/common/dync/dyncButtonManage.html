@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/resources/frame/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="/resources/frame/codemirror/theme/eclipse.css">
+    <script src="/js/common/header.js"></script>
+    <script type="text/javascript" src="/resources/frame/codemirror/lib/codemirror.js"></script>
+    <script type="text/javascript" src="/resources/frame/codemirror/mode/javascript/javascript.js"></script>
+    <title>动态表单按钮配置</title>
+    <style>
+        .CodeMirror pre {
+            font-size: 12px;
+            font-family: Courier New;
+        }
+
+        .width-80{
+            width: 80px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<div class="row">
+    <div id="splitter">
+        <div>
+            <div id="buttonListToolbar"></div>
+            <div id="buttonListView"></div>
+        </div>
+        <div>
+            <div id="editView" style="display: none">
+                <input type="hidden" id="buttonId">
+                <div class="box-inside">
+                    <div class="box-header">
+                        <h4 id="editViewHeader"></h4>
+                    </div>
+                    <div class="box-content clearfix">
+                        <div class="row span-lineHeight30">
+                            <div class="col-md-12">
+                                <label class="width-80">按钮名称：</label>
+                                <input id="buttonText" class="k-textbox" placeholder="请输入按钮名称" required
+                                       validationMessage="请输入数据"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="width-80">描述：</label>
+                                <textarea id="remark" style="width: 300px; height: 50px; resize: both;"
+                                          class="k-textbox" required validationMessage="请输入数据"
+                                          placeholder="请输入描述"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row span-lineHeight30">
+                            <div class="col-md-12">
+                                <label class="width-80">文件类型：</label>
+                                <input id="fileType" required validationMessage="请选择类型"
+                                       placeholder="请选择文件类型"/>
+                            </div>
+                        </div>
+
+
+                        <div class="row span-lineHeight30">
+                            <div class="col-md-12">
+                                <label class="width-80">方法名称：</label>
+                                <input id="clickFunc" class="k-textbox" placeholder="请输入方法名称" required
+                                       validationMessage="请输入数据" style="width: 300px;"/>
+                            </div>
+                        </div>
+
+                        <div class="row span-lineHeight30" id="file_type_1_div">
+                            <div class="col-md-12">
+                                <label class="width-80">文件路径：</label>
+                                <input id="fileName" class="k-textbox" placeholder="请输入方法文件路径" style="width: 400px;"/>
+                            </div>
+                        </div>
+
+                        <div class="row" id="file_type_2_div">
+                            <div class="col-md-12">
+                                <label class="width-80">方法内容：</label>
+                                <div style="background: #eee; padding-left: 30px;">
+                                    <button type="button" id="undoButton" style="background: #eee;"></button>
+                                    <button type="button" id="redoButton" style="background: #eee;"></button>
+                                    <button type="button" id="indentButton" style="background: #eee;"></button>
+                                </div>
+                                <textarea id="code"></textarea>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <button type="button" class="k-button k-primary" id="commitButton">确定</button>
+                            <button type="button" class="k-button" id="cancelButton">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/general/common/dync/dyncButtonManage.js"></script>
+</body>
+</html>

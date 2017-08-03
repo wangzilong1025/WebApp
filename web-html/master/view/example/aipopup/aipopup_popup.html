@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI-POPUP-popup</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script type="text/javascript" src="/js/common/header.js"></script>
+</head>
+<body>
+<div class="row" id="example">
+    <div class="box-inside">
+        <div class="box-header box-white">
+            <h4>弹窗页</h4>
+        </div>
+        <div class="box-content clearfix">
+            <div class="row">
+                <div class="col-md-4 text-right">回传值</div>
+                <div class="col-md-8">
+                    <input id="textInput" name="textInput" class="k-textbox" value="abcd"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right">&nbsp;</div>
+                <div class="col-md-8">
+                    <button class="k-button k-primary" onclick="submit()" type="button">确定</button>
+                    <button class="k-button k-default" onclick="cancel()" type="button">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function submit() {
+        //显示的方式回传值
+        parent.aipopup.close(this, $("#textInput").val());
+    }
+    function cancel() {
+        parent.aipopup.close(this);
+    }
+</script>
+</body>
+</html>

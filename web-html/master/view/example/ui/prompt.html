@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>prompt</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+</head>
+<body>
+<div style="height: 1100px;">
+
+</div>
+<div class="row">
+    <button class="k-button k-primary" type="button" onclick="prompt();">prompt</button>
+</div>
+<div style="height: 1000px;">
+
+</div>
+</body>
+<script type="text/javascript">
+    function prompt(){
+        aiui.prompt("提示", "请填写你要删除的订单：", function(value){
+            alert(value);
+        },"这是默认值")
+    }
+</script>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>字段信息</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+
+
+
+    </div>
+
+    <div class="box-inside">
+        <div class="box-content clearfix">
+            <input type="hidden" disabled="disabled" id="warnTypeId"/>
+            <table class="aiui-datagrid" id="resultGrid" height="300" width="1000"
+                   selectable="multiple,row"
+                   schemaData="data.data"
+                   schemaTotal="data.count"
+                   srvId="IWARNCOLUMNDEFINEFSV_GETWARNCOLUMNDEFINE"
+                   data-options="pageSize:10,beforeLoad: warnColumnModule.getParams"
+                   autoBind="true"
+            >
+                <thead>
+                <tr>
+                    <th field="warnColumnId" width="130">告警字段编号</th>
+                    <th field="warnTypeId" width="130">告警类型编号</th>
+                    <th field="warnColumnName" width="130">告警字段名称</th>
+                    <!--<th field="warnColumnAlias" width="130" >告警字段英文名</th>-->
+                    <!--<th field="warnColumnType" width="130" >告警字段类型</th>-->
+                    <th field="warnColumnCode" width="130">告警字段编码</th>
+                    <!--<th field="warnColumnLen" width="130">告警字段长度</th>-->
+                    <th field="sortId" width="130" >排列顺序</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="col-md-4" align="center">&nbsp;</div>
+    <div class="col-md-4" align="center">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="k-button k-primary" id="addButton">添加</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="k-button k-primary" id="updateButton">修改</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="k-button k-primary" id="delButton">删除</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+    <div class="col-md-4" align="center">&nbsp;</div>
+
+
+</div>
+</body>
+<script type="text/javascript" src="/js/general/routine/warn/warnColumnDefine.js"></script>
+</html>

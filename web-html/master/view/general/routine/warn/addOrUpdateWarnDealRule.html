@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>添加修改告警处理规则</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+
+
+
+
+        <div class="box-content clearfix" id="sh">
+            <form class="aiui-form"  id="warnDealRuleForm" >
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="col-md-4 span-lineHeight40 text-right">告警处理规则编号：</span>
+                        <span class="col-md-8">
+                            <input id="warnDealRuleInfoId" class="k-textbox" disabled="disabled">
+                        </span>
+                    </div>
+
+                    <div class="col-md-12">
+                        <span class="col-md-4 span-lineHeight40 text-right">告警类型编号：</span>
+                        <span class="col-md-8">
+                            <input id="warnTypeId" class="k-textbox" disabled="disabled">
+                        </span>
+                    </div>
+
+                    <!--<div class="col-md-12">-->
+                        <!--<span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;规则类型：</span>-->
+                        <!--<span class="col-md-8">-->
+                            <!--<select class="aiui-combobox" id="warnDealRuleType"-->
+                                    <!--type="static"-->
+                                    <!--dataTextField="codeName"-->
+                                    <!--dataValueField="codeValue"-->
+                                    <!--autoBind="false"-->
+                                    <!--data-options="beforeLoad:getStaticParams">-->
+                            <!--</select>-->
+                        <!--</span>-->
+                    <!--</div>-->
+
+                    <div class="col-md-12">
+                        <span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;规则名称：</span>
+                        <span class="col-md-8">
+                            <input id="warnDealRuleName" class="k-textbox">
+                        </span>
+                    </div>
+
+                    <!--<div class="col-md-12">-->
+                        <!--<span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;规则对象：</span>-->
+                        <!--<span class="col-md-8">-->
+                            <!--<select class="aiui-combobox" id="warnDealRuleObject"-->
+                                    <!--type="static"-->
+                                    <!--dataTextField="codeName"-->
+                                    <!--dataValueField="codeValue"-->
+                                    <!--autoBind="false"-->
+                                    <!--data-options="beforeLoad:getRuleObject">-->
+                            <!--</select>-->
+                        <!--</span>-->
+                    <!--</div>-->
+
+                    <!--<div class="col-md-12">-->
+                        <!--<span class="col-md-4 span-lineHeight40 text-right"><font color="red">*</font>&nbsp;规则对象参数：</span>-->
+                        <!--<span class="col-md-8">-->
+                            <!--<input id="warnDealRuleParam" class="k-textbox">-->
+                        <!--</span>-->
+                    <!--</div>-->
+
+                    <!--<div class="col-md-12">-->
+                        <!--<span class="col-md-4 span-lineHeight40 text-right">规则扩展对象：</span>-->
+                        <!--<span class="col-md-8">-->
+                            <!--<select class="aiui-combobox" id="warnDealDetailObject"-->
+                                    <!--type="static"-->
+                                    <!--dataTextField="codeName"-->
+                                    <!--dataValueField="codeValue"-->
+                                    <!--autoBind="false"-->
+                                    <!--data-options="beforeLoad:getDetailObject">-->
+                            <!--</select>-->
+                        <!--</span>-->
+                    <!--</div>-->
+
+                    <!--<div class="col-md-12">-->
+                        <!--<span class="col-md-4 span-lineHeight40 text-right">规则扩展对象参数：</span>-->
+                        <!--<span class="col-md-8">-->
+                            <!--<input id="warnDealDetailParam" class="k-textbox">-->
+                        <!--</span>-->
+                    <!--</div>-->
+
+
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-md-5" align="center">&nbsp;</div>
+                <div class="col-md-2">
+                    <button class="k-button k-primary" id="addButton">保存</button>
+                </div>
+                <div class="col-md-5" align="center">&nbsp;</div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+<script type="text/javascript" src="/js/general/routine/warn/addOrUpdateWarnDealRule.js"></script>
+</html>

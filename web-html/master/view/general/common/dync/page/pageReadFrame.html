@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>tabPage</title>
+    <script type="text/javascript" src="/js/common/header.js"></script>
+    <style type="text/css">
+        label{
+            display: inline-block;
+            width: 120px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<div class="row" id="pageRead"></div>
+<script type="text/x-kendo-template" id="pageReadTemplate">
+    <div class="box-inside" style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;color: indianred;outline: none;width: 100%;height: auto;">
+    #var cfgDyncFramePageEntities = dyncData[0].cfgDyncFramePageEntities;#
+    #var cfgDyncButtonEntities = dyncData[0].cfgDyncButtonEntities;#
+    #var cfgDyncRuleEntities = dyncData[0].cfgDyncRuleEntities;#
+    #for(var i=0 ; i < cfgDyncFramePageEntities.length ; i++){#
+        #var cfgDyncFramePageEntity = cfgDyncFramePageEntities[i];#
+        #var cfgDyncPageEntity = cfgDyncFramePageEntity.cfgDyncPageEntities[0];#
+        <p style="font-weight: bold;font-size:14px;text-align:left;width:100%;margin:0;padding:0;line-height:28px">#:cfgDyncFramePageEntity.pageTitle#</p>
+        <table style="width:100%;">
+            #var cfgDyncPageAreaEntities = cfgDyncPageEntity.cfgDyncPageAreaEntities;#
+            #for(var j=0 ; j < cfgDyncPageAreaEntities.length ; j++){#
+                #var cfgDyncPageAreaEntity = cfgDyncPageAreaEntities[j];#
+                #var cfgDyncAreaEntity = cfgDyncPageAreaEntity.cfgDyncAreaEntities[0];#
+                <tr>
+                    <td style="border-style:solid;border-color:palevioletred;border-width:1px;width:100%;padding-left:10px;padding-right:5px;border-top:block;">
+                    <p style="margin:0;padding:0;line-height:28px;width:100%;font-weight: bold;">#:cfgDyncAreaEntity.areaName#</p>
+                    <table style="width:100%;">
+                    #var cfgDyncAreaAttrEntities = cfgDyncAreaEntity.cfgDyncAreaAttrEntities;#
+                    #for(var k=0;k < cfgDyncAreaAttrEntities.length;){#
+                        <tr class="span-lineHeight30">
+                            #var cfgDyncAreaAttrEntity1 = cfgDyncAreaAttrEntities[k];#
+                            #var cfgDyncAttrEntity1 = cfgDyncAreaAttrEntity1.cfgDyncAttrEntities[0];#
+                            <td style="width:50%">
+                                <p style="margin:0;padding:0;line-height:18px;padding-left:25px;">
+                                    #if(cfgDyncAttrEntity1){#
+                                        #:cfgDyncAttrEntity1.attrName# ：
+                                    #}#
+                                </p>
+                            </td>
+                            #k++;#
+                            #if(k < cfgDyncAreaAttrEntities.length){#
+                                #var cfgDyncAreaAttrEntity2 = cfgDyncAreaAttrEntities[k];#
+                                #var cfgDyncAttrEntity2 = cfgDyncAreaAttrEntity2.cfgDyncAttrEntities[0];#
+                                <td td style="width:50%">
+                                    <p style="margin:0;padding:0;line-height:18px;padding-left:15px;">
+                                        #if(cfgDyncAttrEntity2){#
+                                            #:cfgDyncAttrEntity2.attrName# ：
+                                        #}#
+                                    </p>
+                                </td>
+                            #}else{#
+                                #break;#
+                            #}#
+                            #k++;#
+                        </tr>
+                    #}#
+                    </table>
+                    </td>
+                </tr>
+            #}#
+        </table>
+    #}#
+    <!--按钮组-->
+    <div class="box-content text-right clearfix">
+        #if(cfgDyncButtonEntities!=null&&cfgDyncButtonEntities.length>0){#
+            #for(var b=0;b < cfgDyncButtonEntities.length; b++){#
+                #var cfgDyncButtonEntity = cfgDyncButtonEntities[b];#
+                <button class="k-button button btn-white" id="btn_#:cfgDyncButtonEntity.buttonId#"
+                        onClick="#:cfgDyncButtonEntity.clickFunc#()">#:cfgDyncButtonEntity.buttonText#</button>
+            #}#
+        #}#
+    </div>
+    <!--引入规则文件-->
+    #if(cfgDyncRuleEntities!=null&&cfgDyncRuleEntities.length>0){#
+        #for(var r=0;r< cfgDyncRuleEntities.length; r++){#
+            #var cfgDyncRuleEntity = cfgDyncRuleEntities[r];#
+            <script src="#:cfgDyncRuleEntity.fileName#" type="text/javascript" />
+        #}#
+    #}#
+    </div>
+</script>
+
+<script src="/js/general/common/dync/page/dyncPageClass.js"></script>
+<script src="/js/general/common/dync/page/pageReadFrame.js"></script>
+</body>
+</html>

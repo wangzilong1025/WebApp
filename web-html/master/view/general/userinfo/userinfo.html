@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="description" content="PlaneUI" />
+    <meta name="keywords" content="PlaneUI" />
+    <title>用户信息</title>
+    <link rel="icon" type="image/png" href="../../../resources/frame/planeui/login/images/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="../../../resources/frame/planeui/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../resources/frame/planeui/css/planeui.basic.css" />
+    <script src="../../../js/common/header.js"></script>
+    <script type="text/javascript" src="../../../js/general/py.js" ></script>
+    <style type="text/css">
+        #test-form{padding:15px;}
+        input[type=text], input[type=password] , select{ width: 280px;}
+        input[type=submit]{border:1px solid #ddd;background:none;padding:6px 10px;cursor: pointer;font-size:14px;}
+    </style>
+</head>
+<body>
+<!--<a name="top"></a>
+<a href="#top" class="fa fa-arrow-circle-up fa-3x pui-text-blue-400" title="回到顶部" id="go-to-top"></a>-->
+<!--<div class="pui-layout page-header" style="position:static;box-shadow:none;top:0px;left:0px;z-index:999;height: 66.8px;">
+    <div class="pui-layout pui-full-width" style="padding-left: 40px;padding-right: 40px;/*padding-top: 20px;*/">
+        <div class="pui-menubar pui-menubar-square pui-menubar-header-style pui-bg-none pui-unbordered">
+            <div class="pui-menubar-aside logo" style="border-left: 30px;"></div>
+            <div class="pui-menubar-offside" style="padding-top:15px;padding-right:15px;">
+                <ul class="pui-menu pui-menu-inline pui-menu-simple pui-right">
+                    <li class="fa fa-user icon-header" title="用户信息" onclick="indexModel.userInfo()">&lt;!&ndash;<a href="#" style="display: none;" onclick="">用户</a>&ndash;&gt;</li>
+                    <li class="fa fa-bell icon-header" title="消息提醒" onclick="">
+                        <span class="pui-badge pui-badge-error pui-badge-circle" style="display:none" id="messSpan">用户</span>
+                    </li>
+                    <li class="fa fa-folder icon-header" title="我的收藏" onclick=""></li>
+                    <li class="fa fa-power-off icon-header" style="padding-left:15px;" title="退出登录" onclick=""></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+
+<div class="pui-layout" style="width:96%;">
+<!--菜单栏开始-->
+    <!--<div class="pui-menubar pui-menubar-square pui-bg-light-green-600 pui-menubar-bg-color" style="margin-bottom: 0.2%;">
+        <ul class="pui-menu pui-menu-radius pui-menu-inline" style="padding-left: 10%;">
+            <li>
+                <a href="javascript:;" class="active"><i class="fa fa-home pui-text-xl"></i>首页</a>
+            </li>
+            <li>
+                <a href="javascript:;"><i class="fa fa-shopping-cart pui-text-lg"></i>产品特性</a>
+                <ul class="pui-menu pui-menu-dropdown pui-menu-dropdown-unarrow z-depth-3" style="width: 200%;top: 44px;">
+                    <li>
+                        <a href="javascript:;" onclick="indexModel.userInfo()" id="userInfo"><label class="pui-badge pui-badge-success">5</label>用户信息</a>
+                    </li>
+                    <li class="pui-menu-header">Header</li>
+                    <li>
+                        <a href="javascript:;" class="active" style="width:100.999999%;margin-left:-1px;">下拉菜单一</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" onclick="indexModel.collection()" id="collection">个人收藏<label class="pui-badge pui-badge-success">5</label></a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单三XXX <label class="pui-badge pui-badge-info">99</label></a>
+                    </li>
+                    <li class="pui-menu-divider"></li>
+                    <li>
+                        <a href="javascript:;" class="disabled">Downloads</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单四XXXXXX <label class="pui-badge pui-badge-warning pui-badge-circle" style="min-width:10px;">1</label></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;"><i class="fa fa-file-text-o pui-text-lg"></i>开发文档</a>
+                <ul class="pui-menu pui-menu-dropdown pui-menu-dropdown-unarrow z-depth-3" style="width: 200%;top: 44px;">
+                    <li>
+                        <a href="javascript:;"><label class="pui-badge pui-badge-success">5</label>下拉菜单一</a>
+                    </li>
+                    <li class="pui-menu-header">Header</li>
+                    <li>
+                        <a href="javascript:;" class="active" style="width:100.999999%;margin-left:-1px;">下拉菜单一</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单二<label class="pui-badge pui-badge-success">5</label></a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单三XXX <label class="pui-badge pui-badge-info">99</label></a>
+                    </li>
+                    <li class="pui-menu-divider"></li>
+                    <li>
+                        <a href="javascript:;" class="disabled">Downloads</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单四XXXXXX <label class="pui-badge pui-badge-warning pui-badge-circle" style="min-width:10px;">1</label></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;"><i class="fa fa-file-text-o pui-text-lg"></i>交流社区</a>
+                <ul class="pui-menu pui-menu-dropdown pui-menu-dropdown-unarrow z-depth-3" style="width: 200%;top: 44px;">
+                    <li>
+                        <a href="javascript:;"><label class="pui-badge pui-badge-success">5</label>下拉菜单一</a>
+                    </li>
+                    <li class="pui-menu-header">Header</li>
+                    <li>
+                        <a href="javascript:;" class="active" style="width:100.999999%;margin-left:-1px;">下拉菜单一</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单二<label class="pui-badge pui-badge-success">5</label></a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单三XXX <label class="pui-badge pui-badge-info">99</label></a>
+                    </li>
+                    <li class="pui-menu-divider"></li>
+                    <li>
+                        <a href="javascript:;" class="disabled">Downloads</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单四XXXXXX <label class="pui-badge pui-badge-warning pui-badge-circle" style="min-width:10px;">1</label></a>
+                    </li>
+                </ul>
+            </li>
+            <li>&lt;!&ndash;<a href="javascript:;" class="disabled">Downloads</a>&ndash;&gt;
+                <a href="javascript:;"><i class="fa fa-download pui-text-lg"></i>Downloads</a>
+            </li>
+            <li>
+                <a href="javascript:;"><i class="fa fa-phone pui-text-lg"></i>联系方式</a>
+            </li>
+        </ul>
+        <div class="pui-menubar-offside pui-unbordered-all" style="padding-right: 10%;">
+            <form action="//localhost/tasty/tests/post.php" method="post" class="pui-search pui-round pui-search-large pui-search-unbordered pui-right" style="width: 90%;margin:0;">
+                <input type="text" name="keywords" class="pui-search-keywords" placeholder="搜索..." />
+                <button type="submit" class="pui-search-submit" name="submit-pui-search" value=""></button>
+                <ul class="pui-list pui-search-auto-complete pui-shadow">
+                    <li><a href="#">jQuery</a></li>
+                    <li><a href="#">jQuery插件</a></li>
+                    <li><a href="#">jQuery UI</a></li>
+                    <li><a href="#">jQuery Mobile</a></li>
+                    <li><a href="#">jQuery原理</a></li>
+                </ul>
+            </form>
+        </div>
+    </div>-->
+<!--状态栏结束-->
+<!--from表单验证开始-->
+    <div class="pui-layout" style="width:96%;">
+        <div class="pui-container pui-layout-fixed pui-layout-fixed-1200 pui-grid blog-main" style="max-width: 1360px;">
+            <h2 class="pui-normal">你好，世界！ <small>副标题文本</small></h2>
+            <br/>
+            <h4 class="pui-h4">表单验证</h4>
+            <form method="post" action="" id="test-form" class="pui-form-label-left">
+
+                <div class="pui-form-group">
+
+                    <input type="text" class="pui-input-secondary" value="pui-input-secondary" />
+                    <input type="text" class="pui-input-info" value="pui-input-info" />
+
+                    <input type="text" class="pui-input-warning" value="pui-input-warning" />
+                    <input type="text" class="pui-input-error" value="pui-input-error" />
+                    <input type="text" class="pui-input-border-primary" value="pui-input-border-primary" />
+                    <input type="text" class="pui-input-border-secondary" value="pui-input-border-secondary" />
+                    <input type="text" class="pui-input-border-info" value="pui-input-border-info" />
+                    <input type="text" class="pui-input-border-success" value="pui-input-border-success" />
+                    <input type="text" class="pui-input-border-warning" value="pui-input-border-warning" />
+                    <input type="text" class="pui-input-border-error" value="pui-input-border-error" />
+                </div>
+                <label>用户名：</label>
+                <!--<input type="text" name="username" />-->
+                <input type="text" class="pui-input-success" placeholder="登陆用户名" value=""/>
+                <!--<input type="text" name="alias" id="alias11" placeholder="登陆用户名" />-->
+                <!--<span fv-role="username">
+                        &lt;!&ndash;<span type="normal">* 必填项，用户名只能由6到16个大小写字母、数字、横线、下划线组成的字符。</span>
+                        <span type="success"><i class="fa fa-check-circle"></i> 正确</span>
+                        <span type="empty"><i class="fa fa-close"></i> 错误：用户名不能为空。</span>
+                        <span type="error"><i class="fa fa-close"></i> 错误：用户名只能由6到16个大小写字母、数字、横线或下划线组成的字符。</span>        &ndash;&gt;
+                </span>-->
+                <br/>
+
+
+                <label>登陆密码：</label>
+                <input type="password" name="password" class="pui-input-primary pui-box-shadow-primary-inset" value="pui-input-primary" />
+                <span fv-role="password"></span>
+                <br/>
+                <label>确认密码：</label>
+                <input type="password" name="confirm_password" />
+                <span fv-role="confirm_password"></span>
+                <br/>
+                <label>邮箱：</label>
+                <input type="text" name="email" />
+                <span fv-role="email"></span>
+                <br/>
+                <label>电话号码：</label>
+                <input type="text" name="tel" />
+                <span fv-role="tel"></span>
+                <br/>
+                <label>传真号码：</label>
+                <input type="text" name="fax" />
+                <span fv-role="fax"></span>
+                <br/>
+                <label>手机号码：</label>
+                <input type="text" name="mobile" />
+                <span fv-role="mobile"></span>
+                <br/>
+                <label>联系地址：</label>
+                <input type="text" name="address" />
+                <span fv-role="address"></span>
+                <br/>
+                <label>邮政编码：</label>
+                <input type="text" name="zipcode" />
+                <span fv-role="zipcode"></span>
+                <br/>
+                <label>年龄：</label>
+                <input type="text" name="age" />
+                <span fv-role="age"></span>
+                <br/>
+                <label>数字：</label>
+                <input type="text" name="number" />
+                <span fv-role="number"></span>
+                <br/>
+                <label>所在地区：</label>
+                <div class="pui-select">
+                    <select name="province">
+                        <option value="">请选择所在省份请选择所在省份</option>
+                        <option value="浙江省">浙江省</option>
+                        <option value="福建省">福建省</option>
+                        <option value="广东省">广东省</option>
+                    </select>
+                </div>
+                <div class="pui-select">
+                    <select name="city">
+                        <option value="">请选择所在地市</option>
+                        <option value="浙江省">浙江省</option>
+                        <option value="福建省">福建省</option>
+                        <option value="广东省">广东省</option>
+                    </select>
+                </div>
+                <span fv-role="province"></span>
+                <span fv-role="city"></span>
+                <br/>
+                <label>域名：</label>
+                <input type="text" name="domain" />
+                <span fv-role="domain"></span>
+                <br/>
+                <label>网址：</label>
+                <input type="text" name="website" />
+                <span fv-role="website"></span>
+                <br/>
+                <label>网站IP：</label>
+                <input type="text" name="ip" />
+                <span fv-role="ip"></span>
+                <br/>
+                <label>性别：</label>
+                <input type="radio" name="sex" value="男" checked /> 男
+                <input type="radio" name="sex" value="女" /> 女
+                <input type="radio" name="sex" value="保密" /> 保密
+                <span fv-role="sex"></span>
+                <br/>
+                <label>兴趣爱好：</label>
+                <input type="checkbox" name="hobbies[]" value="听音乐"  checked /> 听音乐
+                <input type="checkbox" name="hobbies[]" value="看电影"  checked /> 看电影
+                <input type="checkbox" name="hobbies[]" value="旅游" /> 旅游
+                <input type="checkbox" name="hobbies[]" value="吃" /> 吃
+                <input type="checkbox" name="hobbies[]" value="购物" /> 购物
+                <input type="checkbox" name="hobbies[]" value="篮球" /> 篮球
+                <input type="checkbox" name="hobbies[]" value="足球" /> 足球
+                <input type="checkbox" name="hobbies[]" value="游戏" /> 游戏
+                <input type="checkbox" name="hobbies[]" value="游泳" /> 游泳
+                <span fv-role="hobbies[]"></span>
+                <br/>
+                <!--<label>兴趣爱好2：</label>
+                <input type="checkbox" name="hobbies" value="听音乐"  /> 听音乐
+                <input type="checkbox" name="hobbies" value="看电影" /> 看电影
+                <input type="checkbox" name="hobbies" value="旅游" /> 旅游
+                <input type="checkbox" name="hobbies" value="吃" /> 吃
+                <input type="checkbox" name="hobbies" value="购物" /> 购物
+                <input type="checkbox" name="hobbies" value="篮球" /> 篮球
+                <input type="checkbox" name="hobbies" value="足球" /> 足球
+                <input type="checkbox" name="hobbies" value="游戏" /> 游戏
+                <input type="checkbox" name="hobbies" value="游泳" /> 游泳
+                <span role="hobbies"></span>
+                <br/>-->
+                <label>身份证号码：</label>
+                <input type="text" name="idcard" />
+                <span fv-role="idcard"></span>
+                <br/>
+                <label>身份证照片：</label>
+                <input type="file" name="idcard_photo" />
+                <span fv-role="idcard_photo"></span>
+                <br/>
+                <label>个人签名：</label>
+                <textarea name="signature" style="width: 40%;height: 80px;margin-bottom:15px;"></textarea>
+                <span fv-role="signature"></span>
+                <br/>
+                <label>工作经历：</label>
+                <textarea name="works" style="width: 40%;height: 80px;margin-bottom:15px;"></textarea>
+                <span fv-role="works"></span>
+                <br/>
+                <label>工龄：</label>
+                <input type="text" name="seniority" style="width: 100px;" />
+                <span fv-role="seniority"></span>
+                <br/>
+                <label>验证码：</label>
+                <input type="text" name="vcode" style="width: 100px;" />
+                <span fv-role="vcode"></span>
+                <br/>
+                <input type="submit" name="submit" id="test-form-submit" value="提交表单" />
+            </form>
+        </div>
+
+        <!--测试-->
+        <div class="pui-layout">
+            <form class="pui-form pui-input-sm-large pui-input-md-large pui-grid">
+                <h4 class="pui-h4">表单与表单元素</h4>
+                <p><small>兼容情况： 支持 IE9+（基本兼容IE8）</small></p><br/>
+                <div class="pui-form-title">
+                    <a href="" class="pui-btn pui-btn-default pui-btn-xsmall pui-right" style="margin-top:5px;">返回</a>
+                    <h1>表单标题<small>表单副标题文本</small></h1>
+                </div>
+                <div class="pui-row pui-form-group pui-form-group-underline-dashed">
+                    <label class="pui-grid-sm-12 pui-grid-md-1">文章标题：</label>
+                    <div class="pui-grid-sm-12 pui-grid-md-11">
+                        <input type="text" style="width:50%;"/>
+                        <input type="text" style="width:40%;" />
+                    </div>
+                </div>
+                <div class="pui-row pui-form-group">
+                    <label class="pui-grid-sm-12 pui-grid-md-1">副标题：</label>
+                    <div class="pui-grid-sm-12 pui-grid-md-11">
+                        <input type="text" />
+                    </div>
+                </div>
+                <div class="pui-input-list pui-clear">
+                    <input type="text" name="alias" id="alias" placeholder="登陆用户名" />
+                    <input type="password" name="alias" id="alias" placeholder="登陆密码" />
+                    <input type="email" name="alias" id="alias" placeholder="注册邮箱" />
+                    <input type="number" name="alias" id="alias" placeholder="Number" />
+                    <input type="url" name="alias" id="alias" placeholder="URL" />
+                    <input type="reset" class="pui-btn pui-btn-default" value="重填" />
+                    <input type="submit" class="pui-btn pui-btn-primary" value="注册新账号" />
+                </div>
+                <input type="button" class="pui-btn pui-btn-default pui-btn-block" value="已有账号？" style="height: 36px;" />
+                <br/>
+                <div class="pui-input-group pui-clear">
+                    <span class="pui-input-group-addon">您的姓名</span>
+                    <input type="text" name="alias" id="alias" class="pui-input-group-text-input" placeholder="姓氏" style="width:30%;"></input>
+                    <input type="text" name="alias" id="alias" class="pui-input-group-text-input" placeholder="名字" style="width:30%;"></input>
+                </div>
+                <br/>
+                <div class="pui-input-group pui-clear">
+                    <span class="pui-input-group-addon">@</span>
+                    <span class="pui-input-group-addon">
+                        <input type="checkbox" />
+                    </span>
+                    <input type="text" name="alias" id="alias" class="pui-input-group-text-input" style="width:40%;"></input>
+                    <span class="pui-input-group-addon">
+                        <label><input type="checkbox" /> 选项一</label>
+                    </span>
+                    <span class="pui-input-group-addon">
+                        <label><input type="checkbox" /> 选项二</label>
+                    </span>
+                    <span class="pui-input-group-addon">
+                        <label><input type="radio" /> 选项一</label>
+                    </span>
+                    <span class="pui-input-group-addon">
+                        <label><input type="radio" /> 选项二</label>
+                    </span>
+                </div>
+                <br/>
+                <div class="pui-input-group pui-clear">
+                    <input type="text" name="alias" id="alias" class="pui-input-group-text-input" style="width:40%;"></input>
+                    <span class="pui-input-group-addon">@gmail.com</span>
+                </div>
+                <br/>
+                <div class="pui-input-group pui-clear">
+                    <input type="text" name="alias" id="alias" class="pui-input-group-text-input" style="width:40%;"></input>
+                    <span class="pui-input-group-btn">
+                        <button class="pui-btn pui-btn-default pui-btn-primary" type="button" style="height: 36px;">选择日期</button>
+                    </span>
+                </div>
+                <br/>
+                <div class="pui-input-group pui-clear">
+                    <select style="width:200px;">
+                        <option>选择产品分类</option>
+                        <option>分类一</option>
+                        <option>分类二</option>
+                    </select>
+                    <span class="pui-input-group-btn">
+                        <button class="pui-btn pui-btn-default" type="button">搜索</button>
+                    </span>
+                </div>
+                <br/>
+                <div class="pui-input-group pui-clear">
+                    <!--<span class="pui-input-group-addon">产品搜索：</span>-->
+                    <select style="width:27%;">
+                        <option>选择产品分类</option>
+                        <option>分类一</option>
+                        <option>分类二</option>
+                    </select>
+                    <select style="width:27%;">
+                        <option>选择产品分类</option>
+                        <option>分类一</option>
+                        <option>分类二</option>
+                    </select>
+                    <select style="width:27%;">
+                        <option>选择产品分类</option>
+                        <option>分类一</option>
+                        <option>分类二</option>
+                    </select>
+                    <span class="pui-input-group-btn">
+                        <button class="pui-btn pui-btn-default pui-btn-success" type="button">搜索</button>
+                    </span>
+                </div>
+                <br/>
+                <div class="pui-input-group">
+                    <span class="pui-input-group-addon">http://demo.xxui.org/article/:id</span>
+                    <input type="text" name="alias" id="alias" class="pui-input-group-text-input" style="width:30%;"></input>
+                    <span class="pui-input-group-addon">.html</span>
+                </div>
+                <div class="pui-form-group">
+                    <label>E-mail标签</label><input type="email" name="user_email" />
+                    <label>URL标签</label><input type="url" name="user_url" />
+                    <label>Number标签</label><input type="number" name="points" min="1" max="100" />
+                    <label>Range标签</label><input type="range" name="points" min="1" max="100" />
+                    <label>Search标签</label><input type="search" name="user_url" />
+                    <label>Date标签</label><input type="date" name="user_date" />
+                    <label>DateTime标签</label><input type="datetime" name="user_datetime" />
+                    <label>Time标签</label><input type="time" name="user_time" />
+                    <input type="text" disabled  />
+                </div>
+                <div class="pui-form-group">
+                    <input type="text" class="pui-input-primary pui-box-shadow-primary-inset" value="pui-input-primary" />
+                    <input type="text" class="pui-input-secondary" value="pui-input-secondary" />
+                    <input type="text" class="pui-input-info" value="pui-input-info" />
+
+                    <input type="text" class="pui-input-warning" value="pui-input-warning" />
+                    <input type="text" class="pui-input-error" value="pui-input-error" />
+                    <input type="text" class="pui-input-border-primary" value="pui-input-border-primary" />
+                    <input type="text" class="pui-input-border-secondary" value="pui-input-border-secondary" />
+                    <input type="text" class="pui-input-border-info" value="pui-input-border-info" />
+                    <input type="text" class="pui-input-border-success" value="pui-input-border-success" />
+                    <input type="text" class="pui-input-border-warning" value="pui-input-border-warning" />
+                    <input type="text" class="pui-input-border-error" value="pui-input-border-error" />
+                </div>
+                <div class="pui-form-group">
+                    <label>选择上传的文件</label>
+                    <input type="file" name="image" class="pui-input-border-error" /> <span class="pui-input-tips-text pui-sm-block">说明：只能上传.jpg、.gif、.png格式的图片</span>
+                </div>
+                <div class="pui-row pui-form-group">
+                    <label>自定义上传控件</label>
+                    <div class="pui-file-input">
+                        <input type="file" />
+                        <a href="javascript:;" class="pui-btn pui-btn-success pui-file-input-btn">上传图片</a>
+                    </div>
+                </div>
+                <div class="pui-form-group ">
+                    <label>单选框</label>
+                    <label>
+                        <input type="radio" name="a" disabled/> 选项一
+                    </label>
+                    <label>
+                        <input type="radio" name="a" /> 选项二
+                    </label>
+                    <label>
+                        <input type="radio" name="a" checked="checked" /> 选项三
+                    </label>
+                </div>
+                <div class="pui-form-group">
+                    <label>复选框</label>
+                    <label>
+                        <input type="checkbox" name="b" /> 选项一
+                    </label>
+                    <label>
+                        <input type="checkbox" name="b" checked="checked" /> 选项二
+                    </label>
+                    <label>
+                        <input type="checkbox" name="b" /> 选项三
+                    </label>
+                </div>
+                <div class="pui-form-group">
+                    <label>工作地区意向</label>
+                    <select name="" class="pui-box-shadow-inset pui-input-border-error" multiple>
+                        <option value="" selected>北京市</option>
+                        <option value="">重庆市</option>
+                        <option value="" selected>天津市</option>
+                        <option value="">上海市</option>
+                        <option value="">广东省</option>
+                        <option value="">福建省</option>
+                        <option value="">浙江省</option>
+                    </select>
+                </div>
+                <div class="pui-form-group">
+                    <label>所在地区</label>
+                    <select name="" class="pui-box-shadow-inset" disabled title="禁用了">
+                        <option value="" selected>所在省份</option>
+                        <option value="">北京市</option>
+                        <option value="">重庆市</option>
+                        <option value="">天津市</option>
+                        <option value="">上海市</option>
+                        <option value="">广东省</option>
+                        <option value="">福建省</option>
+                        <option value="">浙江省</option>
+                    </select>
+                </div>
+                <fieldset class="pui-fieldset-border-dashed">
+                    <legend>健康信息</legend>
+                    <label>身高：</label><input type="text" class="pui-input-square pui-input-round" />
+                    <label>体重：</label><input type="text" class="pui-input-square" /><span class="pui-input-tips-text pui-sm-block">注：操作说明或提示文本</span>
+                </fieldset>
+                <fieldset class="pui-fieldset-unbordered">
+                    <legend>健康信息</legend>
+                    <label>身高：</label><input type="text" class="pui-input-square pui-input-round pui-box-shadow-inset" />
+                    <label>体重：</label><input type="text" class="pui-input-square" />
+                </fieldset>
+                <fieldset class="pui-fieldset-border-top">
+                    <legend>健康信息</legend>
+                    <label>身高：</label><input type="text" class="pui-input-square pui-input-round" />
+                    <label>体重：</label><input type="text" class="pui-input-square" />
+                </fieldset>
+                <fieldset class="pui-fieldset-border-top pui-fieldset-border-top-dashed">
+                    <legend>健康信息</legend>
+                    <label>身高：</label><input type="text" class="pui-input-square pui-input-round" />
+                    <label>体重：</label><input type="text" class="pui-input-square pui-box-shadow" />
+                </fieldset>
+                <div class="pui-form-group pui-form-group-underline">
+                    <label>用户名：</label><input type="text" class="pui-box-shadow-inset disabled" value="禁用了" disabled />
+                    <label>密码：</label><input type="password" class="pui-box-shadow-inset disabled" value="禁用了" disabled />
+                    <span class="pui-input-tips-text block pui-sm-block">注：操作说明或提示文本</span>
+                    <input type="button" value="button" class="pui-btn pui-btn-default disabled" />
+                    <input type="submit" value="submit" class="pui-btn pui-btn-default" />
+                    <input type="reset" value="reset" class="pui-btn pui-btn-default" />
+                    <span class="pui-input-tips-text pui-sm-block">注：操作说明或提示文本</span>
+                </div>
+                <div class="pui-form-group pui-form-group-underline-dashed">
+                    <label>用户名：</label><input type="text" />
+                    <label>密码：</label><input type="password" />
+                </div>
+                <div class="pui-form-group">
+                    <label>身高：</label><input type="text" class="pui-input-square pui-input-underline" />
+                    <label>体重：</label><input type="text" class="pui-input-square pui-input-underline-dashed" />
+                    <span class="pui-input-tips-text pui-sm-block">注：操作说明或提示文本</span>
+                </div>
+                <div class="pui-form-group">
+                    <label>主要内容：</label>
+                    <textarea class="pui-input-border-error"></textarea>
+                </div>
+                <div class="pui-form-group">
+                    <input type="submit" value="submit" class="pui-btn pui-btn-primary" />
+                    <input type="button" value="button" class="pui-btn pui-btn-default" />
+                    <input type="reset" value="reset" class="pui-btn pui-btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!--状态列表开始-->
+
+    <!--状态列表结束-->
+
+    <!--form表单烟瘴结束-->
+
+<!--底部状态栏开始-->
+    <!--<footer class="pui-center pui-layout-fixed pui-layout-fixed-1200 blog-footer" style="max-width: 1360px;%;">
+        <hr class="pui-xs-hide" />
+        <ul class="pui-breadcrumb pui-margin-none" style="padding-left: 5px;padding-right: 5px;">
+            <li>
+                <a href="index.html"><i class="fa fa-home"></i> 首页</a>
+            </li>
+            <li>
+                <a href="#">PHP</a>
+            </li>
+            <li>
+                <a href="#">前端</a>
+            </li>
+            <li>
+                <a href="#">设计</a>
+            </li>
+            <li>
+                <a href="#">游记</a>
+            </li>
+            <li>
+                <a href="#">关于我</a>
+            </li>
+        </ul>
+        <div class="copyright" style="padding-left: 5px;padding-right: 5px;">
+            <span class="pui-right">&lt;!&ndash;<a href="#top" class="pui-link">TOP</a>&ndash;&gt;</span>
+            <p>Copyright &copy; 2014-2015 <a href="https://github.com/pandao/planeui" class="pui-link" title="Plane UI's Blog" target="_blank">Plane UI's Blog</a> All Rights Reserved.</p>
+            <p>Powered by <a href="https://github.com/pandao/planeui" class="pui-link" target="_blank">Plane UI</a>, <a href="https://github.com/pandao/planeui/blob/master/LICENSE" target="_blank" class="pui-link">MIT</a> License.&lt;!&ndash;<small class="pui-right">代码如诗。</small>&ndash;&gt;</p>
+        </div>
+    </footer>-->
+<!--底部状态栏结束-->
+</div>
+<script type="text/javascript" src="../../../resources/frame/planeui/index.js"></script>
+<script type="text/javascript" src="../../../js/index.js"></script>
+</body>
+</html>

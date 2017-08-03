@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="/js/common/header.js"></script>
+    <title>缓存详情</title>
+</head>
+<body>
+<div class="row">
+    <div class="box-inside">
+        <div class="box-header">
+            <h6><span id="cacheKey"></span>详细数据</h6>
+        </div>
+
+        <div class="box-content">
+            <textarea style="min-height: 300px; width: 100%" readonly id="detailData">
+
+            </textarea>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="box-inside">
+        <div class="box-content clearfix">
+            <div class="col-md-3">
+                <button type="button" class="k-button k-primary" id="returnReload">返回重载界面</button>
+            </div>
+            <div class="col-md-3" id="reloadData">
+                <button type="button" class="k-button k-primary" id="returnReloadData">返回缓存数据界面</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<span id="popupNotification"></span>
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+
+        var paramArray = comm.tools.getRequest();
+        $("#returnReload").click(function () {
+            window.location.href = "/view/general/sysmgr/cache/cacheDataList.html";
+        });
+        $("#returnReloadData").click(function () {
+            window.location.href = "/view/general/sysmgr/cache/reloadDataDetail.html?cacheName=" + paramArray.cacheName;
+        });
+        if (paramArray) {
+            if (paramArray.value) {
+                $("#detailData").val(paramArray.value);
+                $("#reloadData").css("display", "none");
+            } else {
+                if (paramArray.cacheName == "UserInfoCache") {
+                    $("#reloadData").css("display", "none");
+                }
+                comm.ajax.ajaxEntity({
+                    busiCode: "ICFGCACHELOADFSV_RELOADDETAILDATA",
+                    param: paramArray,
+                    callback:function (data) {
+                        var code = data.errorInfo.code;
+                        if (code == "0000") {
+                            var dataList = data.data.cacheList;
+                            var str = JSON.stringify(dataList[0].value);
+                            var detailData = JSON.stringify(eval("(" + str + ")"), null, 4);
+                            $("#detailData").val(detailData);
+                        } else {
+                            popupNotification.show("获取详细数据失败", "warning");
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+</script>
+</html>
