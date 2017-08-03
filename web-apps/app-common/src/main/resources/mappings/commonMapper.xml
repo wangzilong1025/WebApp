@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sandi.web.common.persistence.dao.CommonMethodMapper">
+    <resultMap id="resultObject" type="java.lang.Object"/>
+    <select id="findById" resultType="Object" parameterType="Object">
+        $$GeneralCrud$$.findById
+    </select>
+    <select id="findLike" resultType="Object" parameterType="Object">
+        $$GeneralCrud$$.findLike
+    </select>
+    <select id="findLikeCount" parameterType="Object" resultType="java.lang.Integer">
+        $$GeneralCrud$$.findLikeCount
+    </select>
+    <select id="findByEntity" resultType="Object" parameterType="Object">
+        $$GeneralCrud$$.findByEntity
+    </select>
+    <select id="findByEntityCount" parameterType="Object" resultType="java.lang.Integer">
+        $$GeneralCrud$$.findByEntityCount
+    </select>
+    <select id="findNotThisEntity" resultType="Object" parameterType="Object">
+        $$GeneralCrud$$.findNotThisEntity
+    </select>
+    <select id="findNotThisEntityCount" parameterType="Object" resultType="java.lang.Integer">
+        $$GeneralCrud$$.findNotThisEntityCount
+    </select>
+    <select id="findNotLikeEntity" resultType="Object" parameterType="Object">
+        $$GeneralCrud$$.findNotLikeEntity
+    </select>
+    <select id="findNotLikeEntityCount" parameterType="Object" resultType="java.lang.Integer">
+        $$GeneralCrud$$.findNotLikeEntityCount
+    </select>
+    <insert id="save" parameterType="Object">
+        $$GeneralCrud$$.save
+    </insert>
+    <update id="updateById" parameterType="Object">
+        $$GeneralCrud$$.updateById
+    </update>
+    <delete id="deleteById" parameterType="Object">
+        $$GeneralCrud$$.deleteById
+    </delete>
+    <delete id="deleteByEntity" parameterType="Object">
+        $$GeneralCrud$$.deleteByEntity
+    </delete>
+    <insert id="insertUpbHis" parameterType="Object">
+        $$GeneralCrud$$.insertUpbHis
+    </insert>
+    <insert id="insertDelHis" parameterType="Object">
+        $$GeneralCrud$$.insertDelHis
+    </insert>
+
+    <select id="findBySql" resultType="java.util.Map" parameterType="java.util.Map">
+        $$GeneralCrud$$.findBySql
+    </select>
+
+    <select id="getSysDate" resultType="java.sql.Timestamp" parameterType="Object">
+        select sysdate from dual
+    </select>
+</mapper>

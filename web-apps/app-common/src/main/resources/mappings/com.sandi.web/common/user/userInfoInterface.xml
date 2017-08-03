@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sandi.web.common.user.dao.IUserInfoEntityDao">
+
+    <select id="getAllUserInfo" resultType="com.sandi.web.utils.sec.entity.UserInfoInterface">
+        <![CDATA[
+            select
+            a.user_id,
+            a.user_name,
+            a.user_pass,
+            a.user_nick,
+            a.PHONE_NUMBER,
+            a.USER_EMAIL,
+            a.USER_BIRTH,
+            a.USER_SEX,
+            a.USER_AGE,
+            a.USER_ADDRESS,
+            a.USER_IMAGES,
+            a.USER_HEIGHT,
+            a.USER_WEIGHT,
+            a.USER_INTEREST,
+            a.USER_OCCUPATION,
+            a.USER_SAFE_QUESTION,
+            a.USER_SAFE_ANSWER,
+            a.STATE
+            from user_info  a
+            where a.state = 1
+         ]]>
+    </select>
+
+   <!-- <select id="countOperatorsByCondition" resultType="int">
+        SELECT COUNT(1) FROM (
+        select c.operator_id, c.code, b.staff_id, b.staff_name, b.bill_id, b.email, a.organize_id, c.acct_effect_date, c.acct_expire_date
+        from sec_organize a, sec_staff b, sec_operator c
+        where a.organize_id = b.organize_id
+        and b.staff_id = c.staff_id
+        and a.state = 1
+        and b.state = 1
+        and c.state = 1
+        and a.organize_id = #{organizeId}
+        and b.staff_name like '%'||#{staffName}||'%'
+        and c.code like '%'||#{operatorCode}||'%'
+        ) count_tb
+    </select>
+-->
+    <!--<select id="getRelFunctionsByFuncIds" resultType="com.asiainfo.esop.sec.author.entity.SecFunctionEntity">
+        select * from sec_function a
+        start with a.func_id in
+        <foreach collection="funcIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        connect by prior a.func_id=a.parent_id
+        union
+        select distinct * from sec_function a
+        start with a.func_id in
+        <foreach collection="funcIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        connect by prior a.parent_id=a.func_id
+    </select>-->
+
+    <!--<select id="getOperatorsByCondition"  resultType="com.asiainfo.esop.utils.sec.entity.Operator">
+        select *
+        from (select row_.*, rownum rownum_
+        from (select c.operator_id, c.code, b.staff_id, b.staff_name, b.bill_id, b.email, a.organize_id, c.acct_effect_date, c.acct_expire_date
+        from sec_organize a, sec_staff b, sec_operator c
+        where a.organize_id = b.organize_id
+        and b.staff_id = c.staff_id
+        and a.state = 1
+        and b.state = 1
+        and c.state = 1
+        and a.organize_id = #{organizeId}
+        and b.staff_name like '%'||#{staffName}||'%'
+        and c.code like '%'||#{operatorCode}||'%'
+        ORDER BY c.CREATE_DATE DESC) row_)
+        where rownum_ &lt;= #{rowmax}
+        and rownum_ &gt; #{rowmin}
+    </select>-->
+
+    <!--<select id="getPrivsByIds" resultType="com.asiainfo.esop.sec.author.entity.SecPrivEntity">
+        select * from sec_priv a
+        where a.state = 1
+        and a.priv_id in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>-->
+
+   <!-- <select id="getEntitiesByIds" resultType="com.asiainfo.esop.sec.author.entity.SecEntityEntity">
+        select * from sec_entity a
+        where a.state = 1
+        and a.ent_id in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>-->
+
+   <!-- <select id="getPrivsByOperatorId" resultType="java.util.Map">
+        with au as(
+        select a.operator_id,
+        a.station_id,
+        a.is_base_station,
+        b.role_id,
+        c.priv_id,
+        c.ent_id,
+        c.ent_type
+        from sec_op_station a, sec_author b, sec_role_grant c
+        where a.op_station_id = b.op_station_id
+        and b.role_id = c.role_id
+        and a.state = 1
+        and b.state = 1
+        and c.state = 1
+        and a.operator_id = #{operatorId}
+        <choose>
+            <when test="stationId!=null and stationId!=''">
+                and a.station_id = #{stationId}
+            </when>
+            <otherwise>
+                and a.is_base_station = 1
+            </otherwise>
+        </choose>
+        )
+        select au.*,
+        d.priv_name,
+        d.priv_desc,
+        d.ent_class_id,
+        e.name ent_class_name
+        from au, sec_priv d, sec_ent_class e
+        where au.priv_id = d.priv_id
+        and d.ent_class_id = e.ent_class_id
+        and d.state = 1
+        and e.state = 1
+        <if test="groupId!=null and groupId!=''">
+            and d.ent_class_id = #{groupId}
+        </if>
+        <if test="privId!=null and privId!=''">
+            and d.priv_id = #{privId}
+        </if>
+    </select>-->
+
+   <!-- <select id="getPrivTypeCountByRoleIds" resultType="java.util.Map">
+        select role_id, ent_type, count(1)
+        from sec_role_grant t
+        where t.state = 1
+        and t.role_id in
+        <foreach collection="roleIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        group by t.role_id, t.ent_type
+    </select>
+
+    <select id="getAuthorByRoleIds" resultType="java.util.Map">
+        select role_id, 1
+        from sec_author t
+        where t.state = 1
+        and t.op_station_id = #{opStationId}
+        and t.role_id in
+        <foreach collection="roleIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>-->
+</mapper>

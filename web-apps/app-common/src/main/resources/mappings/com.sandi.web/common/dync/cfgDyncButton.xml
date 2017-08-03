@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sandi.web.common.dync.dao.ICfgDyncButtonDao">
+    <!-- 根据RULESET_ID 获取规则列表 -->
+    <select id="getButtonByButtonsetId"  resultType="com.sandi.web.common.dync.entity.CfgDyncButtonEntity">
+        select c.* from cfg_dync_buttonset a ,cfg_dync_buttonset_button b,cfg_dync_button c
+        where a.buttonset_id = b.buttonset_id
+        and b.button_id = c.button_id
+        and a.state = 1
+        and b.state = 1
+        and c.state = 1
+        and a.buttonset_id = #{buttonsetId}
+        order by b.sort_id
+     </select>
+</mapper>

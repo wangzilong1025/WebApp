@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>表生成entity和dao文件</title>
+    <script type="text/javascript" src="/common/js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<div>
+    <div>
+        数据源
+        <select id="dataSource" width="1000px">
+            <option value="orcl" selected>orcl</option>
+            <option value="common">common</option>
+            <option value="analyze">analyze</option>
+            <option value="custmgr">custmgr</option>
+            <option value="ploy">ploy</option>
+            <option value="protocol">protocol</option>
+            <option value="routine">routine</option>
+            <option value="sec">sec</option>
+        </select>
+    </div>
+    <div>
+        表&nbsp;&nbsp;名
+        <input id="tableNames" width="1000px"/>
+    </div>
+    <div>
+        生成路径
+        <input id="path" width="1000px">
+    </div>
+    <div>
+        <button type="button" onclick="takeView()">查询数据</button>
+        <button type="button" id="createSingle" onclick="createSingle()" style="display: none">生成model文件</button>
+    </div>
+    <div id="tableList">
+    </div>
+
+</div>
+</body>
+<script type="text/javascript">
+    function takeView() {
+        var tableNames = $("#tableNames").val().trim().toUpperCase();
+        var dataSource = $("#dataSource").val().trim();
+        $.post("../tools/takeView", {
+            "tableNames": tableNames,
+            "dataSource": dataSource
+        }, function (data) {
+            if(data.data.length<1){
+                alert("获取表结构数据失败,请检查表名！");
+                return;
+            }
+            showList(data.data);
+            $("#createSingle").css("display", "block");
+        });
+
+    }
+    function createSingle() {
+        var list = new Array();
+        var dataSource = $("#dataSource").val().trim();
+        var $tables = $("table");
+        if ($tables.length > 0) {
+            for (var i = 0; i < $tables.length; i++) {
+                var $table = $tables[i];
+                var tableName = $table.caption.innerHTML;
+                var columns = new Array();
+                for (var j = 1; j < $table.rows.length; j++) {
+                    var cloumnsMap = {
+                        COLUMN_NAME: $table.rows[j].cells[0].innerHTML,
+                        DATA_TYPE: $table.rows[j].cells[1].innerHTML,
+                        DATA_LENGTH: $table.rows[j].cells[2].innerHTML,
+                        DATA_PRECISION: $table.rows[j].cells[3].innerHTML,
+                        COMMENTS: $table.rows[j].cells[4].innerHTML
+                    }
+                    columns[j - 1] = cloumnsMap;
+                }
+                var map = {
+                    tableName: tableName,
+                    columns: columns
+                };
+                list[i] = map;
+            }
+            var path = $("#path").val();
+            if (!path.length) {
+                alert("请填写路径")
+            } else {
+                var msg = "";
+                $.post("../tools/createBean", {
+                    "tableList": JSON.stringify(list),
+                    "path": path,
+                    "dataSource": dataSource
+                }, function (data) {
+                    //console.info(data);
+                    msg = data.data;
+                    alert(msg);
+                });
+            }
+        } else {
+            alert("请先查询，无误后生成");
+        }
+
+    }
+    function showList(data) {
+        var tableList = data;
+        $("#tableList").html("");
+        for (var i = 0; i < tableList.length; i++) {
+            var table = $("<table border='1' style='float: left;margin-right: 10px' id='" + tableList[i].tableName + "'><caption>" + tableList[i].tableName + "</caption></table>");
+            var tr1 = $("<tr><td>COLUMN_NAME</td><td>DATA_TYPE</td><td>DATA_LENGTH</td><td>DATA_PRECISION</td><td style='width: 400px'>COMMENTS</td><td><input type='button' value='在行尾新增一行' onclick='add(this)'></td></tr>");
+            table.append(tr1);
+            var columns = tableList[i].columns
+            for (var j = 0; j < columns.length; j++) {
+                var tr2 = $("<tr><td name='COLUMN_NAME'>" + columns[j].COLUMN_NAME + "</td><td name='DATA_TYPE'>" + columns[j].DATA_TYPE + "</td><td name='DATA_LENGTH'>" + columns[j].DATA_LENGTH + "</td><td name='DATA_PRECISION'>" + columns[j].DATA_PRECISION + "</td><td name='COMMENTS' style='width: 400px'>" + columns[j].COMMENTS + "</td><td><input type='button' value='编辑' onclick='edit(this)'><input type='button' value='删除' onclick='deleteRow(this)'></td></tr>");
+                table.append(tr2);
+            }
+            $("#tableList").append(table);
+        }
+    }
+
+    function edit(that) {
+        that = $(that);
+        var str = that.val() == "编辑" ? "确定" : "编辑";
+        that.val(str);
+        that.parent().siblings("td").each(function () {
+            var obj_text = $(this).find("input:text");
+            if (!obj_text.length) {
+                $(this).html("<input type='text' value=" + $(this).text() + ">");
+            } else {
+                $(this).html(obj_text.val());
+            }
+        });
+    }
+    function deleteRow(that) {
+        that = $(that);
+        var tr = that.parents("tr");
+        tr.remove();
+    }
+
+    function add() {
+        var oneTr = $("tr:last").clone(false);
+        $("tr:last").after(oneTr);
+        var tds = $("tr:last>td");
+        tds[0].innerHTML = "";
+        tds[1].innerHTML = "";
+        tds[2].innerHTML = "";
+    }
+</script>
+</html>

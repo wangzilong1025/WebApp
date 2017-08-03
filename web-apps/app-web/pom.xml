@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <parent>
+      <groupId>com.sandi.web</groupId>
+      <artifactId>web-apps</artifactId>
+      <version>1.0.1</version>
+   </parent>
+   <artifactId>app-web</artifactId>
+   <packaging>war</packaging>
+   <properties>
+      <web-apps.version>1.0.1</web-apps.version>
+      <tomcat.version>2.2</tomcat.version>
+      <webserver.port>8080</webserver.port>
+      <tomcat.uriEncoding>utf-8</tomcat.uriEncoding>
+   </properties>
+   <dependencies>
+      <!--esop api start -->
+      <dependency>
+         <groupId>com.sandi.web</groupId>
+         <artifactId>app-utils</artifactId>
+         <version>${web-apps.version}</version>
+      </dependency>
+      <!--esop api end-->
+      <!--spring start-->
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-web</artifactId>
+         <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-webmvc</artifactId>
+         <version>${spring.version}</version>
+      </dependency>
+      <!--spring end-->
+   </dependencies>
+
+   <build>
+      <outputDirectory>src/main/webapp/WEB-INF/classes/</outputDirectory>
+      <plugins>
+         <!-- tomcat6插件 -->
+         <plugin>
+            <groupId>org.apache.tomcat.maven</groupId>
+            <artifactId>tomcat6-maven-plugin</artifactId>
+            <version>${tomcat.version}</version>
+            <configuration>
+               <port>${webserver.port}</port>
+               <path>/</path>
+               <uriEncoding>${tomcat.uriEncoding}</uriEncoding>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+</project>

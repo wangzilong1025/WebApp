@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sandi.web.common.dync.dao.ICfgDyncFrameDao">
+    <update id="startBusi">
+        update cfg_dync_frame b
+        set b.state = 1, b.op_id = #{entity.opId}, b.done_date = sysdate
+        where b.busi_frame_id = #{entity.busiFrameId} and b.state = 2
+    </update>
+
+
+    <select id="queryCfgDyncFrame" resultType="com.sandi.web.common.dync.entity.CfgDyncFrameEntity">
+        select * from cfg_dync_frame where state != 0
+        <choose>
+            <when test="entity.busiFrameId != null">
+                AND busi_frame_id = #{entity.busiFrameId}
+            </when>
+        </choose>
+        order by version_id desc
+    </select>
+
+    <select id="queryPageFrameRelation" resultType="map">
+        SELECT a.BUSI_FRAME_ID,
+               a.REMARK,
+               c.PAGE_ID,
+               c.PAGE_TITLE,
+               a.state
+          FROM CFG_DYNC_BUSI_FRAME_REL a, CFG_DYNC_FRAME b, CFG_DYNC_FRAME_PAGE c
+         WHERE c.PAGE_ID = #{param.pageId}
+           AND b.BUSI_FRAME_ID = a.BUSI_FRAME_ID
+           AND b.FRAME_ID = c.FRAME_ID
+           AND a.STATE != 0 AND b.STATE != 0 AND c.STATE != 0
+    </select>
+</mapper>

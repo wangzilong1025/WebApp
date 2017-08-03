@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sandi.web.common.bp.dao.IEsBpDataDao">
+    <select id="queryEsBpData" resultType="map">
+        select  a.*,
+        b.template_name,
+        (select to_char(wm_concat(c.file_name))
+        from elec_inst c
+        where c.file_input_id = a.file_input_id
+        and c.file_type_id = b.file_type_id) file_names
+        from es_bp_data a, cfg_bp_template b  where a.template_id = b.template_id
+        <choose>
+            <when test="param.startDate != null">
+                AND A.create_date &gt;= #{param.startDate}
+            </when>
+        </choose>
+        <choose>
+            <when test="param.endDate != null">
+                AND A.create_date &lt;= #{param.endDate}
+            </when>
+        </choose>
+        <choose>
+            <when test="param.templateId != null">
+                AND A.template_id = #{param.templateId}
+            </when>
+        </choose>
+        <choose>
+            <when test="param.state != null">
+                AND A.state = #{param.state}
+            </when>
+        </choose>
+
+        order by a.create_date
+    </select>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sandi.web.common.mess.dao.ICfgMsgInfoInstDao">
+    <select id="getSendMsg" resultType="com.sandi.web.common.mess.entity.CfgMsgInfoInstEntity">
+        select * from cfg_msg_info_inst where upper(msg_type) in ('SMS','EMAIL') and send_date &lt; sysdate
+    </select>
+
+    <select id="getWebInfoList" resultType="com.sandi.web.common.mess.entity.CfgMsgInfoInstEntity" parameterType="java.util.Map">
+        select * from cfg_msg_info_inst where upper(msg_type) in ('WEB','WEB_APP') and user_id=#{userId}
+    </select>
+
+    <select id="getWebInfoCount" resultType="Integer" parameterType="java.util.Map">
+        select count(1) from cfg_msg_info_inst where upper(msg_type) in ('WEB','WEB_APP') and user_id=#{userId}
+    </select>
+
+    <select id="getAppInfoList" resultType="com.sandi.web.common.mess.entity.CfgMsgInfoInstEntity" parameterType="java.util.Map">
+        select * from cfg_msg_info_inst where upper(msg_type) in ('APP','WEB_APP') and user_id=#{userId}
+    </select>
+
+    <select id="getAppInfoCount" resultType="Integer" parameterType="java.util.Map">
+        select count(1) from cfg_msg_info_inst where upper(msg_type) in ('APP','WEB_APP') and user_id=#{userId}
+    </select>
+</mapper>

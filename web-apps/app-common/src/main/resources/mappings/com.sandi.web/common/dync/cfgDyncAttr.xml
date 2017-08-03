@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sandi.web.common.dync.dao.ICfgDyncAttrDao">
+    <delete id="deleteByPageId">
+        delete from CFG_DYNC_ATTR y
+         where y.attr_id in (select x.attr_id
+                               from CFG_DYNC_AREA_ATTR x, CFG_DYNC_PAGE_AREA b
+                              where x.area_id = b.area_id
+                                and b.page_id = #{pageId})
+    </delete>
+</mapper>

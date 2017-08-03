@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sandi.web.common.osdi.dao.ICfgBusiBaseDao">
+    <!-- 根据 -->
+    <select id="getBusiBaseEntity"  resultType="com.sandi.web.utils.http.entity.CfgBusiBase">
+        select a.*
+        from cfg_busi_base a
+        where a.state = 1
+        and a.busi_id = #{busiId}
+    </select>
+
+    <!-- 根据 -->
+    <select id="getSrvListByBusiId"  resultType="com.sandi.web.utils.http.entity.CfgBusiSrvRel">
+        select b.busi_srv_rel_id, b.busi_id, b.srv_id, b.srv_type, b.sort, b.state
+        from cfg_busi_base a, cfg_busi_srv_rel b
+        where a.busi_id = b.busi_id
+          and a.state = 1
+          and b.state = 1
+          and a.busi_id = #{busiId}
+          order by b.sort
+    </select>
+
+    <!-- 根据 -->
+    <select id="getEventListByBusiId"  resultType="com.sandi.web.utils.http.entity.CfgBusiEventRel">
+        select b.busi_id, b.srv_id, b.busi_srv_type, b.event_type, b.event_id, b.sort,
+        c.event_kind, c.event_desc, c.event_file, c.event_func, c.event_content, c.event_clazz
+        from cfg_busi_base a, cfg_event_rel b, cfg_event_def c
+        where a.busi_id = b.busi_id
+          and b.event_id = c.event_id
+          and a.state = 1
+          and b.state = 1
+          and c.state = 1
+          and a.busi_id = #{busiId}
+          order by b.busi_id, b.srv_id, b.sort
+    </select>
+
+    <!-- 根据 -->
+    <select id="getSrvParamMappingByBusiId"  resultType="com.sandi.web.utils.http.entity.CfgSrvParamMapping">
+        select a.*
+        from cfg_srv_param_mapping a
+        where a.state = 1
+        and a.busi_id = #{busiId}
+        order by a.sort
+    </select>
+</mapper>

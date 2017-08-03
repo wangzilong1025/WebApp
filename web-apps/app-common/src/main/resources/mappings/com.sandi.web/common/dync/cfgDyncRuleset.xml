@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sandi.web.common.dync.dao.ICfgDyncRulesetDao">
+    <select id="queryCfgRulesetData" resultType="map">
+        SELECT A.*,
+               (SELECT TO_CHAR(WM_CONCAT(RULE_TRIGGER_TYPE || ';' || RULE_ID || ';' || RULE_NAME))
+                  FROM (SELECT C.*, B.RULESET_ID, B.RULE_TRIGGER_TYPE
+                          FROM CFG_DYNC_RULESET_RULE B, CFG_DYNC_RULE C
+                         WHERE B.RULE_ID = C.RULE_ID
+                           AND B.STATE = 1
+                           AND C.STATE = 1
+                         ORDER BY B.SORT_ID) X
+                 WHERE X.RULESET_ID = A.RULESET_ID) RULES,
+               (SELECT TO_CHAR(WM_CONCAT(RULE_ID))
+                  FROM (SELECT C.*, B.RULESET_ID
+                          FROM CFG_DYNC_RULESET_RULE B, CFG_DYNC_RULE C
+                         WHERE B.RULE_ID = C.RULE_ID
+                           AND B.STATE = 1
+                           AND C.STATE = 1
+                         ORDER BY B.SORT_ID) X
+                 WHERE X.RULESET_ID = A.RULESET_ID) RULESID
+          FROM CFG_DYNC_RULESET A
+         WHERE A.STATE = 1        
+        <choose>
+            <when test="param.rulesetName != null">
+                AND a.ruleset_name like CONCAT(CONCAT('%',#{param.rulesetName}),'%')
+            </when>
+        </choose>
+        order by a.RULESET_ID
+    </select>
+</mapper>

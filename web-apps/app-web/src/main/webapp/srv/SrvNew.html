@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>服务配置</title>
+    <script type="text/javascript" src="../common/js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<input id="searchId" class="easyui-validatebox" type="text" style="width:150px" value="FSV">
+<br>
+
+<div id="queryResult"></div>
+</body>
+<script type="text/javascript">
+    $(document.body).on("keyup", "#searchId", function (event) {
+        if (event.which == '13') {//输入框回车事件响应
+            $.post("../srv/search?value=" + $(this).val()).success(function (classData) {
+                $("#queryResult").empty();//清空容器内元素
+                $("#queryResult").append("<span style='color: red;font-weight: bold;'>class list:</span>");
+                $("#queryResult").append("<br>");
+                for (var i in classData) {//构造显示类列表的div
+                    var classDiv = $("<div>");
+                    classDiv.attr("type", "class");
+                    classDiv.css("border", "1px solid blue");
+                    classDiv.css("background", "white");
+                    classDiv.css("word-wrap", "break-word");
+                    classDiv.text(classData[i]);
+                    $("#queryResult").append(classDiv);
+                    $("#queryResult").append("</div>");
+                }
+            });
+        }
+    }).on("dblclick", "#queryResult [type=class]", function () {//双击类div
+        var className = $((this)).text().substring(0, $((this)).text().indexOf('.class'));
+        $.post("../srv/srvmethodlist?className=" + className).success(function (methodData) {
+            $("#queryResult").empty();
+            $("#queryResult").append("<span style='color: blue;font-weight: bold;'>class : " + "</span>" + className);
+            $("#queryResult").append("<br>");
+            $("#queryResult").append("<span style='color: red;font-weight: bold;'>method list:</span>");
+            $("#queryResult").append("<br>");
+            for (var j in methodData) {//构造显示方法列表的div
+                var methodDiv = $("<div>");
+                methodDiv.attr("type", "method");
+                methodDiv.attr("className", className);
+                methodDiv.css("border", "1px solid blue");
+                methodDiv.css("background", "white");
+                methodDiv.css("word-wrap", "break-word");
+                methodDiv.data("json", methodData[j]);
+                methodDiv.html(methodData[j]["decliare"]);
+                $("#queryResult").append(methodDiv);
+                $("#queryResult").append("</div>");
+            }
+        });
+    }).on("dblclick", "#queryResult [type=method]", function () {
+        var className = $((this)).text();
+        if (className.indexOf("(java.lang.String)") < 0) {
+            alert("当前仅支持一个入参，且入参为java.lang.String。");
+            return;
+        }
+        className = className.split("#");
+        if (className.length != 2 || className[0] == "" || className[1] == "") {
+            alert("请选中某个具体的方法！");
+            return;
+        }
+        $("#queryResult").empty();
+        $("#queryResult").append("<span style='color: blue; font-weight: bold;'><font color='white'>xxx</font>class : </span><font style='font-weight: bold;'>" + className[0] + "</font>");
+        $("#queryResult").append("<br>");
+        $("#queryResult").append("<span style='color: blue; font-weight: bold;'><font color='white'>xx</font>method : </span><font style='font-weight: bold;'>" + className[1] + "</font>");
+        $("#queryResult").append("<br>");
+        $("#queryResult").append("<span style='color: red; font-weight: bold;'><font color='white'>xx</font>srv_id : </span>" + "<input type='txt' id='srv_id'/>");
+        $("#queryResult").append("<br>");
+        $("#queryResult").append("<span style='color: red; font-weight: bold;'>srv_name : </span>" + "<input type='txt' id='srv_name'/>");
+        $("#queryResult").append("<br>");
+        $("#queryResult").append("<span style='color: red; font-weight: bold;'><font color='white'>xx</font>remark : </span>" + "<input type='txt' id='remark'/>");
+        $("#queryResult").append("<br>");
+        $("#queryResult").append("<br>");
+
+        $("#queryResult").append("<tr>" +
+        "<td style='padding: 5px;'><span style='color: red; font-weight: bold;'>par_in</span>&nbsp;<input type='button' id='format1' value='format'/><br>" + "<textarea rows='20' style='width:300px;' id='par_in'></textarea></td>" +
+        "<td style='padding: 5px;'><span style='color: red; font-weight: bold;'>par_out</span>&nbsp;<input type='button' id='format2' value='format'/><br>" + "<textarea rows='20' style='width:300px;' id='par_out'></textarea></td>" +
+        "</tr>");
+        $("#queryResult").append("<br>");
+        $("#queryResult").append("<br>");
+        $("#queryResult").append("<br>");
+        $("#queryResult").append("&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' value='submit'/>");
+        $("#queryResult").append("<br>");
+        $("#queryResult").append("<input type='hidden' id='class' value='" + className[0] + "'/>");
+        $("#queryResult").append("<input type='hidden' id='method' value='" + className[1] + "'/>");
+        
+        var srv_id;
+        try{
+        	srv_id = className[0].substring(className[0].lastIndexOf(".")+1) + "_"+className[1].substring(0,className[1].indexOf("("));
+        	srv_id = srv_id.replace(/(^\s*)|(\s*$)/g, "");
+        	//srv_id = srv_id.replace(/([A-Z])/g,"_$1").toLowerCase();//驼峰转连字符
+        	srv_id = srv_id.toUpperCase();
+        	$("#srv_id").val(srv_id)
+        }catch(e){
+        	srv_id = "XXXXXX";
+        }
+        
+        var par_in = "{\"requestInfo\":{\"busiParams\":{},\"busiCode\":\""+srv_id+"\"},\"pubInfo\":{\"orgId\":0,\"opId\":0,\"regionCode\":\"201\",\"transactionId\":\"20150724170000\",\"interfaceType\":\"00\",\"transactionTime\":\"20150724170000\",\"interfaceId\":\"\",\"countyCode\":\"\",\"clientIP\":\"127.0.0.1\",\"sessionId\":\"\"}}";
+        var par_out = "{\"errorInfo\":{\"message\":\"成功\",\"code\":\"0000\"},\"retInfo\":{}}";
+        
+        try{
+    		$("#par_in").val(JSON.stringify(eval("("+par_in+")"), null, 4));
+    		$("#par_out").val(JSON.stringify(eval("("+par_out+")"), null, 4));
+    	}catch(e){
+    		$("#par_in").val(par_in);
+            $("#par_out").val(par_out);
+    	}
+    }).on("click", "#queryResult [value=submit]", function () {
+        var _class = $("#class").val();
+        var method = $("#method").val();
+        var srv_id = $("#srv_id").val();
+        var srv_name = $("#srv_name").val();
+        var remark = $("#remark").val();
+        var par_in = $("#par_in").val();
+        var par_out = $("#par_out").val();
+        if (srv_id === '') {
+            alert("srv_id 不能为空！");
+            return;
+        }
+        if (srv_name === '') {
+            alert("srv_name 不能为空！");
+            return;
+        }
+        try{
+    		eval("("+par_in+")");
+    	}catch(e){
+    		alert("par_in非JSON格式，请检查！");
+    		return ;
+    	}
+    	try{
+    		eval("("+par_out+")");
+    	}catch(e){
+    		alert("par_out非JSON格式，请检查！");
+    		return ;
+    	}
+    	
+        $.post("../srv/save", {
+            "_class": _class,
+            "method": method,
+            "srvId": srv_id,
+            "srvName": srv_name,
+            "remark": remark,
+            "parIn": par_in,
+            "parOut": par_out
+        }).success(function (data) {
+            if (data.code == 0) {
+                alert("创建服务成功！");
+                location.href = location.href;
+            } else {
+                alert("创建服务失败！" + data.message);
+            }
+        });
+    }).on("click", "#format1", function () {
+    	try{
+    		$("#par_in").val(JSON.stringify(eval("("+$("#par_in").val()+")"), null, 4));
+    	}catch(e){
+    		alert("非JSON格式！");
+    	}
+    }).on("click", "#format2", function () {
+    	try{
+    		$("#par_out").val(JSON.stringify(eval("("+$("#par_out").val()+")"), null, 4));
+    	}catch(e){
+    		alert("非JSON格式！");
+    	}
+    });
+</script>
+</html>

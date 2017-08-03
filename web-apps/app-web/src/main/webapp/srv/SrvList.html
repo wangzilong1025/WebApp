@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>服务配置</title>
+    <script type="text/javascript" src="../common/js/jquery-1.7.2.min.js"></script>
+    <style type="text/css">
+        table {
+            TABLE-LAYOUT: fixed;
+            BORDER-COLLAPSE: collapse
+        }
+
+        th {
+            font-weight: normal;
+            height: 24px;
+            cursor: default;
+            white-space: nowrap;
+            overflow: hidden;
+            border: 1px solid #86A3C4;
+            background: #e6e6e6 url(../common/png/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+            font-weight: bold;
+        }
+
+        tr.oddRow {
+            background-color: transparent;
+        }
+
+        tr.evenRow {
+            background-color: #FAFAFA;
+        }
+
+        td {
+            border: 1px solid #86A3C4;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body onload="bodyOnload()" id="body">
+<font style="font-weight: bold;">Search : </font><input type="input" id="searchId">
+<br><br>
+
+<div>
+    <table id="list" style="float: left;"></table>
+</div>
+</body>
+<script type="text/javascript">
+    var cacheServiceData = null;//缓存从后台查询到的所有服务数据
+    var titleName = ["srvId", "srvName", "class", "method", "remark"];
+    var titleField = ["srvId", "srvName", "srvPackage", "srvMethod", "remark"];
+    function drawTr(tab, serviceData) {
+        var tr = $("<tr>");
+        tr.attr("type", "content");
+        for (var i in titleField) {
+            tr.append("<td width='250px' style='word-break:break-all;'>" + serviceData[titleField[i]] + "</td>");
+        }
+        var inputTd = $("<td>");
+        var updateButton = $("<input type=\"button\"/>");
+        updateButton.attr("value", "update");
+        updateButton.on("click",
+                {code: serviceData["srvId"]},
+                function (e) {
+                    toUpdateService(e.data.code);
+                }
+        );
+        inputTd.append(updateButton);
+
+        var deleteButton = $("<input type=\"button\"/>");
+        deleteButton.attr("value", "delete");
+        deleteButton.on("click",
+                {code: serviceData["srvId"]},
+                function (e) {
+                    toDeleteService(e.data.code);
+                }
+        );
+        inputTd.append(deleteButton);
+
+        var deleteButton = $("<input type=\"button\"/>");
+        deleteButton.attr("value", "test");
+        deleteButton.on("click",
+                {code: serviceData["srvId"]},
+                function (e) {
+                    toTestService(e.data.code);
+                }
+        );
+        inputTd.append(deleteButton);
+
+
+        inputTd.append("</td>");
+        tr.append(inputTd);
+        tr.append("</tr>");
+        tab.append(tr);
+    }
+
+    function bodyOnload() {
+        $.post("../srv/queryAll").success(function (serviceData) {
+            if (serviceData.code != 0) {
+                alert("获取数据失败！" + serviceData.message);
+                return;
+            }
+            cacheServiceData = serviceData.data;//缓存从后台查询到的数据
+            serviceData = serviceData.data;
+            //在页面展示全部服务数据
+            var tabContainer = $("#list");
+            var html = "<tr>";
+            for (var i in titleName) {
+                html += "<th width='200'>" + titleName[i] + "</th>";
+            }
+            html += "<th>operation</th>";
+            html += "</tr>";
+            tabContainer.append(html);
+            for (var i in serviceData) {
+                drawTr(tabContainer, serviceData[i]);
+            }
+
+            $("#searchId").keyup(function (event) {
+                if (event.which == '13') {//回车键
+                    $("#list tr[type=content]").remove();
+                    var keywords = $(this).val();
+                    for (var i in serviceData) {
+                        if (serviceData[i]["srvId"].toLowerCase().indexOf(keywords.toLowerCase()) > -1) {
+                            drawTr(tabContainer, serviceData[i]);
+                        }
+                    }
+                }
+            });
+        });
+    }
+
+    function toDeleteService(serviceCode) {
+        if (window.confirm("确定要删除该服务吗？")) {
+            $.post("../srv/delete", {srvId: serviceCode}).success(function (data) {
+                if (data.code == 0) {
+                    alert("删除服务成功！");
+                    location.href = location.href;
+                } else {
+                    alert("删除服务失败！" + data.message);
+                }
+            });
+        }
+    }
+
+    function toTestService(serviceCode) {
+        if (cacheServiceData != null) {
+            var serviceData;
+            var flag = false;
+            for (var i in cacheServiceData) {
+                if (cacheServiceData[i]["srvId"] == serviceCode) {
+                    serviceData = cacheServiceData[i];
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag) {
+                $("#body").html("<div id='queryResult'></div>");
+
+                $("#queryResult").append("<span style='color: blue; font-weight: bold;'><font color='white'>xx</font>srv_id : </span><font style='font-weight: bold;'>" + serviceData.srvId + "</font>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<span style='color: blue; font-weight: bold;'>srv_name : </span><font style='font-weight: bold;'>" + serviceData.srvName + "</font>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<span style='color: blue; font-weight: bold;'><font color='white'>xxx</font>class : </span><font style='font-weight: bold;'>" + serviceData.srvPackage + "</font>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<span style='color: blue; font-weight: bold;'><font color='white'>xx</font>method : </span><font style='font-weight: bold;'>" + serviceData.srvMethod + "</font>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<span style='color: blue; font-weight: bold;'><font color='white'>xx</font>remark : </span><font style='font-weight: bold;'>" + serviceData.remark + "</font>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<br>");
+
+                $("#queryResult").append("<tr>" +
+                "<td style='padding: 5px;border: 0px;'><span style='color: blue; font-weight: bold;'>par_in</span><br>" + "<textarea rows='25' style='width:250px;' id='par_in' readonly='readonly'></textarea></td>" +
+                "<td style='padding: 5px;border: 0px;'><span style='color: red; font-weight: bold;'>par_in for test</span>&nbsp;<input type='button' id='format1' value='format'/><br>" + "<textarea rows='25' style='width:250px;' id='par_in_'></textarea></td>" +
+
+                "<td style='padding: 5px;border: 0px;'><span style='color: blue; font-weight: bold;'>par_out</span><br>" + "<textarea rows='25' style='width:250px;' id='par_out' readonly='readonly'></textarea></td>" +
+                "<td style='padding: 5px;border: 0px;'><span style='color: black; font-weight: bold;'>par_out for test</span>&nbsp;<input type='button' id='format2' value='format'/><br>" + "<textarea rows='25' style='width:250px;' id='par_out_'  readonly='readonly'></textarea></td>" +
+                "</tr>");
+
+
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' id='test' value='TEST'/>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<span style='color: red; font-weight: bold;'>INS_SQL:</span><br><textarea rows='25' style='width:600px;' id='ins_sql' readonly='readonly'></textarea>");
+
+                var parIn = serviceData.parIn;
+                var parOut = serviceData.parOut;
+                var sql_arr = [serviceData.srvId, serviceData.catalogId, serviceData.srvName, serviceData.srvPackage, serviceData.srvMethod, serviceData.invoketimeout, serviceData.parIn, serviceData.parOut, serviceData.state, serviceData.remark];
+                var sql = "INSERT INTO AIESOP.CFG_SRV_BASE (SRV_ID, CATALOG_ID, SRV_NAME, SRV_PACKAGE, SRV_METHOD, INVOKETIMEOUT, PAR_IN, PAR_OUT, STATE, REMARK) " +
+                        "VALUES (";
+                for (var i = 0; i < sql_arr.length; i++) {
+                    if (sql_arr[i] != null) {
+                        sql += "'" + sql_arr[i] + "'"
+                    } else {
+                        sql += "NULL";
+                    }
+                    if (i < sql_arr.length - 1) {
+                        sql += ", ";
+                    }
+                }
+                sql += ");";
+
+                try {
+                    parIn = JSON.stringify(eval("(" + serviceData.parIn + ")"), null, 4);
+                    parOut = JSON.stringify(eval("(" + serviceData.parOut + ")"), null, 4);
+                } catch (e) {
+                }
+                $("#par_in").val(parIn);
+                $("#par_in_").val(parIn);
+                $("#par_out").val(parOut);
+                $("#ins_sql").val(sql);
+                //$("#par_out_").val(parOut);
+
+
+                $("#format1").on("click", function () {
+                    try {
+                        $("#par_in_").val(JSON.stringify(eval("(" + $("#par_in_").val() + ")"), null, 4));
+                    } catch (e) {
+                        alert("非JSON格式！");
+                    }
+                });
+                $("#format2").on("click", function () {
+                    try {
+                        $("#par_out_").val(JSON.stringify(eval("(" + $("#par_out_").val() + ")"), null, 4));
+                    } catch (e) {
+                        alert("非JSON格式！");
+                    }
+                });
+
+                $("#test").on("click", function () {
+                    testService(serviceData);
+                });
+            }
+        }
+    }
+
+    function testService(serviceData) {
+
+        var parIn = $("#par_in_").val();
+        $.ajax({
+            url: "../server",
+            data: {data: parIn},
+            type: "POST",
+            success: function (data) {
+                $("#par_out_").val(JSON.stringify(data));
+            },
+            error: function (data) {
+                alert(JSON.stringify(data));
+            }
+        });
+    }
+
+    function toUpdateService(serviceCode) {
+        if (cacheServiceData != null) {
+            var serviceData;
+            var flag = false;
+            for (var i in cacheServiceData) {
+                if (cacheServiceData[i]["srvId"] == serviceCode) {
+                    serviceData = cacheServiceData[i];
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag) {
+                $("#body").html("<div id='queryResult'></div>");
+
+                $("#queryResult").append("<span style='color: blue; font-weight: bold;'><font color='white'>xx</font>srv_id : </span><font style='font-weight: bold;'>" + serviceData.srvId + "</font>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<span style='color: blue; font-weight: bold;'><font color='white'>xxx</font>class : </span><font style='font-weight: bold;'>" + serviceData.srvPackage + "</font>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<span style='color: blue; font-weight: bold;'><font color='white'>xx</font>method : </span><font style='font-weight: bold;'>" + serviceData.srvMethod + "</font>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<span style='color: blue; font-weight: bold;'>srv_name : </span><input id='srv_name' value='" + serviceData.srvName + "'/>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<span style='color: blue; font-weight: bold;'><font color='white'>xx</font>remark : </span><input id='remark' value='" + serviceData.remark + "'/>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<tr>" +
+                "<td style='padding: 5px;border: 0px;'><span style='color: red; font-weight: bold;'>par_in</span>&nbsp;<input type='button' id='format11' value='format'/><br>" + "<textarea rows='25' style='width:300px;' id='par_in'></textarea></td>" +
+                "<td style='padding: 5px;border: 0px;'><span style='color: red; font-weight: bold;'>par_out</span>&nbsp;<input type='button' id='format21' value='format'/><br>" + "<textarea rows='25' style='width:300px;' id='par_out'></textarea></td>" +
+                "</tr>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' id='updataSubmit' value='submit'/>");
+                $("#queryResult").append("<br>");
+                $("#queryResult").append("<input type='hidden' id='srv_id' value='" + serviceData.srvId + "'/>");
+
+                var parIn = serviceData.parIn;
+                var parOut = serviceData.parOut;
+                try {
+                    parIn = JSON.stringify(eval("(" + serviceData.parIn + ")"), null, 4);
+                    parOut = JSON.stringify(eval("(" + serviceData.parOut + ")"), null, 4);
+                } catch (e) {
+                }
+                $("#par_in").val(parIn);
+                $("#par_out").val(parOut);
+
+                $("#format11").on("click", function () {
+                    try {
+                        $("#par_in").val(JSON.stringify(eval("(" + $("#par_in").val() + ")"), null, 4));
+                    } catch (e) {
+                        alert("非JSON格式！");
+                    }
+                });
+                $("#format21").on("click", function () {
+                    try {
+                        $("#par_out").val(JSON.stringify(eval("(" + $("#par_out").val() + ")"), null, 4));
+                    } catch (e) {
+                        alert("非JSON格式！");
+                    }
+                });
+
+                $("#updataSubmit").on("click", function () {
+                    var srv_id = $("#srv_id").val();
+                    var srv_name = $("#srv_name").val();
+                    var remark = $("#remark").val();
+                    var par_in = $("#par_in").val();
+                    var par_out = $("#par_out").val();
+                    if (srv_name === '') {
+                        alert("srv_name 不能为空！");
+                        return;
+                    }
+                    try {
+                        eval("(" + par_in + ")");
+                    } catch (e) {
+                        alert("par_in非JSON格式，请检查！");
+                        return;
+                    }
+                    try {
+                        eval("(" + par_out + ")");
+                    } catch (e) {
+                        alert("par_out非JSON格式，请检查！");
+                        return;
+                    }
+
+                    $.post("../srv/update", {
+                        "srvId": srv_id,
+                        "srvName": srv_name,
+                        "remark": remark,
+                        "parIn": par_in,
+                        "parOut": par_out
+                    }).success(function (data) {
+                        if (data.code == 0) {
+                            alert("修改服务成功！");
+                            location.href = location.href;
+                        } else {
+                            alert("修改服务失败！" + data.message);
+                        }
+                    });
+                });
+            }
+        }
+    }
+
+
+</script>
+</html>

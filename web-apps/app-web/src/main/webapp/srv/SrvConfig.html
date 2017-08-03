@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>服务管理</title>
+    <script type="text/javascript" src="/common/js/jquery-1.7.2.min.js"></script>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            line-height: 25px;
+            font-size: 12px;
+            list-style: none
+        }
+
+        #tabContainer {
+            margin: 5px 0px 0px 30px;
+        }
+
+        #tabContainer li {
+            float: left;
+            width: 200px;
+            margin: 0 3px;
+            background: #efefef;
+            text-align: center;
+        }
+
+        #tabContainer a {
+            display: block;
+        }
+
+        #tabContainer a.on {
+            background: pink;
+        }
+
+    </style>
+</head>
+<body>
+<div id="tabContainer">
+    <ul>
+        <li><a href="#" class="on" type="new" onclick="switchTab(this.type);this.blur();return false;" style="font-weight: bold;">Service New</a>
+        </li>
+        <li><a href="#" type="list" onclick="switchTab(this.type);this.blur();return false;" style="font-weight: bold;">Service List</a></li>
+    </ul>
+
+    <div style="clear: both;"></div>
+    <iframe width="95%" align="center" height="700" type="new" style="display: none; border: 0px;"
+            src="SrvNew.html"></iframe>
+    <iframe width="95%" align="center" height="700" type="list" style="display: none; border: 0px;"
+            src="SrvList.html"></iframe>
+</div>
+</body>
+<script type="text/javascript">
+    function switchTab(type) {
+        $("#tabContainer ul li a").each(function () {
+            if ($(this).attr("type") == type) {
+                $(this).attr("class", "on");
+            } else {
+                $(this).attr("class", "");
+            }
+        });
+        $("#tabContainer iframe").each(function () {
+            if ($(this).attr("type") == type) {
+                $(this).show();
+                $(this).attr("src", $(this).attr("src"));
+            } else {
+                $(this).hide();
+            }
+        });
+    }
+</script>
+</html>

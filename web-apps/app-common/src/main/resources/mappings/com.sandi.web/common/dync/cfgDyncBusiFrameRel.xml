@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sandi.web.common.dync.dao.ICfgDyncBusiFrameRelDao">
+    <select id="queryCfgDyncBusiData" resultType="map">
+        select a.*, b.template_name
+          from CFG_DYNC_BUSI_FRAME_REL a, CFG_DYNC_PAGE_TEMPLATE b
+         where a.page_template_id = b.template_id
+        <choose>
+            <when test="param.remark != null">
+                AND A.remark like CONCAT(CONCAT('%',#{param.remark}),'%')
+            </when>
+        </choose>
+        <choose>
+            <when test="param.state != null">
+                AND A.state = #{param.state}
+            </when>
+        </choose>
+
+        order by a.create_date
+    </select>
+</mapper>

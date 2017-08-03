@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+       default-lazy-init="true">
+
+    <description>Jedis Configuration</description>
+    <!-- 加载配置属性文件 -->
+    <context:property-placeholder ignore-unresolvable="true" location="classpath*:application.properties"/>
+    <!-- JedisCluster -->
+    <bean id="genericObjectPoolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig">
+        <property name="maxTotal" value="${redis.jedis.maxTotal}"/>
+        <property name="minIdle" value="${redis.jedis.minIdle}"/>
+        <property name="maxIdle" value="${redis.jedis.maxIdle}"/>
+        <property name="testOnBorrow" value="${redis.jedis.testOnBorrow}"/>
+    </bean>
+
+    <bean id="jedisConnectionFactory" class="com.sandi.web.utils.common.JedisConnectionFactory">
+        <constructor-arg index="0" value="${redis.clientPath}" type="java.lang.String"></constructor-arg>
+        <!--有standalone、sentinel、cluster几种模式-->
+        <constructor-arg index="1" value="${redis.deployModel}" type="java.lang.String"></constructor-arg>
+        <constructor-arg index="2" value="${redis.connectionTimeout}" type="int"></constructor-arg>
+        <constructor-arg index="3" value="${redis.soTimeout}" type="int"></constructor-arg>
+        <!--cluster模式下有效-->
+        <constructor-arg index="4" value="${redis.maxRedirections}" type="int"></constructor-arg>
+        <!--single、sentinel模式下有效-->
+        <constructor-arg index="5" value="${redis.password}" type="java.lang.String"></constructor-arg>
+        <!--sentinel模式下有效-->
+        <constructor-arg index="6" value="${redis.masterName}" type="java.lang.String"></constructor-arg>
+        <constructor-arg index="7" ref="genericObjectPoolConfig"></constructor-arg>
+    </bean>
+</beans>
