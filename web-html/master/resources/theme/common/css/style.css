@@ -1,0 +1,469 @@
+/**
+ * 基础样式，各主题风格通用
+ */
+
+/*####################  body ###################*/
+body {
+    font-family: "微软雅黑" !important;
+    color: #666;
+    font-size: 14px;
+    background: #eeeff1;
+}
+
+/*####################  body end ###################*/
+
+/*####################  栅格 ###################*/
+.col-md-1,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-md-10,
+.col-md-11,
+.col-md-12 {
+    float: left;
+    position: relative;
+    min-height: 40px;
+}
+
+.col-md-12 {
+    width: 100%
+}
+
+.col-md-11 {
+    width: 91.66666667%
+}
+
+.col-md-10 {
+    width: 83.33333333%
+}
+
+.col-md-9 {
+    width: 75%
+}
+
+.col-md-8 {
+    width: 66.66666667%
+}
+
+.col-md-7 {
+    width: 58.33333333%
+}
+
+.col-md-6 {
+    width: 50%
+}
+
+.col-md-5 {
+    width: 41.66666667%;
+}
+
+.col-md-4 {
+    width: 33.33333333%
+}
+
+.col-md-3 {
+    width: 25%
+}
+
+.col-md-2 {
+    width: 16.66666667%
+}
+
+.col-md-1 {
+    width: 8.33333333%
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+    height: auto;
+    width: 100%;
+    min-height: 40px;
+}
+
+/*####################  栅格 结束 ###################*/
+
+/*####################  box块  ###################*/
+.box-inside {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 5px;
+    background: white;
+}
+
+.box-inside .box-header {
+    width: 100%;
+    position: relative;
+}
+
+.box-inside .box-header > h4 {
+    padding: 7px 20px 8px 20px;
+    font-size: 14px;
+    margin: 0;
+    font-weight: bold;
+    border-bottom: 1px #B1D2F1 solid;
+    background: #fff;
+}
+
+.box-inside .box-content {
+    height: auto;
+    color: #737373;
+    padding: 2px 2px 20px 20px;
+}
+
+/*####################  box块 结束 ###################*/
+
+/*clearfix 为清除浮动代码，当某些地方高度撑不开时可以使用。*/
+.clearfix {
+    *+height: 1%;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.float-right {
+    float: right !important;
+}
+
+.float-left {
+    float: left;
+}
+
+/**
+ * kendoui notification
+ */
+.k-notification-mask {
+    position: absolute;
+    z-index: 10004;
+}
+
+.k-notification-mask .mask {
+    position: absolute;
+    z-index: 10004;
+    background-color: #fff;
+    filter: Alpha(Opacity=0);
+    opacity: 0;
+    width: 100%;
+}
+
+.k-notification-mask .box {
+    width: 410px;
+    height: auto;
+    padding: 20px;
+    border: 1px solid #a7b1b9;
+    position: fixed;
+    background-color: #FFF;
+    top: 50%;
+    left: 50%;
+    margin-top: -120px;
+    margin-left: -185px;
+    z-index: 10005;
+    text-align: center;
+}
+
+.k-notification-mask .box-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #7b8a97;
+    padding-top: 15px;
+}
+
+.k-notification-mask .success .box-title:before {
+    content: url(../images/success.png);
+}
+
+.k-notification-mask .warn .box-title:before {
+    content: url(../images/warn.png);
+}
+
+.k-notification-mask .error .box-title:before {
+    content: url(../images/error.png);
+}
+
+.k-notification-mask .info .box-title:before {
+    content: url(../images/info.png);
+}
+
+.k-notification-mask .confirm .box-title:before {
+    content: url(../images/info.png);
+}
+
+.k-notification-mask .box-title:before {
+    margin-right: 10px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.k-notification-mask .box p {
+    color: #a9b2ba;
+    margin-top: 25px;
+    margin-bottom: 40px;
+    font-size: 12px;
+    line-height: 22px;
+    word-break: break-all;
+}
+
+.k-notification-mask .box input[type="button"] {
+    height: auto;
+    padding: 12px 68px;
+    color: #FFF;
+    font-size: 14px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+
+.k-notification-mask .box input[name="cancel"] {
+    background-color: #fff;
+    border: #ccc 1px solid;
+    color: #999;
+}
+
+.k-notification-mask .box input[type="text"] {
+    background-color: #fff;
+    width: 200px;
+    height: 2.62em;
+    text-indent: .8em;
+}
+
+.k-notification-mask .success input {
+    background-color: #5bd18d;
+}
+
+.k-notification-mask .warn input {
+    background-color: #f4c400;
+}
+
+.k-notification-mask .error input {
+    background-color: #ff7979;
+}
+
+.k-notification-mask .info input {
+    background-color: #3384d5;
+}
+
+.k-notification-mask .confirm input {
+    background-color: #3384d5;
+}
+
+.k-notification-mask .success input:active {
+    background-color: #40c16c;
+}
+
+.k-notification-mask .warn input:active {
+    background-color: #f0b000;
+}
+
+.k-notification-mask .error input:active {
+    background-color: #ff5a5a;
+}
+
+.k-notification-mask .info input:active {
+    background-color: #2265c6;
+}
+
+.k-notification-mask .confirm input:active {
+    background-color: #2265c6;
+}
+
+.k-notification-mask .box input[name="cancel"]:active {
+    background-color: #f0f0f0;
+}
+
+/**
+ * kendoui notification
+ */
+.k-notification-no-mask {
+    width: 271px;
+}
+
+.k-notification-no-mask .box {
+    width: 250px;
+    height: auto;
+    padding: 10px;
+    /*border: 1px solid #a7b1b9;*/
+    position: fixed;
+    background-color: #FFF;
+    /*margin-left: -260px;
+    z-index: 10005;
+    text-align: left;*/
+}
+
+.k-notification-no-mask .box-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #7b8a97;
+    /*padding-top: 15px;*/
+}
+
+.k-notification-no-mask .success .box-title:before {
+    content: url(../images/success.png);
+}
+
+.k-notification-no-mask .warn .box-title:before {
+    content: url(../images/warn.png);
+}
+
+.k-notification-no-mask .error .box-title:before {
+    content: url(../images/error.png);
+}
+
+.k-notification-no-mask .info .box-title:before {
+    content: url(../images/info.png);
+}
+
+.k-notification-no-mask-mask .confirm .box-title:before {
+    content: url(../images/info.png);
+}
+
+.k-notification-no-mask .box-title:before {
+    margin-right: 10px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.k-notification-no-mask .box p {
+    color: #a9b2ba;
+    /*margin-top: 25px;
+    margin-bottom: 40px;*/
+    font-size: 12px;
+    line-height: 22px;
+    word-break: break-all;
+}
+
+.k-notification-no-mask .box input[type="button"] {
+    height: auto;
+    padding: 12px 30px;
+    color: #FFF;
+    font-size: 14px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+
+.k-notification-no-mask .box input[name="cancel"] {
+    background-color: #fff;
+    border: #ccc 1px solid;
+    color: #999;
+}
+
+.k-notification-no-mask .box input[type="text"] {
+    background-color: #fff;
+    width: 200px;
+    height: 2.62em;
+    text-indent: .8em;
+}
+
+.k-notification-no-mask .success input {
+    background-color: #5bd18d;
+}
+
+.k-notification-mask .warn input {
+    background-color: #f4c400;
+}
+
+.k-notification-mask .error input {
+    background-color: #ff7979;
+}
+
+.k-notification-mask .info input {
+    background-color: #3384d5;
+}
+
+.k-notification-mask .confirm input {
+    background-color: #3384d5;
+}
+
+.k-notification-mask .success input:active {
+    background-color: #40c16c;
+}
+
+.k-notification-mask .warn input:active {
+    background-color: #f0b000;
+}
+
+.k-notification-mask .error input:active {
+    background-color: #ff5a5a;
+}
+
+.k-notification-mask .info input:active {
+    background-color: #2265c6;
+}
+
+.k-notification-mask .confirm input:active {
+    background-color: #2265c6;
+}
+
+.k-notification-mask .box input[name="cancel"]:active {
+    background-color: #f0f0f0;
+}
+
+
+.input-label{
+    display: inline-block;
+    width: 120px;
+    text-align: right;
+}
+
+
+.k-aipopup {
+    border-radius: 4px;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+    width: 12.4em;
+    height: 1.94em;
+    position: relative;
+    overflow: visible;
+    border-width: 0;
+}
+
+.k-i-popup {
+    background-position: -292px -53px;
+}
+
+.k-picker-wrap:before{
+    height: auto;
+}
+
+
+
+
+.lineHeight30 {
+    line-height: 30px;
+}
+
+.lineHeight35 {
+    line-height: 35px;
+}
+
+.lineHeight40 {
+    line-height: 40px;
+}
+.lineHeight80 {
+    line-height: 80px;
+}
