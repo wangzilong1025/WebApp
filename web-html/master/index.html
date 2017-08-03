@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="description" content="PlaneUI" />
+    <meta name="keywords" content="PlaneUI" />
+    <title>Santy试衣</title>
+    <link rel="icon" type="image/png" href="./resources/frame/planeui/login/images/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="./resources/frame/planeui/css/style.css" />
+    <script src="./js/common/header.js"></script>
+    <script type="text/javascript" src="./js/general/py.js" ></script>
+    <style>
+        .pui-menu-accordion.pui-bg-blue > li >  a,
+        .pui-menu-accordion.pui-bg-green > li >  a {
+            color: #fff;
+            border: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        html.no-touch .pui-menu-accordion.pui-bg-blue > li > a:hover,
+        html.no-touch .pui-menu-accordion.pui-bg-green > li > a:hover,
+        .pui-menu-accordion.pui-bg-blue > li > a.hover,
+        .pui-menu-accordion.pui-bg-green > li > a.hover{
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .pui-menu-accordion.pui-bg-blue .pui-sub-menu,
+        .pui-menu-accordion.pui-bg-green .pui-sub-menu {
+            border: none;
+            background: rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+<a name="top"></a>
+<a href="#top" class="fa fa-arrow-circle-up fa-3x pui-text-blue-400" title="回到顶部" id="go-to-top"></a>
+<div class="pui-layout page-header" style="position:static;box-shadow:none;top:0px;left:0px;z-index:999;height: 66.8px;">
+    <div class="pui-layout pui-full-width" style="padding-left: 40px;padding-right: 40px;/*padding-top: 20px;*/">
+        <div class="pui-menubar pui-menubar-square pui-menubar-header-style pui-bg-none pui-unbordered">
+            <div class="pui-menubar-aside logo" style="border-left: 30px;"></div>
+            <div style="padding-left: 20px;padding-top: 30px;"><a href="#">欢迎您，Santy</a></div>
+            <div class="pui-menubar-offside" style="padding-top:15px;padding-right:15px;">
+                <!--<div class="pui-left pui-search square search-header" style="float: right">
+                    <button class="pui-search-submit" style="z-index:1" name="submit-pui-search" value=""></button>
+                    <input type="text" name="quickSearch" class="search-input" id="quickSearch"/>
+                </div>-->
+                <ul class="pui-menu pui-menu-inline pui-menu-simple pui-right">
+                    <li class="fa fa-user icon-header" title="用户信息" onclick="indexModel.userInfo()"><!--<a href="#" style="display: none;" onclick="">用户</a>--></li>
+                    <li class="fa fa-bell icon-header" title="消息提醒" onclick="">
+                        <span class="pui-badge pui-badge-error pui-badge-circle" style="display:none" id="messSpan">用户</span>
+                    </li>
+                    <li class="fa fa-folder icon-header" title="我的收藏" onclick=""></li>
+                    <!--<li class="fa fa-question-circle icon-header"></li>
+                    <li class="fa fa-sign-out icon-header"></li>
+                    <li class="fa fa-check icon-header"></li>-->
+                    <li class="fa fa-power-off icon-header" style="padding-left:15px;" title="退出登录" onclick=""></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="pui-layout" style="width:96%;">
+    <div class="pui-menubar pui-menubar-square pui-bg-light-green-600 pui-menubar-bg-color" style="margin-bottom: 0.2%;">
+        <!--<div class="pui-menubar-aside text-lg" style="padding:0 10px;">TEST LOGO</div>-->
+        <ul class="pui-menu pui-menu-radius pui-menu-inline" style="padding-left: 10%;">
+            <li>
+                <a href="javascript:;" class="active"><i class="fa fa-home pui-text-xl"></i>首页</a>
+            </li>
+            <li>
+                <a href="javascript:;"><i class="fa fa-shopping-cart pui-text-lg"></i>产品特性</a>
+                <ul class="pui-menu pui-menu-dropdown pui-menu-dropdown-unarrow z-depth-3" style="width: 200%;top: 44px;">
+                    <li>
+                        <a href="javascript:;" onclick="indexModel.userInfo()" id="userInfo"><label class="pui-badge pui-badge-success">5</label>用户信息</a>
+                    </li>
+                    <li class="pui-menu-header">Header</li>
+                    <li>
+                        <a href="javascript:;" class="active" style="width:100.999999%;margin-left:-1px;">下拉菜单一</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" onclick="indexModel.collection()" id="collection">个人收藏<label class="pui-badge pui-badge-success">5</label></a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单三XXX <label class="pui-badge pui-badge-info">99</label></a>
+                    </li>
+                    <li class="pui-menu-divider"></li>
+                    <li>
+                        <a href="javascript:;" class="disabled">Downloads</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单四XXXXXX <label class="pui-badge pui-badge-warning pui-badge-circle" style="min-width:10px;">1</label></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;"><i class="fa fa-file-text-o pui-text-lg"></i>开发文档</a>
+                <ul class="pui-menu pui-menu-dropdown pui-menu-dropdown-unarrow z-depth-3" style="width: 200%;top: 44px;">
+                    <li>
+                        <a href="javascript:;"><label class="pui-badge pui-badge-success">5</label>下拉菜单一</a>
+                    </li>
+                    <li class="pui-menu-header">Header</li>
+                    <li>
+                        <a href="javascript:;" class="active" style="width:100.999999%;margin-left:-1px;">下拉菜单一</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单二<label class="pui-badge pui-badge-success">5</label></a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单三XXX <label class="pui-badge pui-badge-info">99</label></a>
+                    </li>
+                    <li class="pui-menu-divider"></li>
+                    <li>
+                        <a href="javascript:;" class="disabled">Downloads</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单四XXXXXX <label class="pui-badge pui-badge-warning pui-badge-circle" style="min-width:10px;">1</label></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;"><i class="fa fa-file-text-o pui-text-lg"></i>交流社区</a>
+                <ul class="pui-menu pui-menu-dropdown pui-menu-dropdown-unarrow z-depth-3" style="width: 200%;top: 44px;">
+                    <li>
+                        <a href="javascript:;"><label class="pui-badge pui-badge-success">5</label>下拉菜单一</a>
+                    </li>
+                    <li class="pui-menu-header">Header</li>
+                    <li>
+                        <a href="javascript:;" class="active" style="width:100.999999%;margin-left:-1px;">下拉菜单一</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单二<label class="pui-badge pui-badge-success">5</label></a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单三XXX <label class="pui-badge pui-badge-info">99</label></a>
+                    </li>
+                    <li class="pui-menu-divider"></li>
+                    <li>
+                        <a href="javascript:;" class="disabled">Downloads</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">下拉菜单四XXXXXX <label class="pui-badge pui-badge-warning pui-badge-circle" style="min-width:10px;">1</label></a>
+                    </li>
+                </ul>
+            </li>
+            <li><!--<a href="javascript:;" class="disabled">Downloads</a>-->
+                <a href="javascript:;"><i class="fa fa-download pui-text-lg"></i>Downloads</a>
+            </li>
+            <li>
+                <a href="javascript:;"><i class="fa fa-phone pui-text-lg"></i>联系方式</a>
+            </li>
+        </ul>
+        <div class="pui-menubar-offside pui-unbordered-all" style="padding-right: 10%;">
+            <form action="//localhost/tasty/tests/post.php" method="post" class="pui-search pui-round pui-search-large pui-search-unbordered pui-right" style="width: 90%;margin:0;">
+                <input type="text" name="keywords" class="pui-search-keywords" placeholder="搜索..." />
+                <button type="submit" class="pui-search-submit" name="submit-pui-search" value=""></button>
+                <ul class="pui-list pui-search-auto-complete pui-shadow">
+                    <li><a href="#">jQuery</a></li>
+                    <li><a href="#">jQuery插件</a></li>
+                    <li><a href="#">jQuery UI</a></li>
+                    <li><a href="#">jQuery Mobile</a></li>
+                    <li><a href="#">jQuery原理</a></li>
+                </ul>
+            </form>
+            <!--<input type="text" style="width:150px;height:30px;border-top-right-radius:0;border-bottom-right-radius:0;" />
+            <button class="pui-btn pui-btn-default pui-btn-small" style="border-top-left-radius:0;border-bottom-left-radius:0;margin-left:-1px;padding-bottom: 0.7rem;">搜索</button>-->
+        </div>
+    </div>
+<!--滚动页面 -->
+    <div id="test"></div>
+    <div class="pui-full-page-group" id="demo">
+        <div class="pui-full-page pui-full-inline-pages">
+            <a href="javascript:;" class="pui-full-page-inline-prev-btn">
+                <i class="fa fa-angle-left fa-5x"></i>
+            </a>
+            <a href="javascript:;" class="pui-full-page-inline-next-btn">
+                <i class="fa fa-angle-right fa-5x"></i>
+            </a>
+            <div class="pui-full-page-inline-nav text-center block-all">
+                <label class="pui-full-page-nav-item pui-badge pui-badge-dot pui-badge-default pui-unbordered active"></label>
+                <label class="pui-full-page-nav-item pui-badge pui-badge-dot pui-badge-default pui-unbordered"></label>
+                <label class="pui-full-page-nav-item pui-badge pui-badge-dot pui-badge-default pui-unbordered"></label>
+                <label class="pui-full-page-nav-item pui-badge pui-badge-dot pui-badge-default pui-unbordered"></label>
+            </div>
+            <div class="pui-full-page-inline-list">
+                <a href="#">
+                    <!--rgb(85, 190, 89)   #A81416-->
+                    <div class="pui-full-page-inline" style="background:#55BE59;">
+                        <div class="pui-full-page-inline-box">
+                            <p><img src="./resources/frame/planeui/images/ad1.jpg" class="pui-img-responsive"/></p>
+                        </div>
+                    </div>
+                </a>
+                <a href="#">
+                    <!--rgb(244, 70, 97)  #F44661   #7CB342-->
+                    <div class="pui-full-page-inline" style="background:#F44661;">
+                        <div class="pui-full-page-inline-box">
+                            <p><img src="./resources/frame/planeui/images/ad2.jpg" class="pui-img-responsive" /></p>
+                        </div>
+                    </div>
+                </a>
+                <a href="#">
+                    <!--rgb(17, 9, 38)   #7CB342  #110926-->
+                    <div class="pui-full-page-inline" style="background:#110926;">
+                        <div class="pui-full-page-inline-box">
+                            <p><img src="./resources/frame/planeui/images/ad3.jpg" class="pui-img-responsive" /></p>
+                        </div>
+                    </div>
+                </a>
+                <a href="#">
+                    <!--#FFA719   #FC9C00-->
+                    <div class="pui-full-page-inline" style="background:#FC9C00;">
+                        <div class="pui-full-page-inline-box">
+                            <p><img src="./resources/frame/planeui/images/ad4.jpg" class="pui-img-responsive" /></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+<!--滚动样式结束-->
+<!--方格布局开始-->
+    <div class="pui-container pui-layout-fixed pui-layout-fixed-1200 pui-grid blog-main" style="max-width: 1360px;padding-top: 1%;padding-bottom: 1%;max-height: 100%;min-height: 100%;">
+        <div class="pui-row">
+            <div class="pui-grid-xs-12 pui-grid-sm-4 pui-grid-md-4 pui-grid-lg-3 blog-side">
+                <div class="pui-card pui-card-default pui-card-simple">
+                    <div class="pui-card-title pui-card-title-left-border">
+                        <span class="pui-card-title-right pui-xs-show"><a href="#top">TOP</a></span>
+                        <strong>热门文章</strong>
+                    </div>
+                    <div class="pui-card-box" style="align-content: center;">
+                        <img style="width: 100%;height: 85%;" src="./resources/frame/planeui/images/3.png">
+                    </div>
+                </div>
+            </div>
+            <div class="pui-grid-xs-12 pui-grid-sm-4 pui-grid-md-4 pui-grid-lg-3 blog-side">
+                <div class="pui-card pui-card-default pui-card-simple">
+                    <div class="pui-card-title pui-card-title-left-border">
+                        <span class="pui-card-title-right pui-xs-show"><a href="#top">TOP</a></span>
+                        <strong>热门文章</strong>
+                    </div>
+                    <div class="pui-card-box" style="align-content: center;">
+                        <img style="width: 100%;height: 85%;" src="./resources/frame/planeui/images/3.png">
+                    </div>
+                </div>
+            </div>
+            <div class="pui-grid-xs-12 pui-grid-sm-4 pui-grid-md-4 pui-grid-lg-3 blog-side">
+                <div class="pui-card pui-card-default pui-card-simple">
+                    <div class="pui-card-title pui-card-title-left-border">
+                        <span class="pui-card-title-right pui-xs-show"><a href="#top">TOP</a></span>
+                        <strong>热门文章</strong>
+                    </div>
+                    <div class="pui-card-box" style="align-content: center;">
+                        <img style="width: 100%;height: 85%;" src="./resources/frame/planeui/images/3.png">
+                    </div>
+                </div>
+            </div>
+            <div class="pui-grid-xs-12 pui-grid-sm-4 pui-grid-md-4 pui-grid-lg-3 blog-side">
+                <div class="pui-card pui-card-default pui-card-simple">
+                    <div class="pui-card-title pui-card-title-left-border">
+                        <span class="pui-card-title-right pui-xs-show"><a href="#top">TOP</a></span>
+                        <strong>热门文章</strong>
+                    </div>
+                    <div class="pui-card-box" style="align-content: center;">
+                        <img style="width: 100%;height: 85%;" src="./resources/frame/planeui/images/3.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--方格布局结束-->
+<!--内容开始-->
+    <div class="pui-container pui-layout-fixed pui-layout-fixed-1200 pui-grid blog-main" style="max-width: 1360px;">
+        <div class="pui-row">
+            <div class="pui-grid-xs-12 pui-grid-sm-8 pui-grid-md-8 pui-grid-lg-9 blog-list">
+                <div class="pui-card pui-card-default pui-card-simple">
+                    <div class="pui-card-title">
+                        <strong><a href="view.html">转载：日常设计：网站设计灵感的十个来源</a></strong>
+                        <p class="article-category">
+                            来源：<a href="http://cdc.tencent.com/?p=8087">腾讯CDC</a>&nbsp;&nbsp;&nbsp;分类：<a href="#">交互设计</a>, <a href="#">网页设计</a>
+                        </p>
+                        <span class="article-date"><small>2014</small>05-19</span>
+                    </div>
+                    <div class="pui-card-box">
+                        <p><img src="http://cdc.tencent.com/wp-content/uploads/2014/05/banner1.jpg" class="pui-img-full-width article-image" /></p>
+                        <div class="pui-text-sm">
+                            <p>不仅仅是网页方面的设计，这个世界上围绕在我们身边的所有东西都可以激发我们的网站设计灵感。 你永远不会知道创意的火花什么时候会撞击到你。在项目过程中，我经常发现一些最平常的事物可以让我用一种新的或不同的方式进行思考。这里有10个除了网站以外的我最喜欢的设计灵感资源。...</p>
+                        </div>
+                        <p class="pui-text-right">
+                            <a href="view.html" class="pui-link"><strong>阅读全文>></strong></a>
+                        </p>
+                    </div>
+                    <div class="pui-card-foot pui-clear">
+                        <span class="pui-text-gary"><i class="fa fa-eye"></i> 浏览: 44,354&nbsp;&nbsp;&nbsp;<i class="fa fa-heart-o"></i> 喜爱: 126</span>
+                        <div class="bdsharebuttonbox pui-right">
+                            <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                            <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                            <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                            <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                            <a href="#" class="bds_more" data-cmd="more"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="pui-card pui-card-default pui-card-simple">
+                    <div class="pui-card-title">
+                        <strong><a href="view.html">转载：扁平和简约来袭</a></strong>
+                        <p class="article-category">
+                            来源：<a href="http://cdc.tencent.com/?p=7951">腾讯CDC</a>&nbsp;&nbsp;&nbsp;分类：<a href="#">交互设计</a>, <a href="#">网页设计</a>
+                            <a href="#top" class="pui-right">TOP</a>
+                        </p>
+                        <span class="article-date"><small>2014</small>02-12</span>
+                    </div>
+                    <div class="pui-card-box">
+                        <p><img src="http://cdc.tencent.com/?attachment_id=7965" class="pui-img-full-width article-image" /></p>
+                        <div class="pui-text-sm">
+                            <p>在过去几年里，软件和APP的界面设计风格发生了迅速变化，由3D、拟物发展到扁平、简约。尽管这一趋势普遍存在，我们还是思考下是如何发展至此的，以及它对整个界面设计领域有何影响。另外，我会分享扁平界面设计的一些技巧和注意问题。...</p>
+                        </div>
+                        <p class="pui-text-right">
+                            <a href="view.html" class="pui-link"><strong>阅读全文>></strong></a>
+                        </p>
+                    </div>
+                    <div class="pui-card-foot pui-clear">
+                        <span class="pui-text-gary"><i class="fa fa-eye"></i> 浏览: 150,278&nbsp;&nbsp;&nbsp;<i class="fa fa-heart-o"></i> 喜爱: 312</span>
+                        <div class="bdsharebuttonbox pui-right">
+                            <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                            <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                            <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                            <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                            <a href="#" class="bds_more" data-cmd="more"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="pui-card pui-card-default pui-card-simple">
+                    <div class="pui-card-title">
+                        <strong><a href="view.html">转载：做好扁平化设计－交互篇</a></strong>
+                        <p class="article-category">
+                            来源：<a href="http://cdc.tencent.com/?p=7913">腾讯CDC</a>&nbsp;&nbsp;&nbsp;分类：<a href="#">交互设计</a>, <a href="#">网页设计</a>
+                            <a href="#top" class="pui-right">TOP</a>
+                        </p>
+                        <span class="article-date"><small>2014</small>01-24</span>
+                    </div>
+                    <div class="pui-card-box">
+                        <p><img src="http://cdc.tencent.com/?attachment_id=7946" class="pui-img-full-width article-image" /></p>
+                        <div class="pui-text-sm">
+                            <p>随着各种智能设备的多样性和普及，交互界面需要变得更容易适应其变化，很显然扁平的交互界面要比其它样式要更容易处理。移动互联网向着需要低配置、高效能，个性化以及优质用户体验的方向发展。我们必需快速响应这个趋势。...</p>
+                        </div>
+                        <p class="pui-text-right">
+                            <a href="view.html" class="pui-link"><strong>阅读全文>></strong></a>
+                        </p>
+                    </div>
+                    <div class="pui-card-foot pui-clear">
+                        <span class="pui-text-gary"><i class="fa fa-eye"></i> 浏览: 46,472&nbsp;&nbsp;&nbsp;<i class="fa fa-heart-o"></i> 喜爱: 262</span>
+                        <div class="bdsharebuttonbox pui-right">
+                            <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                            <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                            <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                            <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                            <a href="#" class="bds_more" data-cmd="more"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-pagination">
+                    <ul class="pui-pagination pui-pagination-bordered pui-pagination-prev-next">
+                        <li><a href="#" class="disabled">上一页</a></li>
+                        <li class="pui-pagination-nav"><span>1 / 15</span></li>
+                        <li><a href="#">下一页</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pui-grid-xs-12 pui-grid-sm-4 pui-grid-md-4 pui-grid-lg-3 blog-side">
+                <div class="pui-card pui-card-default pui-card-simple">
+                    <div class="pui-card-title pui-card-title-left-border">
+                        <span class="pui-card-title-right pui-xs-show"><a href="#top">TOP</a></span>
+                        <strong>热门文章</strong>
+                    </div>
+                    <div class="pui-card-box">
+                        <ul class="pui-list pui-top10-list">
+                            <li>
+                                <a href="#" class="pui-top-1">
+                                    <span class="pui-top-count">15万</span>转载：扁平和简约来袭
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="pui-top-2">
+                                    <span class="pui-top-count">11.9万</span>转载：做好扁平化设计－视觉篇
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="pui-top-3">
+                                    <span class="pui-top-count">4.6万</span>转载：做好扁平化设计－交互篇
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="pui-top-4">
+                                    <span class="pui-top-count">4.4万</span>转载：日常设计：网站设计灵...
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pui-card pui-card-default pui-card-simple">
+                    <div class="pui-card-title pui-card-title-left-border">
+                        <span class="pui-card-title-right pui-xs-show"><a href="#top">TOP</a></span>
+                        <strong>热门评论</strong>
+                    </div>
+                    <div class="pui-card-box">
+                        <ul class="pui-list pui-list-dashed-line">
+                            <li>
+                                <a href="#" class="pui-link">John Wu</a> 评论到：“内容为本及响应式设计的需要”。—— <a href="#" class="pui-link">转载：扁平和简约来袭</a>
+                            </li>
+                            <li>
+                                <a href="#" class="pui-link">Tom Lee</a> 评论到：“内容为本及响应式设计的需要”。—— <a href="#" class="pui-link">转载：做好扁平化设计－视觉篇</a>
+                            </li>
+                            <li>
+                                <a href="#" class="pui-link">Peter Chan</a> 评论到：“交互交互交互交互交互交互”。—— <a href="#" class="pui-link">转载：做好扁平化设计－交互篇</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pui-card pui-card-default pui-card-simple">
+                    <div class="pui-card-title">
+                        <span class="pui-card-title-right pui-xs-show"><a href="#top">TOP</a></span>
+                        <strong><i class="fa fa-tags pui-text-teal"></i> 标签</strong>
+                    </div>
+                    <div class="pui-card-box">
+                        <a href="#" class="pui-badge pui-badge-success pui-text-white pui-text-xl">PHP</a>
+                        <a href="#" class="pui-badge pui-bg-teal pui-text-md">CSS3</a>
+                        <a href="#" class="pui-badge pui-bg-orange pui-text-xl">HTML5</a>
+                        <a href="#" class="pui-badge pui-badge-primary">Gulp.js</a>
+                        <a href="#" class="pui-badge pui-badge-warning pui-text-white pui-text-lg">jQuery</a>
+                        <a href="#" class="pui-badge pui-badge-error">Flexbox</a>
+                        <a href="#" class="pui-badge pui-bg-orange">Node-webkit</a>
+                        <a href="#" class="pui-badge pui-badge-secondary pui-text-lg">Node.js</a>
+                        <a href="#" class="pui-badge pui-badge-gary">Memcached</a>
+                        <a href="#" class="pui-badge pui-badge-info pui-text-lg">MySQL</a>
+                        <a href="#" class="pui-badge pui-badge-error">webfont</a>
+                        <a href="#" class="pui-badge pui-badge-info pui-text-xl">响应式</a>
+                        <a href="#" class="pui-badge pui-badge-success">MongoDB</a>
+                        <a href="#" class="pui-badge pui-badge-error pui-text-lg">Redis</a>
+                        <a href="#" class="pui-badge pui-badge-gary">IE6</a>
+                        <a href="#" class="pui-badge pui-badge-primary pui-text-xl">Plane UI</a>
+                        <a href="#" class="pui-badge pui-badge-success">SSDB</a>
+                        <a href="#" class="pui-badge pui-badge-info">SQlite</a>
+                    </div>
+                </div>
+                <div class="pui-card pui-card-default pui-card-simple">
+                    <div class="pui-card-title pui-card-title-left-border">
+                        <span class="pui-card-title-right pui-xs-show"><a href="#top">TOP</a></span>
+                        <strong>归档</strong>
+                    </div>
+                    <div class="pui-card-box">
+                        <ul class="pui-list pui-list-angle-right-type pui-list-column-2">
+                            <li><a href="#">2014年12月</a></li>
+                            <li><a href="#">2014年11月</a></li>
+                            <li><a href="#">2014年10月</a></li>
+                            <li><a href="#">2014年09月</a></li>
+                            <li><a href="#">2014年08月</a></li>
+                            <li><a href="#">2014年06月</a></li>
+                            <li><a href="#">2014年04月</a></li>
+                            <li><a href="#">2014年01月</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pui-card pui-card-default pui-card-simple">
+                    <div class="pui-card-title pui-card-title-left-border">
+                        <span class="pui-card-title-right pui-xs-show"><a href="#top">TOP</a></span>
+                        <strong>关注我</strong>
+                    </div>
+                    <div class="pui-card-box padding-l-r-10">
+                        <ul class="pui-menu pui-menu-radius pui-menu-inline pui-list-column-2">
+                            <li>
+                                <a href="http://weibo.com/ipandao" target="_blank"><i class="fa fa-weibo pui-text-red"></i> Weibo</a>
+                            </li>
+                            <li>
+                                <a href="https://gihub.com/pandao" target="_blank"><i class="fa fa-github"></i> Github</a>
+                            </li>
+                            <li>
+                                <a href="https://gihub.com/pandao" target="_blank"><i class="fa fa-facebook pui-text-blue-900"></i> Facebook</a>
+                            </li>
+                            <li>
+                                <a href="https://gihub.com/pandao" target="_blank"><i class="fa fa-twitter pui-text-blue-500"></i> Twitter</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pui-card pui-card-default pui-card-simple">
+                    <div class="pui-card-box padding-l-r-10">
+                        <ul class="pui-menu pui-menu-radius pui-margin-none pui-list-column-2">
+                            <li>
+                                <a href="http://weibo.com/ipandao" target="_blank"><i class="fa fa-sign-in pui-text-green"></i> 登录</a>
+                            </li>
+                            <li>
+                                <a href="http://weibo.com/ipandao" target="_blank"><i class="fa fa-user pui-text-teal"></i> 注册</a>
+                            </li>
+                            <li>
+                                <a href="https://gihub.com/pandao" target="_blank"><i class="fa fa-rss pui-text-orange"></i> 文章RSS</a>
+                            </li>
+                            <li>
+                                <a href="https://gihub.com/pandao" target="_blank"><i class="fa fa-rss-square pui-text-orange"></i> 评论RSS</a>
+                            </li>
+                        </ul>
+                        <p class="pui-text-center"><img src="./resources/frame/planeui/images/qr-code.png" class="pui-img-size-auto" /></p>
+                    </div>
+                </div>
+                <!--<a name="comments"></a>
+                <p class="pui-text-center"><a href="#top" class="pui-btn pui-btn-default">TOP <i class="fa fa-long-arrow-up" style="margin-top: -5px;"></i></a></p>
+                <br/>-->
+            </div>
+        </div>
+    </div>
+<!--内容结束-->
+<!--底部状态栏开始-->
+    <footer class="pui-center pui-layout-fixed pui-layout-fixed-1200 blog-footer" style="max-width: 1360px;%;">
+        <hr class="pui-xs-hide" />
+        <ul class="pui-breadcrumb pui-margin-none" style="padding-left: 5px;padding-right: 5px;">
+            <li>
+                <a href="index.html"><i class="fa fa-home"></i> 首页</a>
+            </li>
+            <li>
+                <a href="#">PHP</a>
+            </li>
+            <li>
+                <a href="#">前端</a>
+            </li>
+            <li>
+                <a href="#">设计</a>
+            </li>
+            <li>
+                <a href="#">游记</a>
+            </li>
+            <li>
+                <a href="#">关于我</a>
+            </li>
+        </ul>
+        <div class="copyright" style="padding-left: 5px;padding-right: 5px;">
+            <span class="pui-right"><!--<a href="#top" class="pui-link">TOP</a>--></span>
+            <p>Copyright &copy; 2014-2015 <a href="https://github.com/pandao/planeui" class="pui-link" title="Plane UI's Blog" target="_blank">Plane UI's Blog</a> All Rights Reserved.</p>
+            <p>Powered by <a href="https://github.com/pandao/planeui" class="pui-link" target="_blank">Plane UI</a>, <a href="https://github.com/pandao/planeui/blob/master/LICENSE" target="_blank" class="pui-link">MIT</a> License.<!--<small class="pui-right">代码如诗。</small>--></p>
+        </div>
+    </footer>
+<!--底部状态栏结束-->
+</div>
+<!--[if (gte IE 9) | !(IE)]><!-->
+<!--<script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>-->
+<!--<![endif]-->
+<!--[if lt IE 9]>
+<!--<script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="./../../dist/js/planeui.patch.ie8.js"></script>-->
+<![endif]-->
+<!--[if lt IE 10]>
+<!--<script type="text/javascript" src="./../../dist/js/planeui.patch.ie9.js"></script>-->
+<![endif]-->
+<!--<script type="text/javascript" src="./../../dist/js/planeui.js"></script>-->
+<script type="text/javascript" src="./resources/frame/planeui/index.js"></script>
+<script type="text/javascript" src="./js/index.js"></script>
+<script type="text/javascript">
+    var fullpager;
+    $(function() {
+        fullpager = $("#demo").fullPager({
+            touchable    : false,
+            keyboard     : false,
+            mouseWheel   : false,
+            navbar : [".pui-menu > li", function(index) {
+                console.log(this, index);
+            }],
+            prev : function(index) {
+                console.log(this, index);
+            },
+            next : function(index) {
+                console.log(this, index);
+            },
+            inlinePrev : function(index) {
+                console.log(this, index);
+            },
+            inlineNext : function(index) {
+                console.log(this, index);
+            }
+        });
+        //fullpager.prev();        // 滑动到上一页
+        //fullpager.next();        // 滑动到下一页
+        //fullpager.index();       // 获取当前序号
+        //fullpager.count();       // 获取页面总数
+        //fullpager.pages();       // 获取所有页面，返回一个 jQuery 对象集
+        //fullpager.inlinePages(); // 获取所有横向页面，返回一个 jQuery 对象集
+        //fullpager.settings();    // 获取所有配置项
+    });
+</script>
+<!--<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>-->
+</body>
+</html>
+
