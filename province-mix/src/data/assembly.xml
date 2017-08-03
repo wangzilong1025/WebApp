@@ -1,0 +1,24 @@
+<assembly>
+    <id>assembly</id>
+    <formats>
+        <format>tar</format>
+    </formats>
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <!--<fileSets>
+        <fileSet>
+            <directory>src/main/resources/cache</directory>
+            <outputDirectory>conf/cache</outputDirectory>
+            <fileMode>0644</fileMode>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/resources/kettle</directory>
+            <outputDirectory>conf/kettle</outputDirectory>
+            <fileMode>0644</fileMode>
+        </fileSet>
+    </fileSets>-->
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+        </dependencySet>
+    </dependencySets>
+</assembly>

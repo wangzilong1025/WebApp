@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-4.0.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd"
+       default-lazy-init="true">
+
+    <description>esop-data</description>
+
+    <!-- 加载配置属性文件 -->
+    <context:property-placeholder ignore-unresolvable="true" location="classpath*:application.properties"/>
+
+    <!--******************************************以下为多数据源设置方式*********************************-->
+    <!-- 数据源配置 -->
+    <!-- mysql 配置方式 -->
+    <!--<bean id="mysqljdbc" class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init"
+          destroy-method="close">
+        <property name="uniqueResourceName" value="protocol"/>&lt;!&ndash;第二个数据源名称&ndash;&gt;
+        <property name="xaDataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource"/>
+        <property name="xaDataSource">
+            <bean class="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource">
+                <property name="url" value="${jdbc2.url}"/>
+                <property name="user" value="${jdbc2.username}"/>
+                <property name="password" value="${jdbc2.password}"/>
+            </bean>
+        </property>
+        <property name="poolSize" value="5"/>
+        <property name="maxPoolSize" value="50"/>
+    </bean>-->
+
+    <bean id="dataSourceCommon" class="com.sandi.web.common.persistence.AtomikosDataSourceBeanAI" init-method="init" destroy-method="close">
+        <property name="uniqueResourceName" value="common"/>
+        <property name="xaDataSourceClassName" value="oracle.jdbc.xa.client.OracleXADataSource"/>
+        <property name="xaProperties">
+            <props>
+                <prop key="user">${common.jdbc.username}</prop>
+                <prop key="password">${common.jdbc.password}</prop>
+                <prop key="URL">${common.jdbc.url}</prop>
+            </props>
+        </property>
+        <property name="poolSize" value="${common.jdbc.initialPoolSize}"/>
+        <property name="minPoolSize" value="${common.jdbc.minPoolSize}"/>
+        <property name="maxPoolSize" value="${common.jdbc.maxPoolSize}"/>
+        <property name="maxIdleTime" value="${common.jdbc.maxIdleTime}"/>
+        <property name="maxLifetime" value="3600"/>
+        <property name="borrowConnectionTimeout" value="900"/>
+    </bean>
+
+    <!-- myBatis配置 -->
+    <bean id="sqlSessionFactoryCommon" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceCommon"/>
+        <property name="typeAliasesPackage" value="com.sandi.web"/>
+        <property name="typeAliasesSuperType" value="com.sandi.web.common.persistence.entity.BaseEntity"/>
+        <property name="mapperLocations" value="classpath*:/mappings/**/*.xml"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+    <!-- 配置自定义的SqlSessionTemplate模板，注入相关配置 -->
+    <bean id="sqlSessionTemplate" class="com.sandi.web.common.support.CommonSqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactoryCommon"/><!--默认数据源-->
+        <property name="targetSqlSessionFactorys">
+            <map>
+                <entry value-ref="sqlSessionFactoryCommon" key="common"/>
+            </map>
+        </property>
+        <property name="sqlFactoryPackages">
+            <map>
+                <entry key="com.sandi.web.common" value="common"/><!--包名对应的数据源key-->
+
+                <!--包名对应的数据源key，com.asiainfo.esop.modules.primary.test2包下对应的数据源为portal-->
+            </map>
+        </property>
+    </bean>
+    <!-- 通过扫描的模式，扫描目录在com/sandi/web/任意目录下的mapper目录下，所有的mapper都需要继承SqlMapper接口的接口 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.sandi.web"/>
+        <!-- 注意注入sqlSessionTemplate -->
+        <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryCommon"></property>
+        <property name="annotationClass" value="com.sandi.web.common.persistence.annotation.Dao"/>
+        <property name="markerInterface" value="com.sandi.web.common.persistence.dao.BaseDao"/>
+    </bean>
+    <!--设置分布式事务-->
+    <bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager" init-method="init" destroy-method="close">
+        <property name="forceShutdown">
+            <value>true</value>
+        </property>
+    </bean>
+    <bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
+        <property name="transactionTimeout" value="300"/>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+        <property name="transactionManager">
+            <ref bean="atomikosTransactionManager"/>
+        </property>
+        <property name="userTransaction">
+            <ref bean="atomikosUserTransaction"/>
+        </property>
+    </bean>
+    <!--******************************************多数据源设置结束*********************************-->
+    <!--******************************************以下为单数据源设置方式*********************************-->
+    <!-- 数据源配置, 使用 BoneCP 数据库连接池 -->
+    <!--<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">-->
+    <!--<bean id="dataSource" class="com.asiainfo.esop.common.persistence.DruidDataSource4AI" init-method="init"
+          destroy-method="close">
+        &lt;!&ndash; 数据源驱动类可不写，Druid默认会自动根据URL识别DriverClass &ndash;&gt;
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        &lt;!&ndash; 基本属性 url、user、password &ndash;&gt;
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        &lt;!&ndash; 配置初始化大小、最小、最大 &ndash;&gt;
+        <property name="initialSize" value="${jdbc.pool.init}"/>
+        <property name="minIdle" value="${jdbc.pool.minIdle}"/>
+        <property name="maxActive" value="${jdbc.pool.maxActive}"/>
+        &lt;!&ndash; 配置获取连接等待超时的时间 &ndash;&gt;
+        <property name="maxWait" value="60000"/>
+        &lt;!&ndash; 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 &ndash;&gt;
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        &lt;!&ndash; 配置一个连接在池中最小生存的时间，单位是毫秒 &ndash;&gt;
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="${jdbc.testSql}"/>
+        <property name="testWhileIdle" value="false"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="false"/>
+        &lt;!&ndash; 打开PSCache，并且指定每个连接上PSCache的大小（Oracle使用）
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" /> &ndash;&gt;
+        &lt;!&ndash; 配置监控统计拦截的filters &ndash;&gt;
+        <property name="filters" value="stat"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    &lt;!&ndash; myBatis &ndash;&gt;
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="com.asiainfo.esop"/>
+        <property name="typeAliasesSuperType" value="com.asiainfo.esop.common.persistence.entity.BaseEntity"/>
+        <property name="mapperLocations" value="classpath:/mappings/**/*.xml"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+    <bean id="sqlSessionTemplate" class="com.asiainfo.esop.common.support.CommonSqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"/>
+        <property name="targetSqlSessionFactorys">
+            <map>
+                <entry value-ref="sqlSessionFactory" key="core"/>
+            </map>
+        </property>
+        <property name="sqlFactoryPackages">
+            <map>
+                <entry key="com.asiainfo.esop" value="core"/>
+            </map>
+        </property>
+    </bean>
+
+    &lt;!&ndash; 通过扫描的模式，扫描目录在com/asiainfo/plat任意目录下的mapper目录下，所有的dao都要有MyBatisDao注解 &ndash;&gt;
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.asiainfo.esop"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        &lt;!&ndash; 注意注入sqlSessionTemplate &ndash;&gt;
+        <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"/>
+        <property name="annotationClass" value="com.asiainfo.esop.common.persistence.annotation.Dao"/>
+        <property name="markerInterface" value="com.asiainfo.esop.common.persistence.dao.BaseDao"/>
+    </bean>-->
+    <!--&lt;!&ndash;配置事务&ndash;&gt;-->
+    <!--******************************************单数据源设置结束*********************************-->
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="save*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="insert*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:pointcut id="pointCut" expression="execution(* com.sandi.web..service..*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pointCut"/>
+    </aop:config>
+
+    <!-- 注解式事务管理 -->
+    <tx:annotation-driven transaction-manager="transactionManager" order="0"/>
+
+    <!-- Activiti begin -->
+    <!--<bean id="uuidGenerator" class="org.activiti.engine.impl.persistence.StrongUuidGenerator" />-->
+    <!--<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="databaseSchemaUpdate" value="true"/>
+        <property name="jobExecutorActivate" value="false"/>
+        <property name="history" value="audit"/>
+        <property name="processDefinitionCacheLimit" value="10"/>
+        &lt;!&ndash;
+        <property name="idGenerator" ref="uuidGenerator" />
+        &ndash;&gt;
+        <property name="activityFontName" value="宋体"/>
+        <property name="labelFontName" value="宋体"/>
+        &lt;!&ndash;
+        <property name="processDefinitionCache">
+            <bean class="com.artadmin.framework.activiti.cache.DistributedCache" />
+        </property>
+        &ndash;&gt;
+        <property name="deploymentResources">
+            <list>
+                <value>classpath*:/diagrams/*</value>
+            </list>
+        </property>
+        &lt;!&ndash;
+        <property name="customFormTypes">
+            <list>
+                <bean class="com.artadmin.framework.activiti.form.UsersFormType"/>
+            </list>
+        </property>
+        <property name="customPostDeployers">
+              <list>
+                <bean class="org.activiti.engine.impl.rules.RulesDeployer" />
+              </list>
+        </property>
+         &ndash;&gt;
+    </bean>
+    <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+        <property name="processEngineConfiguration" ref="processEngineConfiguration"/>
+    </bean>
+    <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService"/>
+    <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService"/>
+    <bean id="formService" factory-bean="processEngine" factory-method="getFormService"/>
+    <bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService"/>
+    <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService"/>
+    <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService"/>
+    <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService"/>-->
+    <!-- Activiti end -->
+
+
+    <!--freemarker start-->
+    <!--<bean id="freeMarkerConfiguration" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+        <property name="templateLoaderPath" value="classpath:/template"/>
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">60</prop>
+                <prop key="locale">zh_CN</prop>
+                <prop key="template_exception_handler">rethrow</prop>
+                <prop key="number_format">#</prop>
+            </props>
+        </property>
+
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="pageGen">
+                    <bean class="com.asiainfo.esop.core.dync.freemarkExt.PageGen">
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>-->
+    <!--freemarker end-->
+
+</beans>
