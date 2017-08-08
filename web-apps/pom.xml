@@ -603,62 +603,13 @@
       </dependency>
 
       <!--mongodb包开始-->
-      <!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
-      <dependency>
-         <groupId>org.mongodb</groupId>
-         <artifactId>mongo-java-driver</artifactId>
-         <version>2.14.3</version>
-      </dependency>
-
-      <dependency>
-         <groupId>org.springframework.data</groupId>
-         <artifactId>spring-data-commons</artifactId>
-         <version>1.12.4.RELEASE</version>
-      </dependency>
-
-      <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb -->
+      <!--其余jar包要看province-mix.pom的相关引入-->
       <dependency>
          <groupId>org.springframework.data</groupId>
          <artifactId>spring-data-mongodb</artifactId>
-         <version>1.9.4.RELEASE</version>
+         <version>1.8.0.RELEASE</version>
       </dependency>
-
-      <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb-cross-store -->
-      <dependency>
-         <groupId>org.springframework.data</groupId>
-         <artifactId>spring-data-mongodb-cross-store</artifactId>
-         <version>1.9.4.RELEASE</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/org.springframework/spring-expression -->
-      <dependency>
-         <groupId>org.springframework</groupId>
-         <artifactId>spring-expression</artifactId>
-         <version>4.1.6.RELEASE</version>
-      </dependency>
-
-      <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb-log4j -->
-      <dependency>
-         <groupId>org.springframework.data</groupId>
-         <artifactId>spring-data-mongodb-log4j</artifactId>
-         <version>1.9.4.RELEASE</version>
-      </dependency>
-
-      <!-- https://mvnrepository.com/artifact/commons-collections/commons-collections -->
-      <dependency>
-         <groupId>commons-collections</groupId>
-         <artifactId>commons-collections</artifactId>
-         <version>3.2.1</version>
-      </dependency>
-
-      <!-- https://mvnrepository.com/artifact/org.springframework/spring-asm -->
-      <dependency>
-         <groupId>org.springframework</groupId>
-         <artifactId>spring-asm</artifactId>
-         <version>3.1.2.RELEASE</version>
-      </dependency>
-
       <!--mongodb包结束-->
-
    </dependencies>
 
    <build>
