@@ -9,11 +9,7 @@
           http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
           http://www.springframework.org/schema/beans
           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-    <!-- 加载mongodb的属性配置文件 -->
-    <!--<context:property-placeholder location="classpath*:mongodb-server.properties"/>-->
-    <!-- 定义mongo对象，对应的是mongodb官方jar包中的Mongo，replica-set设置集群副本的ip地址和端口 -->
     <mongo:mongo id="mongo" replica-set="127.0.0.1:27017,127.0.0.1:27018,127.0.0.1:27019">
-        <!--<mongo:options connections-per-host="100" threads-allowed-to-block-for-connection-multiplier="50" auto-connect-retry="true"/>-->
         <!-- 一些连接属性的设置 -->
         <mongo:options
                 connections-per-host="8"
@@ -26,17 +22,17 @@
                 slave-ok="true"
                 write-number="1"
                 write-timeout="0"
-                write-fsync="true"/>
+                write-fsync="true" />
     </mongo:mongo>
     <mongo:db-factory dbname="admin" mongo-ref="mongo" />
+
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-        <constructor-arg ref="mongo"/>
-        <!--链接的数据名称-->
-        <constructor-arg name="databaseName" value="admin"/>
-        <!--  <constructor-arg name="defaultCollectionName" value="personTest" />    -->
+        <constructor-arg ref="mongo" />
+        <constructor-arg name="databaseName" value="admin" />
     </bean>
-    <!--<bean id="personRepository" class="com.sandi.web.utils.sec.mongoDao.mongoImpl.UserInfoMongoImpl">
-        <property name="mongoTemplate" ref="mongoTemplate"></property>
-    </bean>-->
+
+    <bean id="mongoDao" class="com.sandi.web.utils.sec.mongoDao.mongoImpl.UserInfoMongoDaoImpl">
+        <property name="mongoTemplate" ref="mongoTemplate"/>
+    </bean>
 </beans>
 
